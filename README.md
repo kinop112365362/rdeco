@@ -1,13 +1,13 @@
-## Rcs
+## structured-react-hook
 
 面向企业级的结构化的 React 状态管理框架
 
 ### 安装
 
 ```
-yarn add @ark/rcs
+yarn add structured-react-hook
 or
-npm install @ark/rcs
+npm install structured-react-hook
 ```
 
 ### 用一个基础示例快速开始
@@ -16,7 +16,7 @@ npm install @ark/rcs
 
 ```js
 import React from 'react'
-import createStore from '@ark/rcs'
+import createStore from 'structured-react-hook'
 
 const storeConfig = {
     name:'testStore',
@@ -52,7 +52,7 @@ function Example(){
 
 ```js
 import React from 'react'
-import createStore from '@ark/rcs'
+import createStore from 'structured-react-hook'
 
 const storeConfig = {
     name:'testStore',
@@ -158,7 +158,7 @@ Rcs 为所有 Store 提供了统一的上下文, 具体示例见后续 createSto
 
 ```js
 import React from 'react';
-import createStore from '@ark/rcs';
+import createStore from 'structured-react-hook';
 
 const storeConfig = {
     name:'calc',
@@ -193,7 +193,7 @@ function App(){
 
 ```js
 import React from 'react';
-import createStore from '@ark/rcs';
+import createStore from 'structured-react-hook';
 
 const storeConfig = {
     name:'calc',
