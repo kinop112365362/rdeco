@@ -104,7 +104,7 @@ function Example(){
 
 ### 严格的单向数据流
 
-Rcs 采用严格的单向数据流架构, 遵循
+structured-react-hook 采用严格的单向数据流架构, 遵循
 
 View → Controller[→ Service →]→ Controller → View 的数据控制流向, 包括以下规则
 
@@ -115,9 +115,17 @@ View → Controller[→ Service →]→ Controller → View 的数据控制流�
 
 > 关于 membrane 见后面的 高级 API 部分
 
+### 遵循 flux 的多 store 设计
+
+和 redux 倡导的单一 store 理念不同, 再采用原生的 useReducer 来控制状态, 天然就遵守了 flux 的多 store 的设计思路, 
+
+并且通过大量的工程实践, 单一 store 也是一个看起来美好但不可行的方案, 主要是因为需求业务的不可知性, 并且当业务变得庞大且复杂,
+
+单一 store 的边际效应会急剧下降, 甚至会反过来增加维护成本.
+
 ### 驱动 React 的秘密
 
-和 Redux 不同, Rcs 不需要依赖类似 react-redux 这样的驱动库来连接 react 和 redux, 其秘密在于, Rcs 内部使用了 useReducer hook, 利用 react 原生 api 的能力管理状态
+和 Redux 不同, structured-react-hook 不需要依赖类似 react-redux 这样的驱动库来连接 react 和 redux, 其秘密在于, structured-react-hook 内部使用了 useReducer hook, 利用 react 原生 api 的能力管理状态
 
 ### 何为 StoreConfig
 
@@ -131,7 +139,7 @@ const storeConfig = {
     initState:[
         {},()=>{}
     ] // initState 增强模式, 数组的第一个参数依然是 initState, 第二个参数是 useReducer 的 init 函数, 用于延迟 initState 的计算
-    ref:{} // 一个对象, Rcs 使用 useRef hook 遍历这个对象, 生成对应的 ref
+    ref:{} // 一个对象, structured-react-hook 使用 useRef hook 遍历这个对象, 生成对应的 ref
     view:{} // 管理动态 jsx, 可以编写 render函数
     service:{} // 被提取出来的 controller 逻辑, 当 controller 变得复杂的时候, 你可能需要它
     controller:{} // store 的控制器, 控制逻辑的运行和 UI 状态的设定, controller 必须以  on 开头 + 名词 + 动词 来命名
@@ -139,7 +147,7 @@ const storeConfig = {
 ```
 ### Store 上下文
 
-Rcs 为所有 Store 提供了统一的上下文, 具体示例见后续 createStoreContext API, 这里提到的是每个 Store 独立的上下文. Store 上下文为 Store 内部的方法, controller view service 提供了方位状态和彼此调用的能力, 上下文挂载在 this 上, 你可以在 view controller 和 service 中调用到他, 上下文包括
+structured-react-hook 为所有 Store 提供了统一的上下文, 具体示例见后续 createStoreContext API, 这里提到的是每个 Store 独立的上下文. Store 上下文为 Store 内部的方法, controller view service 提供了方位状态和彼此调用的能力, 上下文挂载在 this 上, 你可以在 view controller 和 service 中调用到他, 上下文包括
 
 - rc
 - view
@@ -154,7 +162,7 @@ Rcs 为所有 Store 提供了统一的上下文, 具体示例见后续 createSto
 
 ### 通过 rc 控制 react state 的秘密
 
-你可能会好奇, Rcs 内部使用了 useReducer, 为什么没有可用的 dispatch 或者 action 以及为什么不需要书写 reducer? 其秘密在于 Rcs 在你声明 initState 的时候就自动生成了对应的操作方法, 并挂载到 Store 上下文 this.rc 上了, rc 是 reducer case 的缩写, 因此你不需要像 redux 那样编写繁琐的 action type 和 reducer
+你可能会好奇, structured-react-hook 内部使用了 useReducer, 为什么没有可用的 dispatch 或者 action 以及为什么不需要书写 reducer? 其秘密在于 structured-react-hook 在你声明 initState 的时候就自动生成了对应的操作方法, 并挂载到 Store 上下文 this.rc 上了, rc 是 reducer case 的缩写, 因此你不需要像 redux 那样编写繁琐的 action type 和 reducer
 
 
 
