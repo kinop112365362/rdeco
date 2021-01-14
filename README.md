@@ -2,6 +2,12 @@
 
 面向企业级的结构化的 React 状态管理框架
 
+Structured React state management framework for the enterprise
+
+完全基于 React Hook 的原生方案
+
+Completely native solution based on React Hook
+
 ### 安装
 
 ```
