@@ -1,6 +1,6 @@
 {
   "name": "structured-react-hook",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "面向企业级的结构化的 React 状态管理框架",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "react":"^16.8.2"
+    "react": "^16.8.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
