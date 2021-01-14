@@ -19,6 +19,9 @@
   },
   "author": "",
   "license": "ISC",
+  "peerDependencies": {
+    "react":"^16.8.2"
+  },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.0.0-0"
