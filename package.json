@@ -1,7 +1,11 @@
 {
   "name": "structured-react-hook",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "面向企业级的结构化的 React 状态管理框架",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kinop112365362/structured-react-hook"
+  },
   "main": "index.js",
   "module": "index.js",
   "directories": {
