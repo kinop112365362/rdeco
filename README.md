@@ -34,7 +34,6 @@ const storeConfig = {
         async onButtonClick(){
             this.rc.setLoading(true)
             this.rc.setContent('loading...')
-            // 此处请求服务端
             const res = await api.get('api/commit')
             this.rc.setLoading(false)
             this.rc.setContent(res.data.content)
@@ -78,7 +77,6 @@ const storeConfig = {
                 loading:true,
                 content:'loading...'
             })
-            // 此处请求服务端
             const data = await this.service.query()
             this.rc.setState({
                 loading:false,
