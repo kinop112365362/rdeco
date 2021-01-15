@@ -1,11 +1,13 @@
 {
   "name": "structured-react-hook",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "面向企业级的结构化的 React 状态管理框架",
   "keywords": [
     "react",
     "flux",
-    "hook"
+    "hook",
+    "state",
+    "useReducer"
   ],
   "licenses": "MIT",
   "author": "shihong <112365362@qq.com>",
@@ -34,7 +36,9 @@
     "prepare": "npm run clean && npm run build",
     "pretest": "npm run lint",
     "test": "jest",
-    "coverage": "codecov"
+    "coverage": "codecov",
+    "gcg": "git co main",
+    "gcs": "git co master"
   },
   "peerDependencies": {
     "react": "^16.8.3 || ^17"
@@ -81,6 +85,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.12.1",
-    "object.pick": "^1.3.0"
+    "object.pick": "^1.3.0",
+    "tapable": "^2.2.0"
   }
 }
