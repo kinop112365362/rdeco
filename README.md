@@ -117,7 +117,7 @@ View → Controller[→ Service →]→ Controller → Control the flow of data 
 
 ### Follow Flux's multi-store design
 
-Different from the single store concept advocated by Redux, the original UserEduer is adopted to control the state, which naturally follows the design idea of Flux's multiple stores.
+Different from the single store concept advocated by Redux, the original useReducer is adopted to control the state, which naturally follows the design idea of Flux's multiple stores.
 
 And through a lot of engineering practice, the single store is also a seemingly good but not feasible solution, mainly because of the unknowability of the demand business, and when the business becomes large and complex,
 
@@ -125,7 +125,7 @@ The marginal effect of a single store drops dramatically, and in turn increases 
 
 ### Secrets that drive React
 
-Unlike Redux, structured-react-hook does not rely on a driver library like react-redux to connect React and Redux. The secret is that structured-react-hook uses UserEduer Hook internally to manage state using the ability of the React native API
+Unlike Redux, structured-react-hook does not rely on a driver library like react-redux to connect React and Redux. The secret is that structured-react-hook uses useReducer Hook internally to manage state using the ability of the React native API
 
 ### What's StoreConfig
 
@@ -135,10 +135,10 @@ Store is a normal JS object that contains the following properties
 
 const storeConfig = {
     name: ", // Must be used to distinguish store uniqueness
-    initState :{} // Must select the first argument of the UserEduCode
+    initState :{} // Must select the first argument of the useReducer
     initState:[
         {}, () = > {}
-    ] // InitState enhancement mode, the first parameter of the array is still initState, the second parameter is UserEduer init function, used to delay the calculation of initState
+    ] // InitState enhancement mode, the first parameter of the array is still initState, the second parameter is useReducer init function, used to delay the calculation of initState
     ref :{} // An object, structured-react-hook is traversed using useRef HOOK to generate the corresponding ref
     view :{} // To manage dynamic JSX, you can write render functions
     service :{} // Extracted Controller logic, which you may need when controllers become more complex
@@ -162,7 +162,7 @@ structured-react-hook The Store context provides the orientation state and the a
 
 ### Controls React State secrets through RC
 
-You might be wondering, with structured-react-hook used internally as UserEduer, why is there no Dispatch or Action available and why is there no need to write a Reducer? The secret is that structured-react-hook operations are automatically generated when you declare an initState and are mounted to the Store context this.rc (RC is short for reducer case), so you don't have to write a reducer action type or a reducer case like a redux
+You might be wondering, with structured-react-hook used internally as useReducer, why is there no Dispatch or Action available and why is there no need to write a Reducer? The secret is that structured-react-hook operations are automatically generated when you declare an initState and are mounted to the Store context this.rc (RC is short for reducer case), so you don't have to write a reducer action type or a reducer case like a redux
 
 
 
