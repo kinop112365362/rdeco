@@ -1,32 +1,86 @@
 {
   "name": "structured-react-hook",
-  "version": "1.0.5",
+  "version": "0.1.1",
   "description": "面向企业级的结构化的 React 状态管理框架",
+  "keywords": [
+    "react",
+    "flux",
+    "hook"
+  ],
+  "licenses": "MIT",
+  "author": "shihong <112365362@qq.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/kinop112365362/structured-react-hook"
   },
-  "main": "index.js",
-  "module": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
+  "main": "./lib/index.js",
+  "unpkg": "dist/structured-react-hook.js",
+  "module": "es/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "es"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel lib --out-dir es",
-    "clean": "rm -rf es",
-    "prepublish": "yarn clean && yarn build"
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "babel src --out-dir es",
+    "build:umd": "cross-env NODE_ENV=development rollup -c -o dist/structured-react-hook.js",
+    "build:umd:min": "cross-env NODE_ENV=production rollup -c -o dist/structured-react-hook.min.js",
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "clean": "rimraf lib dist es coverage",
+    "format": "prettier --write \"{src,test}/**/*.{js,ts}\" index.d.ts \"docs/**/*.md\"",
+    "lint": "eslint src",
+    "prepare": "npm run clean && npm run build",
+    "pretest": "npm run lint",
+    "test": "jest",
+    "coverage": "codecov"
   },
-  "author": "",
-  "license": "ISC",
   "peerDependencies": {
-    "react": "^16.8.2"
+    "react": "^16.8.3 || ^17"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.0.0-0"
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/plugin-transform-react-display-name": "^7.12.1",
+    "@babel/plugin-transform-react-jsx": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.10",
+    "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-commonjs": "^15.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-replace": "^2.3.3",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/jest-native": "^3.4.3",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/react-hooks": "^3.4.2",
+    "@testing-library/react-native": "^7.1.0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.1",
+    "codecov": "^3.8.0",
+    "create-react-class": "^15.7.0",
+    "cross-env": "^7.0.2",
+    "es3ify": "^0.2.0",
+    "eslint": "^7.12.0",
+    "eslint-config-prettier": "^6.14.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.5",
+    "glob": "^7.1.6",
+    "jest": "^26.6.3",
+    "prettier": "^2.1.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-test-renderer": "^16.14.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.32.1",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "dependencies": {
+    "@babel/runtime": "^7.12.1",
     "object.pick": "^1.3.0"
   }
 }

@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import { createStore } from '../lib/create-store';
-import { logPlugin } from '../lib/plugins/log-plugin';
-import { reducerHelper } from '../lib/reducer-utils';
-import { AppContext, createStoreContext } from '../lib/app-context';
-import { storeNameList } from '../lib/store-name-list';
+import { createStore } from '../src/core/create-store';
+import { logPlugin } from '../src/plugins/log-plugin';
+import { reducerHelper } from '../src/core/reducer-utils';
+import { AppContext, createStoreContext } from '../src/core/app-context';
+import { storeNameList } from '../src/core/store-name-list';
+import '@testing-library/jest-dom/extend-expect'
 
 
 logPlugin.debug = false;

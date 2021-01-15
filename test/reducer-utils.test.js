@@ -1,4 +1,4 @@
-import { createReducer } from '../lib/reducer-utils';
+import { createReducer } from '../src/core/reducer-utils';
 
 
 test('测试 createReducer 处理数组类型的 payload, 进行了 map 处理', () => {

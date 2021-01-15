@@ -1,6 +1,6 @@
 export const log = (...args) => {
   if (log.debugger) {
-    console.log(...args);
+    console.log(...args)
   }
-};
-log.debugger = false;
+}
+log.debugger = false

@@ -1,4 +1,5 @@
-es
 lib
+es
 dist
+test
 node_modules
