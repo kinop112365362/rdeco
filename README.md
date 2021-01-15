@@ -252,8 +252,144 @@ function App(){
 
 ```
 
-#### 里用 ref 代替 classComponent 中的 this, 实现一些非 UI 消费状态的声明
+#### 用 ref 代替 classComponent 中的 this, 实现一些非 UI 消费状态的声明
 
 当你的 storeConfig 中存在一些需要保存下来的值, 但是又不需要吐到 UI 中, 就可以考虑使用 ref
 
 > 更多场景化的示例可见测试用例 test 目录下的测试用例
+
+## Membrane 模式
+
+membrane 模式是我们在企业级应用开发的场景下提炼出来的用于延长代码生命周期的武器, 简单的说他可以保护你代码中最重要的部分
+
+让我们用一个实际场景来理解 membrane 
+
+在实际开发中, 我们经常会遇到的一个问题是针对不同渠道在业务流程处理上有所差异, 但随着时间推移, 这种差异会逐渐侵蚀污染我们
+代码的可复用性.
+
+例如
+
+```js
+
+function main(){
+    if(channel === 'h5'){
+        // todo sth
+    }
+    todo sth
+}
+
+function sub(){
+    if(channel === 'h5'){
+        // todo sth
+    }
+    todo sth
+}
+
+```
+
+这种逻辑分支大量存在于真实的软件工程内部, 当我们需要快速复用 main 和 sub 函数内的逻辑, 就需要进行重构, 但真实的场景远比这个复杂.
+我们通常没有足够的时间去重构, 于是就只能...
+
+```js
+
+function main(){
+    if(channel === 'h5'){
+        // todo sth
+        if(platform === 'xxx'){
+            ....
+        }
+    }
+    todo sth
+}
+
+function sub(){
+    if(channel === 'h5'){
+        // todo sth
+    }
+    todo sth
+}
+
+```
+
+解决 if 可能有很多种方法, 但目前为止并没有一种方法能够有效的将这种分支逻辑归一到一起, 即便你勤于重构但最终依然会散落在整个工程的各个部分
+为了解决这个问题, 我们创造了 membrane, 一种可插拔的分支逻辑的归一模式
+
+```js
+// 这段代码用于解释什么是 membrane , 为此做了精简, 实际使用会稍有不同
+const storeConfig = {
+    main(){
+        //todo sth
+    },
+    sub(){
+        // todo sth
+    }
+    membrane:{
+        main(){
+            if(channel === 'h5'){
+                // todo sth
+                if(platform === 'xx'){
+                    // todo sth
+                }
+            }
+            this.super.main()
+        }
+        sub(){
+            if(channel === 'h5'){
+                // todo sth
+            }
+            // todo sth
+        }
+
+    }
+}
+
+```
+
+如果要解释 membrane 背后的设计, 恐怕得占据不少篇幅, 关于这部分可以见后续 docs 内的内容, 在这里我简单概括下
+membrane 的灵感来自于细胞膜的生物结构, 同时借鉴了 hook 可插拔的设计还有面向对象中的继承和函数重载. 下面是一个真实的用例
+
+```js
+import React from 'react'
+import createStore from 'structured-react-hook'
+
+const storeConfig = {
+    initState:{
+        name: jacky
+    },
+    controller:{
+        onButtonClick(){
+            this.rc.setName('jacky in main')
+        }
+    },
+    membrane:{
+        controller:{
+            onButtonClick(){
+                if(this.props.platform === 'h5'){
+                    this.rc.setName('jacky in h5)
+                }
+            }
+        }
+    }
+}
+
+const useStore = createStore(storeConfig)
+
+function App(){
+    const store = useStore('h5')
+    return(
+        <div>{this.state.name}</div> // jacky in h5
+    )
+}
+
+function App(){
+    const store = useStore()
+    return(
+        <div>{this.state.name}</div> // jacky in main
+    )
+}
+
+```
+
+如果你要复用这个 storeConfig, 你只需要排除 membrane 即可, 这就是 membrane 的可插拔.
+
+
