@@ -37,8 +37,8 @@
     "pretest": "npm run lint",
     "test": "jest",
     "coverage": "codecov",
-    "gcg":"git co main",
-    "gcs":"git co master"
+    "gcg": "git co main",
+    "gcs": "git co master"
   },
   "peerDependencies": {
     "react": "^16.8.3 || ^17"
@@ -85,6 +85,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.12.1",
-    "object.pick": "^1.3.0"
+    "object.pick": "^1.3.0",
+    "tapable": "^2.2.0"
   }
 }
