@@ -1,11 +1,13 @@
 {
   "name": "structured-react-hook",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "面向企业级的结构化的 React 状态管理框架",
   "keywords": [
     "react",
     "flux",
-    "hook"
+    "hook",
+    "state",
+    "useReducer"
   ],
   "licenses": "MIT",
   "author": "shihong <112365362@qq.com>",
