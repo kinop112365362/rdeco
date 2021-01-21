@@ -1,5 +1,4 @@
-import { createStore } from './core/create-store'
-import { AppContext, createStoreContext } from './core/app-context'
-
-export default createStore
-export { AppContext, createStoreContext }
+import { configCreateStore } from './config-create-store'
+import { AppContext } from './core/app-context'
+export default configCreateStore.main
+export { AppContext }
