@@ -1,8 +1,11 @@
 import { useContext, useReducer } from 'react'
-import { createReducer, reducerHelper } from './reducer-utils'
+import { createReducer, reducerHelper, createRC } from './reducer-utils'
 import { initStateMetaHandler } from './init-state-meta-handler'
 import { AppContext } from './app-context'
-import { createStoreInHook } from './create-store-in-hook'
+import { createControllerBind } from './create-controller-bind'
+import { createServiceBind } from './create-service-bind'
+import { createRefs } from './create-refs'
+import { createViewBind } from './create-view-bind'
 import { membrane } from './create-membrane'
 
 export const createStoreHook = (storeConfig) => {
@@ -20,12 +23,37 @@ export const createStoreHook = (storeConfig) => {
       storeStateConfig.initState,
       storeStateConfig.init
     )
-    return createStoreInHook({
-      dispatch,
+    const rc = createRC(storeStateConfig.stateKeys, dispatch, state)
+    const refs = createRefs(storeStateConfig.refKeys, storeConfig.ref)
+    const callEffectContext = {
+      name,
+      rc,
       state,
+      refs,
       context,
-      ...storeConfig,
-      ...storeStateConfig,
+    }
+    const serviceContext = createServiceBind(
+      storeConfig.service,
+      Object.freeze(callEffectContext)
+    )
+    const controllerBind = createControllerBind(
+      storeConfig.controller,
+      Object.freeze({ ...callEffectContext, service: serviceContext })
+    )
+    const viewBind = createViewBind(
+      storeConfig.view,
+      Object.freeze({
+        controller: controllerBind,
+        state,
+        refs,
+        context,
+      })
+    )
+    return Object.freeze({
+      state,
+      refs,
+      controller: controllerBind,
+      view: viewBind,
     })
   }
 }

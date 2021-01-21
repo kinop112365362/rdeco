@@ -1,10 +1,10 @@
 import { useContext, useReducer } from 'react'
 import pick from 'object.pick'
-import { createReducer, reducerHelper } from './reducer-utils'
+import { createReducer, reducerHelper, createRC } from './reducer-utils'
 import { initStateMetaHandler } from './init-state-meta-handler'
 import { AppContext } from './app-context'
 import { createStoreBindContext } from './create-store-bind-context'
-import { createSharedContext } from './create-shared-context'
+import { createRefs } from './create-refs'
 
 export function createStoreTakenMembraneHook(storeConfig, membraneStoreConfig) {
   if (!storeConfig.ref) {
@@ -42,12 +42,13 @@ export function createStoreTakenMembraneHook(storeConfig, membraneStoreConfig) {
         ...membraneStoreStateConfig.refKeys,
       ],
     }
-    const sharedContext = createSharedContext(
-      mergedStateKeys,
-      dispatch,
+    const rc = createRC(mergedStateKeys, dispatch, state)
+    const refs = createRefs(mergedRef.refKeys, mergedRef.ref)
+    const sharedContext = {
+      rc,
+      refs,
       state,
-      mergedRef
-    )
+    }
     const superBindContext = createStoreBindContext(
       context,
       storeConfig,
