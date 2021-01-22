@@ -1,5 +1,17 @@
-import { createStore } from './core/create-store'
-import { AppContext, createStoreContext } from './core/app-context'
+import { configCreateStore as configCreateStoreInstance } from './config-create-store'
+import { createStoreHook } from './core/create-store-hook'
+export { AppContext } from './core/app-context'
 
+export function configCreateStore(config) {
+  return configCreateStoreInstance.main(config)
+}
+
+// 兼容 1.x 版本下的 createStore API
+function createStore(storeConfig) {
+  return createStoreHook.main(storeConfig)
+}
+export function createStoreContext(storeConfig) {
+  storeConfig.name = 'storeContext'
+  return createStoreHook.main(storeConfig)
+}
 export default createStore
-export { AppContext, createStoreContext }
