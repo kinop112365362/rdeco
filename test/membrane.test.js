@@ -1,29 +1,18 @@
 import React, { useContext } from 'react';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import { createStore } from '../src/core/create-store';
-import { logPlugin } from '../src/plugins/log-plugin';
-import { reducerHelper } from '../src/core/reducer-utils';
+import  { createStoreHook } from '../src/core/create-store-hook';
 import { AppContext, createStoreContext } from '../src/core/app-context';
-import { storeNameList } from '../src/core/store-name-list';
-import { createMembrane } from '../src/core/create-membrane';
 import '@testing-library/jest-dom/extend-expect'
-
-logPlugin.debug = false;
-reducerHelper.debugger = false;
-beforeEach(() => {
-  storeNameList.length = 0;
-});
 
 test('通过 membrane 新增的 store 部件对 UI 不可见', async () => {
   // 独立的 TestStore 和 Test 组件
-  const useTestStore = createStore({
+  const useTestStore = createStoreHook.main({
     name: 'testStore5',
     initState: {
       desc: ''
     },
     view: {
       renderView() {
-        console.log(this.state.desc, 43);
         return (
           <div role="desc">{this.state.desc}</div>
         );
@@ -51,7 +40,7 @@ test('通过 membrane 新增的 store 部件对 UI 不可见', async () => {
   });
   function Test() {
     const store = useTestStore();
-    console.log(store, 273);
+    console.log(store, 43)
     expect(Object.keys(store.view)).toStrictEqual(['renderView']);
     expect(Object.keys(store.state)).toStrictEqual(['desc']);
     expect(Object.keys(store.controller)).toStrictEqual(['onComponentStart']);
@@ -71,13 +60,14 @@ test('通过 membrane 新增的 store 部件对 UI 不可见', async () => {
 });
 test('测试 membrane 对 store 的 view 的继承', async () => {
   // 独立的 TestStore 和 Test 组件
-  const useTestStore = createStore({
+  const useTestStore = createStoreHook.main({
     name: 'testStore5',
     initState: {
       desc: ''
     },
     view: {
       renderView() {
+        console.log(70)
         return (
           <div role="superView">super view</div>
         );
@@ -96,6 +86,7 @@ test('测试 membrane 对 store 的 view 的继承', async () => {
       },
       view: {
         renderView() {
+          console.log(this.super.view, 88)
           return (
             <div>
               {this.super.view.renderView()}
@@ -108,6 +99,7 @@ test('测试 membrane 对 store 的 view 的继承', async () => {
   });
   function Test() {
     const store = useTestStore();
+    console.log(store.view, 100)
     return (
       <div role="global">
         {store.view.renderView()}
@@ -125,7 +117,7 @@ test('测试 membrane 对 store 的 view 的继承', async () => {
 });
 test('测试 membrane 的全部功能', async () => {
   // 独立的 TestStore 和 Test 组件
-  const useTestStore = createStore({
+  const useTestStore = createStoreHook.main({
     name: 'testStore5',
     initState: {
       desc: '',
@@ -134,7 +126,6 @@ test('测试 membrane 的全部功能', async () => {
     },
     view: {
       renderView() {
-        console.log(this, 175);
         return (
           <div>
             <div role="title">{this.state.title}</div>
@@ -175,13 +166,11 @@ test('测试 membrane 的全部功能', async () => {
       },
       view: {
         renderButton() {
-          console.log(this, 147);
           return (
             <button role="button" onClick={this.controller.onComponentStart}></button>
           );
         },
         renderView() {
-          console.log(this.props, 154);
           return (
             <div>
               {this.props === '17dz' && this.super.view.renderView()}
@@ -196,7 +185,6 @@ test('测试 membrane 的全部功能', async () => {
   });
   function Test() {
     const store = useTestStore('17dz');
-    console.log(store);
     return (
       <div role="global">
         {store.view.renderView()}

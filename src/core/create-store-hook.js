@@ -3,7 +3,7 @@ import pick from 'object.pick'
 import { reducerUtils, createReducerCase } from './reducer-utils'
 import { AppContext } from './app-context'
 
-export const createStoreHook = {
+class CreateStoreHook {
   writeGetUseReducerConfig(storeConfig) {
     const { initState: initStateMeta, ref } = storeConfig
     const useReducerConfig = {
@@ -20,7 +20,7 @@ export const createStoreHook = {
       useReducerConfig.stateKeys = Object.keys(initStateMeta)
     }
     return useReducerConfig
-  },
+  }
   writeGetUseReducerConfigWithMembrane(storeConfig) {
     const superUseReducerConfig = this.writeGetUseReducerConfig(storeConfig)
     if (storeConfig.membrane) {
@@ -28,10 +28,10 @@ export const createStoreHook = {
         storeConfig.membrane
       )
       return {
-        stateKeys: {
+        stateKeys: [
           ...superUseReducerConfig.stateKeys,
           ...membraneUseReducerConfig.stateKeys,
-        },
+        ],
         initState: {
           ...superUseReducerConfig.initState,
           ...membraneUseReducerConfig.initState,
@@ -41,26 +41,28 @@ export const createStoreHook = {
             superUseReducerConfig.init(initArgs)
           )
         },
-        refKeys: {
+        refKeys: [
           ...superUseReducerConfig.refKeys,
           ...membraneUseReducerConfig.refKeys,
-        },
+        ],
       }
     }
     return superUseReducerConfig
-  },
-  writeGetControllerKeys(storeConfig) {
-    const controllerKeys = Object.keys(storeConfig.controller)
+  }
+  writeGetControllerKeys(controller) {
+    const controllerKeys = Object.keys(controller)
     controllerKeys.forEach((controllerKey) => {
       const isNotStartWithON = !controllerKey.startsWith('on')
       if (isNotStartWithON) {
         throw new Error(`${controllerKey} 命名必须以 on 开头, 名词 + 动词结尾`)
       }
     })
-  },
+    return controllerKeys
+  }
   writeGetController({ controller }, contextProps, serviceBindContext) {
     const controllerBindContext = {}
     const controllerKeys = this.writeGetControllerKeys(controller)
+    console.log(controllerKeys, controller, 65)
     controllerKeys.forEach((controllerKey) => {
       const controllerIsArray = Array.isArray(controller[controllerKey])
       if (controllerIsArray) {
@@ -78,11 +80,12 @@ export const createStoreHook = {
       }
     })
     return controllerBindContext
-  },
+  }
   writeControllerBindHandler(target, contextProps, serviceBindContext) {
     return async (...args) => {
       const res = await target.call(
         Object.freeze({
+          context: contextProps.context,
           state: contextProps.state,
           refs: contextProps.refs,
           rc: contextProps.rc,
@@ -93,7 +96,7 @@ export const createStoreHook = {
       )
       return res
     }
-  },
+  }
   writeServiceBindHandler(target, contextProps, serviceBindContext) {
     return async (...args) => {
       const res = await target.call(
@@ -107,7 +110,7 @@ export const createStoreHook = {
       )
       return res
     }
-  },
+  }
   writeGetService({ service }, contextProps) {
     const serviceBindContext = {}
     if (service) {
@@ -130,21 +133,29 @@ export const createStoreHook = {
       })
     }
     return serviceBindContext
-  },
+  }
   writeGetView({ view }, viewContext) {
-    const viewBind = {}
+    console.log(view, 138)
+    const viewBindContext = {}
     if (view) {
       const viewKeys = Object.keys(view)
       viewKeys.forEach((viewKey) => {
-        viewBind[viewKey] = view[viewKey].bind(viewContext)
+        console.log(viewContext, 142)
+        viewBindContext[viewKey] = () => {
+          const res = view[viewKey].call(viewContext)
+          console.log(res, 146)
+          console.log(view[viewKey].toString(), 147)
+          return res
+        }
       })
     }
-    return viewBind
-  },
+    console.log(viewBindContext, 151)
+    return viewBindContext
+  }
   writeGetViewContext(
     controllerBindContext,
     storeConfig,
-    { state, refs, props, superContext = null }
+    { context, state, refs, props, superContext = null }
   ) {
     return Object.freeze({
       controller: controllerBindContext,
@@ -155,26 +166,10 @@ export const createStoreHook = {
       view: storeConfig.view,
       super: superContext,
     })
-  },
-  writeGetStoreBindContext(storeConfig, useReducerConfig, contextProps) {
-    const store = {}
-    const serviceBindContext = this.writeGetService(storeConfig, contextProps)
-    const controllerBindContext = this.writeGetController(
-      storeConfig,
-      contextProps,
-      serviceBindContext
-    )
-    const viewBindContext = this.writeGetView(
-      storeConfig,
-      this.writeGetViewContext(controllerBindContext)
-    )
-    store.rc = contextProps.rc
-    store.service = serviceBindContext
-    store.state = contextProps.state
-    store.refs = contextProps.refs
-    store.controller = controllerBindContext
-    store.view = viewBindContext
+  }
+  writeGetStoreWithMembrane(storeConfig, store, contextProps) {
     if (storeConfig.membrane) {
+      const membraneStore = {}
       contextProps.superContext = store
       const membraneServiceBindContext = this.writeGetService(
         storeConfig.membrane,
@@ -186,21 +181,57 @@ export const createStoreHook = {
         membraneServiceBindContext
       )
       const membraneViewBindContext = this.writeGetView(
-        storeConfig,
-        this.writeGetViewContext(membraneControllerBindContext)
+        storeConfig.membrane,
+        this.writeGetViewContext(
+          membraneControllerBindContext,
+          storeConfig.membrane,
+          contextProps
+        )
       )
-      store.view = membraneViewBindContext
-      store.controller = membraneControllerBindContext
-      store.service = membraneServiceBindContext
+      membraneStore.view = { ...store.view, ...membraneViewBindContext }
+      membraneStore.controller = {
+        ...store.controller,
+        ...membraneControllerBindContext,
+      }
+      const { stateKeys, refKeys } = this.writeGetUseReducerConfig(storeConfig)
       return Object.freeze({
-        state: pick(store.state, useReducerConfig.stateKeys),
-        refs: pick(store.refs, useReducerConfig.refKeys),
-        controller: pick(store.controller, Object.keys(storeConfig.controller)),
-        view: pick(store.view, Object.keys(storeConfig.view)),
+        state: pick(store.state, stateKeys),
+        refs: pick(store.refs, refKeys),
+        controller: pick(
+          membraneStore.controller,
+          Object.keys(storeConfig.controller)
+        ),
+        view: pick(membraneStore.view, Object.keys(storeConfig.view)),
       })
     }
+    return Object.freeze(store)
+  }
+  writeGetStoreBindContext(storeConfig, useReducerConfig, contextProps) {
+    let store = {}
+    const serviceBindContext = this.writeGetService(storeConfig, contextProps)
+    const controllerBindContext = this.writeGetController(
+      storeConfig,
+      contextProps,
+      serviceBindContext
+    )
+    const viewBindContext = this.writeGetView(
+      storeConfig,
+      this.writeGetViewContext(controllerBindContext, storeConfig, contextProps)
+    )
+    store.rc = contextProps.rc
+    store.service = serviceBindContext
+    store.state = contextProps.state
+    store.refs = contextProps.refs
+    store.controller = controllerBindContext
+    store.view = viewBindContext
+    store = this.writeGetStoreWithMembrane(
+      storeConfig,
+      store,
+      contextProps,
+      useReducerConfig
+    )
     return store
-  },
+  }
   writeGetRefs(refsKeys, refs) {
     const refContext = {}
     if (refsKeys) {
@@ -209,36 +240,41 @@ export const createStoreHook = {
       })
     }
     return refContext
-  },
+  }
   writeGetRef(storeConfig) {
+    if (!storeConfig.ref) {
+      storeConfig.ref = {}
+    }
     if (storeConfig.membrane) {
+      if (!storeConfig.membrane.ref) {
+        storeConfig.membrane.ref = {}
+      }
       return {
         ...storeConfig.ref,
         ...storeConfig.membrane.ref,
       }
     }
     return storeConfig.ref
-  },
+  }
   readPropsHasNoMembrane(storeConfig, props) {
     if (!storeConfig.membrane && props) {
       throw new Error(
         `${storeConfig.name} 没有定义 membrane, 传递进来的 props 是无效的`
       )
     }
-  },
+  }
   readControllerIsNone(storeConfig) {
     if (!storeConfig.controller) {
       throw new Error('任何一个 store 都不能没有 controller')
     }
-  },
+  }
   main(storeConfig) {
-    this.readControllerIsInvalid(storeConfig)
     this.readControllerIsNone(storeConfig)
+    const ref = this.writeGetRef(storeConfig)
     const useReducerConfig = this.writeGetUseReducerConfigWithMembrane(
       storeConfig
     )
     const { stateKeys, init, initState, refKeys } = useReducerConfig
-    const ref = this.writeGetRef(storeConfig)
     const reducer = reducerUtils.main(stateKeys)
     return (props) => {
       this.readPropsHasNoMembrane(storeConfig, props)
@@ -259,5 +295,7 @@ export const createStoreHook = {
       )
       return store
     }
-  },
+  }
 }
+
+export const createStoreHook = new CreateStoreHook()

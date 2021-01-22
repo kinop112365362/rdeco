@@ -1,9 +1,9 @@
 import { shared } from './shared'
 
-export const createReducerCase = {
-  readIsFunction() {
+class CreateReducerCase {
+  readIsFunction(value) {
     return typeof value === 'function'
-  },
+  }
   readIsStateIsUndefined(nextState, stateKeys) {
     const nextStateKeys = Object.keys(nextState)
     const ghostKeys = nextStateKeys.filter((key) => !stateKeys.includes(key))
@@ -12,11 +12,13 @@ export const createReducerCase = {
         `不存在的 state => [${ghostKeys.toString()}], 请确保setState中更新的state在initState中已经声明`
       )
     }
-  },
+  }
   main(stateKeys, dispatch, state) {
     const rc = {
       setState: (nextState) => {
+        console.log(nextState, 19)
         if (this.readIsFunction(nextState)) {
+          console.log(nextState, 21)
           dispatch(['setState', nextState(state)])
         }
         this.readIsStateIsUndefined(nextState, stateKeys)
@@ -34,15 +36,15 @@ export const createReducerCase = {
       }
     })
     return rc
-  },
+  }
 }
 
-export const reducerUtils = {
+class ReducerUtils {
   readActionIsUndefined(reducerModel, action) {
     if (reducerModel[action[0]] === undefined) {
       throw new Error(`不存在的 action => ${action[0]}, 清核对代码`)
     }
-  },
+  }
   writeGetReducerModel(stateKeys) {
     // eslint-disable-next-line no-unused-vars
     return (state) => {
@@ -62,7 +64,7 @@ export const reducerUtils = {
       })
       return reducerModel
     }
-  },
+  }
   main(stateKeys) {
     return (state, action) => {
       const reducerModel = this.writeGetReducerModel(stateKeys)(state)
@@ -77,5 +79,8 @@ export const reducerUtils = {
         ...result,
       }
     }
-  },
+  }
 }
+
+export const reducerUtils = new ReducerUtils()
+export const createReducerCase = new CreateReducerCase()
