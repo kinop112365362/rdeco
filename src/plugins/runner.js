@@ -1,10 +1,10 @@
-import { SyncHook, AsyncHook } from 'tapable'
+import { SyncHook, AsyncParallelHook } from 'tapable'
 
 export class Runner {
   constructor() {
     this.hooks = {
       run: new SyncHook(['methodName', 'methodParams']),
-      runAsync: new AsyncHook(['methodName', 'methodParams']),
+      runAsync: new AsyncParallelHook(['methodName', 'methodParams']),
     }
   }
   beforeRun(methodName, methodParams) {

@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import  { createStoreHook } from '../src/core/create-store-hook';
-import { AppContext, createStoreContext } from '../src/core/app-context';
+import React, { useContext } from 'react'
+import { render, fireEvent, waitFor, screen } from '@testing-library/react'
+import { createStoreHook } from '../src/core/create-store-hook'
+import { AppContext, createStoreContext } from '../src/core/app-context'
 import '@testing-library/jest-dom/extend-expect'
 
 test('通过 membrane 新增的 store 部件对 UI 不可见', async () => {
@@ -12,15 +12,13 @@ test('通过 membrane 新增的 store 部件对 UI 不可见', async () => {
       desc: ''
     },
     view: {
-      renderView() {
-        return (
-          <div role="desc">{this.state.desc}</div>
-        );
+      renderView () {
+        return <div role='desc'>{this.state.desc}</div>
       }
     },
     controller: {
-      onComponentStart() {
-        this.rc.setDesc('没有检测到平台异常');
+      onComponentStart () {
+        this.rc.setDesc('没有检测到平台异常')
       }
     },
     membrane: {
@@ -28,36 +26,31 @@ test('通过 membrane 新增的 store 部件对 UI 不可见', async () => {
         text: '欢迎来到 17dz'
       },
       ref: {
-        el: 0,
+        el: 0
       },
       view: {
-        renderMembrane() {}
+        renderMembrane () {}
       },
       controller: {
-        onMembraneController() {}
+        onMembraneController () {}
       }
     }
-  });
-  function Test() {
-    const store = useTestStore();
+  })
+  function Test () {
+    const store = useTestStore()
     console.log(store, 43)
-    expect(Object.keys(store.view)).toStrictEqual(['renderView']);
-    expect(Object.keys(store.state)).toStrictEqual(['desc']);
-    expect(Object.keys(store.controller)).toStrictEqual(['onComponentStart']);
-    expect(Object.keys(store.refs).length).toBe(0);
-    return (
-      <div role="global">
-        {store.view.renderView()}
-      </div>);
+    expect(Object.keys(store.view)).toStrictEqual(['renderView'])
+    expect(Object.keys(store.state)).toStrictEqual(['desc'])
+    expect(Object.keys(store.controller)).toStrictEqual(['onComponentStart'])
+    expect(Object.keys(store.refs).length).toBe(0)
+    return <div role='global'>{store.view.renderView()}</div>
   }
   // App 初始化
-  function App() {
-    return (
-        <Test></Test>
-    );
+  function App () {
+    return <Test></Test>
   }
-  render(<App></App>);
-});
+  render(<App></App>)
+})
 test('测试 membrane 对 store 的 view 的继承', async () => {
   // 独立的 TestStore 和 Test 组件
   const useTestStore = createStoreHook.main({
@@ -66,55 +59,45 @@ test('测试 membrane 对 store 的 view 的继承', async () => {
       desc: ''
     },
     view: {
-      renderView() {
+      renderView () {
         console.log(70)
-        return (
-          <div role="superView">super view</div>
-        );
+        return <div role='superView'>super view</div>
       }
     },
     controller: {
-      onComponentStart() {
-        this.rc.setDesc('没有检测到平台异常');
+      onComponentStart () {
+        this.rc.setDesc('没有检测到平台异常')
       }
     },
     membrane: {
-      initState: {
-      },
-      controller: {
-
-      },
+      initState: {},
+      controller: {},
       view: {
-        renderView() {
+        renderView () {
           console.log(this.super.view, 88)
           return (
             <div>
               {this.super.view.renderView()}
-              <div role="subView">extends super view</div>
+              <div role='subView'>extends super view</div>
             </div>
-          );
+          )
         }
-      },
+      }
     }
-  });
-  function Test() {
-    const store = useTestStore();
+  })
+  function Test () {
+    const store = useTestStore()
     console.log(store.view, 100)
-    return (
-      <div role="global">
-        {store.view.renderView()}
-      </div>);
+    return <div role='global'>{store.view.renderView()}</div>
   }
   // App 初始化
-  function App() {
-    return (
-        <Test></Test>
-    );
+  function App () {
+    return <Test></Test>
   }
-  render(<App></App>);
-  expect(screen.getByRole('superView')).toHaveTextContent('super view');
-  expect(screen.getByRole('subView')).toHaveTextContent('extends super view');
-});
+  render(<App></App>)
+  expect(screen.getByRole('superView')).toHaveTextContent('super view')
+  expect(screen.getByRole('subView')).toHaveTextContent('extends super view')
+})
 test('测试 membrane 的全部功能', async () => {
   // 独立的 TestStore 和 Test 组件
   const useTestStore = createStoreHook.main({
@@ -125,24 +108,23 @@ test('测试 membrane 的全部功能', async () => {
       superService: ''
     },
     view: {
-      renderView() {
+      renderView () {
         return (
           <div>
-            <div role="title">{this.state.title}</div>
-            <div role="desc">{this.state.desc}</div>
-            <div role="superService">{this.state.superService}</div>
+            <div role='title'>{this.state.title}</div>
+            <div role='desc'>{this.state.desc}</div>
+            <div role='superService'>{this.state.superService}</div>
           </div>
-        );
+        )
       }
     },
     service: {
-      superService() {
-      }
+      superService () {}
     },
     controller: {
-      onComponentStart() {
-        this.rc.setSuperService('superService');
-        this.rc.setDesc('没有检测到平台异常');
+      onComponentStart () {
+        this.rc.setSuperService('superService')
+        this.rc.setDesc('没有检测到平台异常')
       }
     },
     membrane: {
@@ -151,58 +133,60 @@ test('测试 membrane 的全部功能', async () => {
         membraneService: ''
       },
       service: {
-        subService() {
-          this.super.service.superService();
+        subService () {
+          this.super.service.superService()
         }
       },
       controller: {
-        onComponentStart() {
-          this.super.controller.onComponentStart();
-          this.service.subService();
-          this.rc.setMembraneService('membraneService');
-          this.rc.setTitle('extends controller');
-          this.rc.setMembraneTitle('spec state in membrane');
+        onComponentStart () {
+          this.super.controller.onComponentStart()
+          this.service.subService()
+          this.rc.setMembraneService('membraneService')
+          this.rc.setTitle('extends controller')
+          this.rc.setMembraneTitle('spec state in membrane')
         }
       },
       view: {
-        renderButton() {
+        renderButton () {
           return (
-            <button role="button" onClick={this.controller.onComponentStart}></button>
-          );
+            <button
+              role='button'
+              onClick={this.controller.onComponentStart}
+            ></button>
+          )
         },
-        renderView() {
+        renderView () {
           return (
             <div>
               {this.props === '17dz' && this.super.view.renderView()}
-              <div role="membraneTitle">{this.state.membraneTitle}</div>
+              <div role='membraneTitle'>{this.state.membraneTitle}</div>
               {this.view.renderButton.call(this)}
-              <div role="membraneService">{this.state.membraneService}</div>
+              <div role='membraneService'>{this.state.membraneService}</div>
             </div>
-          );
+          )
         }
-      },
+      }
     }
-  });
-  function Test() {
-    const store = useTestStore('17dz');
-    return (
-      <div role="global">
-        {store.view.renderView()}
-      </div>);
+  })
+  function Test () {
+    const store = useTestStore('17dz')
+    return <div role='global'>{store.view.renderView()}</div>
   }
   // App 初始化
-  function App() {
-    return (
-        <Test></Test>
-    );
+  function App () {
+    return <Test></Test>
   }
-  render(<App></App>);
-  fireEvent.click(screen.getByRole('button'));
+  render(<App></App>)
+  fireEvent.click(screen.getByRole('button'))
   await waitFor(() => {
-    expect(screen.getByRole('membraneTitle')).toHaveTextContent('spec state in membrane');
-    expect(screen.getByRole('title')).toHaveTextContent('extends controller');
-    expect(screen.getByRole('desc')).toHaveTextContent('没有检测到平台异常');
-    expect(screen.getByRole('membraneService')).toHaveTextContent('membraneService');
-    expect(screen.getByRole('superService')).toHaveTextContent('superService');
-  });
-});
+    expect(screen.getByRole('membraneTitle')).toHaveTextContent(
+      'spec state in membrane'
+    )
+    expect(screen.getByRole('title')).toHaveTextContent('extends controller')
+    expect(screen.getByRole('desc')).toHaveTextContent('没有检测到平台异常')
+    expect(screen.getByRole('membraneService')).toHaveTextContent(
+      'membraneService'
+    )
+    expect(screen.getByRole('superService')).toHaveTextContent('superService')
+  })
+})

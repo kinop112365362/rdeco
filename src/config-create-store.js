@@ -21,10 +21,10 @@ class ConfigCreateStore {
       plugin.apply(runner)
     })
     return (storeConfig) => {
-      // this.readStoreNameCheck(storeConfig.name)
-      return createStoreHook(storeConfig)
+      this.readStoreNameCheck(storeConfig.name)
+      return createStoreHook.main(storeConfig)
     }
   }
 }
 
-export const configCreateStore = new ConfigCreateStore().main
+export const configCreateStore = new ConfigCreateStore()
