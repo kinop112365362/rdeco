@@ -82,8 +82,8 @@ class CreateStoreHook {
     return controllerBindContext
   }
   writeControllerBindHandler(target, contextProps, serviceBindContext) {
-    return async (...args) => {
-      const res = await target.call(
+    return (...args) => {
+      const res = target.call(
         Object.freeze({
           context: contextProps.context,
           state: contextProps.state,
@@ -98,8 +98,8 @@ class CreateStoreHook {
     }
   }
   writeServiceBindHandler(target, contextProps, serviceBindContext) {
-    return async (...args) => {
-      const res = await target.call(
+    return (...args) => {
+      const res = target.call(
         Object.freeze({
           state: contextProps.state,
           refs: contextProps.refs,
@@ -267,6 +267,13 @@ class CreateStoreHook {
     if (!storeConfig.controller) {
       throw new Error('任何一个 store 都不能没有 controller')
     }
+  }
+  readIsPromise(obj) {
+    return (
+      !!obj &&
+      (typeof obj === 'object' || typeof obj === 'function') &&
+      typeof obj.then === 'function'
+    )
   }
   main(storeConfig) {
     this.readControllerIsNone(storeConfig)
