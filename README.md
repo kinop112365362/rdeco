@@ -6,7 +6,7 @@ Structured React state management framework for the enterprise
 
 Completely native solution based on React Hook
 
-> Online [Demo](https://codesandbox.io/s/gallant-wright-f7csc?file=/package.json) shows a more complex TodoApp
+> Online [Demo](https://codesandbox.io/s/v8v75) shows a more complex TodoApp
 
 ### Install
 
