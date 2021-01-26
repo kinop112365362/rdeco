@@ -138,8 +138,8 @@ class CreateStoreHook {
     if (view) {
       const viewKeys = Object.keys(view)
       viewKeys.forEach((viewKey) => {
-        viewBindContext[viewKey] = () => {
-          const res = view[viewKey].call(viewContext)
+        viewBindContext[viewKey] = (...args) => {
+          const res = view[viewKey].call(viewContext, ...args)
           return res
         }
       })
