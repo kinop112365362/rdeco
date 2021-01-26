@@ -2,7 +2,9 @@ import { Runner } from './plugins/runner'
 import { createStoreHook } from './core/create-store-hook'
 
 class ConfigCreateStore {
-  storeNameList = []
+  constructor() {
+    this.storeNameList = []
+  }
   readStoreNameCheck(name) {
     if (this.storeNameList.includes(name)) {
       console.error(`${name} 已经被其他 store 使用了, 请重新配置`)
