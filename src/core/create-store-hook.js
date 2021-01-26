@@ -62,7 +62,6 @@ class CreateStoreHook {
   writeGetController({ controller }, contextProps, serviceBindContext) {
     const controllerBindContext = {}
     const controllerKeys = this.writeGetControllerKeys(controller)
-    console.log(controllerKeys, controller, 65)
     controllerKeys.forEach((controllerKey) => {
       const controllerIsArray = Array.isArray(controller[controllerKey])
       if (controllerIsArray) {
@@ -135,21 +134,16 @@ class CreateStoreHook {
     return serviceBindContext
   }
   writeGetView({ view }, viewContext) {
-    console.log(view, 138)
     const viewBindContext = {}
     if (view) {
       const viewKeys = Object.keys(view)
       viewKeys.forEach((viewKey) => {
-        console.log(viewContext, 142)
         viewBindContext[viewKey] = () => {
           const res = view[viewKey].call(viewContext)
-          console.log(res, 146)
-          console.log(view[viewKey].toString(), 147)
           return res
         }
       })
     }
-    console.log(viewBindContext, 151)
     return viewBindContext
   }
   writeGetViewContext(
