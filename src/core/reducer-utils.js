@@ -16,9 +16,7 @@ class CreateReducerCase {
   main(stateKeys, dispatch, state) {
     const rc = {
       setState: (nextState) => {
-        console.log(nextState, 19)
         if (this.readIsFunction(nextState)) {
-          console.log(nextState, 21)
           dispatch(['setState', nextState(state)])
         }
         this.readIsStateIsUndefined(nextState, stateKeys)
