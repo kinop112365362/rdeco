@@ -5,6 +5,9 @@ import { AppContext } from './app-context'
 
 class CreateStoreHook {
   writeGetUseReducerConfig(storeConfig) {
+    if (storeConfig.initState === undefined) {
+      storeConfig.initState = {}
+    }
     const { initState: initStateMeta, ref } = storeConfig
     const useReducerConfig = {
       refKeys: Object.keys(ref),
@@ -195,7 +198,7 @@ class CreateStoreHook {
           membraneStore.controller,
           Object.keys(storeConfig.controller)
         ),
-        view: pick(membraneStore.view, Object.keys(storeConfig.view)),
+        view: pick(membraneStore.view, Object.keys(storeConfig.view || {})),
       })
     }
     return Object.freeze(store)
