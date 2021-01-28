@@ -139,11 +139,15 @@ test('测试 membrane 的全部功能', async () => {
       },
       controller: {
         onComponentStart () {
+          console.log(this.props, 142)
+          if (this.props === '17dz') {
+            this.super.controller.onComponentStart()
+            this.service.subService()
+            this.rc.setMembraneService('membraneService')
+            this.rc.setTitle('extends controller')
+            this.rc.setMembraneTitle('spec state in membrane')
+          }
           this.super.controller.onComponentStart()
-          this.service.subService()
-          this.rc.setMembraneService('membraneService')
-          this.rc.setTitle('extends controller')
-          this.rc.setMembraneTitle('spec state in membrane')
         }
       },
       view: {

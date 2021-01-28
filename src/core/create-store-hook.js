@@ -88,6 +88,7 @@ class CreateStoreHook {
       const res = target.call(
         Object.freeze({
           context: contextProps.context,
+          props: contextProps.props,
           state: contextProps.state,
           refs: contextProps.refs,
           rc: contextProps.rc,
