@@ -4,6 +4,7 @@ import { reducerUtils, createReducerCase } from './reducer-utils'
 import { AppContext } from './app-context'
 
 class CreateStoreHook {
+  // @@ 获取 useReducer 的配置
   writeGetUseReducerConfig(storeConfig) {
     if (storeConfig.initState === undefined) {
       storeConfig.initState = {}
@@ -20,13 +21,13 @@ class CreateStoreHook {
     } else {
       useReducerConfig.initState = initStateMeta
       useReducerConfig.init = function init(initArgs) {
-        console.log(this, 23)
         return initArgs
       }
       useReducerConfig.stateKeys = Object.keys(initStateMeta)
     }
     return useReducerConfig
   }
+  // @@ Membrane 模式下获取 useReducer 配置
   writeGetUseReducerConfigWithMembrane(storeConfig) {
     const superUseReducerConfig = this.writeGetUseReducerConfig(storeConfig)
     if (storeConfig.membrane) {
@@ -43,10 +44,10 @@ class CreateStoreHook {
           ...membraneUseReducerConfig.initState,
         },
         init(initArgs) {
-          console.log(this, 43)
-          return membraneUseReducerConfig
-            .init(superUseReducerConfig.init.call(this, initArgs))
-            .call(this)
+          return membraneUseReducerConfig.init.call(
+            this,
+            superUseReducerConfig.init.call(this, initArgs)
+          )
         },
         refKeys: [
           ...superUseReducerConfig.refKeys,
@@ -56,6 +57,7 @@ class CreateStoreHook {
     }
     return superUseReducerConfig
   }
+  // @@ 获取 controller 的 KeyMap
   writeGetControllerKeys(controller) {
     const controllerKeys = Object.keys(controller)
     controllerKeys.forEach((controllerKey) => {
@@ -66,7 +68,9 @@ class CreateStoreHook {
     })
     return controllerKeys
   }
+  // @@ 绑定 controller 的 context
   writeGetController({ controller }, contextProps, serviceBindContext) {
+    this.readControllerIsNone({ controller })
     const controllerBindContext = {}
     const controllerKeys = this.writeGetControllerKeys(controller)
     controllerKeys.forEach((controllerKey) => {
@@ -87,6 +91,7 @@ class CreateStoreHook {
     })
     return controllerBindContext
   }
+  // @@ controller 绑定 context 的 helper 函数
   writeControllerBindHandler(target, contextProps, serviceBindContext) {
     return (...args) => {
       const res = target.call(
@@ -104,6 +109,7 @@ class CreateStoreHook {
       return res
     }
   }
+  // @@ service 绑定 context 的 helper 函数
   writeServiceBindHandler(target, contextProps, serviceBindContext) {
     return (...args) => {
       const res = target.call(
@@ -119,6 +125,7 @@ class CreateStoreHook {
       return res
     }
   }
+  // @@ 绑定 service 的 context
   writeGetService({ service }, contextProps) {
     const serviceBindContext = {}
     if (service) {
@@ -142,6 +149,7 @@ class CreateStoreHook {
     }
     return serviceBindContext
   }
+  // @@ 绑定 view 的 context
   writeGetView({ view }, viewContext) {
     const viewBindContext = {}
     if (view) {
@@ -155,6 +163,7 @@ class CreateStoreHook {
     }
     return viewBindContext
   }
+  // @@ 获取 view 的 context
   writeGetViewContext(
     controllerBindContext,
     storeConfig,
@@ -170,6 +179,7 @@ class CreateStoreHook {
       super: superContext,
     })
   }
+  // @@ 获取 store 并兼容 Membrane 模式
   writeGetStoreWithMembrane(storeConfig, store, contextProps) {
     if (storeConfig.membrane) {
       const membraneStore = {}
@@ -204,11 +214,12 @@ class CreateStoreHook {
           membraneStore.controller,
           Object.keys(storeConfig.controller)
         ),
-        view: pick(membraneStore.view, Object.keys(storeConfig.view || {})),
+        view: membraneStore.view,
       })
     }
     return Object.freeze(store)
   }
+  // @@ 绑定 store 的 context
   writeGetStoreBindContext(storeConfig, useReducerConfig, contextProps) {
     let store = {}
     const serviceBindContext = this.writeGetService(storeConfig, contextProps)
@@ -235,6 +246,7 @@ class CreateStoreHook {
     )
     return store
   }
+  // @@ 获取 refs
   writeGetRefs(refsKeys, refs) {
     const refContext = {}
     if (refsKeys) {
@@ -244,6 +256,7 @@ class CreateStoreHook {
     }
     return refContext
   }
+  // @@ 获取 ref
   writeGetRef(storeConfig) {
     if (!storeConfig.ref) {
       storeConfig.ref = {}
@@ -259,6 +272,7 @@ class CreateStoreHook {
     }
     return storeConfig.ref
   }
+  // @@ 处理 props 在未定义 Membrane 的情况下
   readPropsHasNoMembrane(storeConfig, props) {
     if (!storeConfig.membrane && props) {
       throw new Error(
@@ -266,11 +280,13 @@ class CreateStoreHook {
       )
     }
   }
+  // @@ 处理 controller 为定义
   readControllerIsNone(storeConfig) {
     if (!storeConfig.controller) {
       throw new Error('任何一个 store 都不能没有 controller')
     }
   }
+  // @@ 处理是否 promise
   readIsPromise(obj) {
     return (
       !!obj &&
@@ -278,6 +294,7 @@ class CreateStoreHook {
       typeof obj.then === 'function'
     )
   }
+  // @@ 入口函数
   main(storeConfig) {
     this.readControllerIsNone(storeConfig)
     const ref = this.writeGetRef(storeConfig)
@@ -293,8 +310,6 @@ class CreateStoreHook {
         reducer,
         initState,
         function (initArgs) {
-          console.log(context, initArgs, 296)
-          console.log(init.toString(), 297)
           return init.call({ context }, initArgs)
         }
       )

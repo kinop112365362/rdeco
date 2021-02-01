@@ -4,7 +4,7 @@ import { createStoreHook } from '../src/core/create-store-hook'
 import { AppContext, createStoreContext } from '../src/core/app-context'
 import '@testing-library/jest-dom/extend-expect'
 
-test('通过 membrane 新增的 store 部件对 UI 不可见', async () => {
+test('通过 membrane 新增的 store 部件对 UI 不可见, 除 view', async () => {
   // 独立的 TestStore 和 Test 组件
   const useTestStore = createStoreHook.main({
     name: 'testStore5',
@@ -39,7 +39,10 @@ test('通过 membrane 新增的 store 部件对 UI 不可见', async () => {
   function Test () {
     const store = useTestStore()
     console.log(store, 43)
-    expect(Object.keys(store.view)).toStrictEqual(['renderView'])
+    expect(Object.keys(store.view)).toStrictEqual([
+      'renderView',
+      'renderMembrane'
+    ])
     expect(Object.keys(store.state)).toStrictEqual(['desc'])
     expect(Object.keys(store.controller)).toStrictEqual(['onComponentStart'])
     expect(Object.keys(store.refs).length).toBe(0)

@@ -33,7 +33,26 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
     name: 'testStore1',
     initState,
     service,
-    controller
+    controller,
+    view: {
+      renderCountry () {
+        return <div role='country'>{this.state.country}</div>
+      }
+    },
+    membrane: {
+      initState: [
+        {
+          country: 'en'
+        },
+        function init (initArgs) {
+          return {
+            ...initArgs,
+            country: initArgs.language
+          }
+        }
+      ],
+      controller: {}
+    }
   })
   const useAppStore = createStore({
     initState: {
@@ -56,6 +75,7 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
         ></button>
         <span role='showConfirmModal'>{store.state.showConfirmModal}</span>
         <span role='language'>{store.state.language}</span>
+        {store.view.renderCountry()}
       </div>
     )
   }
@@ -70,7 +90,8 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
   }
   render(<App></App>)
   fireEvent.click(screen.getByRole('confirm'))
-  await waitFor(() =>
+  await waitFor(() => {
     expect(screen.getByRole('language')).toHaveTextContent('en')
-  )
+    expect(screen.getByRole('country')).toHaveTextContent('en')
+  })
 })
