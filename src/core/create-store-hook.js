@@ -108,6 +108,7 @@ class CreateStoreHook {
           refs: contextProps.refs,
           service: serviceBindContext,
           super: contextProps.superContext || null,
+          rc: contextProps.rc,
         }),
         ...args
       )
