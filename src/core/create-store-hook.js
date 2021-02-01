@@ -19,7 +19,10 @@ class CreateStoreHook {
       useReducerConfig.stateKeys = Object.keys(initStateMeta[0])
     } else {
       useReducerConfig.initState = initStateMeta
-      useReducerConfig.init = (state) => state
+      useReducerConfig.init = function init(initArgs) {
+        console.log(this, 23)
+        return initArgs
+      }
       useReducerConfig.stateKeys = Object.keys(initStateMeta)
     }
     return useReducerConfig
@@ -40,9 +43,10 @@ class CreateStoreHook {
           ...membraneUseReducerConfig.initState,
         },
         init(initArgs) {
-          return membraneUseReducerConfig.init(
-            superUseReducerConfig.init(initArgs)
-          )
+          console.log(this, 43)
+          return membraneUseReducerConfig
+            .init(superUseReducerConfig.init.call(this, initArgs))
+            .call(this)
         },
         refKeys: [
           ...superUseReducerConfig.refKeys,
@@ -285,7 +289,15 @@ class CreateStoreHook {
     return (props) => {
       this.readPropsHasNoMembrane(storeConfig, props)
       const context = useContext(AppContext)
-      const [state, dispatch] = useReducer(reducer, initState, init)
+      const [state, dispatch] = useReducer(
+        reducer,
+        initState,
+        function (initArgs) {
+          console.log(context, initArgs, 296)
+          console.log(init.toString(), 297)
+          return init.call({ context }, initArgs)
+        }
+      )
       const rc = createReducerCase.main(stateKeys, dispatch, state)
       const refs = this.writeGetRefs(refKeys, ref)
       const store = this.writeGetStoreBindContext(

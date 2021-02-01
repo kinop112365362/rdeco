@@ -4,12 +4,14 @@ import { AppContext } from '../src/core/app-context'
 import createStore, { createStoreContext } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
-test('storeConfig 中的 init 参数', async () => {
+test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
   const initState = [
-    { showConfirmModal: true },
-    initState => {
+    { showConfirmModal: true, language: '' },
+    function (initState) {
+      console.log(this, 11)
       return {
-        showConfirmModal: false
+        showConfirmModal: false,
+        language: this.context.state.language
       }
     }
   ]
@@ -33,9 +35,19 @@ test('storeConfig 中的 init 参数', async () => {
     service,
     controller
   })
+  const useAppStore = createStore({
+    initState: {
+      language: 'en'
+    },
+    controller: {
+      onLanguageChange (language) {
+        this.rc.setLanguage(language)
+      }
+    }
+  })
   function Test () {
     const store = useTestStore()
-    console.log(store, 30)
+    console.log(store, 50)
     return (
       <div>
         <button
@@ -43,12 +55,22 @@ test('storeConfig 中的 init 参数', async () => {
           onClick={store.controller.onConfirmButtonClick}
         ></button>
         <span role='showConfirmModal'>{store.state.showConfirmModal}</span>
+        <span role='language'>{store.state.language}</span>
       </div>
     )
   }
-  render(<Test></Test>)
+  function App () {
+    const appStore = useAppStore()
+
+    return (
+      <AppContext.Provider value={appStore}>
+        <Test></Test>
+      </AppContext.Provider>
+    )
+  }
+  render(<App></App>)
   fireEvent.click(screen.getByRole('confirm'))
   await waitFor(() =>
-    expect(screen.getByRole('showConfirmModal')).toHaveTextContent('true')
+    expect(screen.getByRole('language')).toHaveTextContent('en')
   )
 })
