@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/extend-expect'
 test('测试 view 的内部嵌套', async () => {
   const createStore = configCreateStore({plugins:[]})
   const initState = {
-    showConfirmModal: false
+    showConfirmModal: false,
   }
   const service = {
     async openModal(){

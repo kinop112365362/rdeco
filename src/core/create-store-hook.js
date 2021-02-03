@@ -25,6 +25,11 @@ class CreateStoreHook {
       }
       useReducerConfig.stateKeys = Object.keys(initStateMeta)
     }
+    if (useReducerConfig.stateKeys.indexOf('state') !== -1) {
+      throw new Error(
+        'State cannot be declared as a key in initState, which would conflict with the default setState function'
+      )
+    }
     return useReducerConfig
   }
   // @@ Membrane 模式下获取 useReducer 配置
