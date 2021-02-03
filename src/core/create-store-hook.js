@@ -152,11 +152,12 @@ class CreateStoreHook {
   // @@ 绑定 view 的 context
   writeGetView({ view }, viewContext) {
     const viewBindContext = {}
+    viewContext.view = viewBindContext
     if (view) {
       const viewKeys = Object.keys(view)
       viewKeys.forEach((viewKey) => {
         viewBindContext[viewKey] = (...args) => {
-          const res = view[viewKey].call(viewContext, ...args)
+          const res = view[viewKey].call(Object.freeze(viewContext), ...args)
           return res
         }
       })
@@ -169,15 +170,14 @@ class CreateStoreHook {
     storeConfig,
     { context, state, refs, props, superContext = null }
   ) {
-    return Object.freeze({
+    return {
       controller: controllerBindContext,
       state,
       refs,
       context,
       props,
-      view: storeConfig.view,
       super: superContext,
-    })
+    }
   }
   // @@ 获取 store 并兼容 Membrane 模式
   writeGetStoreWithMembrane(storeConfig, store, contextProps) {
