@@ -1,14 +1,14 @@
 ## structured-react-hook
 
-> [简体中文文档](./README_ZN.md)
+> [Document](./README_EN.md)
 
-Structured React state management framework for the enterprise
+面向企业级的结构化的 React 状态管理框架
 
-Completely native solution based on React Hook
+完全基于 React Hook 的原生方案
 
-> Online [Demo](https://codesandbox.io/s/v8v75) shows a more complex TodoApp
+> 在线 [Demo](https://codesandbox.io/s/strange-field-l5ogh) 展示了一个较为复杂的 TodoApp
 
-### Install
+### 安装
 
 ```
 yarn add structured-react-hook
@@ -16,9 +16,9 @@ or
 npm install structured-react-hook
 ```
 
-### Get started quickly with a basic example
+### 用一个基础示例快速开始
 
-To write a basic example, click the button, display Loading, invoke the server, remove Loading, and display the result returned by the server
+这里以编写一个最基本例子, 点击按钮, 显示 loading, 调用服务端, 移除 loading, 显示服务端返回的结果
 
 ```js
 import React from 'react'
@@ -28,12 +28,13 @@ const storeConfig = {
     name:'testStore',
     initState:{
         loading: false,
-        content: 'No data has been loaded'
+        content: '尚未加载任何数据'
     },
     controller:{
         async onButtonClick(){
             this.rc.setLoading(true)
-            this.rc.setContent('loading...')
+            this.rc.setContent('数据加载中...')
+            // 此处请求服务端
             const res = await api.get('api/commit')
             this.rc.setLoading(false)
             this.rc.setContent(res.data.content)
@@ -53,7 +54,7 @@ function Example(){
 
 ```
 
-### A more complicated scenario
+### 一个更复杂的场景
 
 ```js
 import React from 'react'
@@ -63,7 +64,7 @@ const storeConfig = {
     name:'testStore',
     initState:{
         loading: false,
-        content: 'No data has been loaded'
+        content: '尚未加载任何数据'
     },
     service:{
         async query(){
@@ -75,8 +76,9 @@ const storeConfig = {
         async onButtonClick(){
             this.rc.setState({
                 loading:true,
-                content:'loading...'
+                content:'数据加载中...'
             })
+            // 此处请求服务端
             const data = await this.service.query()
             this.rc.setState({
                 loading:false,
@@ -98,54 +100,54 @@ function Example(){
 
 ```
 
-## The core concept
+## 核心概念
 
-### Strictly one-way data flow
+### 严格的单向数据流
 
-Structured-react-hook follows a strict unidirectional data flow architecture
+structured-react-hook 采用严格的单向数据流架构, 遵循
 
-View → Controller[→ Service →]→ Controller → Control the flow of data from a View, including the following rules
+View → Controller[→ Service →]→ Controller → View 的数据控制流向, 包括以下规则
 
 
-- The View cannot retrieve the Service defined in the Store
-- A Controller cannot be called to another Controller, except through a membrane call to a Controller of the same name that needs to be overloaded
-- Service cannot call setState to modify the View's state trigger render
+- View 无法获取 Store 内定义的 Service
+- Controller 无法调用到其他 Controller, 除非通过 membrane 调用需要重载的同名 Controller
+- Service 无法调用 setState 来修改 View 的 state 触发 render
 
-> For membrane, see the advanced API section below
+> 关于 membrane 见后面的 高级 API 部分
 
-### Follow Flux's multi-store design
+### 遵循 flux 的多 store 设计
 
-Different from the single store concept advocated by Redux, the original useReducer is adopted to control the state, which naturally follows the design idea of Flux's multiple stores.
+和 redux 倡导的单一 store 理念不同, 再采用原生的 useReducer 来控制状态, 天然就遵守了 flux 的多 store 的设计思路, 
 
-And through a lot of engineering practice, the single store is also a seemingly good but not feasible solution, mainly because of the unknowability of the demand business, and when the business becomes large and complex,
+并且通过大量的工程实践, 单一 store 也是一个看起来美好但不可行的方案, 主要是因为需求业务的不可知性, 并且当业务变得庞大且复杂,
 
-The marginal effect of a single store drops dramatically, and in turn increases maintenance costs.
+单一 store 的边际效应会急剧下降, 甚至会反过来增加维护成本.
 
-### Secrets that drive React
+### 驱动 React 的秘密
 
-Unlike Redux, structured-react-hook does not rely on a driver library like react-redux to connect React and Redux. The secret is that structured-react-hook uses useReducer Hook internally to manage state using the ability of the React native API
+和 Redux 不同, structured-react-hook 不需要依赖类似 react-redux 这样的驱动库来连接 react 和 redux, 其秘密在于, structured-react-hook 内部使用了 useReducer hook, 利用 react 原生 api 的能力管理状态
 
-### What's StoreConfig
+### 何为 StoreConfig
 
-Store is a normal JS object that contains the following properties
+store 是一个普通的 js 对象包含以下属性
 
 ```js
 
 const storeConfig = {
-    name: ", // Must be used to distinguish store uniqueness
-    initState :{} // Must select the first argument of the useReducer
+    name:'', // 必选 用于区分 store 的唯一性
+    initState:{} // 必选 useReducer 的第一个参数
     initState:[
-        {}, () = > {}
-    ] // InitState enhancement mode, the first parameter of the array is still initState, the second parameter is useReducer init function, used to delay the calculation of initState
-    ref :{} // An object, structured-react-hook is traversed using useRef HOOK to generate the corresponding ref
-    view :{} // To manage dynamic JSX, you can write render functions
-    service :{} // Extracted Controller logic, which you may need when controllers become more complex
-    controller :{} // The controller of the store, which controls the execution of logic and the setting of UI state, must be named with an ON + a noun + a verb
+        {},()=>{}
+    ] // initState 增强模式, 数组的第一个参数依然是 initState, 第二个参数是 useReducer 的 init 函数, 用于延迟 initState 的计算
+    ref:{} // 一个对象, structured-react-hook 使用 useRef hook 遍历这个对象, 生成对应的 ref
+    view:{} // 管理动态 jsx, 可以编写 render函数
+    service:{} // 被提取出来的 controller 逻辑, 当 controller 变得复杂的时候, 你可能需要它
+    controller:{} // store 的控制器, 控制逻辑的运行和 UI 状态的设定, controller 必须以  on 开头 + 名词 + 动词 来命名
 }
 ```
-### Store Context
+### Store 上下文
 
-structured-react-hook The Store context provides the orientation state and the ability to call each other within the Store. The context is mounted on this, and you can call it from both view controllers and services. The context includes
+structured-react-hook 为所有 Store 提供了统一的上下文, 具体示例见后续 createStoreContext API, 这里提到的是每个 Store 独立的上下文. Store 上下文为 Store 内部的方法, controller view service 提供了方位状态和彼此调用的能力, 上下文挂载在 this 上, 你可以在 view controller 和 service 中调用到他, 上下文包括
 
 - rc
 - view
@@ -154,19 +156,19 @@ structured-react-hook The Store context provides the orientation state and the a
 - state
 - refs
 - name
-- context(Context shared by all stores, a global store)
-- super(with membrane)
-- props(with membrane)
+- context(所有 store 共享的上下文, 一个全局 store)
+- super(membrane 模式下)
+- props(membrane 模式下)
 
-### Controls React State secrets through RC
+### 通过 rc 控制 react state 的秘密
 
-You might be wondering, with structured-react-hook used internally as useReducer, why is there no Dispatch or Action available and why is there no need to write a Reducer? The secret is that structured-react-hook operations are automatically generated when you declare an initState and are mounted to the Store context this.rc (RC is short for reducer case), so you don't have to write a reducer action type or a reducer case like a redux
+你可能会好奇, structured-react-hook 内部使用了 useReducer, 为什么没有可用的 dispatch 或者 action 以及为什么不需要书写 reducer? 其秘密在于 structured-react-hook 在你声明 initState 的时候就自动生成了对应的操作方法, 并挂载到 Store 上下文 this.rc 上了, rc 是 reducer case 的缩写, 因此你不需要像 redux 那样编写繁琐的 action type 和 reducer
 
 
 
-### Scenario example
+### 场景化示例
 
-#### Use rc to drive the React function component
+#### 使用 rc 驱动 React 函数组件
 
 ```js
 import React from 'react';
@@ -201,7 +203,7 @@ function App(){
 
 ```
 
-#### Use this.rc.setState to bulk modify the state
+#### 使用 this.rc.setState 批量修改状态
 
 ```js
 import React from 'react';
@@ -248,22 +250,22 @@ function App(){
 
 ```
 
-#### Replace this in ClassComponent with ref to implement some non-UI consumption state declarations
+#### 用 ref 代替 classComponent 中的 this, 实现一些非 UI 消费状态的声明
 
-When you have some values in storeConfig that need to be saved, but don't need to be speared into the UI, consider using ref
+当你的 storeConfig 中存在一些需要保存下来的值, 但是又不需要吐到 UI 中, 就可以考虑使用 ref
 
-> For more scenario-based examples, see the test cases in the test cases directory
+> 更多场景化的示例可见测试用例 test 目录下的测试用例
 
-## Membrane mode
+## Membrane 模式
 
-Membrane mode is a weapon we extract in the context of enterprise-level application development to extend the life cycle of your code. Simply put, it can protect the most important parts of your code
+membrane 模式是我们在企业级应用开发的场景下提炼出来的用于延长代码生命周期的武器, 简单的说他可以保护你代码中最重要的部分
 
-Let's use a real-world scenario to understand membrane
+让我们用一个实际场景来理解 membrane 
 
-One of the problems we often encounter in development is that we approach business processes differently for different channels, but over time, that difference eats away at us
-Reusable code.
+在实际开发中, 我们经常会遇到的一个问题是针对不同渠道在业务流程处理上有所差异, 但随着时间推移, 这种差异会逐渐侵蚀污染我们
+代码的可复用性.
 
-For example,
+例如
 
 ```js
 
@@ -283,8 +285,8 @@ function sub(){
 
 ```
 
-This branch of logic is abundant in real software engineering, and when we need to quickly reuse the logic in main and sub functions, we need to refactor, but the real world scenario is much more complex than this.
-We often don't have enough time to refactor, so we're left with...
+这种逻辑分支大量存在于真实的软件工程内部, 当我们需要快速复用 main 和 sub 函数内的逻辑, 就需要进行重构, 但真实的场景远比这个复杂.
+我们通常没有足够的时间去重构, 于是就只能...
 
 ```js
 
@@ -307,11 +309,11 @@ function sub(){
 
 ```
 
-There may be many ways to solve IF, but so far none of them are effective at unifying this branch logic, and even if you refactor it diligently, it will still end up scattered throughout the whole project
-To solve this problem, we create membrane, a kind of pluggable branch logic of the normalized mode
+解决 if 可能有很多种方法, 但目前为止并没有一种方法能够有效的将这种分支逻辑归一到一起, 即便你勤于重构但最终依然会散落在整个工程的各个部分
+为了解决这个问题, 我们创造了 membrane, 一种可插拔的分支逻辑的归一模式
 
 ```js
-// This code is used to explain what is membrane. It has been simplified for this purpose. The actual use will be slightly different
+// 这段代码用于解释什么是 membrane , 为此做了精简, 实际使用会稍有不同
 const storeConfig = {
     main(){
         //todo sth
@@ -341,8 +343,8 @@ const storeConfig = {
 
 ```
 
-If we want to explain the design behind membrane, we may need to take up a lot of space. For this part, please refer to the content in the follow-up docs. Here, I will make a brief summary
-The inspiration of membrane comes from the biological structure of cell membrane, and meanwhile draws on the design of hook pluggable and object-oriented inheritance and function overload. Here's a real use case
+如果要解释 membrane 背后的设计, 恐怕得占据不少篇幅, 关于这部分可以见后续 docs 内的内容, 在这里我简单概括下
+membrane 的灵感来自于细胞膜的生物结构, 同时借鉴了 hook 可插拔的设计还有面向对象中的继承和函数重载. 下面是一个真实的用例
 
 ```js
 import React from 'react'
@@ -386,6 +388,6 @@ function App(){
 
 ```
 
-If you want to reuse this storeConfig, all you have to do is exclude the membrane, and that's the pluggable membrane.
+如果你要复用这个 storeConfig, 你只需要排除 membrane 即可, 这就是 membrane 的可插拔.
 
 
