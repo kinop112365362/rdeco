@@ -2,6 +2,7 @@ import { useContext, useReducer, useRef } from 'react'
 import pick from 'object.pick'
 import { reducerUtils, createReducerCase } from './reducer-utils'
 import { AppContext } from './app-context'
+import merge from 'lodash.merge'
 
 class CreateStoreHook {
   // @@ 获取 useReducer 的配置
@@ -107,7 +108,7 @@ class CreateStoreHook {
           refs: contextProps.refs,
           rc: contextProps.rc,
           service: serviceBindContext,
-          super: contextProps.superContext || null,
+          // super: contextProps.superContext || null,
         }),
         ...args
       )
@@ -122,7 +123,7 @@ class CreateStoreHook {
           state: contextProps.state,
           refs: contextProps.refs,
           service: serviceBindContext,
-          super: contextProps.superContext || null,
+          // super: contextProps.superContext || null,
           rc: contextProps.rc,
         }),
         ...args
@@ -173,7 +174,7 @@ class CreateStoreHook {
   writeGetViewContext(
     controllerBindContext,
     storeConfig,
-    { context, state, refs, props, superContext = null }
+    { context, state, refs, props }
   ) {
     return {
       controller: controllerBindContext,
@@ -181,11 +182,12 @@ class CreateStoreHook {
       refs,
       context,
       props,
-      super: superContext,
+      // super: superContext,
     }
   }
   // @@ 获取 store 并兼容 Membrane 模式
   writeGetStoreWithMembrane(storeConfig, store, contextProps) {
+    // 继承是一个不必要的模式, 现代软件开发的需求通过 hook + overload 可以覆盖 super 的场景, 该方法先弃用
     if (storeConfig.membrane) {
       const membraneStore = {}
       contextProps.superContext = store
@@ -227,15 +229,26 @@ class CreateStoreHook {
   // @@ 绑定 store 的 context
   writeGetStoreBindContext(storeConfig, useReducerConfig, contextProps) {
     let store = {}
-    const serviceBindContext = this.writeGetService(storeConfig, contextProps)
+    let storeConfigMergedMembrane = storeConfig
+    if (storeConfig.membrane) {
+      storeConfigMergedMembrane = merge(storeConfig, storeConfig.membrane)
+    }
+    const serviceBindContext = this.writeGetService(
+      storeConfigMergedMembrane,
+      contextProps
+    )
     const controllerBindContext = this.writeGetController(
-      storeConfig,
+      storeConfigMergedMembrane,
       contextProps,
       serviceBindContext
     )
     const viewBindContext = this.writeGetView(
-      storeConfig,
-      this.writeGetViewContext(controllerBindContext, storeConfig, contextProps)
+      storeConfigMergedMembrane,
+      this.writeGetViewContext(
+        controllerBindContext,
+        storeConfigMergedMembrane,
+        contextProps
+      )
     )
     store.rc = contextProps.rc
     store.service = serviceBindContext
@@ -243,13 +256,20 @@ class CreateStoreHook {
     store.refs = contextProps.refs
     store.controller = controllerBindContext
     store.view = viewBindContext
-    store = this.writeGetStoreWithMembrane(
-      storeConfig,
-      store,
-      contextProps,
-      useReducerConfig
-    )
-    return store
+    // store = this.writeGetStoreWithMembrane(
+    //   storeConfig,
+    //   store,
+    //   contextProps,
+    //   useReducerConfig
+    // )
+    // const { stateKeys, refKeys } = this.writeGetUseReducerConfig(storeConfig)
+    // return Object.freeze({
+    //   state: pick(store.state, stateKeys),
+    //   refs: pick(store.refs, refKeys),
+    //   controller: pick(store.controller, Object.keys(storeConfig.controller)),
+    //   view: store.view,
+    // })
+    return Object.freeze(store)
   }
   // @@ 获取 refs
   writeGetRefs(refsKeys, refs) {
