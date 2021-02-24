@@ -28,7 +28,17 @@ function createComponent(membrane = {controller:{}}){
     view:{
       renderView1(){
         return(
-          <div role="renderView1">renderView1</div>
+          <div role="renderView1">{this.view.renderView2()}</div>
+        )
+      },
+      renderView2(){
+        return(
+          <div role="renderView2">{this.view.renderView3()}</div>
+        )
+      },
+      renderView3(){
+        return(
+          <div role="renderView3">renderView3</div>
         )
       },
     },
@@ -36,6 +46,7 @@ function createComponent(membrane = {controller:{}}){
   })
   function Test () {
     const store = useTestStore()
+    console.log(store.view.renderView2, 49)
     return (
       <div>{store.view.renderView1()}</div>
     )
@@ -47,13 +58,13 @@ test('测试通过 membrane 修改封装后的组件', async () => {
   const MyTest = createComponent({
     controller:{},
     view:{
-      renderView1(){
+      renderView3(){
         return(
-          <div role="renderView1">My renderView1</div>
+          <div role="renderView3">My renderView3</div>
         )
       }
     }
   })
   render(<MyTest></MyTest>)
-  expect(screen.getByRole('renderView1')).toHaveTextContent('My renderView1')
+  expect(screen.getByRole('renderView3')).toHaveTextContent('My renderView3')
 })
