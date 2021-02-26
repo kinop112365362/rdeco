@@ -1,5 +1,5 @@
 import { shared } from './shared'
-import merge from 'lodash.merge'
+import mergeWith from 'lodash.mergewith'
 class CreateReducerCase {
   readIsFunction(value) {
     return typeof value === 'function'
@@ -72,7 +72,11 @@ class ReducerUtils {
       console.log('prev store.state =>', state)
       console.log('next state =>', action[1])
       console.groupEnd()
-      const newState = merge(state, result)
+      const newState = mergeWith(state, result, (objValue, srcValue) => {
+        if (Array.isArray(objValue)) {
+          return [...srcValue]
+        }
+      })
       return { ...newState }
     }
   }
