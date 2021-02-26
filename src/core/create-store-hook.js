@@ -1,5 +1,5 @@
 import { useContext, useReducer, useRef } from 'react'
-import pick from 'object.pick'
+// import pick from 'object.pick'
 import { reducerUtils, createReducerCase } from './reducer-utils'
 import { AppContext } from './app-context'
 import merge from 'lodash.merge'
@@ -182,50 +182,51 @@ class CreateStoreHook {
       refs,
       context,
       props,
+      styles: storeConfig.styles,
       // super: superContext,
     }
   }
   // @@ 获取 store 并兼容 Membrane 模式
-  writeGetStoreWithMembrane(storeConfig, store, contextProps) {
-    // 继承是一个不必要的模式, 现代软件开发的需求通过 hook + overload 可以覆盖 super 的场景, 该方法先弃用
-    if (storeConfig.membrane) {
-      const membraneStore = {}
-      contextProps.superContext = store
-      const membraneServiceBindContext = this.writeGetService(
-        storeConfig.membrane,
-        contextProps
-      )
-      const membraneControllerBindContext = this.writeGetController(
-        storeConfig.membrane,
-        contextProps,
-        membraneServiceBindContext
-      )
-      const membraneViewBindContext = this.writeGetView(
-        storeConfig.membrane,
-        this.writeGetViewContext(
-          membraneControllerBindContext,
-          storeConfig.membrane,
-          contextProps
-        )
-      )
-      membraneStore.view = { ...store.view, ...membraneViewBindContext }
-      membraneStore.controller = {
-        ...store.controller,
-        ...membraneControllerBindContext,
-      }
-      const { stateKeys, refKeys } = this.writeGetUseReducerConfig(storeConfig)
-      return Object.freeze({
-        state: pick(store.state, stateKeys),
-        refs: pick(store.refs, refKeys),
-        controller: pick(
-          membraneStore.controller,
-          Object.keys(storeConfig.controller)
-        ),
-        view: membraneStore.view,
-      })
-    }
-    return Object.freeze(store)
-  }
+  // writeGetStoreWithMembrane(storeConfig, store, contextProps) {
+  // 继承是一个不必要的模式, 现代软件开发的需求通过 hook + overload 可以覆盖 super 的场景, 该方法先弃用
+  // if (storeConfig.membrane) {
+  //   const membraneStore = {}
+  //   contextProps.superContext = store
+  //   const membraneServiceBindContext = this.writeGetService(
+  //     storeConfig.membrane,
+  //     contextProps
+  //   )
+  //   const membraneControllerBindContext = this.writeGetController(
+  //     storeConfig.membrane,
+  //     contextProps,
+  //     membraneServiceBindContext
+  //   )
+  //   const membraneViewBindContext = this.writeGetView(
+  //     storeConfig.membrane,
+  //     this.writeGetViewContext(
+  //       membraneControllerBindContext,
+  //       storeConfig.membrane,
+  //       contextProps
+  //     )
+  //   )
+  //   membraneStore.view = { ...store.view, ...membraneViewBindContext }
+  //   membraneStore.controller = {
+  //     ...store.controller,
+  //     ...membraneControllerBindContext,
+  //   }
+  //   const { stateKeys, refKeys } = this.writeGetUseReducerConfig(storeConfig)
+  //   return Object.freeze({
+  //     state: pick(store.state, stateKeys),
+  //     refs: pick(store.refs, refKeys),
+  //     controller: pick(
+  //       membraneStore.controller,
+  //       Object.keys(storeConfig.controller)
+  //     ),
+  //     view: membraneStore.view,
+  //   })
+  // }
+  // return Object.freeze(store)
+  // }
   // @@ 绑定 store 的 context
   writeGetStoreBindContext(storeConfig, useReducerConfig, contextProps) {
     let store = {}

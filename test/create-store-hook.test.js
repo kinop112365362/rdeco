@@ -188,6 +188,51 @@ test('rc.setState()做 state 声明检查', async () => {
     )
   )
 })
+test('rc.setState()做 state 声明检查', async () => {
+  const initState = {
+    count: 0,
+    errMessage: ''
+  }
+  const service = {}
+  const controller = {
+    onConfirmButtonClick () {
+      try {
+        this.rc.setState({
+          ghostCount: 1,
+          ghostCount2: 2,
+          ghostCount3: 3
+        })
+      } catch (e) {
+        this.rc.setErrMessage(e.message)
+      }
+    }
+  }
+  const useTestStore = createStoreHook.main({
+    name: 'testStore4',
+    initState,
+    service,
+    controller
+  })
+  function Test () {
+    const store = useTestStore()
+    return (
+      <div>
+        <button
+          role='confirm'
+          onClick={store.controller.onConfirmButtonClick}
+        ></button>
+        <span role='showConfirmModal'>{store.state.errMessage}</span>
+      </div>
+    )
+  }
+  render(<Test></Test>)
+  fireEvent.click(screen.getByRole('confirm'))
+  await waitFor(() =>
+    expect(screen.getByRole('showConfirmModal')).toHaveTextContent(
+      '不存在的 state => [ghostCount,ghostCount2,ghostCount3], 请确保setState中更新的state在initState中已经声明'
+    )
+  )
+})
 test('测试 Context 在 store 中的使用', async () => {
   const useAppContext = createStoreHook.main({
     initState: {
