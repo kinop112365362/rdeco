@@ -11,6 +11,7 @@ module.exports = {
     ],
   ],
   plugins: [
+    ['@emotion'],
     ['@babel/proposal-decorators', { legacy: true }],
     ['@babel/proposal-object-rest-spread', { loose }],
     '@babel/transform-react-jsx',

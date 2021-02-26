@@ -6,13 +6,13 @@ import '@testing-library/jest-dom/extend-expect'
 
 test('运行 createStore  基本功能测试, initState → controller → service → reducer → view', async () => {
   const initState = {
-    showConfirmModal: false
+    showConfirmModal: false,
+    array: [1, 2, 3]
   }
   const service = {
     openModal: [
       'openModal',
       function openModal () {
-        console.log(this, 13)
       }
     ]
   }
@@ -20,6 +20,7 @@ test('运行 createStore  基本功能测试, initState → controller → servi
     onConfirmButtonClick () {
       this.service.openModal()
       this.rc.setShowConfirmModal('true')
+      this.rc.setArray([0])
     }
   }
   const useTestStore = createStoreHook.main({
@@ -30,7 +31,6 @@ test('运行 createStore  基本功能测试, initState → controller → servi
   })
   function Test () {
     const store = useTestStore()
-    console.log(store, 30)
     return (
       <div>
         <button
@@ -38,14 +38,16 @@ test('运行 createStore  基本功能测试, initState → controller → servi
           onClick={store.controller.onConfirmButtonClick}
         ></button>
         <span role='showConfirmModal'>{store.state.showConfirmModal}</span>
+        <span role='array'>{store.state.array}</span>
       </div>
     )
   }
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('confirm'))
-  await waitFor(() =>
+  await waitFor(() => {
     expect(screen.getByRole('showConfirmModal')).toHaveTextContent('true')
-  )
+    expect(screen.getByRole('array')).toHaveTextContent(0)
+  })
 })
 test('运行异步 service 测试', async () => {
   const initState = {
@@ -188,6 +190,51 @@ test('rc.setState()做 state 声明检查', async () => {
     )
   )
 })
+test('rc.setState()做 state 声明检查', async () => {
+  const initState = {
+    count: 0,
+    errMessage: ''
+  }
+  const service = {}
+  const controller = {
+    onConfirmButtonClick () {
+      try {
+        this.rc.setState({
+          ghostCount: 1,
+          ghostCount2: 2,
+          ghostCount3: 3
+        })
+      } catch (e) {
+        this.rc.setErrMessage(e.message)
+      }
+    }
+  }
+  const useTestStore = createStoreHook.main({
+    name: 'testStore4',
+    initState,
+    service,
+    controller
+  })
+  function Test () {
+    const store = useTestStore()
+    return (
+      <div>
+        <button
+          role='confirm'
+          onClick={store.controller.onConfirmButtonClick}
+        ></button>
+        <span role='showConfirmModal'>{store.state.errMessage}</span>
+      </div>
+    )
+  }
+  render(<Test></Test>)
+  fireEvent.click(screen.getByRole('confirm'))
+  await waitFor(() =>
+    expect(screen.getByRole('showConfirmModal')).toHaveTextContent(
+      '不存在的 state => [ghostCount,ghostCount2,ghostCount3], 请确保setState中更新的state在initState中已经声明'
+    )
+  )
+})
 test('测试 Context 在 store 中的使用', async () => {
   const useAppContext = createStoreHook.main({
     initState: {
@@ -212,7 +259,6 @@ test('测试 Context 在 store 中的使用', async () => {
     initState: {},
     controller: {
       onButtonClick () {
-        console.log(this, 179)
         this.context.controller.onGlobalSet()
       }
     }
@@ -279,11 +325,8 @@ test('测试 rc.setState 可以获取前置的 state', async () => {
   const service = {}
   const controller = {
     onComponentInit () {
-      console.log(this.rc, 240)
       this.rc.setState(prevState => {
-        console.log(prevState, 241)
         if (prevState.count === 0) {
-          console.log(prevState, 243)
           return {
             msg: 'count 是 0'
           }
@@ -302,7 +345,6 @@ test('测试 rc.setState 可以获取前置的 state', async () => {
     useEffect(() => {
       store.controller.onComponentInit()
     }, [])
-    console.log(store.state, 260)
     return (
       <div>
         <span role='msg'>{store.state.msg}</span>
@@ -333,7 +375,6 @@ test('测试单独的 rc.set, 可以联动其他的 rc 可以获取前置的 sta
     useEffect(() => {
       store.controller.onComponentInit()
     }, [])
-    console.log(store.state.count, 295)
     return (
       <div>
         <span role='msg'>{store.state.count}</span>
