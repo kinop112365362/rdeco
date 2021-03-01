@@ -136,20 +136,17 @@ test('测试 membrane 的全部功能', async () => {
       },
       service: {
         subService () {
-          // this.super.service.superService()
         }
       },
       controller: {
         onComponentStart () {
           console.log(this.props, 142)
           if (this.props === '17dz') {
-            // this.super.controller.onComponentStart()
             this.service.subService()
-            this.rc.setMembraneService('membraneService')
-            this.rc.setTitle('extends controller')
             this.rc.setMembraneTitle('spec state in membrane')
+            this.rc.setTitle('extends controller')
+            this.rc.setMembraneService('membraneService')
           }
-          // this.super.controller.onComponentStart()
         }
       },
       view: {
@@ -162,11 +159,11 @@ test('测试 membrane 的全部功能', async () => {
           )
         },
         renderView () {
+          console.log(this.state, 162)
           return (
             <div>
-              {/* {this.props === '17dz' && this.view.renderView()} */}
               <div role='membraneTitle'>{this.state.membraneTitle}</div>
-              {this.view.renderButton.call(this)}
+              {this.view.renderButton()}
               <div role='membraneService'>{this.state.membraneService}</div>
             </div>
           )
@@ -176,6 +173,7 @@ test('测试 membrane 的全部功能', async () => {
   })
   function Test () {
     const store = useTestStore('17dz')
+    console.log(store, 179)
     return <div role='global'>{store.view.renderView()}</div>
   }
   // App 初始化

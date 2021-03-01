@@ -5,6 +5,7 @@ import { AppContext } from './app-context'
 import merge from 'lodash.merge'
 
 class CreateStoreHook {
+  constructor() {}
   // @@ 获取 useReducer 的配置
   writeGetUseReducerConfig(storeConfig) {
     if (storeConfig.initState === undefined) {
@@ -156,32 +157,58 @@ class CreateStoreHook {
     return serviceBindContext
   }
   // @@ 绑定 view 的 context
-  writeGetView({ view }, viewContext) {
+  writeGetView({ view }, viewContext, renderCache) {
     const viewBindContext = {}
     viewContext.view = viewBindContext
     if (view) {
       const viewKeys = Object.keys(view)
       viewKeys.forEach((viewKey) => {
-        viewBindContext[viewKey] = (...args) => {
-          const res = view[viewKey].call(Object.freeze(viewContext), ...args)
-          return res
+        if (Array.isArray(view[viewKey])) {
+          viewBindContext[viewKey] = (...args) => {
+            const fn = view[viewKey][0]
+            const deps = view[viewKey][1](viewContext)
+            let depsStr = ''
+            try {
+              depsStr = JSON.stringify(deps)
+            } catch (error) {
+              throw new Error(
+                `view[${viewKey}] 的依赖函数无法 JSON 序列化, 请检查`
+              )
+            }
+            if (renderCache[viewKey]) {
+              if (!Object.is(renderCache[viewKey].depsStr, depsStr)) {
+                const res = fn.call(Object.freeze(viewContext), ...args)
+                return res
+              } else {
+                return renderCache[viewKey].value
+              }
+            } else {
+              const res = fn.call(Object.freeze(viewContext), ...args)
+              renderCache[viewKey] = {
+                depsStr,
+                value: res,
+              }
+              return res
+            }
+          }
+        } else {
+          viewBindContext[viewKey] = (...args) => {
+            const res = view[viewKey].call(Object.freeze(viewContext), ...args)
+            return res
+          }
         }
       })
     }
     return viewBindContext
   }
   // @@ 获取 view 的 context
-  writeGetViewContext(
-    controllerBindContext,
-    storeConfig,
-    { context, state, refs, props }
-  ) {
+  writeGetViewContext(controllerBindContext, storeConfig, contextProps) {
     return {
       controller: controllerBindContext,
-      state,
-      refs,
-      context,
-      props,
+      state: contextProps.state,
+      refs: contextProps.refs,
+      context: contextProps.context,
+      props: contextProps.props,
       styles: storeConfig.styles,
       // super: superContext,
     }
@@ -228,7 +255,12 @@ class CreateStoreHook {
   // return Object.freeze(store)
   // }
   // @@ 绑定 store 的 context
-  writeGetStoreBindContext(storeConfig, useReducerConfig, contextProps) {
+  writeGetStoreBindContext(
+    storeConfig,
+    useReducerConfig,
+    contextProps,
+    renderCache
+  ) {
     let store = {}
     let storeConfigMergedMembrane = storeConfig
     if (storeConfig.membrane) {
@@ -249,7 +281,8 @@ class CreateStoreHook {
         controllerBindContext,
         storeConfigMergedMembrane,
         contextProps
-      )
+      ),
+      renderCache
     )
     store.rc = contextProps.rc
     store.service = serviceBindContext
@@ -329,6 +362,7 @@ class CreateStoreHook {
     )
     const { stateKeys, init, initState, refKeys } = useReducerConfig
     const reducer = reducerUtils.main(stateKeys)
+    const renderCache = {}
     return (props) => {
       this.readPropsHasNoMembrane(storeConfig, props)
       const context = useContext(AppContext)
@@ -339,6 +373,7 @@ class CreateStoreHook {
           return init.call({ context }, initArgs)
         }
       )
+
       const rc = createReducerCase.main(stateKeys, dispatch, state)
       const refs = this.writeGetRefs(refKeys, ref)
       const store = this.writeGetStoreBindContext(
@@ -350,8 +385,10 @@ class CreateStoreHook {
           refs,
           state,
           props,
-        }
+        },
+        renderCache
       )
+
       return store
     }
   }
