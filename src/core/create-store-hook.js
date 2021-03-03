@@ -157,8 +157,9 @@ class CreateStoreHook {
     return serviceBindContext
   }
   // @@ 绑定 view 的 context
-  writeGetView({ view }, viewContext, renderCache) {
+  writeGetView(storeConfig, viewContext, renderCache) {
     const viewBindContext = {}
+    const { view, hook } = storeConfig
     viewContext.view = viewBindContext
     if (view) {
       const viewKeys = Object.keys(view)
@@ -180,6 +181,7 @@ class CreateStoreHook {
                 const res = fn.call(Object.freeze(viewContext), ...args)
                 return res
               } else {
+                console.log(renderCache[viewKey].value, 183)
                 return renderCache[viewKey].value
               }
             } else {
@@ -198,6 +200,17 @@ class CreateStoreHook {
           }
         }
       })
+      // 当存在全局的 render 函数 hook, 才执行
+      if (hook?.renderWrapper) {
+        const viewBindContextWithHook = {}
+        viewKeys.forEach((viewKey) => {
+          viewBindContextWithHook[viewKey] = () => {
+            return hook.renderWrapper(viewBindContext[viewKey])
+          }
+        })
+        viewContext.view = viewBindContextWithHook
+        return viewBindContextWithHook
+      }
     }
     return viewBindContext
   }
