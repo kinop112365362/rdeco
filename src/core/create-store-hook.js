@@ -76,45 +76,56 @@ class CreateStoreHook {
     return controllerKeys
   }
   // @@ 绑定 controller 的 context
-  writeGetController({ controller }, contextProps, serviceBindContext) {
-    this.readControllerIsNone({ controller })
+  writeGetController(storeConfig, contextProps, serviceBindContext) {
     const controllerBindContext = {}
+    const { controller, hook } = storeConfig
+    this.readControllerIsNone({ controller })
+    const controllerContext = Object.freeze({
+      context: contextProps.context,
+      props: contextProps.props,
+      state: contextProps.state,
+      refs: contextProps.refs,
+      rc: contextProps.rc,
+      service: serviceBindContext,
+      // super: contextProps.superContext || null,
+    })
     const controllerKeys = this.writeGetControllerKeys(controller)
     controllerKeys.forEach((controllerKey) => {
       const controllerIsArray = Array.isArray(controller[controllerKey])
       if (controllerIsArray) {
-        controllerBindContext[controllerKey] = this.writeControllerBindHandler(
-          controller[controllerKey][1],
-          contextProps,
-          serviceBindContext
-        )
+        controllerBindContext[controllerKey] = (...args) => {
+          const res = controller[controllerKey][1].call(
+            controllerContext,
+            ...args
+          )
+          return res
+        }
       } else {
-        controllerBindContext[controllerKey] = this.writeControllerBindHandler(
-          controller[controllerKey],
-          contextProps,
-          serviceBindContext
-        )
+        controllerBindContext[controllerKey] = (...args) => {
+          const res = controller[controllerKey].call(controllerContext, ...args)
+          return res
+        }
       }
     })
-    return controllerBindContext
-  }
-  // @@ controller 绑定 context 的 helper 函数
-  writeControllerBindHandler(target, contextProps, serviceBindContext) {
-    return (...args) => {
-      const res = target.call(
-        Object.freeze({
-          context: contextProps.context,
-          props: contextProps.props,
-          state: contextProps.state,
-          refs: contextProps.refs,
-          rc: contextProps.rc,
-          service: serviceBindContext,
-          // super: contextProps.superContext || null,
-        }),
-        ...args
-      )
-      return res
+    if (hook) {
+      const controllerBindContextWithHook = {}
+      controllerKeys.forEach((controllerKey) => {
+        controllerBindContextWithHook[controllerKey] = async (...args) => {
+          const beforeHookKey = `before${controllerKey.slice(2)}`
+          const afterHookKey = `after${controllerKey.slice(2)}`
+          if (hook[beforeHookKey]) {
+            await hook[beforeHookKey].call(controllerContext)
+          }
+          const res = controller[controllerKey].call(controllerContext, ...args)
+          if (hook[afterHookKey]) {
+            await hook[afterHookKey].call(controllerContext)
+          }
+          return res
+        }
+      })
+      return controllerBindContextWithHook
     }
+    return controllerBindContext
   }
   // @@ service 绑定 context 的 helper 函数
   writeServiceBindHandler(target, contextProps, serviceBindContext) {
