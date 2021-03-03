@@ -205,7 +205,15 @@ class CreateStoreHook {
         const viewBindContextWithHook = {}
         viewKeys.forEach((viewKey) => {
           viewBindContextWithHook[viewKey] = () => {
-            return hook.renderWrapper(viewBindContext[viewKey])
+            return hook.renderWrapper.call(
+              {
+                state: viewContext.state,
+                refs: viewContext.refs,
+                controller: viewContext.controller,
+              },
+              viewBindContext[viewKey],
+              viewKey
+            )
           }
         })
         viewContext.view = viewBindContextWithHook
