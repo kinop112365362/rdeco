@@ -43,10 +43,9 @@ test('测试 controller hook', async () => {
       }
     },
     hook:{
-      beforeConfirmButtonClick(){
+      controllerWrapper(target, key){
         console.log('before')
-      },
-      afterConfirmButtonClick(){
+        target()
         console.log('after')
       }
     }

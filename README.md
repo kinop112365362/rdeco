@@ -196,6 +196,7 @@ initState:{
 
 ```js
 this.rc.setState(prevState => nextState) // 此处 state 等于 initState
+// 特别注意的是, set 操作, 如果传入的是对象, 将会和原有对象进行 deep merge, 如果传入的是数组, 则会覆盖原数组.
 this.rc.setName(prevState => nextState) // 此处 state 等于 'srh'
 ```
 

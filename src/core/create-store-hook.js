@@ -97,33 +97,24 @@ class CreateStoreHook {
       const controllerIsArray = Array.isArray(controller[controllerKey])
       if (controllerIsArray) {
         controllerBindContext[controllerKey] = (...args) => {
-          const res = controller[controllerKey][1].call(
-            controllerContext,
-            ...args
-          )
-          return res
+          controller[controllerKey][1].call(controllerContext, ...args)
         }
       } else {
         controllerBindContext[controllerKey] = (...args) => {
-          const res = controller[controllerKey].call(controllerContext, ...args)
-          return res
+          controller[controllerKey].call(controllerContext, ...args)
         }
       }
     })
-    if (hook) {
+    if (hook?.controllerWrapper) {
       const controllerBindContextWithHook = {}
       controllerKeys.forEach((controllerKey) => {
-        controllerBindContextWithHook[controllerKey] = async (...args) => {
-          const beforeHookKey = `before${controllerKey.slice(2)}`
-          const afterHookKey = `after${controllerKey.slice(2)}`
-          if (hook[beforeHookKey]) {
-            await hook[beforeHookKey].call(controllerContext)
-          }
-          const res = controller[controllerKey].call(controllerContext, ...args)
-          if (hook[afterHookKey]) {
-            await hook[afterHookKey].call(controllerContext)
-          }
-          return res
+        controllerBindContextWithHook[controllerKey] = (...args) => {
+          hook.controllerWrapper.call(
+            controllerContext,
+            controller[controllerKey],
+            controllerKey,
+            ...args
+          )
         }
       })
       return controllerBindContextWithHook
@@ -195,7 +186,6 @@ class CreateStoreHook {
                 const res = fn.call(Object.freeze(viewContext), ...args)
                 return res
               } else {
-                console.log(renderCache[viewKey].value, 183)
                 return renderCache[viewKey].value
               }
             } else {
@@ -390,7 +380,6 @@ class CreateStoreHook {
   }
   // @@ 入口函数
   main(storeConfig) {
-    console.log(storeConfig, 393)
     if (storeConfig.name) {
       if (this.combination[storeConfig.name]) {
         throw new Error(`Store 命名冲突, 这个 ${storeConfig.name} 已经被注册了`)
@@ -429,7 +418,6 @@ class CreateStoreHook {
         },
         renderCache
       )
-      console.log(storeConfig, 427)
 
       this.combination[storeConfig.name] = {
         ...store.controller,
