@@ -24,7 +24,6 @@ test('运行 createStore  基本功能测试, initState → controller → servi
     }
   }
   const useTestStore = createStoreHook.main({
-    name: 'testStore1',
     initState,
     service,
     controller
@@ -70,7 +69,6 @@ test('运行异步 service 测试', async () => {
     }
   }
   const useTestStore = createStoreHook.main({
-    name: 'testStore2',
     initState,
     service,
     controller
@@ -122,7 +120,6 @@ test('运行 controller 增强模式测试, logPlugin 运行正常', async () =>
     ]
   }
   const useTestStore = createStoreHook.main({
-    name: 'testStore5',
     initState,
     service,
     controller
@@ -165,7 +162,6 @@ test('rc.setState()做 state 声明检查', async () => {
     }
   }
   const useTestStore = createStoreHook.main({
-    name: 'testStore4',
     initState,
     service,
     controller
@@ -210,7 +206,6 @@ test('rc.setState()做 state 声明检查', async () => {
     }
   }
   const useTestStore = createStoreHook.main({
-    name: 'testStore4',
     initState,
     service,
     controller
@@ -255,7 +250,6 @@ test('测试 Context 在 store 中的使用', async () => {
     )
   }
   const useTestStore = createStoreHook.main({
-    name: 'testStore5',
     initState: {},
     controller: {
       onButtonClick () {
@@ -281,7 +275,6 @@ test('测试 Context 在 store 中的使用', async () => {
 })
 test('运行 view 模块, 测试 render 函数', async () => {
   const useTestStore = createStoreHook.main({
-    name: 'testStore',
     initState: {
       renderButton: true
     },
@@ -335,7 +328,6 @@ test('测试 rc.setState 可以获取前置的 state', async () => {
     }
   }
   const useTestStore = createStoreHook.main({
-    name: 'testStore7',
     initState,
     service,
     controller
@@ -365,7 +357,6 @@ test('测试单独的 rc.set, 可以联动其他的 rc 可以获取前置的 sta
     }
   }
   const useTestStore = createStoreHook.main({
-    name: 'testStore7',
     initState,
     service,
     controller

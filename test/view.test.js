@@ -21,7 +21,6 @@ test('测试 view 的内部嵌套', async () => {
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     service,
     controller,

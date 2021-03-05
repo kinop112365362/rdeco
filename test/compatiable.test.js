@@ -23,7 +23,6 @@ test('测试对 createStore 的兼容性', async () => {
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     service,
     controller
@@ -67,7 +66,6 @@ test('测试对 createStoreContext 的兼容性', async () => {
     )
   }
   const useTestStore = createStore({
-    name: 'testStore5',
     initState: {},
     controller: {
       onButtonClick () {

@@ -4,60 +4,9 @@ import { createStoreHook } from '../src/core/create-store-hook'
 import { AppContext, createStoreContext } from '../src/core/app-context'
 import '@testing-library/jest-dom/extend-expect'
 
-// test('通过 membrane 新增的 store 部件对 UI 不可见, 除 view', async () => {
-//   // 独立的 TestStore 和 Test 组件
-//   const useTestStore = createStoreHook.main({
-//     name: 'testStore5',
-//     initState: {
-//       desc: ''
-//     },
-//     view: {
-//       renderView () {
-//         return <div role='desc'>{this.state.desc}</div>
-//       }
-//     },
-//     controller: {
-//       onComponentStart () {
-//         this.rc.setDesc('没有检测到平台异常')
-//       }
-//     },
-//     membrane: {
-//       initState: {
-//         text: '欢迎来到 17dz'
-//       },
-//       ref: {
-//         el: 0
-//       },
-//       view: {
-//         renderMembrane () {}
-//       },
-//       controller: {
-//         onMembraneController () {}
-//       }
-//     }
-//   })
-//   function Test () {
-//     const store = useTestStore()
-//     console.log(store, 43)
-//     expect(Object.keys(store.view)).toStrictEqual([
-//       'renderView',
-//       'renderMembrane'
-//     ])
-//     expect(Object.keys(store.state)).toStrictEqual(['desc'])
-//     expect(Object.keys(store.controller)).toStrictEqual(['onComponentStart'])
-//     expect(Object.keys(store.refs).length).toBe(0)
-//     return <div role='global'>{store.view.renderView()}</div>
-//   }
-//   // App 初始化
-//   function App () {
-//     return <Test></Test>
-//   }
-//   render(<App></App>)
-// })
 test('测试 membrane 对 store 的 view 的继承', async () => {
   // 独立的 TestStore 和 Test 组件
   const useTestStore = createStoreHook.main({
-    name: 'testStore5',
     initState: {
       desc: ''
     },
@@ -103,7 +52,6 @@ test('测试 membrane 对 store 的 view 的继承', async () => {
 test('测试 membrane 的全部功能', async () => {
   // 独立的 TestStore 和 Test 组件
   const useTestStore = createStoreHook.main({
-    name: 'testStore5',
     initState: {
       desc: '',
       title: '',

@@ -21,7 +21,6 @@ function createComponent(membrane = {controller:{}}){
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     service,
     controller,

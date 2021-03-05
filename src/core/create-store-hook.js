@@ -5,7 +5,9 @@ import { AppContext } from './app-context'
 import merge from 'lodash.merge'
 
 class CreateStoreHook {
-  constructor() {}
+  constructor() {
+    this.combination = {}
+  }
   // @@ 获取 useReducer 的配置
   writeGetUseReducerConfig(storeConfig) {
     if (storeConfig.initState === undefined) {
@@ -87,6 +89,7 @@ class CreateStoreHook {
       refs: contextProps.refs,
       rc: contextProps.rc,
       service: serviceBindContext,
+      combination: this.combination,
       // super: contextProps.superContext || null,
     })
     const controllerKeys = this.writeGetControllerKeys(controller)
@@ -387,6 +390,12 @@ class CreateStoreHook {
   }
   // @@ 入口函数
   main(storeConfig) {
+    console.log(storeConfig, 393)
+    if (storeConfig.name) {
+      if (this.combination[storeConfig.name]) {
+        throw new Error(`Store 命名冲突, 这个 ${storeConfig.name} 已经被注册了`)
+      }
+    }
     this.readControllerIsNone(storeConfig)
     const ref = this.writeGetRef(storeConfig)
     const useReducerConfig = this.writeGetUseReducerConfigWithMembrane(
@@ -420,7 +429,11 @@ class CreateStoreHook {
         },
         renderCache
       )
+      console.log(storeConfig, 427)
 
+      this.combination[storeConfig.name] = {
+        ...store.controller,
+      }
       return store
     }
   }

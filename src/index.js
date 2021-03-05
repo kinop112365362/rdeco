@@ -11,7 +11,6 @@ function createStore(storeConfig) {
   return createStoreHook.main(storeConfig)
 }
 export function createStoreContext(storeConfig) {
-  storeConfig.name = 'storeContext'
   return createStoreHook.main(storeConfig)
 }
 export default createStore

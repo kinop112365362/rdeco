@@ -21,7 +21,6 @@ test('测试 async service', async () => {
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     service,
     controller
