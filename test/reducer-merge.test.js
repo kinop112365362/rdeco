@@ -20,7 +20,6 @@ test('对嵌套 state 进行 set 的时候自动 merge 旧值', async () => {
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     controller,
     view: {

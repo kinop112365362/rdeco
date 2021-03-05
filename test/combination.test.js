@@ -4,7 +4,7 @@ import { AppContext } from '../src/core/app-context'
 import { configCreateStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
-test('测试全局的 render hook', async () => {
+test('测试 combination', async () => {
   const createStore = configCreateStore({plugins:[]})
   const initState = {
     showConfirmModal: false,
@@ -15,10 +15,28 @@ test('测试全局的 render hook', async () => {
     }
   }
   const controller = {
-    async onConfirmButtonClick () {
-      const res = await this.service.openModal()
-      this.rc.setShowConfirmModal(res)
+    onButtonClick(){
+      console.log(this.combination)
+      this.combination['other'].onNameChange('jacky')
     }
+  }
+  const useOtherStore = createStore({
+    name:'other',
+    initState:{
+      name:''
+    },
+    controller:{
+      onNameChange(name){
+        this.rc.setName(name)
+      }
+    }
+  })
+  function Other(){
+    const store = useOtherStore()
+    console.log(store, 36)
+    return(
+      <div role='name'>{store.state.name}</div>
+    )
   }
   const useTestStore = createStore({
     initState,
@@ -37,18 +55,8 @@ test('测试全局的 render hook', async () => {
       },
       renderView3(){
         return(
-          <div>{this.view.renderView2()}</div>
-        )
-      }
-    },
-    hook:{
-      renderWrapper(renderTarget){
-        console.log(renderTarget)
-        return (
-          <div role="renderWrapper">
-            renderWrapper
-            {renderTarget()}
-          </div>
+          <div>{this.view.renderView2()} <button role='button' onClick={this.controller.onButtonClick}></button></div>
+          
         )
       }
     }
@@ -56,9 +64,12 @@ test('测试全局的 render hook', async () => {
   function Test () {
     const store = useTestStore()
     return (
-      <div>{store.view.renderView3()}</div>
+      <div>{store.view.renderView3()}<Other/></div>
     )
   }
   render(<Test></Test>)
-  expect(screen.getAllByRole('renderWrapper'))
+  fireEvent.click(screen.getByRole('button'))
+  await waitFor(() =>
+    expect(screen.getByRole('name')).toHaveTextContent('jacky')
+  )
 })

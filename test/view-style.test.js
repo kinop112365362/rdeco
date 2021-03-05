@@ -24,7 +24,6 @@ test('测试对 style 的重写', async () => {
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     controller,
     styles:{

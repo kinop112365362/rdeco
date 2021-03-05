@@ -22,7 +22,6 @@ test('测试 controller hook', async () => {
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     service,
     controller,

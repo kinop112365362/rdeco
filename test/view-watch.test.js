@@ -16,7 +16,6 @@ test('测试 view 性能模式', async () => {
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     controller,
     view: {

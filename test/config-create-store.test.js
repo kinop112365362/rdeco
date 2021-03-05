@@ -24,7 +24,6 @@ test('测试 configCreateStore', async () => {
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     service,
     controller

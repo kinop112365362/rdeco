@@ -30,7 +30,6 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
     }
   }
   const useTestStore = createStore({
-    name: 'testStore1',
     initState,
     service,
     controller,
