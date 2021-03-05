@@ -121,9 +121,21 @@ service:{
 }
 // 以上都是可行的, 但下面的不行
 controller:{
-    onA(){},
+    onA(){this.view.render()}, //这也不行
     onB(){this.controller.onA()} // 会报错, Controller 的上下文不包括他自己
 }
+view:{
+    render(){
+        this.service.a() // 这个也不行
+    }
+}
+service:{
+    a(){
+        this.controller.onA() // 🚫 error
+        this.view.render() // 🚫 error
+    }
+}
+
 ```
 
 ### InitState
