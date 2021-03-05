@@ -105,7 +105,26 @@ srh 吸收了诸如 AOP 的切面设计, OO 的开闭原则, 函数重载, 同�
 #### 函数结构的独立上下文
 
 srh 为函数类结构构建了特殊的上下文, 指向函数中的 this, 上下文集成了一些规则用来避免一些常见的开发不良习惯,
-这些规则大致上遵循单向调用, 循环可控, 两层扁平结构等. 通俗的讲, View 只能调用 Controller, Controller 只能调用 Service, View 和 Service 可以互相调用, Controller 则不行.
+这些规则大致上遵循单向调用, 循环可控, 两层扁平结构等. 通俗的讲, 应该是  View 内的 render 函数可以互相调用 Service 下的函数也可以, 但是 Controller 下的函数不能互相调用, 来看例子
+```js
+view:{
+    renderSub(){return (<div></div>)}
+    render(){
+        return(
+            <div>{this.view.renderSub()</div>
+        )
+    }
+}
+service:{
+    a(){},
+    b(){this.service.a()},
+}
+// 以上都是可行的, 但下面的不行
+controller:{
+    onA(){},
+    onB(){this.controller.onA()} // 会报错, Controller 的上下文不包括他自己
+}
+```
 
 ### InitState
 
