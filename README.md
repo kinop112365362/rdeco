@@ -334,10 +334,7 @@ view:{
 hook:{
     beforeController(){} // 在所有 Controller 执行前执行
     afterController(){} // 在所有 Controller 执行后执行
-    beforeButtonClick(){} // 在 onButtonClick 执行前执行
-    afterResetButtonClick(){} // 在 onResetButtonClick 执行后执行
     renderWrapper(renderTarget, renderKey){} // 在所有 render 函数外层包裹些什么
-    renderMainWrapper( renderTarget, renderKey){} // 只在 renderMain 外部层包裹些什么
 }
 ```
 
