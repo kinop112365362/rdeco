@@ -266,7 +266,7 @@ controller:{
 - rc: this.rc(仅限 Controller 和 Service)
 - context: this.context(当存在 GlobalStore 时)
 - props: this.props(仅限 Membrane)
-- combination: this.combination(仅限 Controller)
+- combination: this.combination(仅限 Controller 和 View)
 ### Service
 Service 是逻辑的末端, 在 View  → Controller → Service 这样的链路中, Service 和 Controller 的区别在于 Service 可以互相调用, 例如
 
@@ -311,7 +311,7 @@ view:{
 </div>
 ```
 
-render 函数的命名没有限制, 但 srh 配套的分析工具可能需要指定入口函数, 我们建议在每个 View 中都使用 render 来作为入口渲染函数
+render 函数的命名没有限制, 但 srh 配套的分析工具可能需要指定入口函数, 我们建议在每个 View 中都使用 render 来作为入口渲染函数, 同时将其他 render 函数都已 render 开头
 
 ### Hook
 
@@ -352,18 +352,34 @@ const subStoreConfig = {
         onNameChange(name){
             this.rc.setName(name)
         }
+    },
+    view:{
+        render(){
+            return(
+                <div>{this.state.name}</div>
+            )
+        }
     }
 }
 const mainStoreConfig = {
     initState:{},
     controller:{
         onButtonClick(){
-            this.combination['sub'].onNameChange('ann')
+            this.combination['sub'].controller.onNameChange('ann')
         }
+    },
+    view:{
+        render(
+            return(
+                <div>{this.combination['sub'].view.render()}</div>
+            )
+        )
     }
 }
 
 所有 Store 都可以拥有自己的 name, 但大多数情况下我们并不需要刻意的命名, 使用匿名 Store 更加方便, 只有当你需要将 Controller 暴露给其他 Store 的时候, 你可以使用具名 Store
+
+> 特别注意的是, 目前具名 Store 不支持多实例化, 这样是为了避免 combination 设计上的复杂性, 匿名 Store 不具有被联结的能力, 因此可以多实例化.
 ```
 ### Membrane
 
