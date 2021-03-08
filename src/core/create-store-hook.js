@@ -6,7 +6,30 @@ import merge from 'lodash.merge'
 
 class CreateStoreHook {
   constructor() {
-    this.combination = {}
+    // eslint-disable-next-line no-undef
+    this.combination = new Proxy(
+      {},
+      {
+        get(target, p) {
+          if (target[p] === undefined) {
+            console.log(target)
+            throw new Error(`${p} 尚未初始化, 无法联结`)
+          }
+          return target[p][0]
+        },
+        set(target, p, v) {
+          if (target[p] === undefined) {
+            target[p] = []
+            target[p].push(v)
+            // TODO 后续是否需要支持多实例? 更复杂的 event bus?
+          }
+          if (target[p].length > 1) {
+            throw new Error(`${p} 具名 Store 不支持多实例, 请移除 name 属性`)
+          }
+          return v
+        },
+      }
+    )
   }
   // @@ 获取 useReducer 的配置
   writeGetUseReducerConfig(storeConfig) {
@@ -97,33 +120,24 @@ class CreateStoreHook {
       const controllerIsArray = Array.isArray(controller[controllerKey])
       if (controllerIsArray) {
         controllerBindContext[controllerKey] = (...args) => {
-          const res = controller[controllerKey][1].call(
-            controllerContext,
-            ...args
-          )
-          return res
+          controller[controllerKey][1].call(controllerContext, ...args)
         }
       } else {
         controllerBindContext[controllerKey] = (...args) => {
-          const res = controller[controllerKey].call(controllerContext, ...args)
-          return res
+          controller[controllerKey].call(controllerContext, ...args)
         }
       }
     })
-    if (hook) {
+    if (hook?.controllerWrapper) {
       const controllerBindContextWithHook = {}
       controllerKeys.forEach((controllerKey) => {
-        controllerBindContextWithHook[controllerKey] = async (...args) => {
-          const beforeHookKey = `before${controllerKey.slice(2)}`
-          const afterHookKey = `after${controllerKey.slice(2)}`
-          if (hook[beforeHookKey]) {
-            await hook[beforeHookKey].call(controllerContext)
-          }
-          const res = controller[controllerKey].call(controllerContext, ...args)
-          if (hook[afterHookKey]) {
-            await hook[afterHookKey].call(controllerContext)
-          }
-          return res
+        controllerBindContextWithHook[controllerKey] = (...args) => {
+          hook.controllerWrapper.call(
+            controllerContext,
+            controller[controllerKey],
+            controllerKey,
+            ...args
+          )
         }
       })
       return controllerBindContextWithHook
@@ -195,7 +209,6 @@ class CreateStoreHook {
                 const res = fn.call(Object.freeze(viewContext), ...args)
                 return res
               } else {
-                console.log(renderCache[viewKey].value, 183)
                 return renderCache[viewKey].value
               }
             } else {
@@ -245,6 +258,7 @@ class CreateStoreHook {
       context: contextProps.context,
       props: contextProps.props,
       styles: storeConfig.styles,
+      combination: this.combination,
       // super: superContext,
     }
   }
@@ -390,12 +404,6 @@ class CreateStoreHook {
   }
   // @@ 入口函数
   main(storeConfig) {
-    console.log(storeConfig, 393)
-    if (storeConfig.name) {
-      if (this.combination[storeConfig.name]) {
-        throw new Error(`Store 命名冲突, 这个 ${storeConfig.name} 已经被注册了`)
-      }
-    }
     this.readControllerIsNone(storeConfig)
     const ref = this.writeGetRef(storeConfig)
     const useReducerConfig = this.writeGetUseReducerConfigWithMembrane(
@@ -429,11 +437,16 @@ class CreateStoreHook {
         },
         renderCache
       )
-      console.log(storeConfig, 427)
-
-      this.combination[storeConfig.name] = {
-        ...store.controller,
+      if (storeConfig.name) {
+        this.combination[storeConfig.name] = {
+          controller: {},
+          view: {},
+        }
+        this.combination[storeConfig.name].controller = { ...store.controller }
+        this.combination[storeConfig.name].view = { ...store.view }
       }
+
+      console.log(this.combination, 430)
       return store
     }
   }

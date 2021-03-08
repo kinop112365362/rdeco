@@ -105,7 +105,38 @@ srh 吸收了诸如 AOP 的切面设计, OO 的开闭原则, 函数重载, 同�
 #### 函数结构的独立上下文
 
 srh 为函数类结构构建了特殊的上下文, 指向函数中的 this, 上下文集成了一些规则用来避免一些常见的开发不良习惯,
-这些规则大致上遵循单向调用, 循环可控, 两层扁平结构等. 通俗的讲, View 只能调用 Controller, Controller 只能调用 Service, View 和 Service 可以互相调用, Controller 则不行.
+这些规则大致上遵循单向调用, 循环可控, 两层扁平结构等. 通俗的讲, 应该是  View 内的 render 函数可以互相调用 Service 下的函数也可以, 但是 Controller 下的函数不能互相调用, 来看例子
+```js
+view:{
+    renderSub(){return (<div></div>)}
+    render(){
+        return(
+            <div>{this.view.renderSub()</div>
+        )
+    }
+}
+service:{
+    a(){},
+    b(){this.service.a()},
+}
+// 以上都是可行的, 但下面的不行
+controller:{
+    onA(){this.view.render()}, //这也不行
+    onB(){this.controller.onA()} // 会报错, Controller 的上下文不包括他自己
+}
+view:{
+    render(){
+        this.service.a() // 这个也不行
+    }
+}
+service:{
+    a(){
+        this.controller.onA() // 🚫 error
+        this.view.render() // 🚫 error
+    }
+}
+
+```
 
 ### InitState
 
@@ -165,6 +196,7 @@ initState:{
 
 ```js
 this.rc.setState(prevState => nextState) // 此处 state 等于 initState
+// 特别注意的是, set 操作, 如果传入的是对象, 将会和原有对象进行 deep merge, 如果传入的是数组, 则会覆盖原数组.
 this.rc.setName(prevState => nextState) // 此处 state 等于 'srh'
 ```
 
@@ -302,10 +334,7 @@ view:{
 hook:{
     beforeController(){} // 在所有 Controller 执行前执行
     afterController(){} // 在所有 Controller 执行后执行
-    beforeButtonClick(){} // 在 onButtonClick 执行前执行
-    afterResetButtonClick(){} // 在 onResetButtonClick 执行后执行
     renderWrapper(renderTarget, renderKey){} // 在所有 render 函数外层包裹些什么
-    renderMainWrapper( renderTarget, renderKey){} // 只在 renderMain 外部层包裹些什么
 }
 ```
 
@@ -386,9 +415,12 @@ other 团队可以将自己的扩展版本独立发布, base 团队和 other团�
 - [提升渲染性能的技巧](#提升渲染性能的技巧)
 - [调试技巧](#调试技巧)
 - [GlobalStore](#GlobalStore)
+- [多实例Store下的准确控制](#多实例Store下的准确控制)
 
 ### 提升渲染性能的技巧
 
 ### 调试技巧
 
 ### GlobalStore
+
+### 多实例Store下的准确控制

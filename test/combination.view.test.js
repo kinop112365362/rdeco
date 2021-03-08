@@ -4,7 +4,7 @@ import { AppContext } from '../src/core/app-context'
 import { configCreateStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
-test('测试 combination Controller', async () => {
+test('测试 combination View', async () => {
   const createStore = configCreateStore({plugins:[]})
   const initState = {
     showConfirmModal: false,
@@ -23,11 +23,18 @@ test('测试 combination Controller', async () => {
   const useOtherStore = createStore({
     name:'other',
     initState:{
-      name:''
+      name:'jacky'
     },
     controller:{
       onNameChange(name){
         this.rc.setName(name)
+      }
+    },
+    view:{
+      render(){
+        return (
+          <div role="other">{this.state.name}</div>
+        )
       }
     }
   })
@@ -44,8 +51,9 @@ test('测试 combination Controller', async () => {
     controller,
     view:{
       renderView1(){
+        console.log(this.combination)
         return(
-          <div role="renderView1">renderView1</div>
+          <div role="renderView1">{this.combination['other'].view.render()}</div>
         )
       },
       renderView2(){
@@ -63,13 +71,11 @@ test('测试 combination Controller', async () => {
   })
   function Test () {
     const store = useTestStore()
+    useOtherStore()
     return (
-      <div>{store.view.renderView3()}<Other/></div>
+      <div>{store.view.renderView3()}</div>
     )
   }
   render(<Test></Test>)
-  fireEvent.click(screen.getByRole('button'))
-  await waitFor(() =>
-    expect(screen.getByRole('name')).toHaveTextContent('jacky')
-  )
+  expect(screen.getByRole('other')).toHaveTextContent('jacky')
 })
