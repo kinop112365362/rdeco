@@ -6,7 +6,30 @@ import merge from 'lodash.merge'
 
 class CreateStoreHook {
   constructor() {
-    this.combination = {}
+    // eslint-disable-next-line no-undef
+    this.combination = new Proxy(
+      {},
+      {
+        get(target, p) {
+          if (target[p] === undefined) {
+            console.log(target)
+            throw new Error(`${p} 尚未初始化, 无法联结`)
+          }
+          return target[p][0]
+        },
+        set(target, p, v) {
+          if (target[p] === undefined) {
+            target[p] = []
+            target[p].push(v)
+            // TODO 后续是否需要支持多实例? 更复杂的 event bus?
+          }
+          if (target[p].length > 1) {
+            throw new Error(`${p} 具名 Store 不支持多实例, 请移除 name 属性`)
+          }
+          return v
+        },
+      }
+    )
   }
   // @@ 获取 useReducer 的配置
   writeGetUseReducerConfig(storeConfig) {
@@ -235,6 +258,7 @@ class CreateStoreHook {
       context: contextProps.context,
       props: contextProps.props,
       styles: storeConfig.styles,
+      combination: this.combination,
       // super: superContext,
     }
   }
@@ -380,11 +404,6 @@ class CreateStoreHook {
   }
   // @@ 入口函数
   main(storeConfig) {
-    if (storeConfig.name) {
-      if (this.combination[storeConfig.name]) {
-        throw new Error(`Store 命名冲突, 这个 ${storeConfig.name} 已经被注册了`)
-      }
-    }
     this.readControllerIsNone(storeConfig)
     const ref = this.writeGetRef(storeConfig)
     const useReducerConfig = this.writeGetUseReducerConfigWithMembrane(
@@ -418,10 +437,16 @@ class CreateStoreHook {
         },
         renderCache
       )
-
-      this.combination[storeConfig.name] = {
-        ...store.controller,
+      if (storeConfig.name) {
+        this.combination[storeConfig.name] = {
+          controller: {},
+          view: {},
+        }
+        this.combination[storeConfig.name].controller = { ...store.controller }
+        this.combination[storeConfig.name].view = { ...store.view }
       }
+
+      console.log(this.combination, 430)
       return store
     }
   }

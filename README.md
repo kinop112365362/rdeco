@@ -415,9 +415,12 @@ other 团队可以将自己的扩展版本独立发布, base 团队和 other团�
 - [提升渲染性能的技巧](#提升渲染性能的技巧)
 - [调试技巧](#调试技巧)
 - [GlobalStore](#GlobalStore)
+- [多实例Store下的准确控制](#多实例Store下的准确控制)
 
 ### 提升渲染性能的技巧
 
 ### 调试技巧
 
 ### GlobalStore
+
+### 多实例Store下的准确控制
