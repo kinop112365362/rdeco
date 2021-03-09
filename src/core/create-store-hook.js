@@ -162,9 +162,10 @@ class CreateStoreHook {
   // @@ 绑定 service 的 context
   writeGetService(storeConfig, contextProps) {
     const { service, hook } = storeConfig
-    const serviceKeys = Object.keys(service)
     const serviceBindContext = {}
     if (service) {
+      const serviceKeys = Object.keys(service)
+
       serviceKeys.forEach((serviceKey) => {
         const serviceIsArray = Array.isArray(service[serviceKey])
         if (serviceIsArray) {
@@ -181,20 +182,20 @@ class CreateStoreHook {
           )
         }
       })
-    }
-    if (hook && hook.serviceWrapper) {
-      const controllerBindContextWithHook = {}
-      serviceKeys.forEach((serviceKey) => {
-        controllerBindContextWithHook[serviceKey] = (...args) => {
-          return hook.serviceWrapper.call(
-            serviceBindContext,
-            service[serviceKey],
-            serviceKey,
-            ...args
-          )
-        }
-      })
-      return controllerBindContextWithHook
+      if (hook && hook.serviceWrapper) {
+        const controllerBindContextWithHook = {}
+        serviceKeys.forEach((serviceKey) => {
+          controllerBindContextWithHook[serviceKey] = (...args) => {
+            return hook.serviceWrapper.call(
+              serviceBindContext,
+              service[serviceKey],
+              serviceKey,
+              ...args
+            )
+          }
+        })
+        return controllerBindContextWithHook
+      }
     }
     return serviceBindContext
   }
