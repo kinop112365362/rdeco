@@ -246,7 +246,7 @@ class CreateStoreHook {
       if (hook && hook.renderWrapper) {
         const viewBindContextWithHook = {}
         viewKeys.forEach((viewKey) => {
-          viewBindContextWithHook[viewKey] = () => {
+          viewBindContextWithHook[viewKey] = (...args) => {
             return hook.renderWrapper.call(
               {
                 state: viewContext.state,
@@ -254,7 +254,8 @@ class CreateStoreHook {
                 controller: viewContext.controller,
               },
               viewBindContext[viewKey],
-              viewKey
+              viewKey,
+              ...args
             )
           }
         })
