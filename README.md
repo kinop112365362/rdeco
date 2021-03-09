@@ -426,6 +426,30 @@ createBaseComponent({
 
 other 团队可以将自己的扩展版本独立发布, base 团队和 other团队可以并行维护各自的代码, 而不需要彼此关心对方的需求.
 
+## Plugins
+
+插件是增强 createStore 基础能力的强有力的武器, srh 提供了简单有效的插件系统, 用于满足大部分可以被抽象出来的公共场景,
+
+例如日志, 埋点上报, 参数检查等等, 编写插件非常简单. 你可以将插件理解成 StoreConfig 子集的处理工具
+
+```js
+
+const loggerSRHPlugin = {
+    hook:{
+        beforeController(target, key){
+            if(env === 'development'){
+                console.group(key)
+            }
+        }
+        afterController(target, key){
+            if(env === 'development'){
+                console.groupEnd(key)
+            }
+        }
+    }
+}
+
+```
 ## 进阶内容
 
 - [提升渲染性能的技巧](#提升渲染性能的技巧)

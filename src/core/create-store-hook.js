@@ -128,11 +128,11 @@ class CreateStoreHook {
         }
       }
     })
-    if (hook?.controllerWrapper) {
+    if (hook && hook.controllerWrapper) {
       const controllerBindContextWithHook = {}
       controllerKeys.forEach((controllerKey) => {
         controllerBindContextWithHook[controllerKey] = (...args) => {
-          hook.controllerWrapper.call(
+          return hook.controllerWrapper.call(
             controllerContext,
             controller[controllerKey],
             controllerKey,
@@ -152,7 +152,6 @@ class CreateStoreHook {
           state: contextProps.state,
           refs: contextProps.refs,
           service: serviceBindContext,
-          // super: contextProps.superContext || null,
           rc: contextProps.rc,
         }),
         ...args
@@ -161,10 +160,12 @@ class CreateStoreHook {
     }
   }
   // @@ 绑定 service 的 context
-  writeGetService({ service }, contextProps) {
+  writeGetService(storeConfig, contextProps) {
+    const { service, hook } = storeConfig
     const serviceBindContext = {}
     if (service) {
       const serviceKeys = Object.keys(service)
+
       serviceKeys.forEach((serviceKey) => {
         const serviceIsArray = Array.isArray(service[serviceKey])
         if (serviceIsArray) {
@@ -181,6 +182,20 @@ class CreateStoreHook {
           )
         }
       })
+      if (hook && hook.serviceWrapper) {
+        const controllerBindContextWithHook = {}
+        serviceKeys.forEach((serviceKey) => {
+          controllerBindContextWithHook[serviceKey] = (...args) => {
+            return hook.serviceWrapper.call(
+              serviceBindContext,
+              service[serviceKey],
+              serviceKey,
+              ...args
+            )
+          }
+        })
+        return controllerBindContextWithHook
+      }
     }
     return serviceBindContext
   }
@@ -228,10 +243,10 @@ class CreateStoreHook {
         }
       })
       // 当存在全局的 render 函数 hook, 才执行
-      if (hook?.renderWrapper) {
+      if (hook && hook.renderWrapper) {
         const viewBindContextWithHook = {}
         viewKeys.forEach((viewKey) => {
-          viewBindContextWithHook[viewKey] = () => {
+          viewBindContextWithHook[viewKey] = (...args) => {
             return hook.renderWrapper.call(
               {
                 state: viewContext.state,
@@ -239,7 +254,8 @@ class CreateStoreHook {
                 controller: viewContext.controller,
               },
               viewBindContext[viewKey],
-              viewKey
+              viewKey,
+              ...args
             )
           }
         })
