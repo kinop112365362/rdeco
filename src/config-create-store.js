@@ -1,4 +1,3 @@
-import { Runner } from './plugins/runner'
 import { createStoreHook } from './core/create-store-hook'
 
 class ConfigCreateStore {
@@ -16,11 +15,7 @@ class ConfigCreateStore {
       this.storeNameList.push(name)
     }
   }
-  main(config) {
-    const runner = new Runner()
-    config.plugins.forEach((plugin) => {
-      plugin.apply(runner)
-    })
+  main() {
     return (storeConfig) => {
       // this.readStoreNameCheck(storeConfig.name)
       return createStoreHook.main(storeConfig)
