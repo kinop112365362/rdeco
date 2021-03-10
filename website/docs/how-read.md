@@ -5,21 +5,10 @@ sidebar_label: 阅读建议
 slug: /how-read
 ---
 
+Structured-react-hook 使用对象来描述组件, 和通常一些库的 API 有很大不同, 在文档中我用特性来代表通常概念上的 API
 
-```js
-ref:{
-    time:0
-}
+在快速开始中有一个基本示例, 用于理解通过数据渲染试图的流程
 
-this.refs.time.current → 0
-```
+总体设计章节讲了一些核心的概念
 
-ref 和 useRef 等价, ref 可以用在保存引用的场景, 和 state 不同是, 修改 ref 并不会导致 render,
-
-你可以像修改普通的变量一样修改 ref
-
-```js
-this.refs.time.current = 1
-```
-
-ref 可以用来表示那些需要被保存但是又不需要被 View 消费的值. 包括 dom 实例, 标记等
+特性中包含了所有实际开发中用到的
