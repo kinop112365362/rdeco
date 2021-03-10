@@ -3,7 +3,7 @@ module.exports = {
   title: 'Structured-React-Hook',
   tagline: '面向企业级的次世代结构化 React 应用研发框架',
   url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  baseUrl: '/structured-react-hook/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
