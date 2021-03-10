@@ -1,5 +1,4 @@
 import { useContext, useReducer, useRef } from 'react'
-// import pick from 'object.pick'
 import { reducerUtils, createReducerCase } from './reducer-utils'
 import { AppContext } from './app-context'
 import merge from 'lodash.merge'
@@ -12,7 +11,6 @@ class CreateStoreHook {
       {
         get(target, p) {
           if (target[p] === undefined) {
-            console.log(target)
             throw new Error(`${p} 尚未初始化, 无法联结`)
           }
           return target[p][0]
@@ -462,7 +460,6 @@ class CreateStoreHook {
         this.combination[storeConfig.name].view = { ...store.view }
       }
 
-      console.log(this.combination, 430)
       return store
     }
   }
