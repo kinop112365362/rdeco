@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Structured-React-Hook Blog</title>
+        <link>https://your-docusaurus-test-site.com/blog</link>
+        <description>Structured-React-Hook Blog</description>
+        <lastBuildDate>Wed, 10 Mar 2021 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Welcome]]></title>
+            <link>https://your-docusaurus-test-site.com/structured-react-hook/blog/welcome</link>
+            <guid>welcome</guid>
+            <pubDate>Wed, 10 Mar 2021 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
