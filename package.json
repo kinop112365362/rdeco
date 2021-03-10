@@ -30,6 +30,7 @@
     "build:umd": "cross-env NODE_ENV=development rollup -c -o dist/structured-react-hook.js",
     "build:umd:min": "cross-env NODE_ENV=production rollup -c -o dist/structured-react-hook.min.js",
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "build:docs":"cd website && yarn build && cd ..",
     "clean": "rimraf lib dist es coverage",
     "format": "prettier --write \"{src,test}/**/*.{js,ts}\" index.d.ts \"docs/**/*.md\"",
     "lint": "eslint src",

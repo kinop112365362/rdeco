@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[21],{92:function(o){o.exports=JSON.parse('{"allTagsPath":"/structured-react-hook/blog/tags","slug":"hook","name":"hook","count":1,"permalink":"/structured-react-hook/blog/tags/hook"}')}}]);
