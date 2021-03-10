@@ -417,7 +417,7 @@ class CreateStoreHook {
     )
   }
   // @@ 入口函数
-  main(storeConfig) {
+  main(storeConfig, enhancer = (s) => s) {
     this.readControllerIsNone(storeConfig)
     const ref = this.writeGetRef(storeConfig)
     const useReducerConfig = this.writeGetUseReducerConfigWithMembrane(
@@ -459,8 +459,7 @@ class CreateStoreHook {
         this.combination[storeConfig.name].controller = { ...store.controller }
         this.combination[storeConfig.name].view = { ...store.view }
       }
-
-      return store
+      return enhancer(store)
     }
   }
 }
