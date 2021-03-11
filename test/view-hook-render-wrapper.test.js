@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { AppContext } from '../src/core/app-context'
-import { configCreateStore } from '../src/index'
+import { AppContext } from '../src/app-context'
+import { createStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试全局的 render hook', async () => {
-  const createStore = configCreateStore({plugins:[]})
   const initState = {
     showConfirmModal: false,
   }
@@ -42,8 +41,7 @@ test('测试全局的 render hook', async () => {
       }
     },
     hook:{
-      renderWrapper(renderTarget){
-        console.log(renderTarget)
+      viewWrapper(renderTarget){
         return (
           <div role="renderWrapper">
             renderWrapper
