@@ -16,7 +16,7 @@ test('测试 combination Controller', async () => {
   }
   const controller = {
     onButtonClick(){
-      console.log(this.combination)
+      console.log(this.styles)
       this.combination['other'].controller.onNameChange('jacky')
     }
   }
@@ -42,6 +42,9 @@ test('测试 combination Controller', async () => {
     initState,
     service,
     controller,
+    styles:{
+      width:100
+    },
     view:{
       renderView1(){
         return(
