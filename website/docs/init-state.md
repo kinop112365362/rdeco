@@ -7,7 +7,7 @@ slug: /init-state
 
 initState 是应用/组件的核心数据, 用来声明应用/组件在前端角度的应用模型.
 
-#### 状态的分类
+### 状态的分类
 
 在 srh 中我们将状态分为几种不同的类型
 
@@ -18,7 +18,7 @@ initState 是应用/组件的核心数据, 用来声明应用/组件在前端角
   - 数组
 - 样式
 
-#### 声明 initState
+### 声明 initState
 
 ```js
 initState: {
@@ -32,7 +32,7 @@ initState: {
 initState: [{ name: 'src' }, state => state]
 ```
 
-#### 操作 initState
+### 操作 initState
 
 当你在 Store 中声明了 initState, srh 会为你自动生成对应的操作函数
 
