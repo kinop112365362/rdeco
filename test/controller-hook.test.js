@@ -5,18 +5,18 @@ import { configCreateStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 controller hook', async () => {
-  const createStore = configCreateStore({plugins:[]})
+  const createStore = configCreateStore({ plugins: [] })
   const initState = {
-    showConfirmModal: false,
+    showConfirmModal: false
   }
   const service = {
-    async openModal(){
+    async openModal () {
       return 'true'
     }
   }
   const controller = {
     async onConfirmButtonClick () {
-      console.log('doing')
+      console.log(this.styles.width)
       const res = await this.service.openModal()
       this.rc.setShowConfirmModal(res)
     }
@@ -25,25 +25,22 @@ test('测试 controller hook', async () => {
     initState,
     service,
     controller,
-    view:{
-      renderView1(){
-        return(
-          <div role="renderView1">renderView1</div>
-        )
+    view: {
+      renderView1 () {
+        return <div role='renderView1'>renderView1</div>
       },
-      renderView2(){
-        return(
-          <div>{this.view.renderView1()}</div>
-        )
+      renderView2 () {
+        return <div>{this.view.renderView1()}</div>
       },
-      renderView3(){
-        return(
-          <div>{this.view.renderView2()}</div>
-        )
+      renderView3 () {
+        return <div>{this.view.renderView2()}</div>
       }
     },
-    hook:{
-      controllerWrapper(target, key){
+    styles: {
+      width: 100
+    },
+    hook: {
+      controllerWrapper (target, key) {
         console.log('before')
         target()
         console.log('after')
@@ -54,7 +51,10 @@ test('测试 controller hook', async () => {
     const store = useTestStore()
     return (
       <div>
-        <button data-role="button" onClick={store.controller.onConfirmButtonClick}></button>
+        <button
+          data-role='button'
+          onClick={store.controller.onConfirmButtonClick}
+        ></button>
       </div>
     )
   }
