@@ -1,14 +1,13 @@
 import React, { useContext, useEffect } from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { AppContext } from '../src/core/app-context'
-import { configCreateStore } from '../src/index'
+import { AppContext } from '../src/app-context'
+import { createStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 import nodeUtil from 'util';
 /**@jsx jsx */
 import {jsx, css} from '@emotion/react'
 
 test('测试对 style 的重写', async () => {
-  const createStore = configCreateStore({plugins:[]})
   const initState = {
     showConfirmModal: false,
   }

@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { AppContext } from '../src/core/app-context'
-import { configCreateStore } from '../src/index'
+import { AppContext } from '../src/app-context'
+import { createStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 service hook', async () => {
-  const createStore = configCreateStore({ plugins: [] })
   const initState = {
     showConfirmModal: false,
     name: ''
@@ -15,13 +14,13 @@ test('测试 service hook', async () => {
       return 'jacky'
     },
     async openModal (isOpen) {
-      console.log(isOpen)
       return isOpen
     }
   }
   const controller = {
     async onConfirmButtonClick () {
       const res = await this.service.openModal(1)
+      console.log(res)
       const name = await this.service.queryName()
       this.rc.setShowConfirmModal(res)
       this.rc.setName(name)

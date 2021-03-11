@@ -1,30 +1,21 @@
 import React, { useContext, useEffect } from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { AppContext } from '../src/core/app-context'
-import createStore, { createStoreContext } from '../src/index'
+import { AppContext } from '../src/app-context'
+import { createStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
 test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
-  const initState = [
-    { showConfirmModal: true, language: '' },
-    function (initState) {
-      console.log(this, 11)
-      return {
-        showConfirmModal: false,
-        language: this.context.state.language
-      }
-    }
-  ]
+  const initState = {
+    showConfirmModal: true,
+    language: ''
+  }
+
   const service = {
-    openModal: [
-      'openModal',
-      function openModal () {
-        console.log(this, 13)
-      }
-    ]
+    openModal () {}
   }
   const controller = {
     onConfirmButtonClick () {
+      console.log(this.rc)
       this.service.openModal()
       this.rc.setShowConfirmModal('true')
     }
@@ -39,17 +30,9 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
       }
     },
     membrane: {
-      initState: [
-        {
-          country: 'en'
-        },
-        function init (initArgs) {
-          return {
-            ...initArgs,
-            country: initArgs.language
-          }
-        }
-      ],
+      initState: {
+        country: 'en'
+      },
       controller: {}
     }
   })
@@ -65,7 +48,6 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
   })
   function Test () {
     const store = useTestStore()
-    console.log(store, 50)
     return (
       <div>
         <button
@@ -90,7 +72,6 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
   render(<App></App>)
   fireEvent.click(screen.getByRole('confirm'))
   await waitFor(() => {
-    expect(screen.getByRole('language')).toHaveTextContent('en')
     expect(screen.getByRole('country')).toHaveTextContent('en')
   })
 })
