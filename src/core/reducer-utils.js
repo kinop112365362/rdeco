@@ -1,18 +1,18 @@
 import { shared } from './shared'
 import mergeWith from 'lodash.mergewith'
 class CreateReducerCase {
-  readIsFunction(value) {
-    return typeof value === 'function'
-  }
-  readIsStateIsUndefined(nextState, stateKeys) {
-    const nextStateKeys = Object.keys(nextState)
-    const ghostKeys = nextStateKeys.filter((key) => !stateKeys.includes(key))
-    if (ghostKeys.length) {
-      throw new Error(
-        `不存在的 state => [${ghostKeys.toString()}], 请确保setState中更新的state在initState中已经声明`
-      )
-    }
-  }
+  // readIsFunction(value) {
+  //   return typeof value === 'function'
+  // }
+  // readIsStateIsUndefined(nextState, stateKeys) {
+  //   const nextStateKeys = Object.keys(nextState)
+  //   const ghostKeys = nextStateKeys.filter((key) => !stateKeys.includes(key))
+  //   if (ghostKeys.length) {
+  //     throw new Error(
+  //       `不存在的 state => [${ghostKeys.toString()}], 请确保setState中更新的state在initState中已经声明`
+  //     )
+  //   }
+  // }
   main(stateKeys, dispatch, state) {
     const rc = {
       setState: (nextState) => {
