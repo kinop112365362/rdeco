@@ -89,8 +89,8 @@ service:{
 - styles : this.styles
 - service : this.service(仅限 Controller 和 Service)
 - controller : this.controller(仅限 View 和 Combination 下的 Controller)
-- view: this.view(仅限 View)
+- view: this.view(仅限 View 和 Controller)
 - rc: this.rc(仅限 Controller 和 Service)
 - context: this.context(当存在 GlobalStore 时)
-- props: this.props(仅限 Membrane)
+- props: this.props(暂时不可用, 讨论中))
 - combination: this.combination(仅限 Controller 和 View)
