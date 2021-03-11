@@ -110,6 +110,7 @@ class CreateStoreHook {
       refs: contextProps.refs,
       rc: contextProps.rc,
       service: serviceBindContext,
+      styles: storeConfig.styles,
       combination: this.combination,
       // super: contextProps.superContext || null,
     })
