@@ -1,6 +1,6 @@
 {
   "name": "structured-react-hook",
-  "version": "1.15.0",
+  "version": "1.15.1",
   "description": "面向企业级的结构化的 React 状态管理框架",
   "keywords": [
     "react",
@@ -15,6 +15,7 @@
     "type": "git",
     "url": "https://github.com/kinop112365362/structured-react-hook"
   },
+  "types": "./types",
   "main": "./lib/index.js",
   "unpkg": "dist/structured-react-hook.js",
   "module": "es/index.js",
@@ -29,10 +30,10 @@
     "build:es": "babel src --out-dir es",
     "build:umd": "cross-env NODE_ENV=development rollup -c -o dist/structured-react-hook.js",
     "build:umd:min": "cross-env NODE_ENV=production rollup -c -o dist/structured-react-hook.min.js",
-    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min && tsc ",
     "build:docs": "cd website && yarn build && cd ..",
     "git:merge": "git co master && git pull && git co main && git merge master && git push && git co master",
-    "clean": "rimraf lib dist es coverage",
+    "clean": "rimraf lib dist es coverage types",
     "format": "prettier --write \"{src,test}/**/*.{js,ts}\" index.d.ts \"docs/**/*.md\"",
     "lint": "eslint src",
     "prepare": "npm run clean && npm run build",
@@ -55,6 +56,7 @@
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.13.0",
     "@emotion/babel-plugin": "^11.2.0",
     "@emotion/react": "^11.1.5",
     "@rollup/plugin-babel": "^5.2.1",
@@ -85,7 +87,8 @@
     "react-test-renderer": "^16.14.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.32.1",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.2.3"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.1",

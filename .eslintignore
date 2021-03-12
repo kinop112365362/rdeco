@@ -6,3 +6,5 @@ node_modules
 website
 docs
 old
+types
+*.d.ts
