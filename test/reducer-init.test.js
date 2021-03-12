@@ -62,7 +62,6 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
   }
   function App () {
     const appStore = useAppStore()
-
     return (
       <AppContext.Provider value={appStore}>
         <Test></Test>
