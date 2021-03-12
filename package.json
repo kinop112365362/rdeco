@@ -33,7 +33,7 @@
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min && tsc ",
     "build:docs": "cd website && yarn build && cd ..",
     "git:merge": "git co master && git pull && git co main && git merge master && git push && git co master",
-    "clean": "rimraf lib dist es coverage",
+    "clean": "rimraf lib dist es coverage types",
     "format": "prettier --write \"{src,test}/**/*.{js,ts}\" index.d.ts \"docs/**/*.md\"",
     "lint": "eslint src",
     "prepare": "npm run clean && npm run build",
