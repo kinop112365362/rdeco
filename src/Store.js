@@ -79,7 +79,9 @@ export class Store {
         this.state.viewCtrl = {}
       }
       viewKeys.forEach((viewKey) => {
-        this.state.viewCtrl[viewKey] = true
+        if (this.state.viewCtrl[viewKey] === undefined) {
+          this.state.viewCtrl[viewKey] = true
+        }
       })
     }
     const viewBindContext = this.bindViewContext(
