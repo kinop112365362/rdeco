@@ -75,7 +75,9 @@ export class Store {
       },
     } = storeConfig
     if (view) {
-      this.state.viewCtrl = {}
+      if (!this.state.viewCtrl) {
+        this.state.viewCtrl = {}
+      }
       viewKeys.forEach((viewKey) => {
         this.state.viewCtrl[viewKey] = true
       })
