@@ -26,6 +26,11 @@ test('测试 view 的内部嵌套', async () => {
     async onConfirmButtonClick () {
       const res = await this.service.openModal()
       this.rc.setShowConfirmModal(res)
+      this.rc.setState({
+        viewCtrl:{
+          renderView1:true
+        }
+      })
     }
   }
   const useTestStore = createStore({
@@ -46,10 +51,14 @@ test('测试 view 的内部嵌套', async () => {
   })
   function Test () {
     const store = useTestStore()
-    console.log(store, 30)
-    return <div>{store.view.renderView3()}</div>
+    return <div>{store.view.renderView3()}<div role="button" onClick={store.controller.onConfirmButtonClick}></div></div>
   }
   render(<Test></Test>)
   expect(document.querySelector('[data-testid=render]')).toBeNull()
   expect(document.querySelector('[data-testid=render3]')).toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button'))
+  await waitFor(() => {
+    expect(document.querySelector('[data-testid=render]')).toBeInTheDocument()
+  })
+  
 })

@@ -47,6 +47,12 @@ export class Store {
         isStateIsUndefined(nextState, this.stateKeys)
         this.dispatch(['setState', nextState])
       },
+      setViewCtrl: (nextState) => {
+        if (isFunction(nextState)) {
+          this.dispatch(['setViewCtrl', nextState(this.state)])
+        }
+        this.dispatch(['setViewCtrl', nextState])
+      },
     }
     this.stateKeys.forEach((stateKey) => {
       const type = getReducerType(stateKey)
