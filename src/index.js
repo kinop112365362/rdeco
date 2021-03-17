@@ -20,6 +20,9 @@ export function createStore(storeConfig, enhance) {
     combination[storeConfig.name] = {
       controller: store.controller,
       view: store.view,
+      refs: store.refs,
+      state: store.state,
+      rc: store.rc,
     }
   }
   const reducer = (state, action) => {
