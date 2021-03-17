@@ -6,10 +6,10 @@ import '@testing-library/jest-dom/extend-expect'
 
 test('测试 view 的内部嵌套', async () => {
   const initState = {
-    showConfirmModal: false,
+    showConfirmModal: false
   }
   const service = {
-    async openModal(){
+    async openModal () {
       return 'true'
     }
   }
@@ -23,31 +23,23 @@ test('测试 view 的内部嵌套', async () => {
     initState,
     service,
     controller,
-    view:{
-      renderView1(){
-        return(
-          <div role="renderView1">renderView1</div>
-        )
+    view: {
+      renderView1 () {
+        console.log(this.props)
+        return <div role='renderView1'>{this.props.globalStore.name}</div>
       },
-      renderView2(){
-        return(
-          <div>{this.view.renderView1()}</div>
-        )
+      renderView2 () {
+        return <div>{this.view.renderView1()}</div>
       },
-      renderView3(){
-        return(
-          <div>{this.view.renderView2()}</div>
-        )
+      renderView3 () {
+        return <div>{this.view.renderView2()}</div>
       }
     }
   })
-  function Test () {
-    const store = useTestStore()
-    console.log(store, 30)
-    return (
-      <div>{store.view.renderView3()}</div>
-    )
+  function Test (props) {
+    const store = useTestStore(props)
+    return <div>{store.view.renderView3()}</div>
   }
-  render(<Test></Test>)
-  expect(screen.getByRole('renderView1')).toHaveTextContent('renderView1')
+  render(<Test globalStore={{ name: 'jacky' }}></Test>)
+  expect(screen.getByRole('renderView1')).toHaveTextContent('jacky')
 })
