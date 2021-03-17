@@ -17,13 +17,7 @@ export function createStore(storeConfig, enhance) {
   }
 
   if (storeConfig.name) {
-    combination[storeConfig.name] = {
-      controller: store.controller,
-      view: store.view,
-      refs: store.refs,
-      state: store.state,
-      rc: store.rc,
-    }
+    combination[storeConfig.name] = store
   }
   const reducer = (state, action) => {
     const stateKeys = Object.keys(store.state)
