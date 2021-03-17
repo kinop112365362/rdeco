@@ -41,6 +41,7 @@ export function createStore(storeConfig, enhance) {
   return function (props) {
     const context = useContext(AppContext)
     const [state, dispatch] = useReducer(reducer, store.state)
+    console.log(props)
     store.update(state, context, dispatch, props)
     /**
      * @type {store.state} state

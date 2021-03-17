@@ -23,14 +23,15 @@ export class Store {
     this.state = { ...storeConfig.initState }
     this.refs = { ...storeConfig.ref }
     this.styles = { ...storeConfig.styles }
-    this.context = null
+    this.context = {}
     /** props 到底是否有其实际价值? 暂时不放在任何 context 中看看情况 */
-    this.props = null
+    this.props = {}
     const baseContext = {
       state: this.state,
       refs: this.refs,
       styles: this.styles,
       context: this.context,
+      props: this.props,
     }
     /** create this.rc
      * rc 只支持对 2 级 Key 做 State 快捷操作,
@@ -125,6 +126,7 @@ export class Store {
       return {}
     }
     const fnObjBindContext = {}
+    console.log(this.private.viewContext)
     fnKeys.forEach((fnKey) => {
       fnObjBindContext[fnKey] = (...args) => {
         if (hook) {
@@ -151,18 +153,17 @@ export class Store {
     })
     return fnObjBindContext
   }
-  updateFunctionContextStateAndContext({ state, context }) {
+  updateFunctionContextStateAndContextAndProps({ state, context, props }) {
     for (const contextName in this.private) {
       if (Object.hasOwnProperty.call(this.private, contextName)) {
         this.private[contextName]['state'] = state
         this.private[contextName]['context'] = context
+        this.private[contextName]['props'] = props
       }
     }
   }
   update(state, context, dispatch, props) {
-    this.updateFunctionContextStateAndContext({ state, context })
+    this.updateFunctionContextStateAndContextAndProps({ state, context, props })
     this.dispatch = dispatch
-    this.context = context
-    this.props = props
   }
 }
