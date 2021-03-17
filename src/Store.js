@@ -109,11 +109,9 @@ export class Store {
       hook.serviceWrapper
     )
     this.private.serviceContext.service = serviceBindContext
-    this.private.serviceContext.controller = ctrlBindContext
     this.private.serviceContext.rc = this.rc
 
     this.private.controllerContext.service = serviceBindContext
-    this.private.controllerContext.view = viewBindContext
     this.private.controllerContext.rc = this.rc
     this.private.controllerContext.combination = combination
 
