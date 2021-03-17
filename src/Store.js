@@ -132,7 +132,6 @@ export class Store {
       return {}
     }
     const fnObjBindContext = {}
-    console.log(this.private.viewContext)
     fnKeys.forEach((fnKey) => {
       fnObjBindContext[fnKey] = (...args) => {
         if (hook) {
