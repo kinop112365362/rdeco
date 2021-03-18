@@ -11,9 +11,12 @@ import { Store } from './Store'
 export function createStore(storeConfig, enhance) {
   let store = new Store(storeConfig)
   if (enhance) {
-    store = enhance.reduce((prevFn, fn) => {
-      return fn(prevFn(store))
-    })
+    if (enhance.length > 1) {
+      store = enhance.reduce((prevFn, fn) => {
+        return fn(prevFn(store))
+      })
+    }
+    store = enhance[0](store)
   }
 
   if (storeConfig.name) {
