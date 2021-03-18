@@ -42,7 +42,7 @@
     "coverage": "codecov",
     "gcg": "git co main",
     "gcs": "git co master",
-    "pub": "yarn publish && rm -rf .npmrc && yarn:publish && git co ."
+    "pub": "yarn publish && rm -rf .npmrc && yarn publish && git co ."
   },
   "peerDependencies": {
     "react": "^16.8.3 || ^17"
