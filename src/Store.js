@@ -110,6 +110,7 @@ export class Store {
     )
     this.private.serviceContext.service = serviceBindContext
     this.private.serviceContext.rc = this.rc
+    this.private.viewContext.combination = combination
 
     this.private.controllerContext.service = serviceBindContext
     this.private.controllerContext.rc = this.rc
