@@ -13,7 +13,7 @@ export function createStore(storeConfig, enhance) {
   if (enhance) {
     if (enhance.length > 1) {
       store = enhance.reduce((prevFn, fn) => {
-        return fn(prevFn(store))
+        return fn(prevFn(store, storeConfig))
       })
     }
     store = enhance[0](store)
@@ -40,7 +40,7 @@ export function createStore(storeConfig, enhance) {
   }
   return function (props) {
     const context = useContext(AppContext)
-    const [state, dispatch] = useReducer(reducer, store.state)
+    const [state, dispatch] = useReducer(reducer, { ...store.state })
     store.update(state, context, dispatch, props)
     /**
      * @type {store.state} state

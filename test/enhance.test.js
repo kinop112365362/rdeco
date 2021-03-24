@@ -13,7 +13,7 @@ const logger = {
     }
     this.logArr.push(logNode)
   },
-  print(){
+  print () {
     const groupKey = this.logArr.pop().logNode
     console.group(groupKey)
     this.logArr.forEach(logNode => {
@@ -81,10 +81,13 @@ test('测试 enhance', async () => {
     }
   ]
   const storeConfig = {
-    initState: { name: 'jacky' },
+    initState: { name: 'jacky', age: 19 },
     controller: {
       onNameChange () {
         this.rc.setName('hello world')
+      },
+      onAgeChange () {
+        this.rc.setAge(18)
       }
     }
   }
