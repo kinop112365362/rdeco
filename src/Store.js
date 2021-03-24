@@ -122,6 +122,7 @@ export class Store {
 
     this.view = viewBindContext
     this.controller = ctrlBindContext
+    this.service = serviceBindContext
   }
   dispatch() {
     throw new Error('dispatch 没有被正确初始化, 请检查 hook 初始化部分的代码')
