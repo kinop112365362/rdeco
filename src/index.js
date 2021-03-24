@@ -16,7 +16,7 @@ export function createStore(storeConfig, enhance) {
         return fn(prevFn(store, storeConfig))
       })
     }
-    store = enhance[0](store)
+    store = enhance[0](store, storeConfig)
   }
 
   if (storeConfig.name) {
