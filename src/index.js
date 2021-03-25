@@ -13,7 +13,7 @@ export function createStore(storeConfig, enhance) {
   if (enhance) {
     if (enhance.length > 1) {
       store = enhance.reduce((prevFn, fn) => {
-        return fn(prevFn(store, storeConfig))
+        return fn(prevFn(store, storeConfig), storeConfig)
       })
     }
     store = enhance[0](store, storeConfig)
