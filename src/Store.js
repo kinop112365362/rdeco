@@ -158,6 +158,9 @@ export class Store {
     })
     return fnObjBindContext
   }
+  mixinPrivateContext(contextName, key, value) {
+    this.private[contextName][key] = value
+  }
   updateFunctionContextStateAndContextAndProps({ state, context, props }) {
     for (const contextName in this.private) {
       if (Object.hasOwnProperty.call(this.private, contextName)) {
