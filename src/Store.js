@@ -5,7 +5,6 @@ import React from 'react'
 import { merge } from 'lodash'
 import { combination } from './combination'
 import { storeConfigValidate } from './utils/store-config-validate'
-import { isFunction } from './utils/is-function'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
 import { getReducerType } from './get-reducer-model'
 import { bindContext } from './bind-context'
@@ -41,27 +40,17 @@ export class Store {
     this.stateKeys = Object.keys(this.state)
     this.rc = {
       setState: (nextState) => {
-        if (isFunction(nextState)) {
-          this.dispatch(['setState', nextState(this.state)])
-        }
         isStateIsUndefined(nextState, this.stateKeys)
-        this.dispatch(['setState', nextState])
+        this.dispatch(['setState', nextState, 'state'])
       },
       setViewCtrl: (nextState) => {
-        if (isFunction(nextState)) {
-          this.dispatch(['setViewCtrl', nextState(this.state)])
-        }
-        this.dispatch(['setViewCtrl', nextState])
+        this.dispatch(['setViewCtrl', nextState, 'viewCtrl'])
       },
     }
     this.stateKeys.forEach((stateKey) => {
       const type = getReducerType(stateKey)
       this.rc[type] = (payload) => {
-        if (isFunction(payload)) {
-          this.dispatch([type, payload(this.state[stateKey])])
-        } else {
-          this.dispatch([type, payload])
-        }
+        this.dispatch([type, payload, stateKey])
       }
     })
 

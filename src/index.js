@@ -7,6 +7,7 @@ import { combination } from './combination'
 import { actionIsUndefined } from './utils/action-is-undefined'
 import { getReducerModel } from './get-reducer-model'
 import { Store } from './Store'
+import { isFunction } from './utils/is-function'
 
 export function createStore(storeConfig, enhance) {
   let store = new Store(storeConfig)
@@ -27,11 +28,16 @@ export function createStore(storeConfig, enhance) {
     const stateKeys = Object.keys(store.state)
     const reducerModel = getReducerModel(stateKeys)(state)
     actionIsUndefined(reducerModel, action)
-    const result = reducerModel[action[0]](action[1])
-    // console.group(action[0])
-    // console.log('prev store.state =>', state)
-    // console.log('next state =>', action[1])
-    // console.groupEnd()
+    let result = null
+    if (isFunction(action[1])) {
+      if (action[2] === 'state') {
+        result = reducerModel[action[0]](action[1](state))
+      } else {
+        result = reducerModel[action[0]](action[1](state[action[2]]))
+      }
+    } else {
+      result = reducerModel[action[0]](action[1])
+    }
     const newState = mergeWith(state, result, (objValue, srcValue) => {
       if (Array.isArray(objValue)) {
         return [...srcValue]
