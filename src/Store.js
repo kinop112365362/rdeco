@@ -2,7 +2,7 @@
 /* eslint-disable react/display-name */
 // @filename: Store.js
 import React from 'react'
-import { merge } from 'lodash'
+import mergeWith from 'lodash.mergewith'
 import { combination } from './combination'
 import { storeConfigValidate } from './utils/store-config-validate'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
@@ -16,7 +16,16 @@ export class Store {
   constructor(rawStoreConfig) {
     let storeConfig = rawStoreConfig
     if (rawStoreConfig.membrane) {
-      storeConfig = merge(rawStoreConfig, rawStoreConfig.membrane)
+      storeConfig = mergeWith(
+        rawStoreConfig,
+        rawStoreConfig.membrane,
+        (objValue, srcValue) => {
+          if (Array.isArray(objValue)) {
+            return [...srcValue]
+          }
+          return { ...objValue, ...srcValue }
+        }
+      )
     }
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     this.state = { ...storeConfig.initState }
