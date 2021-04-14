@@ -8,17 +8,18 @@ import { storeConfigValidate } from './utils/store-config-validate'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
 import { getReducerType } from './get-reducer-model'
 import { bindContext } from './bind-context'
+import defaultsDeep from 'lodash.defaultsdeep'
 // eslint-disable-next-line valid-jsdoc
 export class Store {
   /**
    * @param rawStoreConfig { import("./types").StoreConfig }   用于创建 Store 的配置对象
    */
   constructor(rawStoreConfig) {
-    let storeConfig = rawStoreConfig
-    if (rawStoreConfig.membrane) {
+    let storeConfig = defaultsDeep({}, rawStoreConfig)
+    if (storeConfig.membrane) {
       storeConfig = mergeWith(
-        rawStoreConfig,
-        rawStoreConfig.membrane,
+        storeConfig,
+        storeConfig.membrane,
         (objValue, srcValue) => {
           if (Array.isArray(objValue)) {
             return [...srcValue]
