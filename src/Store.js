@@ -172,5 +172,6 @@ export class Store {
   update(state, context, dispatch, props) {
     this.updateFunctionContextStateAndContextAndProps({ state, context, props })
     this.dispatch = dispatch
+    this.state = state
   }
 }
