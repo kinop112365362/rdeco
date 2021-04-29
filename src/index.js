@@ -21,9 +21,14 @@ export function createStore(storeConfig, enhance) {
     }
   }
 
-  if (storeConfig.name) {
+  if (storeConfig.membrane) {
+    if (storeConfig.membrane.name) {
+      combination[storeConfig.membrane.name] = store
+    }
+  } else if (storeConfig.name) {
     combination[storeConfig.name] = store
   }
+
   const reducer = (state, action) => {
     const stateKeys = Object.keys(store.state)
     const reducerModel = getReducerModel(stateKeys)(state)
