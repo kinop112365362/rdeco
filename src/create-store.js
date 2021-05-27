@@ -2,7 +2,6 @@
 import { useReducer, useContext } from 'react'
 import { AppContext } from './app-context'
 import mergeWith from 'lodash.mergewith'
-import { combination } from './combination'
 import { actionIsUndefined } from './utils/action-is-undefined'
 import { getReducerModel } from './get-reducer-model'
 import { Store } from './Store'
@@ -18,14 +17,6 @@ export function createStore(storeConfig, enhance) {
     } else {
       store = enhance[0](store, storeConfig)
     }
-  }
-
-  if (storeConfig.membrane) {
-    if (storeConfig.membrane.name) {
-      combination[storeConfig.membrane.name] = store
-    }
-  } else if (storeConfig.name) {
-    combination[storeConfig.name] = store
   }
 
   const reducer = (state, action) => {

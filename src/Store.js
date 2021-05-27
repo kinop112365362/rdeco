@@ -28,6 +28,7 @@ export class Store {
         }
       )
     }
+    combination[storeConfig.name] = this
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     this.state = { ...storeConfig.initState }
     this.refs = { ...storeConfig.ref }
