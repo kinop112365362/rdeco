@@ -51,6 +51,7 @@ export function createStore(storeConfig, enhance) {
       view: store.view,
       state,
       refs: store.refs,
+      ref: store.refs,
       controller: store.controller,
     }
   }

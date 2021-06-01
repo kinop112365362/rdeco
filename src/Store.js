@@ -32,14 +32,18 @@ export class Store {
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     this.state = { ...storeConfig.initState }
     this.refs = { ...storeConfig.ref }
+    this.ref = { ...storeConfig.ref }
     this.styles = { ...storeConfig.styles }
+    this.style = { ...storeConfig.styles }
     this.context = {}
     /** props 到底是否有其实际价值? 暂时不放在任何 context 中看看情况 */
     this.props = {}
     const baseContext = {
       state: this.state,
       refs: this.refs,
+      ref: this.refs,
       styles: this.styles,
+      style: this.styles,
       context: this.context,
       props: this.props,
     }
