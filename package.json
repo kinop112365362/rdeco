@@ -1,6 +1,6 @@
 {
   "name": "structured-react-hook",
-  "version": "1.21.4",
+  "version": "1.21.5",
   "description": "面向企业级的结构化的 React 状态管理框架",
   "keywords": [
     "react",
@@ -42,7 +42,8 @@
     "coverage": "codecov",
     "gcg": "git co main",
     "gcs": "git co master",
-    "pub": "rm -rf .npmrc && yarn publish"
+    "pub": "rm -rf .npmrc && yarn publish",
+    "tsc": "tsc"
   },
   "peerDependencies": {
     "react": "^16.8.3 || ^17"
