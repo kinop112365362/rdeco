@@ -34,7 +34,7 @@ export class Store {
     this.refs = { ...storeConfig.ref }
     this.ref = { ...storeConfig.ref }
     this.styles = { ...storeConfig.styles }
-    this.style = { ...storeConfig.styles }
+    this.style = { ...storeConfig.style }
     this.context = {}
     /** props 到底是否有其实际价值? 暂时不放在任何 context 中看看情况 */
     this.props = {}
@@ -43,7 +43,7 @@ export class Store {
       refs: this.refs,
       ref: this.refs,
       styles: this.styles,
-      style: this.styles,
+      style: this.style,
       context: this.context,
       props: this.props,
     }
