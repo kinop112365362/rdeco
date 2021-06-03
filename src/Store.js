@@ -11,9 +11,6 @@ import { bindContext } from './bind-context'
 import defaultsDeep from 'lodash.defaultsdeep'
 // eslint-disable-next-line valid-jsdoc
 export class Store {
-  /**
-   * @param rawStoreConfig { import("./types").StoreConfig }   用于创建 Store 的配置对象
-   */
   constructor(rawStoreConfig) {
     let storeConfig = defaultsDeep({}, rawStoreConfig)
     if (storeConfig.membrane) {

@@ -1,6 +1,6 @@
 # Structured-React-Hook
 
-面向企业级的次世代 React 应用/组件研发框架
+用对象重新定义 React 组件
 
 先来安装下
 ```js
@@ -11,28 +11,28 @@ yarn add structured-react-hook
 这是一个基本示例, 声明状态, 通过控制器修改状态触发渲染
 
 ```js
-import React, { useEffect } from 'react'
-import createStore from 'structured-react-hook'
+import { createComponent } from 'structured-react-hook'
 
-const storeConfig = {
-  initState: {
-    text: ''
+const Button = createComponent({
+  name:'Button',
+  initState:{
+    text:'按钮'
   },
-  controller: {
-    onComponentInit () {
-      this.rc.setText('hello world')
+  controller:{
+    onClick(){
+      this.rc.setState({
+        text:'你点击了按钮'
+      })
+    }
+  },
+  view:{
+    render(){
+      return(){
+        <button onClick={this.controller.onClick}>{this.state.text}</button>
+      }
     }
   }
-}
-const useStore = createStore(storeConfig)
-
-function App () {
-  const store = useStore()
-  useEffect(() => {
-    store.controller.onComponentInit()
-  }, [])
-  return <div>{store.state.text}</div>
-}
+})
 ```
 
 So Easy!!
