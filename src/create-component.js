@@ -2,9 +2,10 @@ import React from 'react'
 import { createStore } from './create-store'
 
 export function createComponent(component, membrane = {}) {
-  component.membrane = membrane
+  const copy = { ...component }
+  copy.membrane = membrane
   return function HookComponent(props) {
-    const useComponent = createStore(component)
+    const useComponent = createStore(copy)
     const store = useComponent(props)
     return <>{store.view.render()}</>
   }
