@@ -181,7 +181,7 @@ test('运行 view 模块, 测试 render 函数', async () => {
     },
     view: {
       renderButton () {
-        if (this.rc.renderButton) {
+        if (this.state.renderButton) {
           return (
             <button role='delete' onClick={this.controller.onButtonClick}>
               点我消失

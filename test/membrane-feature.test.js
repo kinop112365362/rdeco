@@ -16,9 +16,9 @@ test('测试 membrane 的全部功能', async () => {
       renderView () {
         return (
           <div>
-            <div role='title'>{this.rc.title}</div>
-            <div role='desc'>{this.rc.desc}</div>
-            <div role='superService'>{this.rc.superService}</div>
+            <div role='title'>{this.state.title}</div>
+            <div role='desc'>{this.state.desc}</div>
+            <div role='superService'>{this.state.superService}</div>
           </div>
         )
       }
@@ -61,9 +61,9 @@ test('测试 membrane 的全部功能', async () => {
           console.log(this.state)
           return (
             <div>
-              <div role='membraneTitle'>{this.rc.membraneTitle}</div>
+              <div role='membraneTitle'>{this.state.membraneTitle}</div>
               {this.view.renderButton()}
-              <div role='membraneService'>{this.rc.membraneService}</div>
+              <div role='membraneService'>{this.state.membraneService}</div>
             </div>
           )
         }

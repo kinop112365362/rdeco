@@ -26,7 +26,7 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
     controller,
     view: {
       renderCountry () {
-        return <div role='country'>{this.rc.country}</div>
+        return <div role='country'>{this.state.country}</div>
       }
     },
     membrane: {

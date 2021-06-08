@@ -32,7 +32,7 @@ test('测试 combination View', async () => {
     view:{
       render(){
         return (
-          <div role="other">{this.rc.name}</div>
+          <div role="other">{this.state.name}</div>
         )
       }
     }

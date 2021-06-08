@@ -25,8 +25,8 @@ test('对嵌套 state 进行 set 的时候自动 merge 旧值', async () => {
       renderView1 () {
         return (
           <>
-            <div role='renderView1'>{this.rc.modal.showConfirmModal} </div>
-            <div role='title'>{this.rc.modal.title}</div>
+            <div role='renderView1'>{this.state.modal.showConfirmModal} </div>
+            <div role='title'>{this.state.modal.title}</div>
           </>
         )
       }

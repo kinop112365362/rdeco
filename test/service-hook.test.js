@@ -32,7 +32,7 @@ test('测试 service hook', async () => {
     controller,
     view: {
       renderView1 () {
-        return <div role='showConfirmModal'>{this.rc.showConfirmModal}</div>
+        return <div role='showConfirmModal'>{this.state.showConfirmModal}</div>
       },
       renderView2 () {
         return <div>{this.view.renderView1()}</div>
