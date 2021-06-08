@@ -15,8 +15,8 @@ test('运行 createStore  基本功能测试, initState → controller → servi
   const controller = {
     onConfirmButtonClick () {
       this.service.openModal()
-      this.rc.setShowConfirmModal('true')
-      this.rc.setArray([0])
+      this.state.setShowConfirmModal('true')
+      this.state.setArray([0])
     }
   }
   const useTestStore = createStore({
@@ -61,7 +61,7 @@ test('运行异步 service 测试', async () => {
   const controller = {
     async onConfirmButtonClick () {
       const res = await this.service.openModal()
-      this.rc.setShowConfirmModal(res)
+      this.state.setShowConfirmModal(res)
     }
   }
   const useTestStore = createStore({
@@ -105,7 +105,7 @@ test('运行 controller 增强模式测试, logPlugin 运行正常', async () =>
   const controller = {
     async onConfirmButtonClick () {
       const res = await this.service.openModal()
-      this.rc.setShowConfirmModal(res)
+      this.state.setShowConfirmModal(res)
     }
   }
   const useTestStore = createStore({
@@ -138,7 +138,7 @@ test('测试 Context 在 store 中的使用', async () => {
     },
     controller: {
       onGlobalSet () {
-        this.rc.setGlobal('helloWorld')
+        this.state.setGlobal('helloWorld')
       }
     }
   })
@@ -192,7 +192,7 @@ test('运行 view 模块, 测试 render 函数', async () => {
     },
     controller: {
       onButtonClick () {
-        this.rc.setRenderButton('haha')
+        this.state.setRenderButton('haha')
       }
     }
   })
@@ -218,7 +218,7 @@ test('测试单独的 rc.set, 可以联动其他的 rc 可以获取前置的 sta
   const service = {}
   const controller = {
     onComponentInit () {
-      this.rc.setCount(prevCount => ++prevCount)
+      this.state.setCount(prevCount => ++prevCount)
     }
   }
   const useTestStore = createStore({

@@ -26,7 +26,7 @@ test('测试 combination View', async () => {
     },
     controller:{
       onNameChange(name){
-        this.rc.setName(name)
+        this.state.setName(name)
       }
     },
     view:{

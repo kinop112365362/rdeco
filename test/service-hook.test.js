@@ -22,8 +22,8 @@ test('测试 service hook', async () => {
       const res = await this.service.openModal(1)
       console.log(res)
       const name = await this.service.queryName()
-      this.rc.setShowConfirmModal(res)
-      this.rc.setName(name)
+      this.state.setShowConfirmModal(res)
+      this.state.setName(name)
     }
   }
   const useTestStore = createStore({

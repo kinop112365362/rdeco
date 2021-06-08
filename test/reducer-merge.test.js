@@ -13,7 +13,7 @@ test('对嵌套 state 进行 set 的时候自动 merge 旧值', async () => {
   }
   const controller = {
     onConfirmButtonClick () {
-      this.rc.setModal({
+      this.state.setModal({
         showConfirmModal: 'true'
       })
     }

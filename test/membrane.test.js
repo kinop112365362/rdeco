@@ -17,7 +17,7 @@ test('测试 membrane 对 store 的 view 的继承', async () => {
     },
     controller: {
       onComponentStart () {
-        this.rc.setDesc('没有检测到平台异常')
+        this.state.setDesc('没有检测到平台异常')
       }
     },
     membrane: {

@@ -16,7 +16,7 @@ test('测试 async service', async () => {
   const controller = {
     async onConfirmButtonClick () {
       const res = await this.service.openModal()
-      this.rc.setShowConfirmModal(res)
+      this.state.setShowConfirmModal(res)
     }
   }
   const useTestStore = createStore({

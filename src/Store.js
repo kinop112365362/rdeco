@@ -65,7 +65,7 @@ export class Store {
         this.dispatch([type, payload, stateKey])
       }
     })
-
+    this.state = { ...this.state, ...this.rc }
     this.private = {
       controllerContext: { ...baseContext },
       viewContext: { ...baseContext },

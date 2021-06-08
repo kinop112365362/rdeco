@@ -84,10 +84,10 @@ test('测试 enhance', async () => {
     initState: { name: 'jacky', age: 19 },
     controller: {
       onNameChange () {
-        this.rc.setName('hello world')
+        this.state.setName('hello world')
       },
       onAgeChange () {
-        this.rc.setAge(18)
+        this.state.setAge(18)
       }
     }
   }

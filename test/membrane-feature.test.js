@@ -28,8 +28,8 @@ test('测试 membrane 的全部功能', async () => {
     },
     controller: {
       onComponentStart () {
-        this.rc.setSuperService('superService')
-        this.rc.setDesc('没有检测到平台异常')
+        this.state.setSuperService('superService')
+        this.state.setDesc('没有检测到平台异常')
       }
     },
     membrane: {
@@ -43,9 +43,9 @@ test('测试 membrane 的全部功能', async () => {
       controller: {
         onComponentStart () {
           this.service.subService()
-          this.rc.setMembraneTitle('spec state in membrane')
-          this.rc.setTitle('extends controller')
-          this.rc.setMembraneService('membraneService')
+          this.state.setMembraneTitle('spec state in membrane')
+          this.state.setTitle('extends controller')
+          this.state.setMembraneService('membraneService')
         }
       },
       view: {
