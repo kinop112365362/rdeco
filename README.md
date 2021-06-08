@@ -20,7 +20,7 @@ const Button = createComponent({
   },
   controller:{
     onClick(){
-      this.rc.setState({
+      this.state.setState({
         text:'你点击了按钮'
       })
     }
