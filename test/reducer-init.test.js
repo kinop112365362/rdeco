@@ -17,7 +17,7 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
     onConfirmButtonClick () {
       console.log(this.rc)
       this.service.openModal()
-      this.state.setShowConfirmModal('true')
+      this.rc.setShowConfirmModal('true')
     }
   }
   const useTestStore = createStore({
@@ -26,7 +26,7 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
     controller,
     view: {
       renderCountry () {
-        return <div role='country'>{this.state.country}</div>
+        return <div role='country'>{this.rc.country}</div>
       }
     },
     membrane: {
@@ -42,7 +42,7 @@ test('storeConfig 中的 init 参数, 能否拿到 context', async () => {
     },
     controller: {
       onLanguageChange (language) {
-        this.state.setLanguage(language)
+        this.rc.setLanguage(language)
       }
     }
   })

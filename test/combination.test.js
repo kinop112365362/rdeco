@@ -26,7 +26,7 @@ test('测试 combination Controller', async () => {
     },
     controller:{
       onNameChange(name){
-        this.state.setName(name)
+        this.rc.setName(name)
       }
     }
   })

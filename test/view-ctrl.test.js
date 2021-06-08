@@ -25,8 +25,8 @@ test('测试 view 的内部嵌套', async () => {
   const controller = {
     async onConfirmButtonClick () {
       const res = await this.service.openModal()
-      this.state.setShowConfirmModal(res)
-      this.state.setState({
+      this.rc.setShowConfirmModal(res)
+      this.rc.setState({
         viewCtrl:{
           renderView1:true
         }

@@ -17,7 +17,7 @@ test('测试 controller hook', async () => {
     async onConfirmButtonClick () {
       console.log(this.styles.width)
       const res = await this.service.openModal()
-      this.state.setShowConfirmModal(res)
+      this.rc.setShowConfirmModal(res)
     }
   }
   const useTestStore = createStore({

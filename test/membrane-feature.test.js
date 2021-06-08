@@ -16,9 +16,9 @@ test('测试 membrane 的全部功能', async () => {
       renderView () {
         return (
           <div>
-            <div role='title'>{this.state.title}</div>
-            <div role='desc'>{this.state.desc}</div>
-            <div role='superService'>{this.state.superService}</div>
+            <div role='title'>{this.rc.title}</div>
+            <div role='desc'>{this.rc.desc}</div>
+            <div role='superService'>{this.rc.superService}</div>
           </div>
         )
       }
@@ -28,8 +28,8 @@ test('测试 membrane 的全部功能', async () => {
     },
     controller: {
       onComponentStart () {
-        this.state.setSuperService('superService')
-        this.state.setDesc('没有检测到平台异常')
+        this.rc.setSuperService('superService')
+        this.rc.setDesc('没有检测到平台异常')
       }
     },
     membrane: {
@@ -43,9 +43,9 @@ test('测试 membrane 的全部功能', async () => {
       controller: {
         onComponentStart () {
           this.service.subService()
-          this.state.setMembraneTitle('spec state in membrane')
-          this.state.setTitle('extends controller')
-          this.state.setMembraneService('membraneService')
+          this.rc.setMembraneTitle('spec state in membrane')
+          this.rc.setTitle('extends controller')
+          this.rc.setMembraneService('membraneService')
         }
       },
       view: {
@@ -61,9 +61,9 @@ test('测试 membrane 的全部功能', async () => {
           console.log(this.state)
           return (
             <div>
-              <div role='membraneTitle'>{this.state.membraneTitle}</div>
+              <div role='membraneTitle'>{this.rc.membraneTitle}</div>
               {this.view.renderButton()}
-              <div role='membraneService'>{this.state.membraneService}</div>
+              <div role='membraneService'>{this.rc.membraneService}</div>
             </div>
           )
         }

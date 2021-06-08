@@ -19,7 +19,7 @@ test('测试对 style 的重写', async () => {
   const controller = {
     async onConfirmButtonClick () {
       const res = await this.service.openModal()
-      this.state.setShowConfirmModal(res)
+      this.rc.setShowConfirmModal(res)
     }
   }
   const useTestStore = createStore({

@@ -26,13 +26,13 @@ test('测试 combination View', async () => {
     },
     controller:{
       onNameChange(name){
-        this.state.setName(name)
+        this.rc.setName(name)
       }
     },
     view:{
       render(){
         return (
-          <div role="other">{this.state.name}</div>
+          <div role="other">{this.rc.name}</div>
         )
       }
     }

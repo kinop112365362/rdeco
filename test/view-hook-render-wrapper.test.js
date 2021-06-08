@@ -16,7 +16,7 @@ test('测试全局的 render hook', async () => {
   const controller = {
     async onConfirmButtonClick () {
       const res = await this.service.openModal()
-      this.state.setShowConfirmModal(res)
+      this.rc.setShowConfirmModal(res)
     }
   }
   const useTestStore = createStore({
