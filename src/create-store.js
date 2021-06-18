@@ -12,6 +12,9 @@ export function createStore(storeConfig, enhance) {
   if (enhance) {
     if (enhance.length > 1) {
       store = enhance.reduce((prevFn, fn) => {
+        if (typeof prevFn === 'object') {
+          return fn(prevFn, storeConfig)
+        }
         return fn(prevFn(store, storeConfig), storeConfig)
       })
     } else {
