@@ -7,11 +7,11 @@ export function enhanceCreateComponent(enhances) {
     const copy = { ...component }
     copy.membrane = membrane
     return function HookComponent(props) {
+      if (props.sid) {
+        copy.sid = props.sid
+      }
       const useComponent = createStore(copy, enhances)
       const store = useComponent(props)
-      if (props.sRef) {
-        props.sRef = store
-      }
       return <>{store.view.render()}</>
     }
   }

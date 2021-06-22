@@ -6,22 +6,28 @@ import { actionIsUndefined } from './utils/action-is-undefined'
 import { getReducerModel } from './get-reducer-model'
 import { Store } from './Store'
 import { isFunction } from './utils/is-function'
+import { combination } from './combination'
 
 export function createStore(storeConfig, enhance) {
-  let store = new Store(storeConfig)
-  if (enhance) {
-    if (enhance.length > 1) {
-      store = enhance.reduce((prevFn, fn) => {
-        if (typeof prevFn === 'object') {
-          return fn(prevFn, storeConfig)
-        }
-        return fn(prevFn(store, storeConfig), storeConfig)
-      })
-    } else {
-      store = enhance[0](store, storeConfig)
+  let store
+  if (combination.$has(storeConfig)) {
+    store = combination.$find(storeConfig.name, storeConfig.sid)
+  } else {
+    store = new Store(storeConfig)
+    if (enhance) {
+      if (enhance.length > 1) {
+        store = enhance.reduce((prevFn, fn) => {
+          if (typeof prevFn === 'object') {
+            return fn(prevFn, storeConfig)
+          }
+          return fn(prevFn(store, storeConfig), storeConfig)
+        })
+      } else {
+        store = enhance[0](store, storeConfig)
+      }
     }
+    combination.$set(storeConfig, store)
   }
-
   const reducer = (state, action) => {
     const stateKeys = Object.keys(store.state)
     const reducerModel = getReducerModel(stateKeys)(state)

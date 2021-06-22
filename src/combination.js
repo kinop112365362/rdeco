@@ -1,5 +1,48 @@
 // eslint-disable-next-line no-undef
-export const combination = {}
+export const combination = {
+  // eslint-disable-next-line no-undef
+  names: [],
+  $find(name, sid) {
+    let cName = name
+    if (sid) {
+      cName = `${name}_${sid}`
+    }
+    return this[cName]
+  },
+  $has(storeConfig) {
+    console.log(this.names)
+    const result = this.names.find((name) => {
+      if (storeConfig.sid) {
+        return name === `${storeConfig.name}_${storeConfig.sid}`
+      } else {
+        return name === storeConfig.name
+      }
+    })
+    console.log(!!result)
+    return !!result
+  },
+  $set(storeConfig, ins) {
+    // 针对多实例, combination 永远链接的是最后渲染的那个组件
+    if (storeConfig.name) {
+      if (storeConfig.sid) {
+        const cName = `${storeConfig.name}_${storeConfig.sid}`
+        if (this[cName]) {
+          throw new Error(`${cName} 已存在, 检查 sid 是否重复`)
+        } else {
+          this[cName] = ins
+          this.names.push(cName)
+        }
+      } else {
+        if (this[storeConfig.name]) {
+          throw new Error(`${storeConfig.name} 已存在, 检查 name 是否重复`)
+        } else {
+          this[storeConfig.name] = ins
+          this.names.push(storeConfig.name)
+        }
+      }
+    }
+  },
+}
 // export const combination = new Proxy(
 //   {},
 //   {
