@@ -23,7 +23,9 @@ export function createStore(storeConfig, enhance) {
           return fn(prevFn(store, storeConfig), storeConfig)
         })
       } else {
-        store = enhance[0](store, storeConfig)
+        if (enhance[0] && typeof enhance[0] === 'function') {
+          store = enhance[0](store, storeConfig)
+        }
       }
     }
     combination.$set(storeConfig, store)
