@@ -25,6 +25,7 @@ export class Store {
         }
       )
     }
+    // 针对多实例, combination 永远链接的是最后渲染的那个组件
     combination[storeConfig.name] = this
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     this.state = { ...storeConfig.initState }
