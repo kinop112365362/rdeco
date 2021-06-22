@@ -1,6 +1,6 @@
 {
   "name": "structured-react-hook",
-  "version": "1.23.8",
+  "version": "1.23.9",
   "description": "面向企业级的结构化的 React 状态管理框架",
   "keywords": [
     "react",
