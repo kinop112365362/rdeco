@@ -24,10 +24,15 @@ test('测试 rc.setState 可以获取前置的 state', async () => {
           }
         }
       })
+      ++this.ref.count
+      console.log(this.ref.count)
     }
   }
   const useTestStore = createStore({
     initState,
+    ref:{
+      count:0,
+    },
     service,
     controller
   })
@@ -35,16 +40,19 @@ test('测试 rc.setState 可以获取前置的 state', async () => {
     const store = useTestStore()
     useEffect(() => {
       store.controller.onComponentInit()
+      console.log(store.ref.count)
     }, [])
     return (
       <div>
         <span role='msg'>{store.state.msg}</span>
         <span role='tab'>{store.state.tabs.length}</span>
+        <span role='ref'>{store.ref.count}</span>
       </div>
     )
   }
   render(<Test></Test>)
   expect(screen.getByRole('msg')).toHaveTextContent('count 是 0')
   expect(screen.getByRole('tab')).toHaveTextContent('2')
+  expect(screen.getByRole('ref')).toHaveTextContent('1')
 })
 

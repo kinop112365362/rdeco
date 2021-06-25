@@ -10,7 +10,6 @@ export const combination = {
     return this[cName]
   },
   $has(storeConfig) {
-    console.log(this.names)
     const result = this.names.find((name) => {
       if (storeConfig.sid) {
         return name === `${storeConfig.name}_${storeConfig.sid}`
@@ -18,11 +17,9 @@ export const combination = {
         return name === storeConfig.name
       }
     })
-    console.log(!!result)
     return !!result
   },
   $set(storeConfig, ins) {
-    // 针对多实例, combination 永远链接的是最后渲染的那个组件
     if (storeConfig.name) {
       if (storeConfig.sid) {
         const cName = `${storeConfig.name}_${storeConfig.sid}`

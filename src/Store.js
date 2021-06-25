@@ -28,8 +28,8 @@ export class Store {
 
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     this.state = { ...storeConfig.initState }
-    this.refs = { ...storeConfig.ref }
-    this.ref = { ...storeConfig.ref }
+    // this.refs = useRef(storeConfig.refs).current
+    // this.ref = useRef(storeConfig.ref).current
     this.styles = { ...storeConfig.styles }
     this.style = { ...storeConfig.style }
     this.context = {}
@@ -37,8 +37,8 @@ export class Store {
     this.props = {}
     const baseContext = {
       state: this.state,
-      refs: this.refs,
-      ref: this.refs,
+      // refs: this.refs,
+      // ref: this.ref,
       styles: this.styles,
       style: this.style,
       context: this.context,
@@ -67,9 +67,9 @@ export class Store {
     })
 
     this.private = {
-      controllerContext: { ...baseContext },
-      viewContext: { ...baseContext },
-      serviceContext: { ...baseContext },
+      controllerContext: baseContext,
+      viewContext: baseContext,
+      serviceContext: baseContext,
     }
 
     const {
@@ -162,17 +162,24 @@ export class Store {
   mixinPrivateContext(contextName, key, value) {
     this.private[contextName][key] = value
   }
-  updateFunctionContextStateAndContextAndProps({ state, context, props }) {
+  updateFunctionContextStateAndContextAndProps({ state, context, props, ref }) {
     for (const contextName in this.private) {
       if (Object.hasOwnProperty.call(this.private, contextName)) {
         this.private[contextName]['state'] = state
         this.private[contextName]['context'] = context
         this.private[contextName]['props'] = props
+        this.private[contextName]['ref'] = ref
+        this.private[contextName]['refs'] = ref
       }
     }
   }
-  update(state, context, dispatch, props) {
-    this.updateFunctionContextStateAndContextAndProps({ state, context, props })
+  update(state, context, dispatch, props, ref) {
+    this.updateFunctionContextStateAndContextAndProps({
+      state,
+      context,
+      props,
+      ref,
+    })
     this.dispatch = dispatch
     this.state = state
   }

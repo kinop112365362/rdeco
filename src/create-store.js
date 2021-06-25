@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { useReducer, useContext } from 'react'
+import { useReducer, useContext, useRef } from 'react'
 import { AppContext } from './app-context'
 import mergeWith from 'lodash.mergewith'
 import { actionIsUndefined } from './utils/action-is-undefined'
@@ -54,15 +54,16 @@ export function createStore(storeConfig, enhance) {
   return function (props) {
     const context = useContext(AppContext)
     const [state, dispatch] = useReducer(reducer, { ...store.state })
-    store.update(state, context, dispatch, props)
+    const ref = useRef(storeConfig.ref).current
+    store.update(state, context, dispatch, props, ref)
     /**
      * @type {store.state} state
      */
     return {
       view: store.view,
       state,
-      refs: store.refs,
-      ref: store.refs,
+      refs: ref,
+      ref: ref,
       controller: store.controller,
     }
   }
