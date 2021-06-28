@@ -65,6 +65,19 @@ export class Store {
         this.dispatch([type, payload, stateKey])
       }
     })
+    //用 setter 优化 rc 的语义
+    this.setter = {
+      state: (nextState) => {
+        isStateIsUndefined(nextState, this.stateKeys)
+        this.dispatch(['setState', nextState, 'state'])
+      },
+    }
+    this.stateKeys.forEach((stateKey) => {
+      const type = getReducerType(stateKey)
+      this.setter[stateKey] = (payload) => {
+        this.dispatch([type, payload, stateKey])
+      }
+    })
 
     this.private = {
       controllerContext: baseContext,
@@ -111,10 +124,12 @@ export class Store {
     )
     this.private.serviceContext.service = serviceBindContext
     this.private.serviceContext.rc = this.rc
+    this.private.serviceContext.setter = this.setter
     this.private.serviceContext.combination = combination
 
     this.private.controllerContext.service = serviceBindContext
     this.private.controllerContext.rc = this.rc
+    this.private.serviceContext.setter = this.setter
     this.private.controllerContext.combination = combination
 
     this.private.viewContext.controller = ctrlBindContext
