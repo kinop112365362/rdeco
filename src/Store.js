@@ -1,7 +1,6 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable react/display-name */
 // @filename: Store.js
-import React from 'react'
 import mergeWith from 'lodash.mergewith'
 import { combination } from './combination'
 import { storeConfigValidate } from './utils/store-config-validate'
@@ -55,9 +54,9 @@ export class Store {
         isStateIsUndefined(nextState, this.stateKeys)
         this.dispatch(['setState', nextState, 'state'])
       },
-      setViewCtrl: (nextState) => {
-        this.dispatch(['setViewCtrl', nextState, 'viewCtrl'])
-      },
+      // setViewCtrl: (nextState) => {
+      //   this.dispatch(['setViewCtrl', nextState, 'viewCtrl'])
+      // },
     }
     this.stateKeys.forEach((stateKey) => {
       const type = getReducerType(stateKey)
@@ -80,9 +79,9 @@ export class Store {
     })
 
     this.private = {
-      controllerContext: baseContext,
-      viewContext: baseContext,
-      serviceContext: baseContext,
+      controllerContext: { ...baseContext },
+      viewContext: { ...baseContext },
+      serviceContext: { ...baseContext },
     }
 
     const {
@@ -95,19 +94,20 @@ export class Store {
         serviceWrapper: null,
       },
     } = storeConfig
-    if (view) {
-      if (!this.state.viewCtrl) {
-        this.state.viewCtrl = {}
-      }
-      viewKeys.forEach((viewKey) => {
-        if (this.state.viewCtrl[viewKey] === undefined) {
-          this.state.viewCtrl[viewKey] = true
-        }
-      })
-    }
-    const viewBindContext = this.bindViewContext(
+    // if (view) {
+    //   if (!this.state.viewCtrl) {
+    //     this.state.viewCtrl = {}
+    //   }
+    //   viewKeys.forEach((viewKey) => {
+    //     if (this.state.viewCtrl[viewKey] === undefined) {
+    //       this.state.viewCtrl[viewKey] = true
+    //     }
+    //   })
+    // }
+    const viewBindContext = bindContext(
       viewKeys,
       view,
+      this.private.viewContext,
       hook.viewWrapper
     )
     const ctrlBindContext = bindContext(
@@ -129,7 +129,7 @@ export class Store {
 
     this.private.controllerContext.service = serviceBindContext
     this.private.controllerContext.rc = this.rc
-    this.private.serviceContext.setter = this.setter
+    this.private.controllerContext.setter = this.setter
     this.private.controllerContext.combination = combination
 
     this.private.viewContext.controller = ctrlBindContext
@@ -143,37 +143,37 @@ export class Store {
   dispatch() {
     throw new Error('dispatch 没有被正确初始化, 请检查 hook 初始化部分的代码')
   }
-  bindViewContext(fnKeys, fnObj, hook = null) {
-    if (!fnObj) {
-      return {}
-    }
-    const fnObjBindContext = {}
-    fnKeys.forEach((fnKey) => {
-      fnObjBindContext[fnKey] = (...args) => {
-        if (hook) {
-          return (
-            <>
-              {this.state.viewCtrl[fnKey] &&
-                hook.call(
-                  this.private.viewContext,
-                  (...args) =>
-                    fnObj[fnKey].call(this.private.viewContext, ...args),
-                  fnKey,
-                  ...args
-                )}
-            </>
-          )
-        }
-        return (
-          <>
-            {this.state.viewCtrl[fnKey] &&
-              fnObj[fnKey].call(this.private.viewContext, ...args)}
-          </>
-        )
-      }
-    })
-    return fnObjBindContext
-  }
+  // bindViewContext(fnKeys, fnObj, hook = null) {
+  //   if (!fnObj) {
+  //     return {}
+  //   }
+  //   const fnObjBindContext = {}
+  //   fnKeys.forEach((fnKey) => {
+  //     fnObjBindContext[fnKey] = (...args) => {
+  //       if (hook) {
+  //         return (
+  //           <>
+  //             {this.state.viewCtrl[fnKey] &&
+  //               hook.call(
+  //                 this.private.viewContext,
+  //                 (...args) =>
+  //                   fnObj[fnKey].call(this.private.viewContext, ...args),
+  //                 fnKey,
+  //                 ...args
+  //               )}
+  //           </>
+  //         )
+  //       }
+  //       return (
+  //         <>
+  //           {this.state.viewCtrl[fnKey] &&
+  //             fnObj[fnKey].call(this.private.viewContext, ...args)}
+  //         </>
+  //       )
+  //     }
+  //   })
+  //   return fnObjBindContext
+  // }
   mixinPrivateContext(contextName, key, value) {
     this.private[contextName][key] = value
   }

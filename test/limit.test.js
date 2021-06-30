@@ -4,20 +4,33 @@ import { AppContext } from '../src/app-context'
 import { createComponent, createStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
-test('测试 props 带有 sid 的渲染正确性, 有 name 没有 sid 的情况', async () => {
+test('测试框架限制特性', async () => {
   const Text = createComponent({
     name:'Text',
     initState: {
       text: 'default'
     },
+    service:{
+      transform(){
+        expect(this.controller).toBeUndefined()
+        expect(this.view).toBeUndefined()
+      }
+    },
     controller: {
       async onClick () {
         const {text} = this.props
         this.setter.text(text)
+        this.service.transform()
+        expect(this.controller).toBeUndefined()
+        expect(this.view).toBeUndefined()
+      },
+      onMouse(){
+        console.log('mouse')
       }
     },
     view: {
       render () {
+        expect(this.service).toBeUndefined()
         return (
           <div role={this.props.name} onClick={this.controller.onClick}>
             {this.state.text.display}
@@ -34,18 +47,11 @@ test('测试 props 带有 sid 的渲染正确性, 有 name 没有 sid 的情况'
           { name: 't1', text: { display: 't1' } },
           { name: 't2', text: { display: 't2' } }
         ].map(d => {
-          return <Text sid={d.name} name={d.name} key={d.name} text={d.text}></Text>
+          return <Text name={d.name} key={d.name} text={d.text}></Text>
         })}
       </div>
     )
   }
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('t1'))
-  await waitFor(() => {
-    expect(screen.getByRole('t1')).toHaveTextContent('t1')
-  })
-  fireEvent.click(screen.getByRole('t2'))
-  await waitFor(() => {
-    expect(screen.getByRole('t2')).toHaveTextContent('t2')
-  })
 })

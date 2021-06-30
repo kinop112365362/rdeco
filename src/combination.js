@@ -32,6 +32,7 @@ export const combination = {
           this.names.push(cName)
         }
       } else {
+        console.log(this[storeConfig.name])
         if (this[storeConfig.name]) {
           throw new Error(`${storeConfig.name} 已存在, 检查 name 是否重复`)
         } else {
