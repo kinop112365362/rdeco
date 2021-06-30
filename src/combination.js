@@ -20,6 +20,8 @@ export const combination = {
     return !!result
   },
   $set(storeConfig, ins) {
+    // 原有版本中循环带有 name 字段的组件, 在没有 sid 的情况下, 无法保持对 this 的正确引用
+    // 因此对于包含 name 字段, 但没有 sid 字段的循环组件应当不做缓存
     if (storeConfig.name) {
       if (storeConfig.sid) {
         const cName = `${storeConfig.name}_${storeConfig.sid}`

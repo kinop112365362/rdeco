@@ -17,7 +17,7 @@ test('测试 setter.setState 可以获取前置的 state', async () => {
   const controller = {
     onComponentInit () {
       this.setter.tabs(tabs => tabs.filter(tab => tab.id !== 2));
-      this.setter.setState(prevState => {
+      this.setter.state(prevState => {
         if (prevState.count === 0) {
           return {
             msg: 'count 是 0'
