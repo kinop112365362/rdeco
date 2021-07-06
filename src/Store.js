@@ -27,12 +27,26 @@ export class Store {
 
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     this.state = { ...storeConfig.initState }
+    if (storeConfig.derived) {
+      this.derived = {}
+      const propsObj = {}
+      const derivedKeys = Object.keys(storeConfig.derived)
+      derivedKeys.forEach((derivedKey) => {
+        propsObj[derivedKey] = {
+          get: () => {
+            return storeConfig.derived[derivedKey](this.state)
+          },
+        }
+      })
+      Object.defineProperties(this.derived, propsObj)
+    }
     this.styles = { ...storeConfig.styles }
     this.style = { ...storeConfig.style }
     this.context = {}
     this.props = {}
     const baseContext = {
       state: this.state,
+      derived: this.derived,
       styles: this.styles,
       style: this.style,
       context: this.context,

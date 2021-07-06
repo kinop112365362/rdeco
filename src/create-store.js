@@ -62,6 +62,7 @@ export function createStore(storeConfig, enhance) {
     return {
       view: store.view,
       state,
+      derived: store.derived,
       refs: ref,
       ref: ref,
       controller: store.controller,
