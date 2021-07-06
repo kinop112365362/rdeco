@@ -27,17 +27,12 @@ export class Store {
 
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     this.state = { ...storeConfig.initState }
-    // this.refs = useRef(storeConfig.refs).current
-    // this.ref = useRef(storeConfig.ref).current
     this.styles = { ...storeConfig.styles }
     this.style = { ...storeConfig.style }
     this.context = {}
-    /** props 到底是否有其实际价值? 暂时不放在任何 context 中看看情况 */
     this.props = {}
     const baseContext = {
       state: this.state,
-      // refs: this.refs,
-      // ref: this.ref,
       styles: this.styles,
       style: this.style,
       context: this.context,
@@ -51,16 +46,19 @@ export class Store {
     this.stateKeys = Object.keys(this.state)
     this.rc = {
       setState: (nextState) => {
+        console.warn(
+          `this.rc.setState 已弃用, 自 1.24.6 开始使用 this.setter.state 代替, 该 API 会在 未来的版本中被完全废弃`
+        )
         isStateIsUndefined(nextState, this.stateKeys)
         this.dispatch(['setState', nextState, 'state'])
       },
-      // setViewCtrl: (nextState) => {
-      //   this.dispatch(['setViewCtrl', nextState, 'viewCtrl'])
-      // },
     }
     this.stateKeys.forEach((stateKey) => {
       const type = getReducerType(stateKey)
       this.rc[type] = (payload) => {
+        console.warn(
+          `this.rc.set[stateName] 已弃用, 自 1.24.6 开始使用 this.setter.[stateName] 代替, 该 API 会在 未来的版本中被完全废弃`
+        )
         this.dispatch([type, payload, stateKey])
       }
     })
@@ -94,16 +92,6 @@ export class Store {
         serviceWrapper: null,
       },
     } = storeConfig
-    // if (view) {
-    //   if (!this.state.viewCtrl) {
-    //     this.state.viewCtrl = {}
-    //   }
-    //   viewKeys.forEach((viewKey) => {
-    //     if (this.state.viewCtrl[viewKey] === undefined) {
-    //       this.state.viewCtrl[viewKey] = true
-    //     }
-    //   })
-    // }
     const viewBindContext = bindContext(
       viewKeys,
       view,
@@ -143,37 +131,6 @@ export class Store {
   dispatch() {
     throw new Error('dispatch 没有被正确初始化, 请检查 hook 初始化部分的代码')
   }
-  // bindViewContext(fnKeys, fnObj, hook = null) {
-  //   if (!fnObj) {
-  //     return {}
-  //   }
-  //   const fnObjBindContext = {}
-  //   fnKeys.forEach((fnKey) => {
-  //     fnObjBindContext[fnKey] = (...args) => {
-  //       if (hook) {
-  //         return (
-  //           <>
-  //             {this.state.viewCtrl[fnKey] &&
-  //               hook.call(
-  //                 this.private.viewContext,
-  //                 (...args) =>
-  //                   fnObj[fnKey].call(this.private.viewContext, ...args),
-  //                 fnKey,
-  //                 ...args
-  //               )}
-  //           </>
-  //         )
-  //       }
-  //       return (
-  //         <>
-  //           {this.state.viewCtrl[fnKey] &&
-  //             fnObj[fnKey].call(this.private.viewContext, ...args)}
-  //         </>
-  //       )
-  //     }
-  //   })
-  //   return fnObjBindContext
-  // }
   mixinPrivateContext(contextName, key, value) {
     this.private[contextName][key] = value
   }
