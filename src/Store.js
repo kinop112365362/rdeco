@@ -34,7 +34,7 @@ export class Store {
       derivedKeys.forEach((derivedKey) => {
         propsObj[derivedKey] = {
           get: () => {
-            return storeConfig.derived[derivedKey](this.state)
+            return storeConfig.derived[derivedKey].call(this)
           },
         }
       })

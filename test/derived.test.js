@@ -9,20 +9,24 @@ test('派生功能是否可用', async () => {
       count: 0
     },
     derived: {
-      count1: state => state.count + 1,
-      count2: state => state.count + 2
+      count1 () {
+        return this.state.count + 1
+      },
+      count2 () {
+        return this.state.count + 2
+      }
     },
-    controller:{
-      onMount(){
+    controller: {
+      onMount () {
         this.setter.count(1)
       }
     }
   })
   function Test () {
     const store = useTestStore()
-    useEffect(()=>{
+    useEffect(() => {
       store.controller.onMount()
-    },[])
+    }, [])
     return (
       <div>
         <span role='count1'>{store.derived.count1}</span>
