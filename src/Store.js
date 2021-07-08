@@ -149,6 +149,7 @@ export class Store {
     this.private[contextName][key] = value
   }
   updateFunctionContextStateAndContextAndProps({ state, context, props, ref }) {
+    this.props = props
     for (const contextName in this.private) {
       if (Object.hasOwnProperty.call(this.private, contextName)) {
         this.private[contextName]['state'] = state

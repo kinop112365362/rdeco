@@ -12,7 +12,25 @@ export function enhanceCreateComponent(enhances) {
       }
       const useComponent = createStore(copy, enhances)
       const store = useComponent(props)
-      return <>{store.view.render()}</>
+      let isRender = true
+      if (props.if === false) {
+        isRender = false
+      }
+      if (props.foreach) {
+        return (
+          <>
+            {isRender &&
+              props.foreach.list.map((l) => {
+                return React.createElement(HookComponent, {
+                  key: l[props.foreach.keyName],
+                  sid: l[props.foreach.keyName],
+                  ...l,
+                })
+              })}
+          </>
+        )
+      }
+      return <>{isRender && store.view.render()}</>
     }
   }
 }

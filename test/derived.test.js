@@ -14,6 +14,9 @@ test('派生功能是否可用', async () => {
       },
       count2 () {
         return this.state.count + 2
+      },
+      nameFromProps(){
+        return 'hello ' + this.props.name
       }
     },
     controller: {
@@ -22,8 +25,8 @@ test('派生功能是否可用', async () => {
       }
     }
   })
-  function Test () {
-    const store = useTestStore()
+  function Test (props) {
+    const store = useTestStore(props)
     useEffect(() => {
       store.controller.onMount()
     }, [])
@@ -31,10 +34,12 @@ test('派生功能是否可用', async () => {
       <div>
         <span role='count1'>{store.derived.count1}</span>
         <span role='count2'>{store.derived.count2}</span>
+        <span role='name'>{store.derived.nameFromProps}</span>
       </div>
     )
   }
-  render(<Test></Test>)
+  render(<Test name="jacky"></Test>)
   expect(screen.getByRole('count1')).toHaveTextContent('2')
   expect(screen.getByRole('count2')).toHaveTextContent('3')
+  expect(screen.getByRole('name')).toHaveTextContent('hello jacky')
 })

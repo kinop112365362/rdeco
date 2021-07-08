@@ -6,7 +6,8 @@ import '@testing-library/jest-dom/extend-expect'
 
 test('测试 combination 多实例下 sid 的运用', async () => {
   const initState = {
-    showConfirmModal: false
+    showConfirmModal: false,
+    isRender: true
   }
   const service = {
     async openModal () {
@@ -71,21 +72,35 @@ test('测试 combination 多实例下 sid 的运用', async () => {
   })
   const createComponent = enhanceCreateComponent([])
   const Com = createComponent({
-    view:{
-      render(){
+    view: {
+      render () {
         return <div>Com</div>
+      }
+    }
+  })
+  const Text = createComponent({
+    name:'Text',
+    view: {
+      render () {
+        console.warn(this.combination)
+        return <div role={this.props.name}>{this.props.text}</div>
       }
     }
   })
   function Test () {
     const store = useTestStore()
+    const list = [
+      { name: 'jacky', text: 'jacky' },
+      { name: 'ann', text: 'ann' }
+    ]
     return (
       <div>
         {store.view.renderView3()}
         <Other />
         <Other sid='1' />
         <Other sid='2' />
-        <Com></Com>
+        <Com if={store.state.isRender}></Com>
+        <Text foreach={{ list, keyName: 'name' }}></Text>
       </div>
     )
   }
@@ -95,5 +110,7 @@ test('测试 combination 多实例下 sid 的运用', async () => {
     expect(screen.getByRole('name')).toHaveTextContent('jacky')
     expect(screen.getByRole('name1')).toHaveTextContent('jacky1')
     expect(screen.getByRole('name2')).toHaveTextContent('jacky2')
+    expect(screen.getByRole('jacky')).toHaveTextContent('jacky')
+    expect(screen.getByRole('ann')).toHaveTextContent('ann')
   })
 })
