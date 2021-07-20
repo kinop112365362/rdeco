@@ -34,7 +34,7 @@ yarn add structured-react-hook
 import { createComponent } from 'mencius'
 
 export default createComponent({
-  initState: {
+  state: {
     name: 'component'
   },
   controller: {
@@ -64,7 +64,7 @@ import { createComponent } from 'mencius'
 
 const Button = {
   name: 'Button',
-  initState: {
+  state: {
     text: '按钮'
   },
   controller: {
@@ -92,7 +92,7 @@ export default createComponent(Button)
 
 接下来让我们给 `Button` 添加一个状态, 当每次点击的时候都记录点击的次数.
 
-通常我们可能会考虑继续使用 `initState` 来增加状态, 但这样你就需要在点击的时候修改多个状态.
+通常我们可能会考虑继续使用 `state` 来增加状态, 但这样你就需要在点击的时候修改多个状态.
 
 一种更好的方式是将次数看成 `text` 状态的一部分, 一个变量. 具体如何来看代码
 
@@ -102,7 +102,7 @@ import { createComponent } from 'mencius'
 
 const Button = {
   name: 'Button',
-  initState: {
+  state: {
     text: '按钮'
   },
   ref: {
@@ -187,7 +187,7 @@ function Loading () {
 
 const Button = {
   name: 'Button',
-  initState: {
+  state: {
     text: '按钮',
     loading: false
   },
@@ -270,7 +270,7 @@ function Loading () {
 
 const History = createComponent({
   name: 'History',
-  initState: {
+  state: {
     context: '目前没有点击记录'
   },
   view: {
@@ -282,7 +282,7 @@ const History = createComponent({
 
 const Button = {
   name: 'Button',
-  initState: {
+  state: {
     text: '按钮',
     loading: false
   },

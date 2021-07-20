@@ -26,7 +26,11 @@ export class Store {
     }
 
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
-    this.state = { ...storeConfig.initState }
+    if (storeConfig.initState) {
+      this.state = { ...storeConfig.initState }
+    } else {
+      this.state = { ...storeConfig.state }
+    }
     if (storeConfig.derived) {
       this.derived = {}
       const propsObj = {}

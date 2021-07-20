@@ -5,7 +5,7 @@ import { createStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 view 的内部嵌套', async () => {
-  const initState = {
+  const state = {
     showConfirmModal: false
   }
   const service = {
@@ -20,7 +20,7 @@ test('测试 view 的内部嵌套', async () => {
     }
   }
   const useTestStore = createStore({
-    initState,
+    state,
     service,
     controller,
     view: {

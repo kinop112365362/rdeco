@@ -8,7 +8,7 @@ import nodeUtil from 'util';
 import {jsx, css} from '@emotion/react'
 
 test('测试对 style 的重写', async () => {
-  const initState = {
+  const state = {
     showConfirmModal: false,
   }
   const service = {
@@ -23,7 +23,7 @@ test('测试对 style 的重写', async () => {
     }
   }
   const useTestStore = createStore({
-    initState,
+    state,
     controller,
     styles:{
       w100:{
