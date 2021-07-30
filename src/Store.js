@@ -173,5 +173,6 @@ export class Store {
     })
     this.dispatch = dispatch
     this.state = state
+    this.ref = ref
   }
 }
