@@ -3,9 +3,8 @@ import React from 'react'
 import { createStore } from './create-store'
 
 export function enhanceCreateComponent(enhances) {
-  return function createComponent(component, membrane = {}) {
+  return function createComponent(component) {
     const copy = { ...component }
-    copy.membrane = membrane
     return function HookComponent(props) {
       if (props.sid) {
         copy.sid = props.sid
