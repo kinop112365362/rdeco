@@ -1,13 +1,13 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable react/display-name */
 // @filename: Store.js
-import mergeWith from 'lodash.mergewith'
-import { combination } from './combination'
-import { storeConfigValidate } from './utils/store-config-validate'
-import { isStateIsUndefined } from './utils/is-state-is-undefined'
-import { getReducerType } from './get-reducer-model'
-import { bindContext } from './bind-context'
 import defaultsDeep from 'lodash.defaultsdeep'
+import mergeWith from 'lodash.mergewith'
+import { bindContext } from './bind-context'
+import { combination } from './combination'
+import { getReducerType } from './get-reducer-model'
+import { isStateIsUndefined } from './utils/is-state-is-undefined'
+import { storeConfigValidate } from './utils/store-config-validate'
 // eslint-disable-next-line valid-jsdoc
 export class Store {
   constructor(rawStoreConfig) {
@@ -16,6 +16,18 @@ export class Store {
       storeConfig = mergeWith(
         storeConfig,
         storeConfig.membrane,
+        (objValue, srcValue) => {
+          if (Array.isArray(objValue)) {
+            return [...srcValue]
+          }
+          return { ...objValue, ...srcValue }
+        }
+      )
+    }
+    if (storeConfig.remote) {
+      storeConfig = mergeWith(
+        storeConfig,
+        storeConfig.remote,
         (objValue, srcValue) => {
           if (Array.isArray(objValue)) {
             return [...srcValue]
