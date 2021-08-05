@@ -60,6 +60,15 @@ export class Store {
     this.style = { ...storeConfig.style }
     this.context = {}
     this.props = {}
+    this.connect = (componentName) => {
+      if (combination[componentName]) {
+        return combination[componentName]
+      } else {
+        throw new Error(
+          `${componentName} 组件不存在, 无法 connect, 当前拥有的已经注册的组件实例 => ${combination}`
+        )
+      }
+    }
     const baseContext = {
       state: this.state,
       derived: this.derived,
@@ -67,6 +76,7 @@ export class Store {
       style: this.style,
       context: this.context,
       props: this.props,
+      connect: this.connect,
     }
     /** create this.rc
      * rc 只支持对 2 级 Key 做 State 快捷操作,
