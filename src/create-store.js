@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
-import { useReducer, useContext, useRef } from 'react'
+/* eslint-disable no-unused-vars */
+import { useReducer, useContext, useRef, useEffect, useState } from 'react'
 import { AppContext } from './app-context'
 import mergeWith from 'lodash.mergewith'
 import { actionIsUndefined } from './utils/action-is-undefined'
@@ -7,6 +8,7 @@ import { getReducerModel } from './get-reducer-model'
 import { Store } from './Store'
 import { isFunction } from './utils/is-function'
 import { combination } from './combination'
+import { ee } from './event'
 
 export function createStore(storeConfig, enhance) {
   let store
@@ -54,7 +56,17 @@ export function createStore(storeConfig, enhance) {
   return function (props) {
     const context = useContext(AppContext)
     const [state, dispatch] = useReducer(reducer, { ...store.state })
+    const [force, forceUpdate] = useState(new Date().getTime())
     const ref = useRef(storeConfig.ref).current
+    useEffect(() => {
+      const handle = () => {
+        forceUpdate(new Date().getTime())
+      }
+      ee.on(store.name, handle)
+      return () => {
+        ee.off(store.name, handle)
+      }
+    }, [])
     store.update(state, context, dispatch, props, ref)
     /**
      * @type {store.state} state

@@ -5,6 +5,7 @@ import defaultsDeep from 'lodash.defaultsdeep'
 import mergeWith from 'lodash.mergewith'
 import { bindContext } from './bind-context'
 import { combination } from './combination'
+import { ee } from './event'
 import { getReducerType } from './get-reducer-model'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
 import { storeConfigValidate } from './utils/store-config-validate'
@@ -56,6 +57,10 @@ export class Store {
       })
       Object.defineProperties(this.derived, propsObj)
     }
+    this.name = storeConfig.name
+    if (storeConfig.sid) {
+      this.name = `${storeConfig.name}_${storeConfig.sid}`
+    }
     this.styles = { ...storeConfig.styles }
     this.style = { ...storeConfig.style }
     this.context = {}
@@ -69,6 +74,20 @@ export class Store {
         )
       }
     }
+    this.watchComponentState = (rawTargetInfo) => {
+      const [targetComponentName, targetStateKey] = rawTargetInfo.split('/')
+      if (
+        combination[targetComponentName] &&
+        combination[targetComponentName].state[targetStateKey]
+      ) {
+        combination.$addDep(targetComponentName, targetStateKey, this.name)
+        return combination[targetComponentName].state[targetStateKey]
+      } else {
+        throw new Error(
+          `${targetComponentName}.state.${targetStateKey} 不存在, 无法 wacth, 当前拥有的已经注册的组件状态 => ${combination[targetComponentName].state}`
+        )
+      }
+    }
     const baseContext = {
       state: this.state,
       derived: this.derived,
@@ -77,6 +96,7 @@ export class Store {
       context: this.context,
       props: this.props,
       connect: this.connect,
+      watchComponentState: this.watchComponentState,
     }
     /** create this.rc
      * rc 只支持对 2 级 Key 做 State 快捷操作,
@@ -112,6 +132,15 @@ export class Store {
     this.stateKeys.forEach((stateKey) => {
       const type = getReducerType(stateKey)
       this.setter[stateKey] = (payload) => {
+        if (
+          combination.deps[this.name] &&
+          combination.deps[this.name][stateKey]
+        ) {
+          const deps = combination.deps[this.name][stateKey]
+          deps.forEach((dep) => {
+            ee.emit(dep)
+          })
+        }
         this.dispatch([type, payload, stateKey])
       }
     })

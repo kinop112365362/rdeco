@@ -1,7 +1,19 @@
-// eslint-disable-next-line no-undef
+/* eslint-disable no-undef */
 export const combination = {
-  // eslint-disable-next-line no-undef
   names: [],
+  deps: {},
+  $addDep(targetComponentName, targetStateKey, watchCompnentName) {
+    if (this.deps[targetComponentName]) {
+      if (this.deps[targetComponentName][targetStateKey]) {
+        this.deps[targetComponentName][targetStateKey].add(watchCompnentName)
+      }
+    } else {
+      this.deps[targetComponentName] = {}
+      this.deps[targetComponentName][targetStateKey] = new Set([
+        watchCompnentName,
+      ])
+    }
+  },
   $find(name, sid) {
     let cName = name
     if (sid) {
