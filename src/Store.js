@@ -111,6 +111,7 @@ export class Store {
         )
         isStateIsUndefined(nextState, this.stateKeys)
         this.dispatch(['setState', nextState, 'state'])
+        return nextState
       },
     }
     this.stateKeys.forEach((stateKey) => {
@@ -127,6 +128,7 @@ export class Store {
       state: (nextState) => {
         isStateIsUndefined(nextState, this.stateKeys)
         this.dispatch(['setState', nextState, 'state'])
+        return nextState
       },
     }
     this.stateKeys.forEach((stateKey) => {
@@ -136,12 +138,14 @@ export class Store {
           combination.deps[this.name] &&
           combination.deps[this.name][stateKey]
         ) {
+          console.warn(this.name)
           const deps = combination.deps[this.name][stateKey]
           deps.forEach((dep) => {
             ee.emit(dep)
           })
         }
         this.dispatch([type, payload, stateKey])
+        return payload
       }
     })
 

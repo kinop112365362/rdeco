@@ -9,10 +9,12 @@ test('测试 combination dep', async () => {
     name: 'ComponentA',
     state: {
       name: 'jacky',
+      age: '18',
     },
     controller: {
       onClick() {
-        this.setter.name('ann')
+        const nextName = this.setter.name('ann')
+        this.setter.age(`${nextName}:${this.state.age}`)
       },
     },
     view: {
@@ -28,13 +30,10 @@ test('测试 combination dep', async () => {
   })
   const ComponentB = createComponent({
     name: 'ComponentB',
-    state: {
-      name: 'jacky',
-    },
     view: {
       render() {
-        const name = this.watchComponentState('ComponentB/name')
-        return <div role="nameb">{name}</div>
+        const age = this.watchComponentState('ComponentA/age')
+        return <div role="age">{age}</div>
       },
     },
   })
@@ -49,7 +48,6 @@ test('测试 combination dep', async () => {
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('button'))
   await waitFor(() => {
-    expect(screen.getByRole('nameb')).toHaveTextContent('jacky')
-    expect(screen.getByRole('namea')).toHaveTextContent('ann')
+    expect(screen.getByRole('age')).toHaveTextContent('ann:18')
   })
 })
