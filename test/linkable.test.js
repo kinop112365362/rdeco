@@ -34,11 +34,6 @@ test('测试 combination dep', async () => {
     },
     view: {
       render() {
-        useEffect(() => {
-          if (this.linkable.ComponentA.age !== '18') {
-            expect(this.linkable.ComponentA.age).toBe('20')
-          }
-        }, [this.linkable.ComponentA.age])
         return <div role="age">{this.linkable.ComponentA.age}</div>
       },
     },
@@ -53,5 +48,7 @@ test('测试 combination dep', async () => {
   }
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('button'))
-  await waitFor(() => {})
+  await waitFor(() => {
+    expect(screen.getByRole('age')).toHaveTextContent('20')
+  })
 })
