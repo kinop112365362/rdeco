@@ -56,24 +56,26 @@ export function createStore(storeConfig, enhance) {
   return function (props) {
     const context = useContext(AppContext)
     const [state, dispatch] = useReducer(reducer, { ...store.state })
-    const [force, forceUpdate] = useState(new Date().getTime())
+    const [linkable, link] = useState({ ...store.linkable })
     const ref = useRef(storeConfig.ref).current
     useEffect(() => {
-      const handle = () => {
-        forceUpdate(new Date().getTime())
+      const linkHandle = ({ targetComponent, targetState, value }) => {
+        linkable[targetComponent][targetState] = value
+        link(linkable)
       }
-      ee.on(store.name, handle)
+      ee.on(store.name, linkHandle)
       return () => {
-        ee.off(store.name, handle)
+        ee.off(store.name, linkHandle)
       }
     }, [])
-    store.update(state, context, dispatch, props, ref)
+    store.update(state, linkable, context, dispatch, props, ref)
     /**
      * @type {store.state} state
      */
     return {
       view: store.view,
       state,
+      linkable,
       derived: store.derived,
       refs: ref,
       ref: ref,

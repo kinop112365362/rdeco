@@ -7,22 +7,22 @@ import '@testing-library/jest-dom/extend-expect'
 test('测试 combination 多实例下 sid 的运用', async () => {
   const initState = {
     showConfirmModal: false,
-    isRender: true
+    isRender: true,
   }
   const service = {
-    async openModal () {
+    async openModal() {
       return 'true'
-    }
+    },
   }
   const controller = {
-    onButtonClick () {
+    onButtonClick() {
       this.combination['other'].controller.onNameChange('jacky')
       this.combination.$find('other', '1').controller.onNameChange('jacky1')
       this.combination.$find('other', '2').controller.onNameChange('jacky2')
-    }
+    },
   }
 
-  function Other ({ sid }) {
+  function Other({ sid }) {
     let role = 'name'
     if (sid) {
       role += sid
@@ -31,13 +31,13 @@ test('测试 combination 多实例下 sid 的运用', async () => {
       name: 'other',
       sid,
       initState: {
-        name: ''
+        name: '',
       },
       controller: {
-        onNameChange (name) {
+        onNameChange(name) {
           this.rc.setName(name)
-        }
-      }
+        },
+      },
     })
     const store = useOtherStore()
 
@@ -48,57 +48,56 @@ test('测试 combination 多实例下 sid 的运用', async () => {
     service,
     controller,
     styles: {
-      width: 100
+      width: 100,
     },
     view: {
-      renderView1 () {
-        return <div role='renderView1'>renderView1</div>
+      renderView1() {
+        return <div role="renderView1">renderView1</div>
       },
-      renderView2 () {
+      renderView2() {
         return <div>{this.view.renderView1()}</div>
       },
-      renderView3 () {
+      renderView3() {
         return (
           <div>
             {this.view.renderView2()}{' '}
             <button
-              role='button'
+              role="button"
               onClick={this.controller.onButtonClick}
             ></button>
           </div>
         )
-      }
-    }
+      },
+    },
   })
   const createComponent = enhanceCreateComponent([])
   const Com = createComponent({
     view: {
-      render () {
+      render() {
         return <div>Com</div>
-      }
-    }
+      },
+    },
   })
   const Text = createComponent({
-    name:'Text',
+    name: 'Text',
     view: {
-      render () {
-        console.warn(this.combination)
+      render() {
         return <div role={this.props.name}>{this.props.text}</div>
-      }
-    }
+      },
+    },
   })
-  function Test () {
+  function Test() {
     const store = useTestStore()
     const list = [
       { name: 'jacky', text: 'jacky' },
-      { name: 'ann', text: 'ann' }
+      { name: 'ann', text: 'ann' },
     ]
     return (
       <div>
         {store.view.renderView3()}
         <Other />
-        <Other sid='1' />
-        <Other sid='2' />
+        <Other sid="1" />
+        <Other sid="2" />
         <Com if={store.state.isRender}></Com>
         <Text foreach={{ list, keyName: 'name' }}></Text>
       </div>

@@ -61,6 +61,18 @@ export class Store {
     if (storeConfig.sid) {
       this.name = `${storeConfig.name}_${storeConfig.sid}`
     }
+    this.linkable = {}
+    if (storeConfig.linkable) {
+      const linkableKeys = Object.keys(storeConfig.linkable)
+      linkableKeys.forEach((linkableComponent) => {
+        this.linkable[linkableComponent] = {}
+        storeConfig.linkable[linkableComponent].forEach((linkStateKey) => {
+          this.linkable[linkableComponent][linkStateKey] =
+            combination[linkableComponent].state[linkStateKey]
+          combination.$addDep(linkableComponent, linkStateKey, this.name)
+        })
+      })
+    }
     this.styles = { ...storeConfig.styles }
     this.style = { ...storeConfig.style }
     this.context = {}
@@ -74,20 +86,20 @@ export class Store {
         )
       }
     }
-    this.watchComponentState = (rawTargetInfo) => {
-      const [targetComponentName, targetStateKey] = rawTargetInfo.split('/')
-      if (
-        combination[targetComponentName] &&
-        combination[targetComponentName].state[targetStateKey]
-      ) {
-        combination.$addDep(targetComponentName, targetStateKey, this.name)
-        return combination[targetComponentName].state[targetStateKey]
-      } else {
-        throw new Error(
-          `${targetComponentName}.state.${targetStateKey} 不存在, 无法 wacth, 当前拥有的已经注册的组件状态 => ${combination[targetComponentName].state}`
-        )
-      }
-    }
+    // this.watchComponentState = (rawTargetInfo) => {
+    //   const [targetComponentName, targetStateKey] = rawTargetInfo.split('/')
+    //   if (
+    //     combination[targetComponentName] &&
+    //     combination[targetComponentName].state[targetStateKey]
+    //   ) {
+    //     combination.$addDep(targetComponentName, targetStateKey, this.name)
+    //     return combination[targetComponentName].state[targetStateKey]
+    //   } else {
+    //     throw new Error(
+    //       `${targetComponentName}.state.${targetStateKey} 不存在, 无法 wacth, 当前拥有的已经注册的组件状态 => ${combination[targetComponentName].state}`
+    //     )
+    //   }
+    // }
     const baseContext = {
       state: this.state,
       derived: this.derived,
@@ -138,10 +150,13 @@ export class Store {
           combination.deps[this.name] &&
           combination.deps[this.name][stateKey]
         ) {
-          console.warn(this.name)
           const deps = combination.deps[this.name][stateKey]
           deps.forEach((dep) => {
-            ee.emit(dep)
+            ee.emit(dep, {
+              targetComponent: this.name,
+              targetState: stateKey,
+              value: payload,
+            })
           })
         }
         this.dispatch([type, payload, stateKey])
@@ -207,27 +222,36 @@ export class Store {
   mixinPrivateContext(contextName, key, value) {
     this.private[contextName][key] = value
   }
-  updateFunctionContextStateAndContextAndProps({ state, context, props, ref }) {
+  updateFunctionContextStateAndContextAndProps({
+    state,
+    linkable,
+    context,
+    props,
+    ref,
+  }) {
     this.props = props
     for (const contextName in this.private) {
       if (Object.hasOwnProperty.call(this.private, contextName)) {
         this.private[contextName]['state'] = state
         this.private[contextName]['context'] = context
+        this.private[contextName]['linkable'] = linkable
         this.private[contextName]['props'] = props
         this.private[contextName]['ref'] = ref
         this.private[contextName]['refs'] = ref
       }
     }
   }
-  update(state, context, dispatch, props, ref) {
+  update(state, linkable, context, dispatch, props, ref) {
     this.updateFunctionContextStateAndContextAndProps({
       state,
+      linkable,
       context,
       props,
       ref,
     })
     this.dispatch = dispatch
     this.state = state
+    this.linkable = linkable
     this.ref = ref
   }
 }
