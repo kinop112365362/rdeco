@@ -152,7 +152,7 @@ export class Store {
         ) {
           const deps = combination.deps[this.name][stateKey]
           deps.forEach((dep) => {
-            console.warn(dep, {
+            console.debug(dep, {
               targetComponent: this.name,
               targetState: stateKey,
               value: payload,

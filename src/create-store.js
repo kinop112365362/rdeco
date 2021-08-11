@@ -61,7 +61,7 @@ export function createStore(storeConfig, enhance) {
     useEffect(() => {
       const linkHandle = ({ targetComponent, targetState, value }) => {
         linkable[targetComponent][targetState] = value
-        console.warn(linkable)
+        console.debug(linkable)
         link({ ...linkable })
       }
       ee.on(store.name, linkHandle)

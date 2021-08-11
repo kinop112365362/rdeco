@@ -11,7 +11,15 @@ module.exports = {
     ],
   ],
   plugins: [
-    ['transform-remove-console', { exclude: ['error', 'warn'] }],
+    [
+      'transform-remove-console',
+      {
+        exclude:
+          NODE_ENV === 'production'
+            ? ['error', 'warn']
+            : ['error', 'warn', 'debug'],
+      },
+    ],
     ['@emotion'],
     ['@babel/proposal-decorators', { legacy: true }],
     ['@babel/proposal-object-rest-spread', { loose }],
