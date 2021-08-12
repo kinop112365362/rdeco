@@ -5,7 +5,7 @@ import { createStore } from './create-store'
 export function enhanceCreateComponent(enhances) {
   return function createComponent(component) {
     const copy = { ...component }
-    return function HookComponent(props) {
+    function HookComponent(props) {
       if (props.sid) {
         copy.sid = props.sid
       }
@@ -31,6 +31,19 @@ export function enhanceCreateComponent(enhances) {
       }
       return <>{isRender && store.view.render()}</>
     }
+    if (copy.name) {
+      if (copy.sid) {
+        Object.defineProperty(HookComponent, 'name', {
+          value: `${copy.name}_${copy.sid}`,
+        })
+      } else {
+        Object.defineProperty(HookComponent, 'name', {
+          value: `${copy.name}`,
+        })
+      }
+    }
+
+    return HookComponent
   }
 }
 
