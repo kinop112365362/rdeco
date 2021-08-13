@@ -29,12 +29,12 @@ test('测试 combination dep', async () => {
   })
   const ComponentB = createComponent({
     name: 'ComponentB',
-    linkable: {
+    subscribeState: {
       ComponentA: ['age'],
     },
     view: {
       render() {
-        return <div role="age">{this.linkable.ComponentA.age}</div>
+        return <div role="age">{this.subscribeState.ComponentA.age}</div>
       },
     },
   })

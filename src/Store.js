@@ -61,16 +61,22 @@ export class Store {
     if (storeConfig.sid) {
       this.name = `${storeConfig.name}_${storeConfig.sid}`
     }
-    this.linkable = {}
-    if (storeConfig.linkable) {
-      const linkableKeys = Object.keys(storeConfig.linkable)
-      linkableKeys.forEach((linkableComponent) => {
-        this.linkable[linkableComponent] = {}
-        storeConfig.linkable[linkableComponent].forEach((linkStateKey) => {
-          this.linkable[linkableComponent][linkStateKey] =
-            combination[linkableComponent].state[linkStateKey]
-          combination.$addDep(linkableComponent, linkStateKey, this.name)
-        })
+    this.subscribeState = {}
+    if (storeConfig.subscribeState) {
+      const subscribeStateKeys = Object.keys(storeConfig.subscribeState)
+      subscribeStateKeys.forEach((subscribeStateComponent) => {
+        this.subscribeState[subscribeStateComponent] = {}
+        storeConfig.subscribeState[subscribeStateComponent].forEach(
+          (linkStateKey) => {
+            this.subscribeState[subscribeStateComponent][linkStateKey] =
+              combination[subscribeStateComponent].state[linkStateKey]
+            combination.$addDep(
+              subscribeStateComponent,
+              linkStateKey,
+              this.name
+            )
+          }
+        )
       })
     }
     this.styles = { ...storeConfig.styles }
@@ -152,11 +158,6 @@ export class Store {
         ) {
           const deps = combination.deps[this.name][stateKey]
           deps.forEach((dep) => {
-            console.debug(dep, {
-              targetComponent: this.name,
-              targetState: stateKey,
-              value: payload,
-            })
             ee.emit(dep, {
               targetComponent: this.name,
               targetState: stateKey,
@@ -229,7 +230,7 @@ export class Store {
   }
   updateFunctionContextStateAndContextAndProps({
     state,
-    linkable,
+    subscribeState,
     context,
     props,
     ref,
@@ -239,24 +240,24 @@ export class Store {
       if (Object.hasOwnProperty.call(this.private, contextName)) {
         this.private[contextName]['state'] = state
         this.private[contextName]['context'] = context
-        this.private[contextName]['linkable'] = linkable
+        this.private[contextName]['subscribeState'] = subscribeState
         this.private[contextName]['props'] = props
         this.private[contextName]['ref'] = ref
         this.private[contextName]['refs'] = ref
       }
     }
   }
-  update(state, linkable, context, dispatch, props, ref) {
+  update(state, subscribeState, context, dispatch, props, ref) {
     this.updateFunctionContextStateAndContextAndProps({
       state,
-      linkable,
+      subscribeState,
       context,
       props,
       ref,
     })
     this.dispatch = dispatch
     this.state = state
-    this.linkable = linkable
+    this.subscribeState = subscribeState
     this.ref = ref
   }
 }

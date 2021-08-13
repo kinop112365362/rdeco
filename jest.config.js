@@ -2,6 +2,7 @@ const defaults = {
   coverageDirectory: './coverage/',
   collectCoverage: true,
   testURL: 'http://localhost',
+  setupFiles: ['./jestSetup.js'],
 }
 
 const standardConfig = {
