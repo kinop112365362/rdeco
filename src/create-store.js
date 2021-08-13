@@ -62,12 +62,13 @@ export function createStore(storeConfig, enhance) {
     useEffect(() => {
       const linkHandle = ({ targetComponent, targetState, value }) => {
         subscribeState[targetComponent][targetState] = value
-        link({ ...subscribeState })
+        window.requestIdleCallback(() => {
+          link({ ...subscribeState })
+        })
       }
-      const idleCallback = window.requestIdleCallback(linkHandle)
-      ee.on(store.name, idleCallback)
+      ee.on(store.name, linkHandle)
       return () => {
-        ee.off(store.name, idleCallback)
+        ee.off(store.name, linkHandle)
       }
     }, [])
     store.update(state, subscribeState, context, dispatch, props, ref)
