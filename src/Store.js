@@ -21,7 +21,13 @@ export class Store {
           if (Array.isArray(objValue)) {
             return [...srcValue]
           }
-          return { ...objValue, ...srcValue }
+          if (
+            typeof objValue === 'object' &&
+            Object.prototype.toString.call(objValue) ===
+              Object.prototype.toString.call(srcValue)
+          ) {
+            return { ...objValue, ...srcValue }
+          }
         }
       )
     }
@@ -33,7 +39,13 @@ export class Store {
           if (Array.isArray(objValue)) {
             return [...srcValue]
           }
-          return { ...objValue, ...srcValue }
+          if (
+            typeof objValue === 'object' &&
+            Object.prototype.toString.call(objValue) ===
+              Object.prototype.toString.call(srcValue)
+          ) {
+            return { ...objValue, ...srcValue }
+          }
         }
       )
     }
