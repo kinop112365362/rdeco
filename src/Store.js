@@ -21,13 +21,6 @@ export class Store {
           if (Array.isArray(objValue)) {
             return [...srcValue]
           }
-          if (
-            typeof objValue === 'object' &&
-            Object.prototype.toString.call(objValue) ===
-              Object.prototype.toString.call(srcValue)
-          ) {
-            return { ...objValue, ...srcValue }
-          }
         }
       )
     }
@@ -38,13 +31,6 @@ export class Store {
         (objValue, srcValue) => {
           if (Array.isArray(objValue)) {
             return [...srcValue]
-          }
-          if (
-            typeof objValue === 'object' &&
-            Object.prototype.toString.call(objValue) ===
-              Object.prototype.toString.call(srcValue)
-          ) {
-            return { ...objValue, ...srcValue }
           }
         }
       )
