@@ -21,7 +21,6 @@ export class Store {
           if (Array.isArray(objValue)) {
             return [...srcValue]
           }
-          return { ...objValue, ...srcValue }
         }
       )
     }
@@ -33,7 +32,6 @@ export class Store {
           if (Array.isArray(objValue)) {
             return [...srcValue]
           }
-          return { ...objValue, ...srcValue }
         }
       )
     }
