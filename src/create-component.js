@@ -9,6 +9,12 @@ export function enhanceCreateComponent(enhances) {
       if (props.sid) {
         copy.sid = props.sid
       }
+      if (props.membrane) {
+        copy.membrane = props.membrane
+      }
+      if (props.remote) {
+        copy.remote = props.remote
+      }
       const useComponent = createStore(copy, enhances)
       const store = useComponent(props)
       let isRender = true
