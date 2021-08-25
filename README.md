@@ -141,9 +141,8 @@ export default createComponent(Button)
 
 ```js
 import { Button } from './demo1'
-import { createComponent } from 'mencius'
 
-export default createComponent(Button, {
+const MembranedButton = <Button membrane={
   ref: {
     count: 0
   },
@@ -152,7 +151,7 @@ export default createComponent(Button, {
       this.setter.text(`你点击了 ${this.ref.count++} 次`)
     }
   }
-})
+}>
 ```
 
 `createComponent` 的第二个参数就叫 `membrane`, 通过 `membrane` 对 `Button` 进行扩展, 你可以简单理解为 对象的 `merge`, 来构造出一个具有定制化能力的新组件.
