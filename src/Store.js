@@ -9,10 +9,11 @@ import { ee } from './event'
 import { getReducerType } from './get-reducer-model'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
 import { storeConfigValidate } from './utils/store-config-validate'
+import cloneDeep from 'lodash.clonedeep'
 // eslint-disable-next-line valid-jsdoc
 export class Store {
   constructor(rawStoreConfig) {
-    let storeConfig = defaultsDeep({}, rawStoreConfig)
+    let storeConfig = cloneDeep(rawStoreConfig)
     if (storeConfig.membrane) {
       storeConfig = mergeWith(
         storeConfig,
@@ -81,29 +82,8 @@ export class Store {
     this.style = { ...storeConfig.style }
     this.context = {}
     this.props = {}
-    this.connect = (componentName) => {
-      if (combination[componentName]) {
-        return combination[componentName]
-      } else {
-        throw new Error(
-          `${componentName} 组件不存在, 无法 connect, 当前拥有的已经注册的组件实例 => ${combination}`
-        )
-      }
-    }
-    // this.watchComponentState = (rawTargetInfo) => {
-    //   const [targetComponentName, targetStateKey] = rawTargetInfo.split('/')
-    //   if (
-    //     combination[targetComponentName] &&
-    //     combination[targetComponentName].state[targetStateKey]
-    //   ) {
-    //     combination.$addDep(targetComponentName, targetStateKey, this.name)
-    //     return combination[targetComponentName].state[targetStateKey]
-    //   } else {
-    //     throw new Error(
-    //       `${targetComponentName}.state.${targetStateKey} 不存在, 无法 wacth, 当前拥有的已经注册的组件状态 => ${combination[targetComponentName].state}`
-    //     )
-    //   }
-    // }
+    this.connect = combination.$connect.bind(combination)
+
     const baseContext = {
       state: this.state,
       derived: this.derived,
@@ -113,6 +93,7 @@ export class Store {
       props: this.props,
       connect: this.connect,
       watchComponentState: this.watchComponentState,
+      entites: combination.entites,
     }
     /** create this.rc
      * rc 只支持对 2 级 Key 做 State 快捷操作,
