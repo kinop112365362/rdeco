@@ -1,7 +1,6 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable react/display-name */
 // @filename: Store.js
-import defaultsDeep from 'lodash.defaultsdeep'
 import mergeWith from 'lodash.mergewith'
 import { bindContext } from './bind-context'
 import { combination } from './combination'
@@ -85,6 +84,7 @@ export class Store {
     this.connect = combination.$connect.bind(combination)
 
     const baseContext = {
+      name: this.name,
       state: this.state,
       derived: this.derived,
       styles: this.styles,

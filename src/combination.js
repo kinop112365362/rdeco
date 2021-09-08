@@ -42,10 +42,16 @@ export const combination = {
     return !!result
   },
   $set(storeConfig, ins) {
+    Object.freeze(ins.service)
+    Object.freeze(ins.dervied)
+    Object.freeze(ins.controller)
+    Object.freeze(ins.view)
     // 原有版本中循环带有 name 字段的组件, 在没有 sid 的情况下, 无法保持对 this 的正确引用
     // 因此对于包含 name 字段, 但没有 sid 字段的循环组件应当不做缓存
     if (storeConfig.name) {
+      Object.freeze(ins.name)
       if (storeConfig.sid) {
+        Object.freeze(ins.sid)
         const cName = `${storeConfig.name}_${storeConfig.sid}`
         if (this[cName]) {
           throw new Error(`${cName} 已存在, 检查 sid 是否重复`)

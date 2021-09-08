@@ -3,18 +3,19 @@ import React from 'react'
 import { createStore } from './create-store'
 
 export function enhanceCreateComponent(enhances) {
-  return function createComponent(component) {
+  return function createComponent(component, sign) {
     const copy = { ...component }
     function HookComponent(props) {
       if (props.sid) {
         copy.sid = props.sid
       }
-      if (props.membrane) {
-        copy.membrane = props.membrane
-      }
-      if (props.remote) {
-        copy.remote = props.remote
-      }
+      // if (props.membrane) {
+      //   copy.membrane = { ...props.membrane }
+      // }
+      // if (props.remote) {
+      //   copy.remote = { ...props.remote }
+      // }
+      console.debug(copy)
       const useComponent = createStore(copy, enhances)
       const store = useComponent(props)
       let isRender = true
@@ -46,6 +47,12 @@ export function enhanceCreateComponent(enhances) {
         Object.defineProperty(HookComponent, 'name', {
           value: `${copy.name}`,
         })
+      }
+    }
+    if (sign !== 'noCreateMembrane') {
+      HookComponent.createMembrane = (membrane) => {
+        copy.membrane = { ...membrane }
+        return createComponent(copy, 'noCreateMembrane')
       }
     }
 
