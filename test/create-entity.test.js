@@ -12,7 +12,9 @@ test('测试 createEntity', async () => {
     },
     method: {
       create() {
-        this.connect('other').controller.onNameChange('jacky')
+        this.connectAsync('other', (other) => {
+          other.controller.onNameChange('jacky')
+        })
         return this.params.username
       },
     },

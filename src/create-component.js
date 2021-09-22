@@ -51,7 +51,13 @@ export function enhanceCreateComponent(enhances) {
     }
     if (sign !== 'noCreateMembrane') {
       HookComponent.createMembrane = (membrane) => {
-        copy.membrane = { ...membrane }
+        copy.membrane = {
+          ...membrane,
+          derived: membrane.derived ? { ...membrane.derived } : {},
+          service: membrane.service ? { ...membrane.service } : {},
+          controller: membrane.controller ? { ...membrane.controller } : {},
+          view: membrane.view ? { ...membrane.view } : {},
+        }
         return createComponent(copy, 'noCreateMembrane')
       }
     }

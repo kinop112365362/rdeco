@@ -1,14 +1,37 @@
+import { connectSubject } from './behaviorSubject'
+
 /* eslint-disable no-undef */
 export const combination = {
   names: [],
   deps: {},
   entites: {},
+  $remove(componentName) {
+    if (this[componentName]) {
+      delete this[componentName]
+    }
+  },
+  $connectAsync(componentName, call) {
+    if (this[componentName]) {
+      call(this[componentName])
+    } else {
+      const connectSub = connectSubject.subscribe({
+        next: ({ name, componentInstance }) => {
+          if (name === componentName) {
+            call(componentInstance)
+            if (connectSub) {
+              connectSub.unsubscribe()
+            }
+          }
+        },
+      })
+    }
+  },
   $connect(componentName) {
     if (this[componentName]) {
       return this[componentName]
     } else {
-      throw new Error(
-        `${componentName} 组件不存在, 无法 connect, 当前拥有的已经注册的组件实例 => ${combination}`
+      console.warn(
+        `${componentName} 组件 unmount, 当前无法 connect, 请使用 this.$connectAsync 进行操作`
       )
     }
   },
@@ -53,20 +76,28 @@ export const combination = {
       if (storeConfig.sid) {
         Object.freeze(ins.sid)
         const cName = `${storeConfig.name}_${storeConfig.sid}`
-        if (this[cName]) {
-          throw new Error(`${cName} 已存在, 检查 sid 是否重复`)
-        } else {
-          this[cName] = ins
-          this.names.push(cName)
-        }
+        // if (this[cName]) {
+        // throw new Error(`${cName} 已存在, 检查 sid 是否重复`)
+        // } else {
+        this[cName] = ins
+        connectSubject.next({
+          name: cName,
+          componentInstance: ins,
+        })
+        this.names.push(cName)
+        // }
       } else {
-        console.log(this[storeConfig.name])
-        if (this[storeConfig.name]) {
-          throw new Error(`${storeConfig.name} 已存在, 检查 name 是否重复`)
-        } else {
-          this[storeConfig.name] = ins
-          this.names.push(storeConfig.name)
-        }
+        // console.log(this[storeConfig.name])
+        // if (this[storeConfig.name]) {
+        // throw new Error(`${storeConfig.name} 已存在, 检查 name 是否重复`)
+        // } else {
+        this[storeConfig.name] = ins
+        connectSubject.next({
+          name: storeConfig.name,
+          componentInstance: ins,
+        })
+        this.names.push(storeConfig.name)
+        // }
       }
     }
   },

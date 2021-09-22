@@ -5,17 +5,20 @@ class Entity {
   constructor(rawConfig) {
     this.config = defaultsDeep({}, rawConfig)
     this.params = this.config.params
-    this.connect = combination.$connect
     this.method = this.config.method
     this.methodContext = {
       params: this.params,
       connect: combination.$connect.bind(combination),
+      connectAsync: combination.$connectAsync.bind(combination),
       method: this.method,
     }
     this.bindMethod()
   }
   setParams(params) {
-    this.methodContext.params = defaultsDeep({}, params)
+    this.methodContext.params = {
+      ...this.methodContext.params,
+      ...defaultsDeep({}, params),
+    }
   }
   bindMethod() {
     const Mkeys = Object.keys(this.config.method)

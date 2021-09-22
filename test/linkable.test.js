@@ -41,8 +41,8 @@ test('测试 combination dep', async () => {
   function Test() {
     return (
       <div>
-        <ComponentA></ComponentA>
         <ComponentB></ComponentB>
+        <ComponentA></ComponentA>
       </div>
     )
   }

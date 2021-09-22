@@ -2,17 +2,17 @@
 /* eslint-disable react/display-name */
 // @filename: Store.js
 import mergeWith from 'lodash.mergewith'
+import { subject } from './behaviorSubject'
 import { bindContext } from './bind-context'
 import { combination } from './combination'
-import { ee } from './event'
 import { getReducerType } from './get-reducer-model'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
 import { storeConfigValidate } from './utils/store-config-validate'
-import cloneDeep from 'lodash.clonedeep'
+// import cloneDeep from 'lodash.clonedeep'
 // eslint-disable-next-line valid-jsdoc
 export class Store {
   constructor(rawStoreConfig) {
-    let storeConfig = cloneDeep(rawStoreConfig)
+    let storeConfig = { ...rawStoreConfig }
     if (storeConfig.membrane) {
       storeConfig = mergeWith(
         storeConfig,
@@ -66,8 +66,15 @@ export class Store {
         this.subscribeState[subscribeStateComponent] = {}
         storeConfig.subscribeState[subscribeStateComponent].forEach(
           (linkStateKey) => {
-            this.subscribeState[subscribeStateComponent][linkStateKey] =
-              combination[subscribeStateComponent].state[linkStateKey]
+            if (combination[subscribeStateComponent]) {
+              this.subscribeState[subscribeStateComponent][linkStateKey] =
+                combination[subscribeStateComponent].state[linkStateKey]
+            } else {
+              combination.$connectAsync(subscribeStateComponent, (ins) => {
+                this.subscribeState[subscribeStateComponent][linkStateKey] =
+                  ins.state[linkStateKey]
+              })
+            }
             combination.$addDep(
               subscribeStateComponent,
               linkStateKey,
@@ -82,6 +89,7 @@ export class Store {
     this.context = {}
     this.props = {}
     this.connect = combination.$connect.bind(combination)
+    this.connectAsync = combination.$connectAsync.bind(combination)
 
     const baseContext = {
       name: this.name,
@@ -92,6 +100,7 @@ export class Store {
       context: this.context,
       props: this.props,
       connect: this.connect,
+      connectAsync: this.connectAsync,
       watchComponentState: this.watchComponentState,
       entites: combination.entites,
     }
@@ -137,10 +146,13 @@ export class Store {
         ) {
           const deps = combination.deps[this.name][stateKey]
           deps.forEach((dep) => {
-            ee.emit(dep, {
-              targetComponent: this.name,
-              targetState: stateKey,
-              value: payload,
+            subject.next({
+              dep,
+              meta: {
+                targetComponent: this.name,
+                targetState: stateKey,
+                value: payload,
+              },
             })
           })
         }
@@ -223,6 +235,15 @@ export class Store {
         this.private[contextName]['props'] = props
         this.private[contextName]['ref'] = ref
         this.private[contextName]['refs'] = ref
+      }
+    }
+  }
+  dispose() {
+    if (this.name) {
+      if (this.sid) {
+        combination.$remove(`${this.name}_${this.sid}`)
+      } else {
+        combination.$remove(`${this.name}`)
       }
     }
   }

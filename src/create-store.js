@@ -8,7 +8,7 @@ import { getReducerModel } from './get-reducer-model'
 import { Store } from './Store'
 import { isFunction } from './utils/is-function'
 import { combination } from './combination'
-import { ee } from './event'
+import { subject } from './behaviorSubject'
 
 const reducer = (state, action) => {
   const stateKeys = Object.keys(state)
@@ -33,26 +33,26 @@ const reducer = (state, action) => {
 }
 export function createStore(storeConfig, enhance) {
   let store
-  if (combination.$has(storeConfig)) {
-    store = combination.$find(storeConfig.name, storeConfig.sid)
-  } else {
-    store = new Store(storeConfig)
-    if (enhance) {
-      if (enhance.length > 1) {
-        store = enhance.reduce((prevFn, fn) => {
-          if (typeof prevFn === 'object') {
-            return fn(prevFn, storeConfig)
-          }
-          return fn(prevFn(store, storeConfig), storeConfig)
-        })
-      } else {
-        if (enhance[0] && typeof enhance[0] === 'function') {
-          store = enhance[0](store, storeConfig)
+  // if (combination.$has(storeConfig)) {
+  // store = combination.$find(storeConfig.name, storeConfig.sid)
+  // store = new Store(storeConfig)
+  // } else {
+  store = new Store(storeConfig)
+  if (enhance) {
+    if (enhance.length > 1) {
+      store = enhance.reduce((prevFn, fn) => {
+        if (typeof prevFn === 'object') {
+          return fn(prevFn, storeConfig)
         }
+        return fn(prevFn(store, storeConfig), storeConfig)
+      })
+    } else {
+      if (enhance[0] && typeof enhance[0] === 'function') {
+        store = enhance[0](store, storeConfig)
       }
     }
-    combination.$set(storeConfig, store)
   }
+  // }
 
   return function (props) {
     const context = useContext(AppContext)
@@ -62,16 +62,23 @@ export function createStore(storeConfig, enhance) {
     useEffect(() => {
       const linkHandle = ({ targetComponent, targetState, value }) => {
         subscribeState[targetComponent][targetState] = value
-        window.requestIdleCallback(() => {
-          link({ ...subscribeState })
-        })
+        link({ ...subscribeState })
       }
-      ee.on(store.name, linkHandle)
+      const sub = subject.subscribe({
+        next: (v) => {
+          if (v && store.name && v.dep === store.name) {
+            console.debug(v.dep === store.name, v, store.name)
+            linkHandle(v.meta)
+          }
+        },
+      })
       return () => {
-        ee.off(store.name, linkHandle)
+        sub.unsubscribe()
+        store.dispose()
       }
     }, [])
     store.update(state, subscribeState, context, dispatch, props, ref)
+    combination.$set(storeConfig, store)
     /**
      * @type {store.state} state
      */
