@@ -2,7 +2,7 @@
 /* eslint-disable react/display-name */
 // @filename: Store.js
 import mergeWith from 'lodash.mergewith'
-import { subject } from './behaviorSubject'
+// import { subject } from './behaviorSubject'
 import { bindContext } from './bind-context'
 import { combination } from './combination'
 import { getReducerType } from './get-reducer-model'
@@ -59,29 +59,53 @@ export class Store {
     if (storeConfig.sid) {
       this.name = `${storeConfig.name}_${storeConfig.sid}`
     }
-    this.subscribeState = {}
-    if (storeConfig.subscribeState) {
-      const subscribeStateKeys = Object.keys(storeConfig.subscribeState)
-      subscribeStateKeys.forEach((subscribeStateComponent) => {
-        this.subscribeState[subscribeStateComponent] = {}
-        storeConfig.subscribeState[subscribeStateComponent].forEach(
-          (linkStateKey) => {
-            if (combination[subscribeStateComponent]) {
-              this.subscribeState[subscribeStateComponent][linkStateKey] =
-                combination[subscribeStateComponent].state[linkStateKey]
-            } else {
-              combination.$connectAsync(subscribeStateComponent, (ins) => {
-                this.subscribeState[subscribeStateComponent][linkStateKey] =
-                  ins.state[linkStateKey]
-              })
-            }
-            combination.$addDep(
-              subscribeStateComponent,
-              linkStateKey,
-              this.name
-            )
-          }
-        )
+    // this.subscribeState = {}
+    // if (storeConfig.subscribeState) {
+    //   const subscribeStateKeys = Object.keys(storeConfig.subscribeState)
+    //   subscribeStateKeys.forEach((subscribeStateComponent) => {
+    //     this.subscribeState[subscribeStateComponent] = {}
+    //     storeConfig.subscribeState[subscribeStateComponent].forEach(
+    //       (linkStateKey) => {
+    //         if (combination[subscribeStateComponent]) {
+    //           this.subscribeState[subscribeStateComponent][linkStateKey] =
+    //             combination[subscribeStateComponent].state[linkStateKey]
+    //         } else {
+    //           combination.$connectAsync(subscribeStateComponent, (ins) => {
+    //             this.subscribeState[subscribeStateComponent][linkStateKey] =
+    //               ins.state[linkStateKey]
+    //           })
+    //         }
+    //         combination.$addDep(
+    //           subscribeStateComponent,
+    //           linkStateKey,
+    //           this.name
+    //         )
+    //       }
+    //     )
+    //   })
+    // }
+    if (storeConfig.subscribe) {
+      const targetComponentKeys = Object.keys(storeConfig.subscribe)
+      targetComponentKeys.forEach((targetComponentKey) => {
+        const { state, controller } = storeConfig.subscribe[targetComponentKey]
+        if (state) {
+          const stateKeys = Object.keys(state)
+          stateKeys.forEach((stateKey) => {
+            combination.$addDep(this.name, {
+              eventName: `${targetComponentKey}_state_${stateKey}`,
+              handle: state[stateKey],
+            })
+          })
+        }
+        if (controller) {
+          const controllerKeys = Object.keys(controller)
+          controllerKeys.forEach((controllerKey) => {
+            combination.$addDep(this.name, {
+              eventName: `${targetComponentKey}_controller_${controllerKey}`,
+              handle: controller[controllerKey],
+            })
+          })
+        }
       })
     }
     this.styles = { ...storeConfig.styles }
@@ -140,22 +164,6 @@ export class Store {
     this.stateKeys.forEach((stateKey) => {
       const type = getReducerType(stateKey)
       this.setter[stateKey] = (payload) => {
-        if (
-          combination.deps[this.name] &&
-          combination.deps[this.name][stateKey]
-        ) {
-          const deps = combination.deps[this.name][stateKey]
-          deps.forEach((dep) => {
-            subject.next({
-              dep,
-              meta: {
-                targetComponent: this.name,
-                targetState: stateKey,
-                value: payload,
-              },
-            })
-          })
-        }
         this.dispatch([type, payload, stateKey])
         return payload
       }
@@ -166,34 +174,28 @@ export class Store {
       viewContext: { ...baseContext },
       serviceContext: { ...baseContext },
     }
-
-    const {
-      view,
-      controller,
-      service,
-      hook = {
-        controllerWrapper: null,
-        viewWrapper: null,
-        serviceWrapper: null,
-      },
-    } = storeConfig
+    const instance = this
+    const { view, controller, service } = storeConfig
     const viewBindContext = bindContext(
       viewKeys,
       view,
       this.private.viewContext,
-      hook.viewWrapper
+      instance,
+      false
     )
     const ctrlBindContext = bindContext(
       ctrlKeys,
       controller,
       this.private.controllerContext,
-      hook.controllerWrapper
+      instance,
+      true
     )
     const serviceBindContext = bindContext(
       serviceKeys,
       service,
       this.private.serviceContext,
-      hook.serviceWrapper
+      instance,
+      false
     )
     this.private.serviceContext.service = serviceBindContext
     this.private.serviceContext.rc = this.rc
@@ -221,7 +223,7 @@ export class Store {
   }
   updateFunctionContextStateAndContextAndProps({
     state,
-    subscribeState,
+    // subscribeState,
     context,
     props,
     ref,
@@ -231,7 +233,7 @@ export class Store {
       if (Object.hasOwnProperty.call(this.private, contextName)) {
         this.private[contextName]['state'] = state
         this.private[contextName]['context'] = context
-        this.private[contextName]['subscribeState'] = subscribeState
+        // this.private[contextName]['subscribeState'] = subscribeState
         this.private[contextName]['props'] = props
         this.private[contextName]['ref'] = ref
         this.private[contextName]['refs'] = ref
@@ -247,17 +249,17 @@ export class Store {
       }
     }
   }
-  update(state, subscribeState, context, dispatch, props, ref) {
+  update(state, context, dispatch, props, ref) {
     this.updateFunctionContextStateAndContextAndProps({
       state,
-      subscribeState,
+      // subscribeState,
       context,
       props,
       ref,
     })
     this.dispatch = dispatch
     this.state = state
-    this.subscribeState = subscribeState
+    // this.subscribeState = subscribeState
     this.ref = ref
   }
 }

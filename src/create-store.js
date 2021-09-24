@@ -8,9 +8,9 @@ import { getReducerModel } from './get-reducer-model'
 import { Store } from './Store'
 import { isFunction } from './utils/is-function'
 import { combination } from './combination'
-import { subject } from './behaviorSubject'
+import { subject } from './subject'
 
-const reducer = (state, action) => {
+const createReducer = (name) => (state, action) => {
   const stateKeys = Object.keys(state)
   const reducerModel = getReducerModel(stateKeys)(state)
   actionIsUndefined(reducerModel, action)
@@ -29,14 +29,18 @@ const reducer = (state, action) => {
       return [...srcValue]
     }
   })
+  subject.next({
+    eventName: `${name}_state_${action[2]}`,
+    data: {
+      lastValue: state[action[2]],
+      nextValue: action[1],
+      state: state,
+    },
+  })
   return { ...newState }
 }
 export function createStore(storeConfig, enhance) {
   let store
-  // if (combination.$has(storeConfig)) {
-  // store = combination.$find(storeConfig.name, storeConfig.sid)
-  // store = new Store(storeConfig)
-  // } else {
   store = new Store(storeConfig)
   if (enhance) {
     if (enhance.length > 1) {
@@ -52,23 +56,23 @@ export function createStore(storeConfig, enhance) {
       }
     }
   }
-  // }
 
   return function (props) {
     const context = useContext(AppContext)
-    const [state, dispatch] = useReducer(reducer, { ...store.state })
-    const [subscribeState, link] = useState({ ...store.subscribeState })
+    const [state, dispatch] = useReducer(createReducer(store.name), {
+      ...store.state,
+    })
     const ref = useRef(storeConfig.ref).current
     useEffect(() => {
-      const linkHandle = ({ targetComponent, targetState, value }) => {
-        subscribeState[targetComponent][targetState] = value
-        link({ ...subscribeState })
-      }
       const sub = subject.subscribe({
         next: (v) => {
-          if (v && store.name && v.dep === store.name) {
-            console.debug(v.dep === store.name, v, store.name)
-            linkHandle(v.meta)
+          if (
+            combination.deps[store.name] &&
+            combination.deps[store.name][v.eventName]
+          ) {
+            setTimeout(() => {
+              combination.deps[store.name][v.eventName].call(store, v.data)
+            }, 33)
           }
         },
       })
@@ -77,7 +81,7 @@ export function createStore(storeConfig, enhance) {
         store.dispose()
       }
     }, [])
-    store.update(state, subscribeState, context, dispatch, props, ref)
+    store.update(state, context, dispatch, props, ref)
     combination.$set(storeConfig, store)
     /**
      * @type {store.state} state
@@ -85,7 +89,6 @@ export function createStore(storeConfig, enhance) {
     return {
       view: store.view,
       state,
-      subscribeState,
       derived: store.derived,
       refs: ref,
       ref: ref,

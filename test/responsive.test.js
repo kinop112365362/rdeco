@@ -4,7 +4,7 @@ import { AppContext } from '../src/app-context'
 import { createComponent, createStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
-test('测试 combination dep', async () => {
+test('测试 responsive', async () => {
   const ComponentA = createComponent({
     name: 'ComponentA',
     state: {
@@ -29,12 +29,32 @@ test('测试 combination dep', async () => {
   })
   const ComponentB = createComponent({
     name: 'ComponentB',
-    subscribeState: {
-      ComponentA: ['age'],
+    state: {
+      name: 'ann',
+      clickLog: '',
+    },
+    subscribe: {
+      ComponentA: {
+        state: {
+          age(data) {
+            this.setter.name(`jacky's age is ${data.nextValue}`)
+          },
+        },
+        controller: {
+          onClick(data) {
+            this.setter.clickLog('componentA be onClick')
+          },
+        },
+      },
     },
     view: {
       render() {
-        return <div role="age">{this.subscribeState.ComponentA.age}</div>
+        return (
+          <div>
+            <div role="name">{this.state.name}</div>
+            <div role="clickLog">{this.state.clickLog}</div>
+          </div>
+        )
       },
     },
   })
@@ -49,6 +69,9 @@ test('测试 combination dep', async () => {
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('button'))
   await waitFor(() => {
-    expect(screen.getByRole('age')).toHaveTextContent('20')
+    expect(screen.getByRole('name')).toHaveTextContent("jacky's age is 20")
+    expect(screen.getByRole('clickLog')).toHaveTextContent(
+      'componentA be onClick'
+    )
   })
 })

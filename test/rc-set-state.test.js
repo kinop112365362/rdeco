@@ -40,7 +40,6 @@ test('测试 rc.setState 可以获取前置的 state', async () => {
     const store = useTestStore()
     useEffect(() => {
       store.controller.onComponentInit()
-      console.log(store.ref.count)
     }, [])
     return (
       <div>

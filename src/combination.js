@@ -1,4 +1,4 @@
-import { connectSubject } from './behaviorSubject'
+import { connectSubject } from './subject'
 
 /* eslint-disable no-undef */
 export const combination = {
@@ -35,16 +35,15 @@ export const combination = {
       )
     }
   },
-  $addDep(targetComponentName, targetStateKey, watchCompnentName) {
-    if (this.deps[targetComponentName]) {
-      if (this.deps[targetComponentName][targetStateKey]) {
-        this.deps[targetComponentName][targetStateKey].add(watchCompnentName)
+  $addDep(watchCompnentName, observer) {
+    if (this.deps[watchCompnentName]) {
+      if (this.deps[watchCompnentName]) {
+        this.deps[watchCompnentName][observer.eventName] = observer.handle
       }
     } else {
-      this.deps[targetComponentName] = {}
-      this.deps[targetComponentName][targetStateKey] = new Set([
-        watchCompnentName,
-      ])
+      this.deps[watchCompnentName] = {
+        [observer.eventName]: observer.handle,
+      }
     }
   },
   $find(name, sid) {

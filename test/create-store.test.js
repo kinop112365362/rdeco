@@ -211,32 +211,3 @@ test('运行 view 模块, 测试 render 函数', async () => {
     expect(screen.getByRole('renderButton')).toHaveTextContent('haha')
   )
 })
-test('测试单独的 rc.set, 可以联动其他的 rc 可以获取前置的 state', async () => {
-  const initState = {
-    count: 0
-  }
-  const service = {}
-  const controller = {
-    onComponentInit () {
-      this.rc.setCount(prevCount => ++prevCount)
-    }
-  }
-  const useTestStore = createStore({
-    initState,
-    service,
-    controller
-  })
-  function Test () {
-    const store = useTestStore()
-    useEffect(() => {
-      store.controller.onComponentInit()
-    }, [])
-    return (
-      <div>
-        <span role='msg'>{store.state.count}</span>
-      </div>
-    )
-  }
-  render(<Test></Test>)
-  expect(screen.getByRole('msg')).toHaveTextContent('1')
-})
