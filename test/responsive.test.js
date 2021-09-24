@@ -5,6 +5,22 @@ import { createComponent, createStore } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 responsive', async () => {
+  const ComponentC = createComponent({
+    name: 'ComponentC',
+    state: {
+      text: '',
+    },
+    controller: {
+      onClick() {
+        this.setter.text('Hello World')
+      },
+    },
+    view: {
+      render() {
+        return <button role="c" onClick={this.controller.onClick}></button>
+      },
+    },
+  })
   const ComponentA = createComponent({
     name: 'ComponentA',
     state: {
@@ -31,20 +47,15 @@ test('测试 responsive', async () => {
     name: 'ComponentB',
     state: {
       name: 'ann',
-      clickLog: '',
+      ctext: '',
     },
     subscribe: {
-      ComponentA: {
-        state: {
-          age(data) {
-            this.setter.name(`jacky's age is ${data.nextValue}`)
-          },
-        },
-        controller: {
-          onClick(data) {
-            this.setter.clickLog('componentA be onClick')
-          },
-        },
+      ComponentA({ lastState, nextState }) {
+        this.setter.name(`jacky's age is ${nextState.age}`)
+      },
+      ComponentC({ nextState }) {
+        console.debug(nextState)
+        this.setter.ctext(nextState.text)
       },
     },
     view: {
@@ -52,7 +63,7 @@ test('测试 responsive', async () => {
         return (
           <div>
             <div role="name">{this.state.name}</div>
-            <div role="clickLog">{this.state.clickLog}</div>
+            <div role="ctext">{this.state.ctext}</div>
           </div>
         )
       },
@@ -63,6 +74,7 @@ test('测试 responsive', async () => {
       <div>
         <ComponentB></ComponentB>
         <ComponentA></ComponentA>
+        <ComponentC></ComponentC>
       </div>
     )
   }
@@ -70,8 +82,9 @@ test('测试 responsive', async () => {
   fireEvent.click(screen.getByRole('button'))
   await waitFor(() => {
     expect(screen.getByRole('name')).toHaveTextContent("jacky's age is 20")
-    expect(screen.getByRole('clickLog')).toHaveTextContent(
-      'componentA be onClick'
-    )
+  })
+  fireEvent.click(screen.getByRole('c'))
+  await waitFor(() => {
+    expect(screen.getByRole('ctext')).toHaveTextContent('Hello World')
   })
 })

@@ -6,6 +6,7 @@ import mergeWith from 'lodash.mergewith'
 import { bindContext } from './bind-context'
 import { combination } from './combination'
 import { getReducerType } from './get-reducer-model'
+import { asyncSubject } from './subject'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
 import { storeConfigValidate } from './utils/store-config-validate'
 // import cloneDeep from 'lodash.clonedeep'
@@ -59,53 +60,14 @@ export class Store {
     if (storeConfig.sid) {
       this.name = `${storeConfig.name}_${storeConfig.sid}`
     }
-    // this.subscribeState = {}
-    // if (storeConfig.subscribeState) {
-    //   const subscribeStateKeys = Object.keys(storeConfig.subscribeState)
-    //   subscribeStateKeys.forEach((subscribeStateComponent) => {
-    //     this.subscribeState[subscribeStateComponent] = {}
-    //     storeConfig.subscribeState[subscribeStateComponent].forEach(
-    //       (linkStateKey) => {
-    //         if (combination[subscribeStateComponent]) {
-    //           this.subscribeState[subscribeStateComponent][linkStateKey] =
-    //             combination[subscribeStateComponent].state[linkStateKey]
-    //         } else {
-    //           combination.$connectAsync(subscribeStateComponent, (ins) => {
-    //             this.subscribeState[subscribeStateComponent][linkStateKey] =
-    //               ins.state[linkStateKey]
-    //           })
-    //         }
-    //         combination.$addDep(
-    //           subscribeStateComponent,
-    //           linkStateKey,
-    //           this.name
-    //         )
-    //       }
-    //     )
-    //   })
-    // }
     if (storeConfig.subscribe) {
       const targetComponentKeys = Object.keys(storeConfig.subscribe)
       targetComponentKeys.forEach((targetComponentKey) => {
-        const { state, controller } = storeConfig.subscribe[targetComponentKey]
-        if (state) {
-          const stateKeys = Object.keys(state)
-          stateKeys.forEach((stateKey) => {
-            combination.$addDep(this.name, {
-              eventName: `${targetComponentKey}_state_${stateKey}`,
-              handle: state[stateKey],
-            })
-          })
-        }
-        if (controller) {
-          const controllerKeys = Object.keys(controller)
-          controllerKeys.forEach((controllerKey) => {
-            combination.$addDep(this.name, {
-              eventName: `${targetComponentKey}_controller_${controllerKey}`,
-              handle: controller[controllerKey],
-            })
-          })
-        }
+        const handle = storeConfig.subscribe[targetComponentKey]
+        combination.$addDep(this.name, {
+          eventName: `${targetComponentKey}_state_finaly`,
+          handle,
+        })
       })
     }
     this.styles = { ...storeConfig.styles }
@@ -114,6 +76,9 @@ export class Store {
     this.props = {}
     this.connect = combination.$connect.bind(combination)
     this.connectAsync = combination.$connectAsync.bind(combination)
+    this.finalyState = () => {
+      asyncSubject.complete()
+    }
 
     const baseContext = {
       name: this.name,
@@ -125,7 +90,7 @@ export class Store {
       props: this.props,
       connect: this.connect,
       connectAsync: this.connectAsync,
-      watchComponentState: this.watchComponentState,
+      finalyState: this.finalyState,
       entites: combination.entites,
     }
     /** create this.rc

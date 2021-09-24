@@ -8,7 +8,7 @@ import { getReducerModel } from './get-reducer-model'
 import { Store } from './Store'
 import { isFunction } from './utils/is-function'
 import { combination } from './combination'
-import { subject } from './subject'
+import { subject, asyncSubject } from './subject'
 
 const createReducer = (name) => (state, action) => {
   const stateKeys = Object.keys(state)
@@ -29,14 +29,15 @@ const createReducer = (name) => (state, action) => {
       return [...srcValue]
     }
   })
-  subject.next({
-    eventName: `${name}_state_${action[2]}`,
-    data: {
-      lastValue: state[action[2]],
-      nextValue: action[1],
-      state: state,
-    },
-  })
+  if (name) {
+    subject.next({
+      eventName: `${name}_state_finaly`,
+      data: {
+        lastState: state,
+        nextState: newState,
+      },
+    })
+  }
   return { ...newState }
 }
 export function createStore(storeConfig, enhance) {
