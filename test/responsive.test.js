@@ -50,12 +50,18 @@ test('测试 responsive', async () => {
       ctext: '',
     },
     subscribe: {
-      ComponentA({ lastState, nextState }) {
-        this.setter.name(`jacky's age is ${nextState.age}`)
+      ComponentA: {
+        state({ lastState, nextState }) {
+          this.setter.name(`jacky's age is ${nextState.age}`)
+        },
+        onClick({key, args, instance}){
+          console.debug(key, args, instance)
+        }
       },
-      ComponentC({ nextState }) {
-        console.debug(nextState)
-        this.setter.ctext(nextState.text)
+      ComponentC: {
+        state({ nextState }) {
+          this.setter.ctext(nextState.text)
+        },
       },
     },
     view: {

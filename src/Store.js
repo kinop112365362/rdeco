@@ -63,10 +63,20 @@ export class Store {
     if (storeConfig.subscribe) {
       const targetComponentKeys = Object.keys(storeConfig.subscribe)
       targetComponentKeys.forEach((targetComponentKey) => {
-        const handle = storeConfig.subscribe[targetComponentKey]
-        combination.$addDep(this.name, {
-          eventName: `${targetComponentKey}_state_finaly`,
-          handle,
+        const eventKeys = Object.keys(storeConfig.subscribe[targetComponentKey])
+        eventKeys.forEach((eventKey) => {
+          const handle = storeConfig.subscribe[targetComponentKey][eventKey]
+          if (eventKey === 'state') {
+            combination.$addDep(this.name, {
+              eventName: `${targetComponentKey}_state_finaly`,
+              handle,
+            })
+          } else {
+            combination.$addDep(this.name, {
+              eventName: `${targetComponentKey}_controller_${eventKey}`,
+              handle,
+            })
+          }
         })
       })
     }
