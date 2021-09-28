@@ -89,7 +89,14 @@ export class Store {
     this.finalyState = () => {
       asyncSubject.complete()
     }
-
+    this.getState = (componentName) => {
+      // eslint-disable-next-line no-undef
+      return new Promise((resolve) => {
+        this.connectAsync(componentName, (ins) => {
+          resolve(ins.state)
+        })
+      })
+    }
     const baseContext = {
       name: this.name,
       state: this.state,
@@ -102,6 +109,7 @@ export class Store {
       connectAsync: this.connectAsync,
       finalyState: this.finalyState,
       entites: combination.entites,
+      getState: this.getState,
     }
     /** create this.rc
      * rc 只支持对 2 级 Key 做 State 快捷操作,

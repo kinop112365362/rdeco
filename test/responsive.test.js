@@ -20,7 +20,9 @@ test('测试 responsive', async () => {
       },
       ComponentB: {
         onClick({ state }) {
-          console.debug(state)
+          this.getState('ComponentB').then(state=>{
+            console.debug(state)
+          })
           this.setter.bage(state.age)
         },
       },
@@ -72,7 +74,7 @@ test('测试 responsive', async () => {
       age: 0,
     },
     controller:{
-      onClick({ key, args, state }) {
+      onClick() {
         this.setter.age(19)
       },
     },
