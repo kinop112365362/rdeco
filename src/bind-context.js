@@ -16,7 +16,7 @@ export function bindContext(fnKeys, fnObj, context, instance, isNeedSubject) {
           data: {
             key: fnKey,
             args: args,
-            instance,
+            state: instance.state,
           },
         })
       }
