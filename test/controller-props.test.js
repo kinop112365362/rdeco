@@ -34,6 +34,7 @@ test('测试 props 带有 sid 的渲染正确性, 有 name 没有 sid 的情况'
           { name: 't1', text: { display: 't1' } },
           { name: 't2', text: { display: 't2' } }
         ].map(d => {
+          console.debug(d.name)
           return <Text sid={d.name} name={d.name} key={d.name} text={d.text}></Text>
         })}
       </div>

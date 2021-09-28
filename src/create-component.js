@@ -1,14 +1,22 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import { combination } from './combination'
 import { createStore } from './create-store'
 
 export function enhanceCreateComponent(enhances) {
   return function createComponent(component, sign) {
     const copy = { ...component }
+    if (combination[copy.name]) {
+      throw new Error(`${copy.name} 重复, 创建失败, 请检查`)
+    }
     function HookComponent(props) {
       if (props.sid) {
         copy.sid = props.sid
       }
+      // if (combination[`${copy.name}_${copy.sid}`]) {
+      //   console.debug(combination)
+      //   throw new Error(`${copy.name}_${copy.sid} 重复, 创建失败, 请检查`)
+      // }
       const useComponent = createStore(copy, enhances)
       const store = useComponent(props)
       let isRender = true

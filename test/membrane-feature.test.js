@@ -60,6 +60,7 @@ test('测试 membrane 的全部功能', async () => {
       },
     },
     membrane: {
+      name:'MemMembrane',
       initState: {
         membraneTitle: '',
         membraneService: '',
