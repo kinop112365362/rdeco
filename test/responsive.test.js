@@ -9,6 +9,21 @@ test('测试 responsive', async () => {
     name: 'ComponentC',
     state: {
       text: '',
+      age: 0,
+      bage: 0,
+    },
+    subscribe: {
+      ComponentA: {
+        onClick({ state }) {
+          this.setter.age(state.age)
+        },
+      },
+      ComponentB: {
+        onClick({ state }) {
+          console.debug(state)
+          this.setter.bage(state.age)
+        },
+      },
     },
     controller: {
       onClick() {
@@ -17,7 +32,13 @@ test('测试 responsive', async () => {
     },
     view: {
       render() {
-        return <button role="c" onClick={this.controller.onClick}></button>
+        return (
+          <>
+            <div role="age">{this.state.age}</div>
+            <div role="bage">{this.state.bage}</div>
+            <button role="c" onClick={this.controller.onClick}></button>
+          </>
+        )
       },
     },
   })
@@ -48,20 +69,11 @@ test('测试 responsive', async () => {
     state: {
       name: 'ann',
       ctext: '',
+      age: 0,
     },
-    subscribe: {
-      ComponentA: {
-        state({ lastState, nextState }) {
-          this.setter.name(`jacky's age is ${nextState.age}`)
-        },
-        onClick({key, args, instance}){
-          console.debug(key, args, instance)
-        }
-      },
-      ComponentC: {
-        state({ nextState }) {
-          this.setter.ctext(nextState.text)
-        },
+    controller:{
+      onClick({ key, args, state }) {
+        this.setter.age(19)
       },
     },
     view: {
@@ -69,6 +81,7 @@ test('测试 responsive', async () => {
         return (
           <div>
             <div role="name">{this.state.name}</div>
+            <button role="buttonb" onClick={this.controller.onClick}></button>
             <div role="ctext">{this.state.ctext}</div>
           </div>
         )
@@ -86,11 +99,9 @@ test('测试 responsive', async () => {
   }
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('button'))
+  fireEvent.click(screen.getByRole('buttonb'))
   await waitFor(() => {
-    expect(screen.getByRole('name')).toHaveTextContent("jacky's age is 20")
-  })
-  fireEvent.click(screen.getByRole('c'))
-  await waitFor(() => {
-    expect(screen.getByRole('ctext')).toHaveTextContent('Hello World')
+    expect(screen.getByRole('age')).toHaveTextContent('20')
+    expect(screen.getByRole('bage')).toHaveTextContent('19')
   })
 })
