@@ -6,8 +6,10 @@ import { createStore } from './create-store'
 export function enhanceCreateComponent(enhances) {
   return function createComponent(component, sign) {
     const copy = { ...component }
-    if (combination[copy.name]) {
-      throw new Error(`${copy.name} 重复, 创建失败, 请检查`)
+    if (!module.hot) {
+      if (combination[copy.name]) {
+        throw new Error(`${copy.name} 重复, 创建失败, 请检查`)
+      }
     }
     function HookComponent(props) {
       if (props.sid) {
