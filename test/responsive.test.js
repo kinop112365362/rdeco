@@ -11,16 +11,23 @@ test('测试 responsive', async () => {
       text: '',
       age: 0,
       bage: 0,
+      aname: '',
     },
     subscribe: {
       ComponentA: {
+        state({ key, lastState, nextState }) {
+          console.debug(key)
+          if (key === 'name') {
+            this.setter.aname(nextState[key])
+          }
+        },
         onClick({ state }) {
           this.setter.age(state.age)
         },
       },
       ComponentB: {
         onClick({ state }) {
-          this.getState('ComponentB').then(state=>{
+          this.getState('ComponentB').then((state) => {
             console.debug(state)
           })
           this.setter.bage(state.age)
@@ -38,6 +45,7 @@ test('测试 responsive', async () => {
           <>
             <div role="age">{this.state.age}</div>
             <div role="bage">{this.state.bage}</div>
+            <div role="aname">{this.state.aname}</div>
             <button role="c" onClick={this.controller.onClick}></button>
           </>
         )
@@ -53,6 +61,7 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.age('20')
+        this.setter.name('ann')
       },
     },
     view: {
@@ -73,7 +82,7 @@ test('测试 responsive', async () => {
       ctext: '',
       age: 0,
     },
-    controller:{
+    controller: {
       onClick() {
         this.setter.age(19)
       },
@@ -105,5 +114,6 @@ test('测试 responsive', async () => {
   await waitFor(() => {
     expect(screen.getByRole('age')).toHaveTextContent('20')
     expect(screen.getByRole('bage')).toHaveTextContent('19')
+    expect(screen.getByRole('aname')).toHaveTextContent('ann')
   })
 })

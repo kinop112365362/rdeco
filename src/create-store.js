@@ -4,7 +4,7 @@ import { useReducer, useContext, useRef, useEffect, useState } from 'react'
 import { AppContext } from './app-context'
 import mergeWith from 'lodash.mergewith'
 import { actionIsUndefined } from './utils/action-is-undefined'
-import { getReducerModel } from './get-reducer-model'
+import { getReducerModel, getStateType } from './get-reducer-model'
 import { Store } from './Store'
 import { isFunction } from './utils/is-function'
 import { combination } from './combination'
@@ -38,6 +38,7 @@ const createReducer = (name) => (state, action) => {
     subject.next({
       eventName: `${name}_state_finaly`,
       data: {
+        key: getStateType(action[0]),
         lastState: state,
         nextState: newState,
       },
