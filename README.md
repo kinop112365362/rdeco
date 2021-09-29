@@ -1,6 +1,7 @@
 # structured-react-hook
 
-结构化的, 基于响应式的 React 应用状态管理框架
+> structured-react-hook 已整合到 mencius 库内部
+> 结构化的, 基于响应式的 React 应用状态管理框架
 
 # 快速上手
 
@@ -10,8 +11,8 @@
 /**
  * defaultShowCode: true
  */
-import React from 'react';
-import { createComponent } from 'mencius';
+import React from 'react'
+import { createComponent } from 'mencius'
 
 const HelloWorld = createComponent({
   name: 'HelloWorld',
@@ -20,10 +21,10 @@ const HelloWorld = createComponent({
   },
   view: {
     render() {
-      return <div>{this.state.text}</div>;
+      return <div>{this.state.text}</div>
     },
   },
-});
+})
 ```
 
 ## 修改组件状态
@@ -32,8 +33,8 @@ const HelloWorld = createComponent({
 /**
  * defaultShowCode: true
  */
-import React, { useEffect } from 'react';
-import { createComponent } from 'mencius';
+import React, { useEffect } from 'react'
+import { createComponent } from 'mencius'
 
 export const HelloWorld = createComponent({
   name: 'HelloWorld',
@@ -42,18 +43,18 @@ export const HelloWorld = createComponent({
   },
   controller: {
     onMount() {
-      this.setter.text('Welcome!!');
+      this.setter.text('Welcome!!')
     },
   },
   view: {
     render() {
       useEffect(() => {
-        this.controller.onMount();
-      }, []);
-      return <div>{this.state.text}</div>;
+        this.controller.onMount()
+      }, [])
+      return <div>{this.state.text}</div>
     },
   },
-});
+})
 ```
 
 ## 使用 Props
@@ -64,8 +65,8 @@ export const HelloWorld = createComponent({
 /**
  * defaultShowCode: true
  */
-import React, { useEffect } from 'react';
-import { createComponent } from 'mencius';
+import React, { useEffect } from 'react'
+import { createComponent } from 'mencius'
 
 const HelloWorld = createComponent({
   name: 'HelloWorld',
@@ -74,38 +75,38 @@ const HelloWorld = createComponent({
   },
   controller: {
     onMount() {
-      this.setter.text('Welcome!!!');
+      this.setter.text('Welcome!!!')
     },
   },
   view: {
     render() {
       useEffect(() => {
-        this.controller.onMount();
-      }, []);
+        this.controller.onMount()
+      }, [])
       return (
         <div>
           {this.state.text} and {this.props.text}
         </div>
-      );
+      )
     },
   },
-});
+})
 
 export default function Wrapper() {
-  return <HelloWorld text="I love JavaScript" />;
+  return <HelloWorld text="I love JavaScript" />
 }
 ```
 
 ## 循环渲染 HelloWorld 组件
 
-循环渲染 `Mencius` 创建出来的组件时要注意, 和 `React` 要求的 `key` 一样为组件注入唯一的 `sid`,
+循环渲染 `SRH` 创建出来的组件时要注意, 和 `React` 要求的 `key` 一样为组件注入唯一的 `sid`,
 这样才能确保每个 `HelloWorld` 组件获得属于自己的 `Props`
 
 ```js
 export default function Wrapper() {
   return [1, 2, 3, 4].map((number) => {
-    return <HelloWorld sid={number} key={number} text="I love JavaScript" />;
-  });
+    return <HelloWorld sid={number} key={number} text="I love JavaScript" />
+  })
 }
 ```
 
@@ -118,14 +119,14 @@ export default function Wrapper() {
 - 点击 `Login` 按钮 `User` 组件 `2000ms` 后读取 `username`
 - `Welcome` 组件订阅了 `User` 的 `onClick` 触发和 `state` 变更
 
-> Mencius 基于 Rx.js 实现的响应式机制确保开发者不需要关心变更是异步的还是同步的, Mencius 会妥善处理这一点.
+> SRH 基于 Rx.js 实现的响应式机制确保开发者不需要关心变更是异步的还是同步的, SRH 会妥善处理这一点.
 
 ```jsx
 /**
  * defaultShowCode: true
  */
-import React, { useEffect } from 'react';
-import { createComponent } from 'mencius';
+import React, { useEffect } from 'react'
+import { createComponent } from 'mencius'
 
 const User = createComponent({
   name: 'User',
@@ -135,8 +136,8 @@ const User = createComponent({
   controller: {
     onClick() {
       setTimeout(() => {
-        this.setter.username('jacky');
-      }, 2000);
+        this.setter.username('jacky')
+      }, 2000)
     },
   },
   view: {
@@ -145,10 +146,10 @@ const User = createComponent({
         <>
           <button onClick={this.controller.onClick}> Login </button>
         </>
-      );
+      )
     },
   },
-});
+})
 
 const Welcome = createComponent({
   name: 'Welcome',
@@ -159,29 +160,29 @@ const Welcome = createComponent({
     User: {
       state({ nextState }) {
         this.setter.text((text) => {
-          return `Welcome ~ ${nextState.username}`;
-        });
+          return `Welcome ~ ${nextState.username}`
+        })
       },
       onClick({ state }) {
-        this.setter.text('Welcome loading...');
+        this.setter.text('Welcome loading...')
       },
     },
   },
   controller: {
     async onMount() {
-      const UserState = await this.getState('User');
-      this.setter.text(`Welcome ~ ${UserState.username}`);
+      const UserState = await this.getState('User')
+      this.setter.text(`Welcome ~ ${UserState.username}`)
     },
   },
   view: {
     render() {
       useEffect(() => {
         this.controller.onMount()
-      }, []);
-      return <div>{this.state.text}</div>;
+      }, [])
+      return <div>{this.state.text}</div>
     },
   },
-});
+})
 
 export default function Wrapper() {
   return (
@@ -189,7 +190,7 @@ export default function Wrapper() {
       <User />
       <Welcome />
     </>
-  );
+  )
 }
 ```
 
@@ -223,7 +224,7 @@ const ComponentB = createComponent({
 
 ## subscribe
 
-使用 Mencius 提供的 subscribe 声明式 api, 你可以很方便的编写响应式代码
+使用 SRH 提供的 subscribe 声明式 api, 你可以很方便的编写响应式代码
 
 ### 响应 state 的变化
 
@@ -237,8 +238,8 @@ const ComponentB = createComponent({
 /**
  * defaultShowCode: true
  */
-import React, { useEffect } from 'react';
-import { createComponent } from 'mencius';
+import React, { useEffect } from 'react'
+import { createComponent } from 'mencius'
 
 const Count1 = createComponent({
   name: 'Count1',
@@ -247,7 +248,7 @@ const Count1 = createComponent({
   },
   controller: {
     onAddClick() {
-      this.setter.count(this.state.count + 1);
+      this.setter.count(this.state.count + 1)
     },
   },
   view: {
@@ -255,13 +256,14 @@ const Count1 = createComponent({
       return (
         <>
           <span>
-            {this.state.count} <button onClick={this.controller.onAddClick}> + </button>
+            {this.state.count}{' '}
+            <button onClick={this.controller.onAddClick}> + </button>
           </span>
         </>
-      );
+      )
     },
   },
-});
+})
 const Count2 = createComponent({
   name: 'Count2',
   state: {
@@ -270,7 +272,7 @@ const Count2 = createComponent({
   subscribe: {
     Count1: {
       state({ nextState }) {
-        this.setter.count(nextState.count);
+        this.setter.count(nextState.count)
       },
     },
   },
@@ -280,10 +282,10 @@ const Count2 = createComponent({
         <>
           <span>{this.state.count}</span>
         </>
-      );
+      )
     },
   },
-});
+})
 
 export default function Wrapper() {
   return (
@@ -292,7 +294,7 @@ export default function Wrapper() {
       <div />
       Count2: <Count2 />
     </>
-  );
+  )
 }
 ```
 
@@ -308,8 +310,8 @@ export default function Wrapper() {
 /**
  * defaultShowCode: true
  */
-import React, { useEffect } from 'react';
-import { createComponent } from 'mencius';
+import React, { useEffect } from 'react'
+import { createComponent } from 'mencius'
 
 const Count1a = createComponent({
   name: 'Count1a',
@@ -318,7 +320,7 @@ const Count1a = createComponent({
   },
   controller: {
     onAddClick(prevCount) {
-      this.setter.count(prevCount + 1);
+      this.setter.count(prevCount + 1)
     },
   },
   view: {
@@ -326,13 +328,19 @@ const Count1a = createComponent({
       return (
         <>
           <span>
-            {this.state.count} <button onClick={() => this.controller.onAddClick(this.state.count)}> + </button>
+            {this.state.count}{' '}
+            <button
+              onClick={() => this.controller.onAddClick(this.state.count)}
+            >
+              {' '}
+              +{' '}
+            </button>
           </span>
         </>
-      );
+      )
     },
   },
-});
+})
 const Count2a = createComponent({
   name: 'Count2a',
   state: {
@@ -341,7 +349,11 @@ const Count2a = createComponent({
   subscribe: {
     Count1a: {
       onAddClick({ key, args, state }) {
-        this.setter.subscribeInfo(`Count1a 触发了 ${key}, 参数是 ${[...args]},最后的 state : ${JSON.stringify(state)}`);
+        this.setter.subscribeInfo(
+          `Count1a 触发了 ${key}, 参数是 ${[
+            ...args,
+          ]},最后的 state : ${JSON.stringify(state)}`
+        )
       },
     },
   },
@@ -351,10 +363,10 @@ const Count2a = createComponent({
         <>
           <span>{this.state.subscribeInfo}</span>
         </>
-      );
+      )
     },
   },
-});
+})
 
 export default function Wrapper() {
   return (
@@ -363,34 +375,34 @@ export default function Wrapper() {
       <div />
       Count2a: <Count2a />
     </>
-  );
+  )
 }
 ```
 
 # 声明式 API
 
-`Mencius` 采用声明式 `API` 来创建组件, 这里介绍了主要的可声明的 `API`
+`SRH` 采用声明式 `API` 来创建组件, 这里介绍了主要的可声明的 `API`
 
 ## name
 
-对于 `Mencius` 组件来说 `name` 并不是必须的, 你可以使用匿名组件, 但建议为每个组件声明一个唯一的 ID
+对于 `SRH` 组件来说 `name` 并不是必须的, 你可以使用匿名组件, 但建议为每个组件声明一个唯一的 ID
 
 > 注意匿名组件是不可订阅的, 也无法和其他组件产生响应
 
 ```js
-name: '唯一 ID';
+name: '唯一 ID'
 ```
 
 ## state
 
 `state` 是一个组件的核心, 声明了组件所拥有的的状态, 然后你可以通过 `this.setter[stateKey]` 来操作这些状态,
 
-要注意的是, `Mencius` 只会为 `state` 声明的第一层 key 建立 `setter` 函数, 这样做是为了尽可能让 `state` 声明的结构不那么复杂
+要注意的是, `SRH` 只会为 `state` 声明的第一层 key 建立 `setter` 函数, 这样做是为了尽可能让 `state` 声明的结构不那么复杂
 
 ```js
 state: {
   foo: {
-    bar: '1';
+    bar: '1'
   }
 }
 // this.setter.foo({bar:'2'}) right!
@@ -402,8 +414,8 @@ state: {
 `derived` 意指派生状态, `derived` 下的派生函数通过 `state` 中声明的状态派生出一个新值, 通过 `this.dervied[derivedKey]`可以直接获取到派生出来的值, 和 `state` 一样, 派生值发生变化也会触发 `render`, 详见下面的例子
 
 ```jsx
-import React from 'react';
-import { createComponent } from 'mencius';
+import React from 'react'
+import { createComponent } from 'mencius'
 
 export default createComponent({
   name: 'DerivedExample',
@@ -413,17 +425,17 @@ export default createComponent({
   derived: {
     countIsNotZero() {
       if (this.state.count !== 0) {
-        return 'true';
+        return 'true'
       }
-      return 'false';
+      return 'false'
     },
   },
   controller: {
     onAddClick() {
-      this.setter.count(this.state.count + 1);
+      this.setter.count(this.state.count + 1)
     },
     onSubClick() {
-      this.setter.count(this.state.count - 1);
+      this.setter.count(this.state.count - 1)
     },
   },
   view: {
@@ -435,7 +447,10 @@ export default createComponent({
             count:
             <span>
               {this.state.count}
-              <button style={{ margin: '0 8px' }} onClick={this.controller.onAddClick}>
+              <button
+                style={{ margin: '0 8px' }}
+                onClick={this.controller.onAddClick}
+              >
                 {' '}
                 加 1{' '}
               </button>
@@ -444,15 +459,15 @@ export default createComponent({
           </div>
           <div>count changed:{this.derived.countIsNotZero}</div>
         </>
-      );
+      )
     },
   },
-});
+})
 ```
 
 ## ref
 
-`ref` 等价于 `useRef`, 但和直接使用 `useRef` Hook 不同的是, 在 `Mencius` 组件内声明的 `ref` 可以像普通的字段那样直接使用, 在这点上, `ref` 更像是 `classComponent` 下直接挂载到 `this` 上的 `key`
+`ref` 等价于 `useRef`, 但和直接使用 `useRef` Hook 不同的是, 在 `SRH` 组件内声明的 `ref` 可以像普通的字段那样直接使用, 在这点上, `ref` 更像是 `classComponent` 下直接挂载到 `this` 上的 `key`
 
 ```js
 ref:{
@@ -472,8 +487,8 @@ controller:{
 和 useRef 不同点在于, 使用 ref 声明字段绑定到 React ref 属性上时需要做一些处理
 
 ```jsx
-import React from 'react';
-import { createComponent } from 'mencius';
+import React from 'react'
+import { createComponent } from 'mencius'
 
 export default createComponent({
   name: 'DomRefExample',
@@ -486,27 +501,32 @@ export default createComponent({
   },
   controller: {
     onChange(e) {
-      this.setter.value(e.target.value);
+      this.setter.value(e.target.value)
     },
     onClick() {
-      this.setter.inputValue(this.ref.inputEl.current.value);
+      this.setter.inputValue(this.ref.inputEl.current.value)
     },
   },
   view: {
     render() {
       return (
         <>
-          输入: <input ref={this.ref.inputEl} onChange={this.controller.onChange} value={this.state.value} />
+          输入:{' '}
+          <input
+            ref={this.ref.inputEl}
+            onChange={this.controller.onChange}
+            value={this.state.value}
+          />
           <button style={{ margin: '0 8px' }} onClick={this.controller.onClick}>
             {' '}
             通过 Ref 展示输入框的值{' '}
           </button>
           当前输入框的值: {this.state.inputValue}
         </>
-      );
+      )
     },
   },
-});
+})
 ```
 
 ## view
@@ -560,9 +580,9 @@ service:{
 
 # 扩展组件
 
-`Mencius` 提出了 `Membrane` 概念来解决如何让 扩展 `Mencius` 组件
+`SRH` 提出了 `Membrane` 概念来解决如何让 扩展 `SRH` 组件
 
-如果说通常我们所说的通过 `Props` 来控制的 `React` 组件是一种`封闭型组件`, 那么基于 `Membrane` 模式下的 `Mencius` 组件, 就是一种`开放型组件`
+如果说通常我们所说的通过 `Props` 来控制的 `React` 组件是一种`封闭型组件`, 那么基于 `Membrane` 模式下的 `SRH` 组件, 就是一种`开放型组件`
 
 首先 Membrane 是一种概念, 并不涉及到具体的 API , 通常将被扩展对象称为 Core, Membrane 就是覆盖在 Core 上的一层膜, 具有和 Core 一样或者更多的结构, 通过包裹 Core, Membrane 和 Core 共同组成了新的组件实体.
 
@@ -575,9 +595,9 @@ service:{
 /**
  * defaultShowCode: true
  */
-import React from 'react';
-import { createComponent } from 'mencius';
-import deepmerge from 'deepmerge';
+import React from 'react'
+import { createComponent } from 'mencius'
+import deepmerge from 'deepmerge'
 
 const core = () => {
   return {
@@ -587,11 +607,11 @@ const core = () => {
     },
     view: {
       render() {
-        return <button> {this.state.text} </button>;
+        return <button> {this.state.text} </button>
       },
     },
-  };
-};
+  }
+}
 export default createComponent(
   deepmerge(core(), {
     name: 'MembraneButton',
@@ -599,5 +619,5 @@ export default createComponent(
       text: 'Membrane Button',
     },
   })
-);
+)
 ```
