@@ -15,7 +15,7 @@ test('测试 responsive', async () => {
     },
     subscribe: {
       ComponentA: {
-        state({ key, lastState, nextState }) {
+        state({ key, prevState, nextState }) {
           console.debug(key)
           if (key === 'name') {
             this.setter.aname(nextState[key])
