@@ -39,7 +39,7 @@ const createReducer = (name) => (state, action) => {
       eventName: `${name}_state_finaly`,
       data: {
         key: getStateType(action[0]),
-        lastState: state,
+        prevState: state,
         nextState: newState,
       },
     })
