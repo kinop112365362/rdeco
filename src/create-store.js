@@ -14,16 +14,21 @@ const createReducer = (name) => (state, action) => {
   const stateKeys = Object.keys(state)
   const reducerModel = getReducerModel(stateKeys)(state)
   actionIsUndefined(reducerModel, action)
-  let result = null
+  // let result = null
+  // if (isFunction(action[1])) {
+  //   if (action[2] === 'state') {
+  //     result = reducerModel[action[0]](action[1](state))
+  //   } else {
+  //     result = reducerModel[action[0]](action[1](state[action[2]]))
+  //   }
+  // } else {
   if (isFunction(action[1])) {
-    if (action[2] === 'state') {
-      result = reducerModel[action[0]](action[1](state))
-    } else {
-      result = reducerModel[action[0]](action[1](state[action[2]]))
-    }
-  } else {
-    result = reducerModel[action[0]](action[1])
+    throw new Error(
+      '自 1.40.2 开始不在支持 setter 操作中使用函数而非值, 请直接使用 this.state 来替代获取旧值'
+    )
   }
+  const result = reducerModel[action[0]](action[1])
+  // }
   const newState = mergeWith(state, result, (objValue, srcValue) => {
     if (Array.isArray(objValue)) {
       return [...srcValue]
