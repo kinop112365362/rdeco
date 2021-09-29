@@ -193,19 +193,14 @@ export default function Wrapper() {
 }
 ```
 
----
-
-order: 2
-toc: menu
----
-
 # 响应式状态
 
 ## 什么是响应式状态?
 
 组件是如何通过响应式状态来实现互相影响的? 下图 👇🏻 可以很好的解释这一过程
 
-![组件间状态响应关系](/hyliajs/images/response-process.png)
+组件间状态响应关系
+[![组件间状态响应关系](https://z3.ax1x.com/2021/09/29/45pRDH.md.png)](https://imgtu.com/i/45pRDH)
 
 `A 组件` 通过在视图中调用 `controller` 来处理 `UI` 交互, 同时修改自身状态, 这一过程对订阅了 `A 组件` 的 `B 组件` 是可观察的. 但对于 A 组件而言, 它如何影响其他组件并不需要它自身来感知这一件事, 通过这种方式, 实现了组件间能够互相影响但又完全解耦的模式.
 
@@ -371,12 +366,6 @@ export default function Wrapper() {
   );
 }
 ```
-
----
-
-order: 3
-toc: menu
----
 
 # 声明式 API
 
@@ -568,12 +557,6 @@ service:{
   doB(){}
 }
 ```
-
----
-
-order: 4
-toc: menu
----
 
 # 扩展组件
 
