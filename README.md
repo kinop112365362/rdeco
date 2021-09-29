@@ -5,6 +5,10 @@
 
 # 快速上手
 
+## 安装
+
+yarn add reactx
+
 ## 创建 Hello World 组件
 
 ```js
