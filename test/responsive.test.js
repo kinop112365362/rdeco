@@ -12,11 +12,21 @@ test('测试 responsive', async () => {
       age: 0,
       bage: 0,
       aname: '',
+      dname: '',
+    },
+    dynamicSubscribe({ componentName }) {
+      console.debug(componentName, componentName === 'ComponentD')
+      if (componentName === 'ComponentD') {
+        return {
+          onClick({ state }) {
+            this.setter.dname(state.name)
+          },
+        }
+      }
     },
     subscribe: {
       ComponentA: {
         state({ key, prevState, nextState }) {
-          console.debug(key)
           if (key === 'name') {
             this.setter.aname(nextState[key])
           }
@@ -27,9 +37,7 @@ test('测试 responsive', async () => {
       },
       ComponentB: {
         onClick({ state }) {
-          this.getState('ComponentB').then((state) => {
-            console.debug(state)
-          })
+          this.getState('ComponentB').then((state) => {})
           this.setter.bage(state.age)
         },
       },
@@ -46,6 +54,7 @@ test('测试 responsive', async () => {
             <div role="age">{this.state.age}</div>
             <div role="bage">{this.state.bage}</div>
             <div role="aname">{this.state.aname}</div>
+            <div role="dname">{this.state.dname}</div>
             <button role="c" onClick={this.controller.onClick}></button>
           </>
         )
@@ -99,21 +108,45 @@ test('测试 responsive', async () => {
       },
     },
   })
+  const ComponentD = createComponent({
+    name: 'ComponentD',
+    state: {
+      name: 'd',
+    },
+    controller: {
+      onClick() {
+        this.setter.name('dddd')
+      },
+    },
+    view: {
+      render() {
+        return (
+          <>
+            <button role="buttonc" onClick={this.controller.onClick}></button>
+            <div>{this.state.name}</div>
+          </>
+        )
+      },
+    },
+  })
   function Test() {
     return (
       <div>
         <ComponentB></ComponentB>
         <ComponentA></ComponentA>
         <ComponentC></ComponentC>
+        <ComponentD></ComponentD>
       </div>
     )
   }
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('button'))
   fireEvent.click(screen.getByRole('buttonb'))
+  fireEvent.click(screen.getByRole('buttonc'))
   await waitFor(() => {
     expect(screen.getByRole('age')).toHaveTextContent('20')
     expect(screen.getByRole('bage')).toHaveTextContent('19')
     expect(screen.getByRole('aname')).toHaveTextContent('ann')
+    expect(screen.getByRole('dname')).toHaveTextContent('dddd')
   })
 })

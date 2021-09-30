@@ -8,7 +8,8 @@ import { getReducerModel, getStateType } from './get-reducer-model'
 import { Store } from './Store'
 import { isFunction } from './utils/is-function'
 import { combination } from './combination'
-import { subject, asyncSubject } from './subject'
+import { subject, asyncSubject, createCubject } from './subject'
+import { subscribeHandle } from './subscribe-handle'
 
 const createReducer = (name) => (state, action) => {
   const stateKeys = Object.keys(state)
@@ -83,7 +84,27 @@ export function createStore(storeConfig, enhance) {
           }
         },
       })
+      let createSub = null
+      if (storeConfig.dynamicSubscribe) {
+        createSub = createCubject.subscribe({
+          next: (v) => {
+            const newSubscribe = storeConfig.dynamicSubscribe(v)
+            console.debug(newSubscribe)
+            if (newSubscribe !== undefined) {
+              console.debug({
+                [v.componentName]: newSubscribe,
+              })
+              subscribeHandle(storeConfig.name, {
+                [v.componentName]: newSubscribe,
+              })
+            }
+          },
+        })
+      }
       return () => {
+        if (createSub) {
+          createSub.unsubscribe()
+        }
         sub.unsubscribe()
         store.dispose()
       }

@@ -7,10 +7,9 @@ import { bindContext } from './bind-context'
 import { combination } from './combination'
 import { getReducerType } from './get-reducer-model'
 import { asyncSubject } from './subject'
+import { subscribeHandle } from './subscribe-handle'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
 import { storeConfigValidate } from './utils/store-config-validate'
-// import cloneDeep from 'lodash.clonedeep'
-// eslint-disable-next-line valid-jsdoc
 export class Store {
   constructor(rawStoreConfig) {
     let storeConfig = { ...rawStoreConfig }
@@ -61,24 +60,7 @@ export class Store {
       this.name = `${storeConfig.name}_${storeConfig.sid}`
     }
     if (storeConfig.subscribe) {
-      const targetComponentKeys = Object.keys(storeConfig.subscribe)
-      targetComponentKeys.forEach((targetComponentKey) => {
-        const eventKeys = Object.keys(storeConfig.subscribe[targetComponentKey])
-        eventKeys.forEach((eventKey) => {
-          const handle = storeConfig.subscribe[targetComponentKey][eventKey]
-          if (eventKey === 'state') {
-            combination.$addDep(this.name, {
-              eventName: `${targetComponentKey}_state_finaly`,
-              handle,
-            })
-          } else {
-            combination.$addDep(this.name, {
-              eventName: `${targetComponentKey}_controller_${eventKey}`,
-              handle,
-            })
-          }
-        })
-      })
+      subscribeHandle(this.name, storeConfig.subscribe)
     }
     this.styles = { ...storeConfig.styles }
     this.style = { ...storeConfig.style }

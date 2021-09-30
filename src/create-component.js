@@ -2,10 +2,15 @@
 import React from 'react'
 import { combination } from './combination'
 import { createStore } from './create-store'
+import { createCubject } from './subject'
 
 export function enhanceCreateComponent(enhances) {
   return function createComponent(component, sign) {
     const copy = { ...component }
+    createCubject.next({
+      componentName: copy.name,
+      meta: copy,
+    })
     if (!module.hot) {
       if (combination[copy.name]) {
         throw new Error(`${copy.name} 重复, 创建失败, 请检查`)
