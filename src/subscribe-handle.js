@@ -15,7 +15,7 @@ export function subscribeHandle(name, subscribe) {
         })
       } else {
         combination.$addDep(name, {
-          eventName: `${targetComponentKey}_controller_${eventKey}`,
+          eventName: `${targetComponentKey}_${eventKey}_${eventKey}`,
           handle,
         })
       }
