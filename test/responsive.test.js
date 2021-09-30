@@ -17,9 +17,11 @@ test('测试 responsive', async () => {
     createShadowSubscribe({ sid }) {
       if (sid === 'd') {
         return {
-          onClick({ state }) {
-            this.setter.dname(state.name)
-          },
+          controller:{
+            onClick({ state }) {
+              this.setter.dname(state.name)
+            },
+          }
         }
       }
     },
@@ -30,15 +32,19 @@ test('测试 responsive', async () => {
             this.setter.aname(nextState[key])
           }
         },
-        onClick({ state }) {
-          this.setter.age(state.age)
-        },
+        controller:{
+          onClick({ state }) {
+            this.setter.age(state.age)
+          },
+        }
       },
       ComponentB: {
-        onClick({ state }) {
-          this.getState('ComponentB').then((state) => {})
-          this.setter.bage(state.age)
-        },
+        controller:{
+          onClick({ state }) {
+            this.getState('ComponentB').then((state) => {})
+            this.setter.bage(state.age)
+          },
+        }
       },
     },
     controller: {

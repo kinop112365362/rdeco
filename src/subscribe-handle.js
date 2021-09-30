@@ -7,16 +7,20 @@ export function subscribeHandle(name, subscribe) {
   targetComponentKeys.forEach((targetComponentKey) => {
     const eventKeys = Object.keys(subscribe[targetComponentKey])
     eventKeys.forEach((eventKey) => {
-      const handle = subscribe[targetComponentKey][eventKey]
       if (eventKey === 'state') {
-        combination.$addDep(name, {
+        const handle = subscribe[targetComponentKey][eventKey]
+        return combination.$addDep(name, {
           eventName: `${targetComponentKey}_state_finaly`,
           handle,
         })
       } else {
-        combination.$addDep(name, {
-          eventName: `${targetComponentKey}_${eventKey}_${eventKey}`,
-          handle,
+        const eventKeys = Object.keys(subscribe[targetComponentKey][eventKey])
+        return eventKeys.forEach((fnKey) => {
+          const handle = subscribe[targetComponentKey][eventKey][fnKey]
+          return combination.$addDep(name, {
+            eventName: `${targetComponentKey}_${eventKey}_${fnKey}`,
+            handle,
+          })
         })
       }
     })
