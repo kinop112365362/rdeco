@@ -167,8 +167,10 @@ const Welcome = createComponent({
           return `Welcome ~ ${nextState.username}`
         })
       },
-      onClick({ state }) {
-        this.setter.text('Welcome loading...')
+      controller: {
+        onClick({ state }) {
+          this.setter.text('Welcome loading...')
+        },
       },
     },
   },
@@ -352,12 +354,14 @@ const Count2a = createComponent({
   },
   subscribe: {
     Count1a: {
-      onAddClick({ key, args, state }) {
-        this.setter.subscribeInfo(
-          `Count1a 触发了 ${key}, 参数是 ${[
-            ...args,
-          ]},最后的 state : ${JSON.stringify(state)}`
-        )
+      controller: {
+        onAddClick({ key, args, state }) {
+          this.setter.subscribeInfo(
+            `Count1a 触发了 ${key}, 参数是 ${[
+              ...args,
+            ]},最后的 state : ${JSON.stringify(state)}`
+          )
+        },
       },
     },
   },
