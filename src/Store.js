@@ -146,21 +146,21 @@ export class Store {
       view,
       this.private.viewContext,
       instance,
-      false
+      'view'
     )
     const ctrlBindContext = bindContext(
       ctrlKeys,
       controller,
       this.private.controllerContext,
       instance,
-      true
+      'controller'
     )
     const serviceBindContext = bindContext(
       serviceKeys,
       service,
       this.private.serviceContext,
       instance,
-      false
+      'service'
     )
     this.private.serviceContext.service = serviceBindContext
     this.private.serviceContext.rc = this.rc

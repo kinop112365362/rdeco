@@ -3,23 +3,22 @@
 import React from 'react'
 import { subject } from './subject'
 
-export function bindContext(fnKeys, fnObj, context, instance, isNeedSubject) {
+export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
   if (!fnObj) {
     return {}
   }
   const fnObjBindContext = {}
   fnKeys.forEach((fnKey) => {
     fnObjBindContext[fnKey] = (...args) => {
-      if (isNeedSubject) {
-        subject.next({
-          eventName: `${instance.name}_controller_${fnKey}`,
-          data: {
-            key: fnKey,
-            args: args,
-            state: instance.state,
-          },
-        })
-      }
+      subject.next({
+        eventName: `${instance.name}_${subjectKey}_${fnKey}`,
+        data: {
+          key: fnKey,
+          args: args,
+          name: instance.name,
+          state: instance.state,
+        },
+      })
       return fnObj[fnKey].call(context, ...args)
     }
   })

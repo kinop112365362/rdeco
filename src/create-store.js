@@ -74,13 +74,36 @@ export function createStore(storeConfig, enhance) {
     useEffect(() => {
       const sub = subject.subscribe({
         next: (v) => {
-          if (
-            combination.deps[store.name] &&
-            combination.deps[store.name][v.eventName]
-          ) {
-            setTimeout(() => {
-              combination.deps[store.name][v.eventName].call(store, v.data)
-            }, 33)
+          if (storeConfig.godSubscribe && !v.eventName.includes(store.name)) {
+            if (v.eventName.includes('_state_')) {
+              return setTimeout(() => {
+                storeConfig.godSubscribe?.state?.call(store, v.data)
+              }, 33)
+            }
+            if (v.eventName.includes('_controller_')) {
+              return setTimeout(() => {
+                storeConfig.godSubscribe?.controller?.call(store, v.data)
+              }, 33)
+            }
+            if (v.eventName.includes('_view_')) {
+              return setTimeout(() => {
+                storeConfig.godSubscribe?.view?.call(store, v.data)
+              }, 33)
+            }
+            if (v.eventName.includes('_service_')) {
+              return setTimeout(() => {
+                storeConfig.godSubscribe?.service?.call(store, v.data)
+              }, 33)
+            }
+          } else {
+            if (
+              combination.deps[store.name] &&
+              combination.deps[store.name][v.eventName]
+            ) {
+              setTimeout(() => {
+                combination.deps[store.name][v.eventName].call(store, v.data)
+              }, 33)
+            }
           }
         },
       })
