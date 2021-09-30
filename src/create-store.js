@@ -85,15 +85,11 @@ export function createStore(storeConfig, enhance) {
         },
       })
       let createSub = null
-      if (storeConfig.dynamicSubscribe) {
+      if (storeConfig.createShadowSubscribe) {
         createSub = createCubject.subscribe({
           next: (v) => {
-            const newSubscribe = storeConfig.dynamicSubscribe(v)
-            console.debug(newSubscribe)
+            const newSubscribe = storeConfig.createShadowSubscribe(v)
             if (newSubscribe !== undefined) {
-              console.debug({
-                [v.componentName]: newSubscribe,
-              })
               subscribeHandle(storeConfig.name, {
                 [v.componentName]: newSubscribe,
               })

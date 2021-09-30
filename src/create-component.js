@@ -7,10 +7,6 @@ import { createCubject } from './subject'
 export function enhanceCreateComponent(enhances) {
   return function createComponent(component, sign) {
     const copy = { ...component }
-    createCubject.next({
-      componentName: copy.name,
-      meta: copy,
-    })
     if (!module.hot) {
       if (combination[copy.name]) {
         throw new Error(`${copy.name} 重复, 创建失败, 请检查`)
@@ -19,11 +15,13 @@ export function enhanceCreateComponent(enhances) {
     function HookComponent(props) {
       if (props.sid) {
         copy.sid = props.sid
+        createCubject.next({
+          componentName: `${copy.name}_${copy.sid}`,
+          sid: copy.sid,
+          meta: copy,
+        })
       }
-      // if (combination[`${copy.name}_${copy.sid}`]) {
-      //   console.debug(combination)
-      //   throw new Error(`${copy.name}_${copy.sid} 重复, 创建失败, 请检查`)
-      // }
+
       const useComponent = createStore(copy, enhances)
       const store = useComponent(props)
       let isRender = true

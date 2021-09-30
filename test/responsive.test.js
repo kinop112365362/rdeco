@@ -14,9 +14,8 @@ test('测试 responsive', async () => {
       aname: '',
       dname: '',
     },
-    dynamicSubscribe({ componentName }) {
-      console.debug(componentName, componentName === 'ComponentD')
-      if (componentName === 'ComponentD') {
+    createShadowSubscribe({ sid }) {
+      if (sid === 'd') {
         return {
           onClick({ state }) {
             this.setter.dname(state.name)
@@ -135,7 +134,7 @@ test('测试 responsive', async () => {
         <ComponentB></ComponentB>
         <ComponentA></ComponentA>
         <ComponentC></ComponentC>
-        <ComponentD></ComponentD>
+        <ComponentD sid="d"></ComponentD>
       </div>
     )
   }
