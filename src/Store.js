@@ -8,6 +8,7 @@ import { combination } from './combination'
 import { getReducerType } from './get-reducer-model'
 import { asyncSubject } from './subject'
 import { subscribeHandle } from './subscribe-handle'
+import { isFunction } from './utils/is-function'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
 import { storeConfigValidate } from './utils/store-config-validate'
 export class Store {
@@ -60,7 +61,11 @@ export class Store {
       this.name = `${storeConfig.name}_${storeConfig.sid}`
     }
     if (storeConfig.subscribe) {
-      subscribeHandle(this.name, storeConfig.subscribe)
+      if (isFunction(storeConfig.subscribe)) {
+        subscribeHandle(this.name, storeConfig.subscribe())
+      } else {
+        subscribeHandle(this.name, storeConfig.subscribe)
+      }
     }
     this.styles = { ...storeConfig.styles }
     this.style = { ...storeConfig.style }

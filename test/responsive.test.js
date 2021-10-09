@@ -21,6 +21,7 @@ test('测试 responsive', async () => {
           },
           controller: {
             onClick({ state }) {
+              console.debug(this)
               this.setter.dname(state.name)
             },
           },
@@ -77,6 +78,15 @@ test('测试 responsive', async () => {
     state: {
       name: 'jacky',
       age: '18',
+    },
+    subscribe(){
+      return {
+        ComponentB:{
+          state(){
+
+          }
+        }
+      }
     },
     controller: {
       onClick() {

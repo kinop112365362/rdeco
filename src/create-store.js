@@ -108,9 +108,14 @@ export function createStore(storeConfig, enhance) {
               combination.deps[store.name] &&
               combination.deps[store.name][v.eventName]
             ) {
-              setTimeout(() => {
-                combination.deps[store.name][v.eventName].call(store, v.data)
-              }, 33)
+              if (
+                v.eventName.includes('_controller_') ||
+                v.eventName.includes('_state_')
+              ) {
+                setTimeout(() => {
+                  combination.deps[store.name][v.eventName].call(store, v.data)
+                }, 33)
+              }
             }
           }
         },
@@ -119,7 +124,7 @@ export function createStore(storeConfig, enhance) {
       if (storeConfig.createShadowSubscribe) {
         createSub = createCubject.subscribe({
           next: (v) => {
-            const newSubscribe = storeConfig.createShadowSubscribe(v)
+            const newSubscribe = storeConfig.createShadowSubscribe(v, store)
             if (newSubscribe !== undefined) {
               subscribeHandle(storeConfig.name, {
                 [v.componentName]: newSubscribe,
