@@ -11,7 +11,7 @@ import { combination } from './combination'
 import { subject, asyncSubject, createCubject } from './subject'
 import { subscribeHandle } from './subscribe-handle'
 
-const createReducer = (name) => (state, action) => {
+const createReducer = ({ name, sid }) => (state, action) => {
   const stateKeys = Object.keys(state)
   const reducerModel = getReducerModel(stateKeys)(state)
   actionIsUndefined(reducerModel, action)
@@ -44,6 +44,16 @@ const createReducer = (name) => (state, action) => {
         nextState: newState,
       },
     })
+    if (sid) {
+      subject.next({
+        eventName: `${name}_${sid}_state_finaly`,
+        data: {
+          key: getStateType(action[0]),
+          prevState: state,
+          nextState: newState,
+        },
+      })
+    }
   }
   return { ...newState }
 }
@@ -67,7 +77,7 @@ export function createStore(storeConfig, enhance) {
 
   return function (props) {
     const context = useContext(AppContext)
-    const [state, dispatch] = useReducer(createReducer(store.name), {
+    const [state, dispatch] = useReducer(createReducer(storeConfig), {
       ...store.state,
     })
     const ref = useRef(storeConfig.ref).current

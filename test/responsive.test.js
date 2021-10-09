@@ -14,14 +14,19 @@ test('测试 responsive', async () => {
       aname: '',
       dname: '',
     },
-    createShadowSubscribe({ sid }) {
-      if (sid === 'd') {
+    createShadowSubscribe({ componentName }) {
+      if (componentName === 'ComponentD_d') {
         return {
-          controller:{
+          state({ key, prevState, nextState }) {
+            console.debug(key, prevState, nextState)
+          },
+          controller: {
             onClick({ state }) {
+              console.debug(state)
+
               this.setter.dname(state.name)
             },
-          }
+          },
         }
       }
     },
@@ -32,19 +37,19 @@ test('测试 responsive', async () => {
             this.setter.aname(nextState[key])
           }
         },
-        controller:{
+        controller: {
           onClick({ state }) {
             this.setter.age(state.age)
           },
-        }
+        },
       },
       ComponentB: {
-        controller:{
+        controller: {
           onClick({ state }) {
             this.getState('ComponentB').then((state) => {})
             this.setter.bage(state.age)
           },
-        }
+        },
       },
     },
     controller: {
@@ -60,7 +65,10 @@ test('测试 responsive', async () => {
             <div role="bage">{this.state.bage}</div>
             <div role="aname">{this.state.aname}</div>
             <div role="dname">{this.state.dname}</div>
-            <button role="c" onClick={this.controller.onClick}></button>
+            <button
+              role={this.props.sid ? `c${this.props.sid}` : `c`}
+              onClick={this.controller.onClick}
+            ></button>
           </>
         )
       },
@@ -120,6 +128,7 @@ test('测试 responsive', async () => {
     },
     controller: {
       onClick() {
+        console.debug('click')
         this.setter.name('dddd')
       },
     },
