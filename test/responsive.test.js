@@ -18,12 +18,9 @@ test('测试 responsive', async () => {
       if (componentName === 'ComponentD_d') {
         return {
           state({ key, prevState, nextState }) {
-            console.debug(key, prevState, nextState)
           },
           controller: {
             onClick({ state }) {
-              console.debug(state)
-
               this.setter.dname(state.name)
             },
           },
@@ -33,6 +30,7 @@ test('测试 responsive', async () => {
     subscribe: {
       ComponentA: {
         state({ key, prevState, nextState }) {
+          console.debug(key, prevState, nextState)
           if (key === 'name') {
             this.setter.aname(nextState[key])
           }
@@ -128,7 +126,6 @@ test('测试 responsive', async () => {
     },
     controller: {
       onClick() {
-        console.debug('click')
         this.setter.name('dddd')
       },
     },

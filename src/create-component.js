@@ -5,15 +5,16 @@ import { createStore } from './create-store'
 import { createCubject } from './subject'
 
 export function enhanceCreateComponent(enhances) {
-  return function createComponent(component, sign) {
-    const copy = { ...component }
+  return function createComponent(component) {
     if (!module.hot) {
-      if (combination[copy.name]) {
-        throw new Error(`${copy.name} 重复, 创建失败, 请检查`)
+      if (combination[component.name]) {
+        throw new Error(`${component.name} 重复, 创建失败, 请检查`)
       }
     }
     function HookComponent(props) {
+      const copy = { ...component }
       if (props.sid) {
+        component.sid = props.sid
         copy.sid = props.sid
         createCubject.next({
           componentName: `${copy.name}_${copy.sid}`,
@@ -44,30 +45,17 @@ export function enhanceCreateComponent(enhances) {
       }
       return <>{isRender && store.view.render()}</>
     }
-    if (copy.name) {
-      if (copy.sid) {
+    if (component.name) {
+      if (component.sid) {
         Object.defineProperty(HookComponent, 'name', {
-          value: `${copy.name}_${copy.sid}`,
+          value: `${component.name}_${component.sid}`,
         })
       } else {
         Object.defineProperty(HookComponent, 'name', {
-          value: `${copy.name}`,
+          value: `${component.name}`,
         })
       }
     }
-    if (sign !== 'noCreateMembrane') {
-      HookComponent.createMembrane = (membrane) => {
-        copy.membrane = {
-          ...membrane,
-          derived: membrane.derived ? { ...membrane.derived } : {},
-          service: membrane.service ? { ...membrane.service } : {},
-          controller: membrane.controller ? { ...membrane.controller } : {},
-          view: membrane.view ? { ...membrane.view } : {},
-        }
-        return createComponent(copy, 'noCreateMembrane')
-      }
-    }
-
     return HookComponent
   }
 }

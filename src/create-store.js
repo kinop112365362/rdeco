@@ -35,26 +35,24 @@ const createReducer = ({ name, sid }) => (state, action) => {
       return [...srcValue]
     }
   })
+  let eventName = null
   if (name) {
+    eventName = `${name}_state_finaly`
+  }
+  if (sid && name) {
+    eventName = `${name}_${sid}_state_finaly`
+  }
+  if (eventName) {
     subject.next({
-      eventName: `${name}_state_finaly`,
+      eventName,
       data: {
         key: getStateType(action[0]),
         prevState: state,
         nextState: newState,
       },
     })
-    if (sid) {
-      subject.next({
-        eventName: `${name}_${sid}_state_finaly`,
-        data: {
-          key: getStateType(action[0]),
-          prevState: state,
-          nextState: newState,
-        },
-      })
-    }
   }
+
   return { ...newState }
 }
 export function createStore(storeConfig, enhance) {
