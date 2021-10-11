@@ -8,6 +8,7 @@ import { combination } from './combination'
 import { getReducerType } from './get-reducer-model'
 import { asyncSubject } from './subject'
 import { subscribeHandle } from './subscribe-handle'
+import createName from './utils/create-name'
 import { isFunction } from './utils/is-function'
 import { isStateIsUndefined } from './utils/is-state-is-undefined'
 import { storeConfigValidate } from './utils/store-config-validate'
@@ -56,22 +57,18 @@ export class Store {
       })
       Object.defineProperties(this.derived, propsObj)
     }
-    this.name = storeConfig.name
-    if (storeConfig.sid) {
-      this.name = `${storeConfig.name}_${storeConfig.sid}`
-    }
+    this.name = createName(storeConfig.name)
     if (storeConfig.subscribe) {
       if (isFunction(storeConfig.subscribe)) {
-        subscribeHandle(this.name, storeConfig.subscribe())
+        subscribeHandle(storeConfig.name, storeConfig.subscribe())
       } else {
-        subscribeHandle(this.name, storeConfig.subscribe)
+        subscribeHandle(storeConfig.name, storeConfig.subscribe)
       }
     }
     this.styles = { ...storeConfig.styles }
     this.style = { ...storeConfig.style }
     this.context = {}
     this.props = {}
-    this.connect = combination.$connect.bind(combination)
     this.connectAsync = combination.$connectAsync.bind(combination)
     this.finalyState = () => {
       asyncSubject.complete()
@@ -92,7 +89,6 @@ export class Store {
       style: this.style,
       context: this.context,
       props: this.props,
-      connect: this.connect,
       connectAsync: this.connectAsync,
       finalyState: this.finalyState,
       entites: combination.entites,
@@ -211,13 +207,7 @@ export class Store {
     }
   }
   dispose() {
-    if (this.name) {
-      if (this.sid) {
-        combination.$remove(`${this.name}_${this.sid}`)
-      } else {
-        combination.$remove(`${this.name}`)
-      }
-    }
+    combination.$remove(this.name)
   }
   update(state, context, dispatch, props, ref) {
     this.updateFunctionContextStateAndContextAndProps({

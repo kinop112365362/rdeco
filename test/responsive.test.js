@@ -15,13 +15,11 @@ test('测试 responsive', async () => {
       dname: '',
     },
     createShadowSubscribe({ componentName }) {
-      if (componentName === 'ComponentD_d') {
+      if (componentName === 'ComponentD') {
         return {
-          state({ key, prevState, nextState }) {
-          },
+          state({ key, prevState, nextState }) {},
           controller: {
             onClick({ state }) {
-              console.debug(this)
               this.setter.dname(state.name)
             },
           },
@@ -31,7 +29,6 @@ test('测试 responsive', async () => {
     subscribe: {
       ComponentA: {
         state({ key, prevState, nextState }) {
-          console.debug(key, prevState, nextState)
           if (key === 'name') {
             this.setter.aname(nextState[key])
           }
@@ -79,13 +76,11 @@ test('测试 responsive', async () => {
       name: 'jacky',
       age: '18',
     },
-    subscribe(){
+    subscribe() {
       return {
-        ComponentB:{
-          state(){
-
-          }
-        }
+        ComponentB: {
+          state() {},
+        },
       }
     },
     controller: {
@@ -136,27 +131,31 @@ test('测试 responsive', async () => {
     },
     controller: {
       onClick() {
-        this.setter.name('dddd')
+        this.setter.name(this.props.name)
       },
     },
     view: {
       render() {
         return (
           <>
-            <button role="buttonc" onClick={this.controller.onClick}></button>
+            <button role={this.props.buttonRole} onClick={this.controller.onClick}></button>
             <div>{this.state.name}</div>
           </>
         )
       },
     },
   })
+  const CComponentC = (props) => {
+    return <ComponentC {...props} />
+  }
   function Test() {
     return (
       <div>
         <ComponentB></ComponentB>
         <ComponentA></ComponentA>
-        <ComponentC></ComponentC>
-        <ComponentD sid="d"></ComponentD>
+        <CComponentC></CComponentC>
+        <ComponentD buttonRole="buttonc" name="dddd"></ComponentD>
+        <ComponentD buttonRole="buttond" name="ddd"></ComponentD>
       </div>
     )
   }
@@ -170,4 +169,9 @@ test('测试 responsive', async () => {
     expect(screen.getByRole('aname')).toHaveTextContent('ann')
     expect(screen.getByRole('dname')).toHaveTextContent('dddd')
   })
+  fireEvent.click(screen.getByRole('buttond'))
+  await waitFor(() => {
+    expect(screen.getByRole('dname')).toHaveTextContent('ddd')
+  })
+
 })

@@ -13,49 +13,19 @@ export function enhanceCreateComponent(enhances) {
     }
     function HookComponent(props) {
       const copy = { ...component }
-      if (props.sid) {
-        component.sid = props.sid
-        copy.sid = props.sid
-        createCubject.next({
-          componentName: `${copy.name}_${copy.sid}`,
-          sid: copy.sid,
-          meta: copy,
-        })
-      }
-
       const useComponent = createStore(copy, enhances)
       const store = useComponent(props)
-      let isRender = true
-      if (props.if === false) {
-        isRender = false
-      }
-      if (props.foreach) {
-        return (
-          <>
-            {isRender &&
-              props.foreach.list.map((l) => {
-                return React.createElement(HookComponent, {
-                  key: l[props.foreach.keyName],
-                  sid: l[props.foreach.keyName],
-                  ...l,
-                })
-              })}
-          </>
-        )
-      }
-      return <>{isRender && store.view.render()}</>
+      createCubject.next({
+        componentName: copy.name,
+        meta: copy,
+      })
+
+      return <>{store.view.render()}</>
     }
-    if (component.name) {
-      if (component.sid) {
-        Object.defineProperty(HookComponent, 'name', {
-          value: `${component.name}_${component.sid}`,
-        })
-      } else {
-        Object.defineProperty(HookComponent, 'name', {
-          value: `${component.name}`,
-        })
-      }
-    }
+
+    Object.defineProperty(HookComponent, 'name', {
+      value: `${component.name}`,
+    })
     return HookComponent
   }
 }

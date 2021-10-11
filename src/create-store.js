@@ -11,18 +11,10 @@ import { combination } from './combination'
 import { subject, asyncSubject, createCubject } from './subject'
 import { subscribeHandle } from './subscribe-handle'
 
-const createReducer = ({ name, sid }) => (state, action) => {
+const createReducer = ({ name }) => (state, action) => {
   const stateKeys = Object.keys(state)
   const reducerModel = getReducerModel(stateKeys)(state)
   actionIsUndefined(reducerModel, action)
-  // let result = null
-  // if (isFunction(action[1])) {
-  //   if (action[2] === 'state') {
-  //     result = reducerModel[action[0]](action[1](state))
-  //   } else {
-  //     result = reducerModel[action[0]](action[1](state[action[2]]))
-  //   }
-  // } else {
   if (isFunction(action[1])) {
     throw new Error(
       '自 1.40.2 开始不在支持 setter 操作中使用函数而非值, 请直接使用 this.state 来替代获取旧值'
@@ -35,14 +27,8 @@ const createReducer = ({ name, sid }) => (state, action) => {
       return [...srcValue]
     }
   })
-  let eventName = null
   if (name) {
-    eventName = `${name}_state_finaly`
-  }
-  if (sid && name) {
-    eventName = `${name}_${sid}_state_finaly`
-  }
-  if (eventName) {
+    const eventName = `${name.split('_')[0]}_state_finaly`
     subject.next({
       eventName,
       data: {
@@ -75,14 +61,17 @@ export function createStore(storeConfig, enhance) {
 
   return function (props) {
     const context = useContext(AppContext)
-    const [state, dispatch] = useReducer(createReducer(storeConfig), {
+    const [state, dispatch] = useReducer(createReducer(store), {
       ...store.state,
     })
     const ref = useRef(storeConfig.ref).current
     useEffect(() => {
       const sub = subject.subscribe({
         next: (v) => {
-          if (storeConfig.godSubscribe && !v.eventName.includes(store.name)) {
+          if (
+            storeConfig.godSubscribe &&
+            !v.eventName.includes(storeConfig.name)
+          ) {
             if (v.eventName.includes('_state_')) {
               return setTimeout(() => {
                 storeConfig.godSubscribe?.state?.call(store, v.data)
@@ -105,15 +94,18 @@ export function createStore(storeConfig, enhance) {
             }
           } else {
             if (
-              combination.deps[store.name] &&
-              combination.deps[store.name][v.eventName]
+              combination.deps[storeConfig.name] &&
+              combination.deps[storeConfig.name][v.eventName]
             ) {
               if (
                 v.eventName.includes('_controller_') ||
                 v.eventName.includes('_state_')
               ) {
                 setTimeout(() => {
-                  combination.deps[store.name][v.eventName].call(store, v.data)
+                  combination.deps[storeConfig.name][v.eventName].call(
+                    store,
+                    v.data
+                  )
                 }, 33)
               }
             }

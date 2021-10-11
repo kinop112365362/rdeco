@@ -8,7 +8,6 @@ class Entity {
     this.method = this.config.method
     this.methodContext = {
       params: this.params,
-      connect: combination.$connect.bind(combination),
       connectAsync: combination.$connectAsync.bind(combination),
       method: this.method,
     }

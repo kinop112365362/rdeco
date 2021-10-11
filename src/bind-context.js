@@ -11,7 +11,7 @@ export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
   fnKeys.forEach((fnKey) => {
     fnObjBindContext[fnKey] = (...args) => {
       subject.next({
-        eventName: `${instance.name}_${subjectKey}_${fnKey}`,
+        eventName: `${instance.name.split('_')[0]}_${subjectKey}_${fnKey}`,
         data: {
           key: fnKey,
           args: args,
