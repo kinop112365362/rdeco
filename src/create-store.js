@@ -11,7 +11,7 @@ import { combination } from './combination'
 import { subject, asyncSubject, createCubject } from './subject'
 import { subscribeHandle } from './subscribe-handle'
 
-const createReducer = ({ name }) => (state, action) => {
+export const createReducer = ({ name }) => (state, action) => {
   const stateKeys = Object.keys(state)
   const reducerModel = getReducerModel(stateKeys)(state)
   actionIsUndefined(reducerModel, action)
@@ -65,6 +65,7 @@ export function createStore(storeConfig, enhance) {
       ...store.state,
     })
     const ref = useRef(storeConfig.ref).current
+    const storeContext = useRef(store)
     useEffect(() => {
       const sub = subject.subscribe({
         next: (v) => {

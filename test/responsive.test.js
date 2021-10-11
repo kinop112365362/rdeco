@@ -156,7 +156,7 @@ test('测试 responsive', async () => {
       <div>
         <ComponentB></ComponentB>
         <ComponentA></ComponentA>
-        <CComponentC></CComponentC>
+        <CComponentC sid="cc"></CComponentC>
         <ComponentC></ComponentC>
         <ComponentD buttonRole="buttonc" name="dddd"></ComponentD>
         <ComponentD buttonRole="buttond" name="ddd"></ComponentD>

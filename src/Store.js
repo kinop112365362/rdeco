@@ -123,14 +123,14 @@ export class Store {
     this.setter = {
       state: (nextState) => {
         isStateIsUndefined(nextState, this.stateKeys)
-        this.dispatch(['setState', nextState, 'state'])
+        this.dispatch(['setState', nextState, 'state', this])
         return nextState
       },
     }
     this.stateKeys.forEach((stateKey) => {
       const type = getReducerType(stateKey)
       this.setter[stateKey] = (payload) => {
-        this.dispatch([type, payload, stateKey])
+        this.dispatch([type, payload, stateKey, this])
         return payload
       }
     })
