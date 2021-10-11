@@ -138,7 +138,10 @@ test('测试 responsive', async () => {
       render() {
         return (
           <>
-            <button role={this.props.buttonRole} onClick={this.controller.onClick}></button>
+            <button
+              role={this.props.buttonRole}
+              onClick={this.controller.onClick}
+            ></button>
             <div>{this.state.name}</div>
           </>
         )
@@ -154,6 +157,7 @@ test('测试 responsive', async () => {
         <ComponentB></ComponentB>
         <ComponentA></ComponentA>
         <CComponentC></CComponentC>
+        <ComponentC></ComponentC>
         <ComponentD buttonRole="buttonc" name="dddd"></ComponentD>
         <ComponentD buttonRole="buttond" name="ddd"></ComponentD>
       </div>
@@ -164,14 +168,23 @@ test('测试 responsive', async () => {
   fireEvent.click(screen.getByRole('buttonb'))
   fireEvent.click(screen.getByRole('buttonc'))
   await waitFor(() => {
-    expect(screen.getByRole('age')).toHaveTextContent('20')
-    expect(screen.getByRole('bage')).toHaveTextContent('19')
-    expect(screen.getByRole('aname')).toHaveTextContent('ann')
-    expect(screen.getByRole('dname')).toHaveTextContent('dddd')
+    screen.getAllByRole('age').forEach((el) => {
+      expect(el).toHaveTextContent('20')
+    })
+    screen.getAllByRole('bage').forEach((el) => {
+      expect(el).toHaveTextContent('19')
+    })
+    screen.getAllByRole('aname').forEach((el) => {
+      expect(el).toHaveTextContent('ann')
+    })
+    screen.getAllByRole('dname').forEach((el) => {
+      expect(el).toHaveTextContent('dddd')
+    })
   })
   fireEvent.click(screen.getByRole('buttond'))
   await waitFor(() => {
-    expect(screen.getByRole('dname')).toHaveTextContent('ddd')
+    screen.getAllByRole('dname').forEach((el) => {
+      expect(el).toHaveTextContent('ddd')
+    })
   })
-
 })

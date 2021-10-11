@@ -7,7 +7,7 @@ export const combination = {
   entites: {},
   $remove(componentName) {
     if (this[componentName]) {
-      delete this[componentName]
+      this[componentName] = null
     }
   },
   $connectAsync(componentName, call) {
