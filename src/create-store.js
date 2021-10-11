@@ -28,7 +28,7 @@ const createReducer = ({ name }) => (state, action) => {
     }
   })
   if (name) {
-    const eventName = `${name.split('_')[0]}_state_finaly`
+    const eventName = `${name}_state_finaly`
     subject.next({
       eventName,
       data: {
@@ -61,7 +61,7 @@ export function createStore(storeConfig, enhance) {
 
   return function (props) {
     const context = useContext(AppContext)
-    const [state, dispatch] = useReducer(createReducer(store), {
+    const [state, dispatch] = useReducer(createReducer(storeConfig), {
       ...store.state,
     })
     const ref = useRef(storeConfig.ref).current
