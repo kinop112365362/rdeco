@@ -8,6 +8,7 @@ import {
   viewSubject,
   controllerSubject,
   serviceSubject,
+  hooksSubject,
 } from './subject'
 import deepmerge from 'deepmerge'
 // import createName from './utils/create-name'
@@ -117,6 +118,7 @@ export function useSubscribe(storeConfig, store) {
     let viewSubscription = null
     let controllerSubscription = null
     let serviceSubscription = null
+    let hooksSubscription = null
 
     if (storeConfig?.subscribe) {
       if (isFunction(storeConfig.subscribe)) {
@@ -127,12 +129,14 @@ export function useSubscribe(storeConfig, store) {
       viewSubscription = bindSubject(viewSubject)
       controllerSubscription = bindSubject(controllerSubject)
       serviceSubscription = bindSubject(serviceSubject)
+      hooksSubscription = bindSubject(hooksSubject)
     }
     return () => {
       stateSubscription?.unsubscribe()
       viewSubscription?.unsubscribe()
       serviceSubscription?.unsubscribe()
       controllerSubscription?.unsubscribe()
+      hooksSubscription?.unsubscribe()
     }
   }, [])
 }

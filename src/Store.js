@@ -6,6 +6,7 @@ import { combination } from './combination'
 import { getReducerType } from './utils/get-reducer-model'
 import createName from './utils/create-name'
 import { storeConfigValidate } from './utils/store-config-validate'
+import { hooksSubject } from './subject'
 
 export class Store {
   constructor(storeConfig) {
@@ -32,6 +33,23 @@ export class Store {
     this.setter = {}
     this.props = {}
     this.combination = combination
+    // eslint-disable-next-line no-undef
+
+    this.hooks = (fnKey, data) => {
+      const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
+      if (!reg.test(fnKey)) {
+        throw new Error(`this.hooks 只支持驼峰命名的 hook`)
+      }
+      hooksSubject.next({
+        eventTargetMeta: {
+          componentName: this.name,
+          subjectKey: 'hooks',
+          fnKey,
+        },
+        data,
+      })
+    }
+
     const baseContext = {
       name: this.name,
       state: this.state,
@@ -39,6 +57,7 @@ export class Store {
       style: this.style,
       props: this.props,
       entites: combination.entites,
+      hooks: this.hooks,
     }
     /** create this.rc
      * rc 只支持对 2 级 Key 做 State 快捷操作,

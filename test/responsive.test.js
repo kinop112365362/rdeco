@@ -14,6 +14,7 @@ test('测试 responsive', async () => {
       aname: '',
       dname: '',
       dNextName: '',
+      hookAge: '',
     },
     createShadowSubscribe({ componentName }) {
       if (componentName === 'ComponentD') {
@@ -33,6 +34,11 @@ test('测试 responsive', async () => {
     },
     subscribe: {
       ComponentA: {
+        hooks: {
+          setAgeOver(age) {
+            this.setter.hookAge(age)
+          },
+        },
         // eslint-disable-next-line no-unused-vars
         state({ key, prevState, nextState }) {
           if (key === 'name') {
@@ -67,6 +73,7 @@ test('测试 responsive', async () => {
             <div role="aname"> aname {this.state.aname}</div>
             <div role="dname">{this.state.dname}</div>
             <div role="dNextname">{this.state.dNextName}</div>
+            <div role="hookAge">{this.state.hookAge}</div>
             name: {this.name}
             <button
               role={this.props.sid ? `c${this.props.sid}` : `c`}
@@ -93,6 +100,7 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.age('20')
+        this.hooks('setAgeOver', 20)
         this.setter.name('ann')
       },
     },
@@ -189,6 +197,9 @@ test('测试 responsive', async () => {
     })
     screen.getAllByRole('dname').forEach((el) => {
       expect(el).toHaveTextContent('d')
+    })
+    screen.getAllByRole('hookAge').forEach((el) => {
+      expect(el).toHaveTextContent('20')
     })
   })
   fireEvent.click(screen.getByRole('buttond'))
