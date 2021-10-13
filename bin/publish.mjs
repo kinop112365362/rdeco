@@ -25,9 +25,11 @@ try {
     Buffer.from(JSON.stringify(packagejsonObject, null, 2))
   )
   await writeFile(packagejsonPath, newPackagejsonObjectData)
-
+  shelljs.exec('yarn clean && yarn build')
   shelljs.exec('yarn publish --registry https://registry.npmjs.org/')
   shelljs.exec('yarn publish')
+  shelljs.exec(`git commit -a -m"chore(version): v${nextVersion}"`)
+  shelljs.exec(`git tag v${nextVersion}`)
   shelljs.exec('git push')
   shelljs.exec('git push --tags')
 } catch (error) {

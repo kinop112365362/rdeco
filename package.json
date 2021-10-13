@@ -1,6 +1,6 @@
 {
   "name": "rdeco",
-  "version": "2.1.13",
+  "version": "2.1.14",
   "description": "基于响应式的 React 应用开发框架",
   "keywords": [
     "react",
@@ -34,7 +34,6 @@
     "clean": "rimraf lib dist es coverage types",
     "format": "prettier --write \"{src,test}/**/*.{js,ts}\" index.d.ts \"docs/**/*.md\"",
     "lint": "eslint src --fix",
-    "prepare": "npm run clean && npm run build",
     "pretest": "npm run lint",
     "test": "jest",
     "coverage": "codecov",
