@@ -7,7 +7,7 @@
 
 ## 安装
 
-yarn add reactx
+yarn add rdeco
 
 ## 创建 Hello World 组件
 
