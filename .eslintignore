@@ -6,4 +6,5 @@ website
 docs
 old
 types
+bin
 *.d.ts
