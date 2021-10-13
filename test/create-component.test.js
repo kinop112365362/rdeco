@@ -2,7 +2,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent } from '../src'
+import { createComponent, enhanceContext } from '../src'
 
 test('运行 createComponent  基本功能测试, state → controller → service → reducer → view', async () => {
   const state = {
@@ -146,6 +146,51 @@ test('运行 view 模块, 测试 render 函数', async () => {
     controller: {
       onButtonClick() {
         this.setter.renderButton('haha')
+      },
+    },
+    view: {
+      renderButton() {
+        if (this.state.renderButton) {
+          return (
+            <button role="delete" onClick={this.controller.onButtonClick}>
+              点我消失
+            </button>
+          )
+        }
+      },
+      render() {
+        return (
+          <div role="renderButton">
+            {this.state.renderButton}
+            {this.view.renderButton()}
+          </div>
+        )
+      },
+    },
+  })
+
+  render(<Test></Test>)
+  fireEvent.click(screen.getByRole('delete'))
+  await waitFor(() =>
+    expect(screen.getByRole('renderButton')).toHaveTextContent('haha')
+  )
+})
+test('测试 enhancContext', async () => {
+  enhanceContext('context', {
+    appName: 'app',
+    router: {
+      navigator() {},
+    },
+  })
+  const Test = createComponent({
+    name: 'Test4',
+    state: {
+      renderButton: true,
+    },
+    controller: {
+      onButtonClick() {
+        this.setter.renderButton('haha')
+        expect(this.context.appName).toBe('app')
       },
     },
     view: {

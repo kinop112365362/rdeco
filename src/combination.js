@@ -3,9 +3,9 @@ import createName from './utils/create-name'
 /* eslint-disable no-undef */
 export const combination = {
   names: [],
-  deps: {},
   entites: {},
   components: {},
+  enhanceContext: {},
   $remove(componentName) {
     if (this.components[componentName]) {
       this.components[componentName] = null
@@ -33,4 +33,17 @@ export const combination = {
     this.components[ins.name] = ins
     this.names.push(ins.name)
   },
+}
+export function enhanceContext(key, value) {
+  combination.enhanceContext[key] = value
+}
+if (window) {
+  window.$$rdecoLog = () => {
+    return {
+      names: Object.freeze(combination.names),
+      entites: Object.freeze(combination.entites),
+      components: Object.freeze(combination.components),
+      enhanceContext: Object.freeze(combination.enhanceContext),
+    }
+  }
 }

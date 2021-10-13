@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 import { viewSubject, controllerSubject, serviceSubject } from './subject'
+import { combination } from './combination'
 
 export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
   if (!fnObj) {
@@ -41,7 +42,10 @@ export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
         default:
           break
       }
-      return fnObj[fnKey].call(context, ...args)
+      return fnObj[fnKey].call(
+        { ...context, ...combination.enhanceContext },
+        ...args
+      )
     }
   })
   return fnObjBindContext
