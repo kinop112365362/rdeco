@@ -1,126 +1,63 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useReducer, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { combination } from './combination'
-import { createReducer } from './create-store'
+import {
+  useStoreDispose,
+  useStoreUpdate,
+  useSubscribe,
+} from './use-store-hooks'
 import { Store } from './Store'
-import { createCubject, subject } from './subject'
-import { subscribeHandle } from './subscribe-handle'
+import { createStoreCubject } from './subject'
+import createName from './utils/create-name'
 
-function builderStore(storeConfig, enhance) {
-  let store
-  store = new Store(storeConfig)
-  if (enhance) {
-    if (enhance.length > 1) {
-      store = enhance.reduce((prevFn, fn) => {
-        if (typeof prevFn === 'object') {
-          return fn(prevFn, storeConfig)
-        }
-        return fn(prevFn(store, storeConfig), storeConfig)
-      })
-    } else {
-      if (enhance[0] && typeof enhance[0] === 'function') {
-        store = enhance[0](store, storeConfig)
-      }
-    }
-  }
-  createCubject.next({
-    componentName: storeConfig.name,
+function createStore(storeConfig) {
+  const store = new Store(storeConfig)
+  createStoreCubject.next({
+    componentName: createName(storeConfig),
     meta: storeConfig,
   })
   return store
 }
 
-export function enhanceCreateComponent(enhances) {
+export function enhanceCreateComponent() {
   return function createComponent(component) {
     if (!module.hot) {
       if (combination[component.name]) {
         throw new Error(`${component.name} 重复, 创建失败, 请检查`)
       }
     }
-    const initStore = builderStore(component, enhances)
+    if (combination.$has(component)) {
+      throw new Error(
+        `该 ${component.name} 组件已经被创建过了, 请使用另外的 name 来声明`
+      )
+    }
     function HookComponent(props) {
-      const storeConfig = { ...component }
-      const [store, setStore] = useState(initStore)
-      const [state, dispatch] = useReducer(createReducer(storeConfig), {
-        ...store.state,
-      })
-      const ref = useRef(storeConfig.ref).current
-      useEffect(() => {
-        combination.$remove(store.name)
-        const nextStore = builderStore(component, enhances)
-        nextStore.update(state, null, dispatch, props, ref)
-        combination.$set(storeConfig, nextStore)
-        const sub = subject.subscribe({
-          next: (v) => {
-            if (
-              storeConfig.godSubscribe &&
-              !v.eventName.includes(storeConfig.name)
-            ) {
-              if (v.eventName.includes('_state_')) {
-                return setTimeout(() => {
-                  storeConfig.godSubscribe?.state?.call(nextStore, v.data)
-                }, 33)
-              }
-              if (v.eventName.includes('_controller_')) {
-                return setTimeout(() => {
-                  storeConfig.godSubscribe?.controller?.call(nextStore, v.data)
-                }, 33)
-              }
-              if (v.eventName.includes('_view_')) {
-                return setTimeout(() => {
-                  storeConfig.godSubscribe?.view?.call(nextStore, v.data)
-                }, 33)
-              }
-              if (v.eventName.includes('_service_')) {
-                return setTimeout(() => {
-                  storeConfig.godSubscribe?.service?.call(nextStore, v.data)
-                }, 33)
-              }
-            } else {
-              if (
-                combination.deps[storeConfig.name] &&
-                combination.deps[storeConfig.name][v.eventName]
-              ) {
-                if (
-                  v.eventName.includes('_controller_') ||
-                  v.eventName.includes('_state_')
-                ) {
-                  setTimeout(() => {
-                    combination.deps[storeConfig.name][v.eventName].call(
-                      nextStore,
-                      v.data
-                    )
-                  }, 33)
-                }
-              }
-            }
-          },
-        })
-        let createSub = null
-        if (storeConfig.createShadowSubscribe) {
-          createSub = createCubject.subscribe({
-            next: (v) => {
-              const newSubscribe = storeConfig.createShadowSubscribe(v, store)
-              if (newSubscribe !== undefined) {
-                subscribeHandle(storeConfig.name, {
-                  [v.componentName]: newSubscribe,
-                })
-              }
-            },
-          })
-        }
-        setStore(nextStore)
-        return () => {
-          if (createSub) {
-            createSub.unsubscribe()
+      const storeConfig = useRef({ ...component }).current
+      const store = useRef(null)
+      const isNotMounted = useRef(true)
+      if (isNotMounted.current) {
+        if (props.sid) {
+          storeConfig.sid = props.sid
+          if (!combination.$has(storeConfig)) {
+            store.current = createStore(storeConfig)
+            combination.$set(storeConfig, store.current)
+          } else {
+            throw new Error(
+              `该 sid ${props.sid} 在 ${storeConfig.name} 组件渲染过程中被使用了, 请使用唯一的 sid 值`
+            )
           }
-          sub.unsubscribe()
-          store.dispose()
+        } else {
+          store.current = createStore(storeConfig)
+          combination.$set(storeConfig, store.current)
         }
+      }
+      useEffect(() => {
+        isNotMounted.current = false
       }, [])
-      store.update(state, null, dispatch, props, ref)
-      combination.$set(storeConfig, store)
-      return <>{store.view.render()}</>
+      useStoreUpdate(storeConfig, store.current, store.current.state, props)
+      useSubscribe(storeConfig, store.current)
+      useStoreDispose(store.current)
+      return <>{store.current.view.render()}</>
     }
 
     Object.defineProperty(HookComponent, 'name', {

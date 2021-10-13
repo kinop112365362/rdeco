@@ -1,6 +1,4 @@
 import { combination } from './combination'
-
-// import cloneDeep from 'lodash.clonedeep'
 // eslint-disable-next-line valid-jsdoc
 export function subscribeHandle(name, subscribe) {
   const targetComponentKeys = Object.keys(subscribe)

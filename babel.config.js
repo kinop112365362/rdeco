@@ -29,7 +29,7 @@ module.exports = {
       '@babel/transform-runtime',
       {
         useESModules: !cjs,
-        version: require('./package.json').dependencies[
+        version: require('./package.json').peerDependencies[
           '@babel/runtime'
         ].replace(/^[^0-9]*/, ''),
       },

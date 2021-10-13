@@ -1,6 +1,7 @@
-import { v4 as uuidv4 } from 'uuid'
-export default function createName(name) {
-  const nextName = `${name}_${uuidv4()}`
-  console.debug(nextName)
+export default function createName({ name, sid }) {
+  let nextName = name
+  if (sid) {
+    nextName = `${name}_${sid}`
+  }
   return nextName
 }

@@ -1,41 +1,42 @@
-import React, { useContext, useEffect } from 'react'
+/* eslint-disable no-undef */
+import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { AppContext } from '../src/app-context'
-import { createComponent, createStore } from '../src/index'
+import { createComponent } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 props 带有 sid 的渲染正确性, 有 name 没有 sid 的情况', async () => {
   const Text = createComponent({
-    name:'Text',
-    initState: {
-      text: 'default'
+    name: 'Text',
+    state: {
+      text: 'default',
     },
     controller: {
-      async onClick () {
-        const {text} = this.props
+      async onClick() {
+        const { text } = this.props
         this.setter.text(text)
-      }
+      },
     },
     view: {
-      render () {
+      render() {
         return (
           <div role={this.props.name} onClick={this.controller.onClick}>
             {this.state.text.display}
           </div>
         )
-      }
-    }
+      },
+    },
   })
 
-  function Test () {
+  function Test() {
     return (
       <div>
         {[
           { name: 't1', text: { display: 't1' } },
-          { name: 't2', text: { display: 't2' } }
-        ].map(d => {
-          console.debug(d.name)
-          return <Text sid={d.name} name={d.name} key={d.name} text={d.text}></Text>
+          { name: 't2', text: { display: 't2' } },
+        ].map((d) => {
+          return (
+            <Text sid={d.name} name={d.name} key={d.name} text={d.text}></Text>
+          )
         })}
       </div>
     )

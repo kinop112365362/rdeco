@@ -1,9 +1,9 @@
-import defaultsDeep from 'lodash.defaultsdeep'
+import * as deepmerge from 'deepmerge'
 import { combination } from './combination'
 
 class Entity {
   constructor(rawConfig) {
-    this.config = defaultsDeep({}, rawConfig)
+    this.config = deepmerge({}, rawConfig)
     this.params = this.config.params
     this.method = this.config.method
     this.methodContext = {
@@ -16,7 +16,7 @@ class Entity {
   setParams(params) {
     this.methodContext.params = {
       ...this.methodContext.params,
-      ...defaultsDeep({}, params),
+      ...deepmerge({}, params),
     }
   }
   bindMethod() {

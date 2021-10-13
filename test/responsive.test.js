@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react'
+/* eslint-disable no-undef */
+import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { AppContext } from '../src/app-context'
-import { createComponent, createStore } from '../src/index'
+import { createComponent } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 responsive', async () => {
@@ -13,11 +13,16 @@ test('测试 responsive', async () => {
       bage: 0,
       aname: '',
       dname: '',
+      dNextName: '',
     },
     createShadowSubscribe({ componentName }) {
       if (componentName === 'ComponentD') {
         return {
-          state({ key, prevState, nextState }) {},
+          // eslint-disable-next-line no-unused-vars
+          state({ key, prevState, nextState }) {
+            this.setter.dNextName(nextState.name)
+            console.debug(this.name, this.state.dNextName)
+          },
           controller: {
             onClick({ state }) {
               this.setter.dname(state.name)
@@ -28,6 +33,7 @@ test('测试 responsive', async () => {
     },
     subscribe: {
       ComponentA: {
+        // eslint-disable-next-line no-unused-vars
         state({ key, prevState, nextState }) {
           if (key === 'name') {
             this.setter.aname(nextState[key])
@@ -42,7 +48,6 @@ test('测试 responsive', async () => {
       ComponentB: {
         controller: {
           onClick({ state }) {
-            this.getState('ComponentB').then((state) => {})
             this.setter.bage(state.age)
           },
         },
@@ -59,8 +64,10 @@ test('测试 responsive', async () => {
           <>
             <div role="age">{this.state.age}</div>
             <div role="bage">{this.state.bage}</div>
-            <div role="aname">{this.state.aname}</div>
+            <div role="aname"> aname {this.state.aname}</div>
             <div role="dname">{this.state.dname}</div>
+            <div role="dNextname">{this.state.dNextName}</div>
+            name: {this.name}
             <button
               role={this.props.sid ? `c${this.props.sid}` : `c`}
               onClick={this.controller.onClick}
@@ -156,10 +163,13 @@ test('测试 responsive', async () => {
       <div>
         <ComponentB></ComponentB>
         <ComponentA></ComponentA>
+        CC
         <CComponentC sid="cc"></CComponentC>
+        CC
         <ComponentC></ComponentC>
-        <ComponentD buttonRole="buttonc" name="dddd"></ComponentD>
+        <ComponentD buttonRole="buttonc" name="d"></ComponentD>
         <ComponentD buttonRole="buttond" name="ddd"></ComponentD>
+        <ComponentD buttonRole="buttone" name="eee"></ComponentD>
       </div>
     )
   }
@@ -169,21 +179,24 @@ test('测试 responsive', async () => {
   fireEvent.click(screen.getByRole('buttonc'))
   await waitFor(() => {
     screen.getAllByRole('age').forEach((el) => {
-      expect(el).toHaveTextContent('20')
+      expect(el).toHaveTextContent('18')
     })
     screen.getAllByRole('bage').forEach((el) => {
-      expect(el).toHaveTextContent('19')
+      expect(el).toHaveTextContent('0')
     })
     screen.getAllByRole('aname').forEach((el) => {
       expect(el).toHaveTextContent('ann')
     })
     screen.getAllByRole('dname').forEach((el) => {
-      expect(el).toHaveTextContent('dddd')
+      expect(el).toHaveTextContent('d')
     })
   })
   fireEvent.click(screen.getByRole('buttond'))
   await waitFor(() => {
     screen.getAllByRole('dname').forEach((el) => {
+      expect(el).toHaveTextContent('d')
+    })
+    screen.getAllByRole('dNextname').forEach((el) => {
       expect(el).toHaveTextContent('ddd')
     })
   })

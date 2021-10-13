@@ -1,6 +1,7 @@
-import { BehaviorSubject, AsyncSubject, ReplaySubject } from 'rxjs'
+import { ReplaySubject } from 'rxjs'
 
-export const subject = new ReplaySubject(20)
-export const createCubject = new ReplaySubject(20)
-export const asyncSubject = new AsyncSubject('null')
-export const connectSubject = new BehaviorSubject('null')
+export const createStoreCubject = new ReplaySubject(20)
+export const stateSubject = new ReplaySubject(20)
+export const viewSubject = new ReplaySubject(20)
+export const controllerSubject = new ReplaySubject(20)
+export const serviceSubject = new ReplaySubject(20)

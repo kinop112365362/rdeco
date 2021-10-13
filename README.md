@@ -1,6 +1,6 @@
-# structured-react-hook
+# rdeco
 
-> structured-react-hook 已整合到 mencius 库内部
+> rdeco 已整合到 mencius 库内部
 > 结构化的, 基于响应式的 React 应用状态管理框架
 
 # 快速上手

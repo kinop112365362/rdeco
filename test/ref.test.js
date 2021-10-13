@@ -1,50 +1,37 @@
-import React, { useContext, useEffect } from 'react'
+/* eslint-disable no-undef */
+import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { AppContext } from '../src/app-context'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, createStore } from '../src'
+import { createComponent } from '../src'
 
 test('测试 ref 有效性', async () => {
   const BaseButton = {
-    initState:{
-      text:'jacky'
+    name: 'Test1',
+    state: {
+      text: 'jacky',
     },
-    ref:{
-      count:0
+    ref: {
+      count: 0,
     },
-    controller:{
-      onClick(){
+    controller: {
+      onClick() {
         ++this.ref.count
-        this.rc.setState({
-          text:'ann'
-        })
-        console.log(this);
-      }
+        this.setter.text('ann')
+      },
     },
-    view:{
-      render(){
-        console.log(this)
-        return(
+    view: {
+      render() {
+        return (
           <div role="button" onClick={this.controller.onClick}>
             <div role="ref">{this.ref.count}</div>
             <div role="text">{this.state.text}</div>
           </div>
         )
-      }
-    }
+      },
+    },
   }
-  function Test(){
-    const useStore = createStore(BaseButton)
-    const store = useStore()
-    return (
-      <div>{store.view.render()}</div>
-    )
-  }
-  // const ExtendButton = createComponent(BaseButton)
+  const Test = createComponent(BaseButton)
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('button'))
-  await waitFor(() =>
-    expect(screen.getByRole('ref')).toHaveTextContent('1')
-  )
+  await waitFor(() => expect(screen.getByRole('ref')).toHaveTextContent('1'))
 })
-

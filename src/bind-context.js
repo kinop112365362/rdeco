@@ -1,7 +1,5 @@
 /* eslint-disable react/display-name */
-// eslint-disable-next-line no-unused-vars
-import React from 'react'
-import { subject } from './subject'
+import { viewSubject, controllerSubject, serviceSubject } from './subject'
 
 export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
   if (!fnObj) {
@@ -10,15 +8,39 @@ export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
   const fnObjBindContext = {}
   fnKeys.forEach((fnKey) => {
     fnObjBindContext[fnKey] = (...args) => {
-      subject.next({
-        eventName: `${instance.name.split('_')[0]}_${subjectKey}_${fnKey}`,
-        data: {
-          key: fnKey,
-          args: args,
-          name: instance.name,
-          state: instance.state,
-        },
-      })
+      const data = {
+        key: fnKey,
+        args: args,
+        name: instance.name,
+        state: instance.state,
+      }
+      const eventTargetMeta = {
+        componentName: instance.name.split('_')[0],
+        subjectKey,
+        fnKey,
+      }
+      switch (subjectKey) {
+        case 'view':
+          viewSubject.next({
+            eventTargetMeta,
+            data,
+          })
+          break
+        case 'controller':
+          controllerSubject.next({
+            eventTargetMeta,
+            data,
+          })
+          break
+        case 'service':
+          serviceSubject.next({
+            eventTargetMeta,
+            data,
+          })
+          break
+        default:
+          break
+      }
       return fnObj[fnKey].call(context, ...args)
     }
   })

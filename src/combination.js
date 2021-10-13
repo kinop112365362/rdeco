@@ -1,29 +1,14 @@
-import { connectSubject } from './subject'
+import createName from './utils/create-name'
 
 /* eslint-disable no-undef */
 export const combination = {
   names: [],
   deps: {},
   entites: {},
+  components: {},
   $remove(componentName) {
-    if (this[componentName]) {
-      this[componentName] = null
-    }
-  },
-  $connectAsync(componentName, call) {
-    if (this[componentName]) {
-      call(this[componentName])
-    } else {
-      const connectSub = connectSubject.subscribe({
-        next: ({ name, componentInstance }) => {
-          if (name === componentName) {
-            call(componentInstance)
-            if (connectSub) {
-              connectSub.unsubscribe()
-            }
-          }
-        },
-      })
+    if (this.components[componentName]) {
+      this.components[componentName] = null
     }
   },
   $addDep(watchCompnentName, observer) {
@@ -37,8 +22,15 @@ export const combination = {
       }
     }
   },
+  $has({ name, sid }) {
+    const componentName = createName({ name, sid })
+    if (this.components[componentName]) {
+      return true
+    }
+    return false
+  },
   $set(storeConfig, ins) {
-    this[ins.name] = ins
+    this.components[ins.name] = ins
     this.names.push(ins.name)
   },
 }

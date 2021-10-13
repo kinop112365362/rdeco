@@ -1,13 +1,14 @@
 {
-  "name": "structured-react-hook",
-  "version": "1.44.5",
-  "description": "面向企业级的结构化的 React 状态管理框架",
+  "name": "rdeco",
+  "version": "0.1.0",
+  "description": "基于响应式的 React 应用开发框架",
   "keywords": [
     "react",
     "flux",
     "hook",
     "state",
-    "useReducer"
+    "useReducer",
+    "rxjs"
   ],
   "licenses": "MIT",
   "author": "shihong <112365362@qq.com>",
@@ -17,7 +18,6 @@
   },
   "types": "./types",
   "main": "./lib/index.js",
-  "unpkg": "dist/structured-react-hook.js",
   "module": "es/index.js",
   "files": [
     "dist",
@@ -28,8 +28,6 @@
   "scripts": {
     "build:commonjs": "cross-env NODE_ENV=production BABEL_ENV=commonjs babel src --out-dir lib",
     "build:es": "cross-env NODE_ENV=production babel src --out-dir es",
-    "build:umd": "cross-env NODE_ENV=development rollup -c -o dist/structured-react-hook.js",
-    "build:umd:min": "cross-env NODE_ENV=production rollup -c -o dist/structured-react-hook.min.js",
     "build": "npm run build:commonjs && npm run build:es",
     "build:docs": "cd website && yarn build && cd ..",
     "git:merge": "git co master && git pull && git co main && git merge master && git push && git co master",
@@ -46,6 +44,7 @@
     "tsc": "tsc"
   },
   "peerDependencies": {
+    "@babel/runtime": "^7.12.1",
     "react": "^16.8.3 || ^17"
   },
   "devDependencies": {
@@ -59,6 +58,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.13.0",
+    "@babel/runtime": "^7.12.1",
     "@emotion/babel-plugin": "^11.2.0",
     "@emotion/react": "^11.1.5",
     "@rollup/plugin-babel": "^5.2.1",
@@ -90,20 +90,10 @@
     "react-dom": "^16.14.0",
     "react-test-renderer": "^16.14.0",
     "rimraf": "^3.0.2",
-    "rollup": "^2.32.1",
-    "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.1",
-    "classnames": "^2.3.1",
-    "deep-freeze": "^0.0.1",
-    "lodash.clonedeep": "^4.5.0",
-    "lodash.defaultsdeep": "^4.6.1",
-    "lodash.merge": "^4.6.2",
-    "lodash.mergewith": "^4.6.2",
-    "object.pick": "^1.3.0",
-    "rxjs": "^7.3.0",
-    "wolfy87-eventemitter": "^5.2.9"
+    "deepmerge": "^4.2.2",
+    "rxjs": "^7.3.0"
   }
 }
