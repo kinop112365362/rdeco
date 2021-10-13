@@ -1,6 +1,5 @@
 # rdeco
 
-> rdeco 已整合到 mencius 库内部
 > 结构化的, 基于响应式的 React 应用状态管理框架
 
 # 快速上手
@@ -16,7 +15,7 @@ yarn add rdeco
  * defaultShowCode: true
  */
 import React from 'react'
-import { createComponent } from 'mencius'
+import { createComponent } from 'rdeco'
 
 const HelloWorld = createComponent({
   name: 'HelloWorld',
@@ -38,7 +37,7 @@ const HelloWorld = createComponent({
  * defaultShowCode: true
  */
 import React, { useEffect } from 'react'
-import { createComponent } from 'mencius'
+import { createComponent } from 'rdeco'
 
 export const HelloWorld = createComponent({
   name: 'HelloWorld',
@@ -70,7 +69,7 @@ export const HelloWorld = createComponent({
  * defaultShowCode: true
  */
 import React, { useEffect } from 'react'
-import { createComponent } from 'mencius'
+import { createComponent } from 'rdeco'
 
 const HelloWorld = createComponent({
   name: 'HelloWorld',
@@ -130,7 +129,7 @@ export default function Wrapper() {
  * defaultShowCode: true
  */
 import React, { useEffect } from 'react'
-import { createComponent } from 'mencius'
+import { createComponent } from 'rdeco'
 
 const User = createComponent({
   name: 'User',
@@ -245,7 +244,7 @@ const ComponentB = createComponent({
  * defaultShowCode: true
  */
 import React, { useEffect } from 'react'
-import { createComponent } from 'mencius'
+import { createComponent } from 'rdeco'
 
 const Count1 = createComponent({
   name: 'Count1',
@@ -317,7 +316,7 @@ export default function Wrapper() {
  * defaultShowCode: true
  */
 import React, { useEffect } from 'react'
-import { createComponent } from 'mencius'
+import { createComponent } from 'rdeco'
 
 const Count1a = createComponent({
   name: 'Count1a',
@@ -423,7 +422,7 @@ state: {
 
 ```jsx
 import React from 'react'
-import { createComponent } from 'mencius'
+import { createComponent } from 'rdeco'
 
 export default createComponent({
   name: 'DerivedExample',
@@ -496,7 +495,7 @@ controller:{
 
 ```jsx
 import React from 'react'
-import { createComponent } from 'mencius'
+import { createComponent } from 'rdeco'
 
 export default createComponent({
   name: 'DomRefExample',
@@ -604,7 +603,7 @@ service:{
  * defaultShowCode: true
  */
 import React from 'react'
-import { createComponent } from 'mencius'
+import { createComponent } from 'rdeco'
 import deepmerge from 'deepmerge'
 
 const core = () => {
