@@ -155,7 +155,10 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.name(this.props.name)
-        this.hooks('callMe', 'helloC', ['ComponentC', 'ComponentC_cc'])
+        this.inform(
+          ['callMe', 'helloC', 'ComponentC'],
+          ['callMe', 'helloC', 'ComponentC_cc']
+        )
       },
     },
     view: {

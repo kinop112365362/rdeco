@@ -39,33 +39,40 @@ export class Store {
     this.props = {}
     // this.combination = combination
     // eslint-disable-next-line no-undef
-
-    this.hooks = (fnKey, data, targets) => {
-      const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
-      if (!reg.test(fnKey)) {
-        throw new Error(`this.hooks 只支持驼峰命名的 hook`)
-      }
-      if (targets && targets?.length > 0) {
-        targets.forEach((target) => {
-          combination.components[target].subject.next({
-            eventTargetMeta: {
-              componentName: 'self',
-              subjectKey: 'hooks',
-              fnKey,
-            },
-            data,
-          })
-        })
-      } else {
-        hooksSubject.next({
+    this.inform = (...args) => {
+      const infrom = ([fnKey, data, target]) => {
+        combination.components[target].subject.next({
           eventTargetMeta: {
-            componentName: this.name,
+            componentName: 'self',
             subjectKey: 'hooks',
             fnKey,
           },
           data,
         })
       }
+      if (args.length > 1) {
+        if (args && args?.length > 0) {
+          args.forEach((arg) => {
+            infrom(arg)
+          })
+        }
+      } else {
+        infrom(args)
+      }
+    }
+    this.hooks = (fnKey, data) => {
+      const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
+      if (!reg.test(fnKey)) {
+        throw new Error(`this.hooks 只支持驼峰命名的 hook`)
+      }
+      hooksSubject.next({
+        eventTargetMeta: {
+          componentName: this.name,
+          subjectKey: 'hooks',
+          fnKey,
+        },
+        data,
+      })
     }
 
     const baseContext = {
@@ -76,6 +83,7 @@ export class Store {
       props: this.props,
       entites: combination.entites,
       hooks: this.hooks,
+      inform: this.inform,
     }
     /** create this.rc
      * rc 只支持对 2 级 Key 做 State 快捷操作,
