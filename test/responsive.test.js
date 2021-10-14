@@ -108,6 +108,8 @@ test('测试 responsive', async () => {
         this.setter.age('20')
         this.hooks('setAgeOver', 20)
         this.setter.name('ann')
+        const state = this.readState('ComponentB')
+        console.debug(state)
       },
     },
     view: {

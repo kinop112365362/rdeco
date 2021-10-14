@@ -35,6 +35,13 @@ export class Store {
       data: {},
     })
     this.style = { ...storeConfig.style }
+    this.readState = (componentName) => {
+      try {
+        return { ...combination.components[componentName].state }
+      } catch (error) {
+        throw new Error(`${componentName} 组件尚未实例化`)
+      }
+    }
     this.setter = {}
     this.props = {}
     // eslint-disable-next-line no-undef
@@ -79,6 +86,7 @@ export class Store {
       entites: combination.entites,
       hooks: this.hooks,
       notify: this.notify,
+      readState: this.readState,
     }
     const stateKeys = Object.keys(this.state)
     stateKeys.forEach((stateKey) => {
