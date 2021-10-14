@@ -37,16 +37,11 @@ export class Store {
     this.style = { ...storeConfig.style }
     this.setter = {}
     this.props = {}
-    // this.combination = combination
     // eslint-disable-next-line no-undef
-    this.inform = (...args) => {
-      const infrom = ([fnKey, data, target]) => {
+    this.notify = (...args) => {
+      const infrom = ([target, fnKey, data]) => {
         combination.components[target].subject.next({
-          eventTargetMeta: {
-            componentName: 'self',
-            subjectKey: 'hooks',
-            fnKey,
-          },
+          fnKey,
           data,
         })
       }
@@ -83,13 +78,8 @@ export class Store {
       props: this.props,
       entites: combination.entites,
       hooks: this.hooks,
-      inform: this.inform,
+      notify: this.notify,
     }
-    /** create this.rc
-     * rc 只支持对 2 级 Key 做 State 快捷操作,
-     * 从设计角度讲, 2 层 state 结构足够满足大多数复杂的场景,
-     * 因此不提供嵌套 set, 避免开发者对状态设计产生工具便利性的依赖
-     */
     const stateKeys = Object.keys(this.state)
     stateKeys.forEach((stateKey) => {
       const type = getReducerType(stateKey)

@@ -60,12 +60,21 @@ function nextTick(tick) {
     tick()
   }, 33)
 }
-function createSubscription({ subscribe, createShadowSubscribe }, store) {
+function createSubscription(
+  { subscribe, createShadowSubscribe, proxySubscribe },
+  store
+) {
   return function bindSubject(subject) {
     let subscription = null
     subscription = subject.subscribe({
       next(value) {
-        const { componentName, subjectKey, fnKey } = value.eventTargetMeta
+        // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件
+        if (!value.eventTargetMeta) {
+          return nextTick(() => {
+            proxySubscribe?.[value?.fnKey]?.call(store, value.data)
+          })
+        }
+        const { componentName, subjectKey, fnKey } = value?.eventTargetMeta
         if (subjectKey === 'state') {
           nextTick(() => {
             subscribe?.[componentName]?.state?.call(store, value.data)
@@ -84,10 +93,11 @@ function createSubscription({ subscribe, createShadowSubscribe }, store) {
             nextTick(() => {
               shadowSubscribe?.state?.call(store, value.data)
             })
+          } else {
+            nextTick(() => {
+              shadowSubscribe?.[subjectKey]?.[fnKey]?.call(store, value.data)
+            })
           }
-          nextTick(() => {
-            shadowSubscribe?.[subjectKey]?.[fnKey]?.call(store, value.data)
-          })
         }
       },
     })

@@ -32,14 +32,12 @@ test('测试 responsive', async () => {
         }
       }
     },
-    subscribe: {
-      self: {
-        hooks: {
-          callMe(name) {
-            this.setter.callMeName(name)
-          },
-        },
+    proxySubscribe: {
+      callMe(name) {
+        this.setter.callMeName(name)
       },
+    },
+    subscribe: {
       ComponentA: {
         hooks: {
           setAgeOver(age) {
@@ -155,9 +153,9 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.name(this.props.name)
-        this.inform(
-          ['callMe', 'helloC', 'ComponentC'],
-          ['callMe', 'helloC', 'ComponentC_cc']
+        this.notify(
+          ['ComponentC', 'callMe', 'helloC'],
+          ['ComponentC_cc', 'callMe', 'helloC']
         )
       },
     },
