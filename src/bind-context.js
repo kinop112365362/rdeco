@@ -43,7 +43,7 @@ export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
           break
       }
       return fnObj[fnKey].call(
-        { ...context, ...combination.enhanceContext },
+        { ...combination.enhanceContext, ...context },
         ...args
       )
     }

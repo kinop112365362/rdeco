@@ -67,43 +67,27 @@ function createSubscription({ subscribe, createShadowSubscribe }, store) {
       next(value) {
         const { componentName, subjectKey, fnKey } = value.eventTargetMeta
         if (subjectKey === 'state') {
-          if (subscribe[componentName]) {
-            nextTick(() => {
-              subscribe[componentName]?.state?.call(store, value.data)
-            })
-          }
+          nextTick(() => {
+            subscribe?.[componentName]?.state?.call(store, value.data)
+          })
         } else {
-          if (
-            subscribe[componentName] &&
-            subscribe[componentName][subjectKey] &&
-            subscribe[componentName][subjectKey][fnKey]
-          ) {
-            nextTick(() => {
-              subscribe[componentName][subjectKey][fnKey].call(
-                store,
-                value.data
-              )
-            })
-          }
+          nextTick(() => {
+            subscribe?.[componentName]?.[subjectKey]?.[fnKey]?.call(
+              store,
+              value.data
+            )
+          })
         }
         if (createShadowSubscribe) {
           const shadowSubscribe = createShadowSubscribe(value.eventTargetMeta)
           if (subjectKey === 'state') {
-            if (shadowSubscribe) {
-              nextTick(() => {
-                shadowSubscribe?.state?.call(store, value.data)
-              })
-            }
-          }
-          if (
-            shadowSubscribe &&
-            shadowSubscribe[subjectKey] &&
-            shadowSubscribe[subjectKey][fnKey]
-          ) {
             nextTick(() => {
-              shadowSubscribe[subjectKey][fnKey].call(store, value.data)
+              shadowSubscribe?.state?.call(store, value.data)
             })
           }
+          nextTick(() => {
+            shadowSubscribe?.[subjectKey]?.[fnKey]?.call(store, value.data)
+          })
         }
       },
     })
@@ -113,12 +97,12 @@ function createSubscription({ subscribe, createShadowSubscribe }, store) {
 
 export function useSubscribe(storeConfig, store) {
   useEffect(() => {
-    // const context = combination.components[createName(storeConfig)]
     let stateSubscription = null
     let viewSubscription = null
     let controllerSubscription = null
     let serviceSubscription = null
     let hooksSubscription = null
+    let selfSubscription = null
 
     if (storeConfig?.subscribe) {
       if (isFunction(storeConfig.subscribe)) {
@@ -130,6 +114,7 @@ export function useSubscribe(storeConfig, store) {
       controllerSubscription = bindSubject(controllerSubject)
       serviceSubscription = bindSubject(serviceSubject)
       hooksSubscription = bindSubject(hooksSubject)
+      selfSubscription = bindSubject(store.subject)
     }
     return () => {
       stateSubscription?.unsubscribe()
@@ -137,6 +122,7 @@ export function useSubscribe(storeConfig, store) {
       serviceSubscription?.unsubscribe()
       controllerSubscription?.unsubscribe()
       hooksSubscription?.unsubscribe()
+      selfSubscription?.unsubscribe()
     }
   }, [])
 }

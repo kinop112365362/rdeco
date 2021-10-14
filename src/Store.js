@@ -7,6 +7,7 @@ import { getReducerType } from './utils/get-reducer-model'
 import createName from './utils/create-name'
 import { storeConfigValidate } from './utils/store-config-validate'
 import { hooksSubject } from './subject'
+import { BehaviorSubject } from 'rxjs'
 
 export class Store {
   constructor(storeConfig) {
@@ -29,25 +30,42 @@ export class Store {
       Object.defineProperties(this.derived, propsObj)
     }
     this.name = createName(storeConfig)
+    this.subject = new BehaviorSubject({
+      eventTargetMeta: {},
+      data: {},
+    })
     this.style = { ...storeConfig.style }
     this.setter = {}
     this.props = {}
-    this.combination = combination
+    // this.combination = combination
     // eslint-disable-next-line no-undef
 
-    this.hooks = (fnKey, data) => {
+    this.hooks = (fnKey, data, targets) => {
       const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
       if (!reg.test(fnKey)) {
         throw new Error(`this.hooks 只支持驼峰命名的 hook`)
       }
-      hooksSubject.next({
-        eventTargetMeta: {
-          componentName: this.name,
-          subjectKey: 'hooks',
-          fnKey,
-        },
-        data,
-      })
+      if (targets && targets?.length > 0) {
+        targets.forEach((target) => {
+          combination.components[target].subject.next({
+            eventTargetMeta: {
+              componentName: 'self',
+              subjectKey: 'hooks',
+              fnKey,
+            },
+            data,
+          })
+        })
+      } else {
+        hooksSubject.next({
+          eventTargetMeta: {
+            componentName: this.name,
+            subjectKey: 'hooks',
+            fnKey,
+          },
+          data,
+        })
+      }
     }
 
     const baseContext = {

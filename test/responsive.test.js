@@ -15,6 +15,7 @@ test('测试 responsive', async () => {
       dname: '',
       dNextName: '',
       hookAge: '',
+      callMeName: '',
     },
     createShadowSubscribe({ componentName }) {
       if (componentName === 'ComponentD') {
@@ -22,7 +23,6 @@ test('测试 responsive', async () => {
           // eslint-disable-next-line no-unused-vars
           state({ key, prevState, nextState }) {
             this.setter.dNextName(nextState.name)
-            console.debug(this.name, this.state.dNextName)
           },
           controller: {
             onClick({ state }) {
@@ -33,6 +33,13 @@ test('测试 responsive', async () => {
       }
     },
     subscribe: {
+      self: {
+        hooks: {
+          callMe(name) {
+            this.setter.callMeName(name)
+          },
+        },
+      },
       ComponentA: {
         hooks: {
           setAgeOver(age) {
@@ -74,6 +81,7 @@ test('测试 responsive', async () => {
             <div role="dname">{this.state.dname}</div>
             <div role="dNextname">{this.state.dNextName}</div>
             <div role="hookAge">{this.state.hookAge}</div>
+            <div role="callMeName">{this.state.callMeName}</div>
             name: {this.name}
             <button
               role={this.props.sid ? `c${this.props.sid}` : `c`}
@@ -147,6 +155,7 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.name(this.props.name)
+        this.hooks('callMe', 'helloC', ['ComponentC', 'ComponentC_cc'])
       },
     },
     view: {
@@ -188,6 +197,9 @@ test('测试 responsive', async () => {
   await waitFor(() => {
     screen.getAllByRole('age').forEach((el) => {
       expect(el).toHaveTextContent('18')
+    })
+    screen.getAllByRole('callMeName').forEach((el) => {
+      expect(el).toHaveTextContent('helloC')
     })
     screen.getAllByRole('bage').forEach((el) => {
       expect(el).toHaveTextContent('0')

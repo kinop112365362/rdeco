@@ -7,12 +7,12 @@ import {
   useSubscribe,
 } from './use-store-hooks'
 import { Store } from './Store'
-import { createStoreCubject } from './subject'
+import { createStoreSubject } from './subject'
 import createName from './utils/create-name'
 
 function createStore(storeConfig) {
   const store = new Store(storeConfig)
-  createStoreCubject.next({
+  createStoreSubject.next({
     componentName: createName(storeConfig),
     meta: storeConfig,
   })

@@ -11,17 +11,6 @@ export const combination = {
       this.components[componentName] = null
     }
   },
-  $addDep(watchCompnentName, observer) {
-    if (this.deps[watchCompnentName]) {
-      if (this.deps[watchCompnentName]) {
-        this.deps[watchCompnentName][observer.eventName] = observer.handle
-      }
-    } else {
-      this.deps[watchCompnentName] = {
-        [observer.eventName]: observer.handle,
-      }
-    }
-  },
   $has({ name, sid }) {
     const componentName = createName({ name, sid })
     if (this.components[componentName]) {
