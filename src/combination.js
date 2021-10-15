@@ -1,3 +1,4 @@
+import { connectSubject } from './subject'
 import createName from './utils/create-name'
 
 /* eslint-disable no-undef */
@@ -11,6 +12,20 @@ export const combination = {
       this.components[componentName] = null
     }
   },
+  $connectAsync(componentName, handle) {
+    if (this.components[componentName]) {
+      handle.call(null, this.components[componentName])
+    } else {
+      const connectSub = connectSubject.subscribe({
+        next: ({ name, componentInstance }) => {
+          if (name === componentName) {
+            handle.call(null, componentInstance)
+            connectSub?.unsubscribe()
+          }
+        },
+      })
+    }
+  },
   $has({ name, sid }) {
     const componentName = createName({ name, sid })
     if (this.components[componentName]) {
@@ -20,6 +35,10 @@ export const combination = {
   },
   $set(storeConfig, ins) {
     this.components[ins.name] = ins
+    connectSubject.next({
+      name: ins.name,
+      componentInstance: ins,
+    })
     this.names.push(ins.name)
   },
 }

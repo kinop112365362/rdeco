@@ -7,7 +7,8 @@ import { getReducerType } from './utils/get-reducer-model'
 import createName from './utils/create-name'
 import { storeConfigValidate } from './utils/store-config-validate'
 import { hooksSubject } from './subject'
-import { BehaviorSubject } from 'rxjs'
+import { ReplaySubject } from 'rxjs'
+import { notify } from './notify'
 
 export class Store {
   constructor(storeConfig) {
@@ -30,10 +31,7 @@ export class Store {
       Object.defineProperties(this.derived, propsObj)
     }
     this.name = createName(storeConfig)
-    this.subject = new BehaviorSubject({
-      eventTargetMeta: {},
-      data: {},
-    })
+    this.subject = new ReplaySubject(20)
     this.style = { ...storeConfig.style }
     this.readState = (componentName) => {
       try {
@@ -45,23 +43,7 @@ export class Store {
     this.setter = {}
     this.props = {}
     // eslint-disable-next-line no-undef
-    this.notify = (...args) => {
-      const infrom = ([target, fnKey, data]) => {
-        combination.components[target].subject.next({
-          fnKey,
-          data,
-        })
-      }
-      if (args.length > 1) {
-        if (args && args?.length > 0) {
-          args.forEach((arg) => {
-            infrom(arg)
-          })
-        }
-      } else {
-        infrom(args)
-      }
-    }
+    this.notify = notify
     this.hooks = (fnKey, data) => {
       const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
       if (!reg.test(fnKey)) {
