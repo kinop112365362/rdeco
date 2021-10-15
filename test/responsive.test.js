@@ -67,6 +67,7 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.text('Hello World')
+        this.hooks('onClick')
       },
     },
     view: {
@@ -152,12 +153,18 @@ test('测试 responsive', async () => {
     state: {
       name: 'd',
       sidName: '',
+      sidHookName: '',
     },
     subscribe: {
       ['ComponentC:sid']: {
         controller: {
           onClick() {
             this.setter.sidName('ComponentC:sid')
+          },
+        },
+        hooks: {
+          onClick() {
+            this.setter.sidHookName('ComponentC:sidHook')
           },
         },
       },
@@ -181,6 +188,7 @@ test('测试 responsive', async () => {
             ></button>
             <div>{this.state.name}</div>
             <div role="sidName">{this.state.sidName}</div>
+            <div role="sidNameHook">{this.state.sidHookName}</div>
           </>
         )
       },
@@ -230,6 +238,9 @@ test('测试 responsive', async () => {
     })
     screen.getAllByRole('sidName').forEach((el) => {
       expect(el).toHaveTextContent('ComponentC:sid')
+    })
+    screen.getAllByRole('sidNameHook').forEach((el) => {
+      expect(el).toHaveTextContent('ComponentC:sidHook')
     })
   })
   fireEvent.click(screen.getByRole('buttond'))

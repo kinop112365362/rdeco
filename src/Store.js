@@ -49,9 +49,12 @@ export class Store {
       if (!reg.test(fnKey)) {
         throw new Error(`this.hooks 只支持驼峰命名的 hook`)
       }
+
       hooksSubject.next({
         eventTargetMeta: {
-          componentName: this.name,
+          componentName: this.props.sid
+            ? `${this.name.split('_')[0]}:sid`
+            : this.name.split('_')[0],
           subjectKey: 'hooks',
           fnKey,
         },

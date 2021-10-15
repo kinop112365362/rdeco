@@ -84,6 +84,13 @@ function createSubscription(
           })
         } else {
           nextTick(() => {
+            if (subjectKey === 'hooks' && fnKey === 'onClick') {
+              console.debug(
+                componentName,
+                subscribe,
+                subscribe?.[componentName]?.[subjectKey]?.[fnKey]
+              )
+            }
             subscribe?.[componentName]?.[subjectKey]?.[fnKey]?.call(
               store,
               value.data,
@@ -91,7 +98,6 @@ function createSubscription(
             )
           })
         }
-
         if (createShadowSubscribe) {
           const shadowSubscribe = createShadowSubscribe(value.eventTargetMeta)
           if (subjectKey === 'state') {

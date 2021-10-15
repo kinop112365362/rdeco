@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import { viewSubject, controllerSubject, serviceSubject } from './subject'
+import { controllerSubject, serviceSubject } from './subject'
 import { combination } from './combination'
 
 export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
@@ -24,12 +24,12 @@ export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
         sid: instance.props.sid,
       }
       switch (subjectKey) {
-        case 'view':
-          viewSubject.next({
-            eventTargetMeta,
-            data,
-          })
-          break
+        // case 'view':
+        //   viewSubject.next({
+        //     eventTargetMeta,
+        //     data,
+        //   })
+        //   break
         case 'controller':
           controllerSubject.next({
             eventTargetMeta,
