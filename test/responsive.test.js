@@ -108,6 +108,7 @@ test('测试 responsive', async () => {
         this.setter.age('20')
         this.hooks('setAgeOver', 20)
         this.setter.name('ann')
+        // eslint-disable-next-line no-unused-vars
         const state = this.readState('ComponentB')
       },
     },
