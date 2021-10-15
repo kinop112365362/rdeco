@@ -3,7 +3,7 @@ import createName from './utils/create-name'
 
 /* eslint-disable no-undef */
 export const combination = {
-  names: [],
+  names: new Set(),
   entites: {},
   components: {},
   enhanceContext: {},
@@ -39,7 +39,13 @@ export const combination = {
       name: ins.name,
       componentInstance: ins,
     })
-    this.names.push(ins.name)
+    this.names.add(ins.name)
+  },
+  $getSidNames(sidName) {
+    const names = Array.from(this.names)
+    return names.filter((name) => {
+      name.split('_')[0] === sidName
+    })
   },
 }
 export function enhanceContext(key, value) {

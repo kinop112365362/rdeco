@@ -11,8 +11,6 @@ import {
   hooksSubject,
 } from './subject'
 import deepmerge from 'deepmerge'
-// import createName from './utils/create-name'
-// import { combination } from './combination'
 
 function reducer(state, action) {
   const stateKeys = Object.keys(state)
@@ -79,19 +77,21 @@ function createSubscription(
             proxySubscribe?.[value?.fnKey]?.call(store, value.data)
           })
         }
-        const { componentName, subjectKey, fnKey } = value?.eventTargetMeta
+        const { componentName, subjectKey, fnKey, sid } = value?.eventTargetMeta
         if (subjectKey === 'state') {
           nextTick(() => {
-            subscribe?.[componentName]?.state?.call(store, value.data)
+            subscribe?.[componentName]?.state?.call(store, value.data, sid)
           })
         } else {
           nextTick(() => {
             subscribe?.[componentName]?.[subjectKey]?.[fnKey]?.call(
               store,
-              value.data
+              value.data,
+              sid
             )
           })
         }
+
         if (createShadowSubscribe) {
           const shadowSubscribe = createShadowSubscribe(value.eventTargetMeta)
           if (subjectKey === 'state') {

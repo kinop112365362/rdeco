@@ -151,6 +151,16 @@ test('测试 responsive', async () => {
     name: 'ComponentD',
     state: {
       name: 'd',
+      sidName: '',
+    },
+    subscribe: {
+      ['ComponentC:sid']: {
+        controller: {
+          onClick() {
+            this.setter.sidName('ComponentC:sid')
+          },
+        },
+      },
     },
     controller: {
       onClick() {
@@ -170,6 +180,7 @@ test('测试 responsive', async () => {
               onClick={this.controller.onClick}
             ></button>
             <div>{this.state.name}</div>
+            <div role="sidName">{this.state.sidName}</div>
           </>
         )
       },
@@ -197,6 +208,7 @@ test('测试 responsive', async () => {
   fireEvent.click(screen.getByRole('button'))
   fireEvent.click(screen.getByRole('buttonb'))
   fireEvent.click(screen.getByRole('buttonc'))
+  fireEvent.click(screen.getByRole('ccc'))
   await waitFor(() => {
     screen.getAllByRole('age').forEach((el) => {
       expect(el).toHaveTextContent('18')
@@ -215,6 +227,9 @@ test('测试 responsive', async () => {
     })
     screen.getAllByRole('hookAge').forEach((el) => {
       expect(el).toHaveTextContent('20')
+    })
+    screen.getAllByRole('sidName').forEach((el) => {
+      expect(el).toHaveTextContent('ComponentC:sid')
     })
   })
   fireEvent.click(screen.getByRole('buttond'))

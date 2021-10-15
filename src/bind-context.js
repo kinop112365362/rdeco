@@ -16,9 +16,12 @@ export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
         state: instance.state,
       }
       const eventTargetMeta = {
-        componentName: instance.name.split('_')[0],
+        componentName: instance.props.sid
+          ? `${instance.name.split('_')[0]}:sid`
+          : instance.name.split('_')[0],
         subjectKey,
         fnKey,
+        sid: instance.props.sid,
       }
       switch (subjectKey) {
         case 'view':
