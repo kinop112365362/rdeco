@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { combination } from './combination'
 import {
   useStoreDispose,
@@ -33,26 +33,13 @@ export function createComponent(component) {
   function HookComponent(props) {
     const storeConfig = useRef({ ...component }).current
     const store = useRef(null)
-    const isNotMounted = useRef(true)
-    if (isNotMounted.current) {
-      if (props.sid) {
-        storeConfig.sid = props.sid
-        if (!combination.$has(storeConfig)) {
-          store.current = createStore(storeConfig)
-          combination.$set(storeConfig, store.current)
-        } else {
-          throw new Error(
-            `该 sid ${props.sid} 在 ${storeConfig.name} 组件渲染过程中被使用了, 请使用唯一的 sid 值`
-          )
-        }
-      } else {
-        store.current = createStore(storeConfig)
-        combination.$set(storeConfig, store.current)
-      }
+
+    if (props.sid) {
+      storeConfig.sid = props.sid
     }
-    useEffect(() => {
-      isNotMounted.current = false
-    }, [])
+    store.current = createStore(storeConfig)
+    combination.$set(storeConfig, store.current)
+
     useStoreUpdate(storeConfig, store.current, store.current.state, props)
     useSubscribe(storeConfig, store.current)
     useStoreDispose(store.current)
