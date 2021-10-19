@@ -1,6 +1,6 @@
 import { connectSubject } from './subject'
 import createName from './utils/createName'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
 /* eslint-disable no-undef */
 export const combination = {
@@ -41,7 +41,7 @@ export const combination = {
   $set(storeConfig, ins) {
     this.components[ins.name] = ins
     if (!this.proxySubjects[ins.name]) {
-      this.proxySubjects[ins.name] = new BehaviorSubject(null)
+      this.proxySubjects[ins.name] = new ReplaySubject(99)
     }
     if (storeConfig.routerSubscribe && !this.routerSubjects[ins.name]) {
       this.routerSubjects[ins.name] = new BehaviorSubject(this.routerHistory[0])
@@ -52,18 +52,12 @@ export const combination = {
     })
     this.names.add(ins.name)
   },
-  $routerBroadcast(value) {
-    this.routerHistory.push(value)
+  $routerBroadcast(...args) {
+    const [subjectKey, arg, syncker] = args
+    this.routerHistory.push({ subjectKey, arg, syncker })
   },
   $broadcast(name, value, subjectKey) {
-    if (name.includes('_')) {
-      name = name.split('_')[0] + ':sid'
-    }
-    this.subscribeNames[name]?.forEach((targetName) => {
-      this.$connectAsync(targetName, (target) => {
-        target.subjects[`${subjectKey}Subject`].next(value)
-      })
-    })
+    this.components[name].subjects[subjectKey].next(value)
   },
   $getSidNames(sidName) {
     const names = Array.from(this.names)

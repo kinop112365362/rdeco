@@ -3,9 +3,12 @@ import React, { useEffect } from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { createComponent } from '../src'
-import { notify } from '../src/notify'
+import { notify, syncNotify } from '../src/notify'
 test('派生功能是否可用', async () => {
   notify(['Test1', 'loading', 'true'])
+  syncNotify(['Test1', 'syncLoading', 'true']).then((value) => {
+    expect(value).toBe('是')
+  })
   const Test = createComponent({
     name: 'Test1',
     state: {
@@ -15,6 +18,9 @@ test('派生功能是否可用', async () => {
     proxySubscribe: {
       loading(state) {
         this.setter.loading(state)
+      },
+      syncLoading(data, next) {
+        next('是')
       },
     },
     derived: {

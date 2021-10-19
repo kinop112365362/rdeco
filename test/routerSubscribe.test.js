@@ -7,14 +7,14 @@ import { combination } from '../src/combination'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 routerSubscribe 响应内部 notify', async () => {
-  notify(['@@router', 'change', { route: { name: 'page', path: '/page' } }])
+  notify(['@@router', 'didChange', { route: { name: 'page', path: '/page' } }])
   const Test = createComponent({
     name: 'Test',
     state: {
       page: 'no router',
     },
     routerSubscribe: {
-      change(value) {
+      didChange(value) {
         expect(value).toStrictEqual({ route: { name: 'page', path: '/page' } })
         this.setter.page('page')
       },

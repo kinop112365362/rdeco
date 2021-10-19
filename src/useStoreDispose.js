@@ -11,7 +11,5 @@ export function useStoreDispose(store) {
   }, [])
 }
 export function nextTick(tick) {
-  setTimeout(() => {
-    tick()
-  }, 33)
+  tick()
 }

@@ -31,11 +31,11 @@ export class Store {
     }
     this.name = createName(storeConfig)
     this.subjects = {
-      stateSubject: new BehaviorSubject(null),
-      controllerSubject: new BehaviorSubject(null),
-      viewSubject: new BehaviorSubject(null),
-      serviceSubject: new BehaviorSubject(null),
-      hooksSubject: new BehaviorSubject(null),
+      state: new BehaviorSubject(null),
+      controller: new BehaviorSubject(null),
+      view: new BehaviorSubject(null),
+      service: new BehaviorSubject(null),
+      hooks: new BehaviorSubject(null),
     }
     this.style = { ...storeConfig.style }
     this.readState = (componentName) => {
@@ -64,6 +64,7 @@ export class Store {
         },
         data,
       }
+
       combination.$broadcast(this.name, value, 'hooks')
     }
 

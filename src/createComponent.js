@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react'
 import { combination } from './combination'
@@ -11,13 +12,18 @@ import createName from './utils/createName'
 function createStore(storeConfig) {
   const store = new Store(storeConfig)
   if (storeConfig.subscribe) {
+    if (!combination.subscribeNames[store.name]) {
+      combination.subscribeNames[store.name] = {}
+    }
     const subscribeNameKeys = Object.keys(storeConfig.subscribe)
     subscribeNameKeys.forEach((key) => {
-      if (!combination.subscribeNames[key]) {
-        // eslint-disable-next-line no-undef
-        combination.subscribeNames[key] = new Set([])
+      if (!combination.subscribeNames[store.name][key]) {
+        combination.subscribeNames[store.name][key] = new Set([])
       }
-      combination.subscribeNames[key].add(store.name)
+      const subjectKeys = Object.keys(storeConfig.subscribe[key])
+      subjectKeys.forEach((subjectKey) => {
+        combination.subscribeNames[store.name][key].add(subjectKey)
+      })
     })
   }
   createStoreSubject.next({
