@@ -32,6 +32,11 @@ try {
   shelljs.exec(`git tag v${nextVersion}`)
   shelljs.exec('git push')
   shelljs.exec('git push --tags')
+  shelljs.exec('cd ..')
+  shelljs.exec('cd mencius')
+  shelljs.exec('yarn pub')
+  shelljs.exec('cd ..')
+  shelljs.exec('cd redco')
 } catch (error) {
   throw error
 }
