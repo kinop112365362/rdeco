@@ -6,8 +6,7 @@ import { combination } from './combination'
 import { getReducerType } from './utils/get-reducer-model'
 import createName from './utils/create-name'
 import { storeConfigValidate } from './utils/store-config-validate'
-import { hooksSubject } from './subject'
-import { ReplaySubject } from 'rxjs'
+import { BehaviorSubject } from 'rxjs'
 import { notify } from './notify'
 
 export class Store {
@@ -31,7 +30,13 @@ export class Store {
       Object.defineProperties(this.derived, propsObj)
     }
     this.name = createName(storeConfig)
-    this.subject = new ReplaySubject(20)
+    this.subjects = {
+      stateSubject: new BehaviorSubject(null),
+      controllerSubject: new BehaviorSubject(null),
+      viewSubject: new BehaviorSubject(null),
+      serviceSubject: new BehaviorSubject(null),
+      hooksSubject: new BehaviorSubject(null),
+    }
     this.style = { ...storeConfig.style }
     this.readState = (componentName) => {
       try {
@@ -49,8 +54,7 @@ export class Store {
       if (!reg.test(fnKey)) {
         throw new Error(`this.hooks 只支持驼峰命名的 hook`)
       }
-
-      hooksSubject.next({
+      const value = {
         eventTargetMeta: {
           componentName: this.props.sid
             ? `${this.name.split('_')[0]}:sid`
@@ -59,7 +63,8 @@ export class Store {
           fnKey,
         },
         data,
-      })
+      }
+      combination.$broadcast(this.name, value, 'hooks')
     }
 
     const baseContext = {

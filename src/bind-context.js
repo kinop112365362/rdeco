@@ -1,5 +1,4 @@
 /* eslint-disable react/display-name */
-import { controllerSubject, serviceSubject } from './subject'
 import { combination } from './combination'
 
 export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
@@ -23,28 +22,11 @@ export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
         fnKey,
         sid: instance.props.sid,
       }
-      switch (subjectKey) {
-        // case 'view':
-        //   viewSubject.next({
-        //     eventTargetMeta,
-        //     data,
-        //   })
-        //   break
-        case 'controller':
-          controllerSubject.next({
-            eventTargetMeta,
-            data,
-          })
-          break
-        case 'service':
-          serviceSubject.next({
-            eventTargetMeta,
-            data,
-          })
-          break
-        default:
-          break
+      const value = {
+        eventTargetMeta,
+        data,
       }
+      combination.$broadcast(instance.name, value, subjectKey)
       return fnObj[fnKey].call(
         { ...combination.enhanceContext, ...context },
         ...args

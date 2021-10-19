@@ -17,21 +17,6 @@ test('测试 responsive', async () => {
       hookAge: '',
       callMeName: '',
     },
-    createShadowSubscribe({ componentName }) {
-      if (componentName === 'ComponentD') {
-        return {
-          // eslint-disable-next-line no-unused-vars
-          state({ key, prevState, nextState }) {
-            this.setter.dNextName(nextState.name)
-          },
-          controller: {
-            onClick({ state }) {
-              this.setter.dname(state.name)
-            },
-          },
-        }
-      }
-    },
     proxySubscribe: {
       callMe(name) {
         this.setter.callMeName(name)
@@ -207,8 +192,8 @@ test('测试 responsive', async () => {
         CC
         <ComponentC></ComponentC>
         <ComponentD buttonRole="buttonc" name="d"></ComponentD>
-        <ComponentD buttonRole="buttond" name="ddd"></ComponentD>
-        <ComponentD buttonRole="buttone" name="eee"></ComponentD>
+        <ComponentD sid="d" buttonRole="buttond" name="ddd"></ComponentD>
+        <ComponentD sid="e" buttonRole="buttone" name="eee"></ComponentD>
       </div>
     )
   }
@@ -230,9 +215,6 @@ test('测试 responsive', async () => {
     screen.getAllByRole('aname').forEach((el) => {
       expect(el).toHaveTextContent('ann')
     })
-    screen.getAllByRole('dname').forEach((el) => {
-      expect(el).toHaveTextContent('d')
-    })
     screen.getAllByRole('hookAge').forEach((el) => {
       expect(el).toHaveTextContent('20')
     })
@@ -241,15 +223,6 @@ test('测试 responsive', async () => {
     })
     screen.getAllByRole('sidNameHook').forEach((el) => {
       expect(el).toHaveTextContent('ComponentC:sidHook')
-    })
-  })
-  fireEvent.click(screen.getByRole('buttond'))
-  await waitFor(() => {
-    screen.getAllByRole('dname').forEach((el) => {
-      expect(el).toHaveTextContent('d')
-    })
-    screen.getAllByRole('dNextname').forEach((el) => {
-      expect(el).toHaveTextContent('ddd')
     })
   })
 })
