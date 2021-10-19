@@ -31,12 +31,7 @@ try {
   shelljs.exec(`git commit -a -m"chore(version): v${nextVersion}"`)
   shelljs.exec(`git tag v${nextVersion}`)
   shelljs.exec('git push')
-  shelljs.exec('git push --tags')
-  shelljs.exec('cd ..')
-  shelljs.exec('cd mencius')
-  shelljs.exec('yarn pub')
-  shelljs.exec('cd ..')
-  shelljs.exec('cd redco')
+  shelljs.exec('git push --tags && cd ../mencius && yarn pub && cd ../rdeco')
 } catch (error) {
   throw error
 }
