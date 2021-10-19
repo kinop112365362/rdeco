@@ -16,6 +16,10 @@ export const notify = (...args) => {
       })
     }
   } else {
-    infrom(...args)
+    if (args[0][0] === '@@router') {
+      combination.$routerBroadcast(args[0][2])
+    } else {
+      infrom(...args)
+    }
   }
 }

@@ -1,11 +1,11 @@
 /* eslint-disable valid-jsdoc */
 /* eslint-disable react/display-name */
 // @filename: Store.js
-import { bindContext } from './bind-context'
+import { bindContext } from './bindContext'
 import { combination } from './combination'
-import { getReducerType } from './utils/get-reducer-model'
-import createName from './utils/create-name'
-import { storeConfigValidate } from './utils/store-config-validate'
+import { getReducerType } from './utils/getReducerModel'
+import createName from './utils/createName'
+import { storeConfigValidate } from './utils/storeConfigValidate'
 import { BehaviorSubject } from 'rxjs'
 import { notify } from './notify'
 

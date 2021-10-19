@@ -1,5 +1,5 @@
 import { connectSubject } from './subject'
-import createName from './utils/create-name'
+import createName from './utils/createName'
 import { BehaviorSubject } from 'rxjs'
 
 /* eslint-disable no-undef */
@@ -10,6 +10,8 @@ export const combination = {
   components: {},
   enhanceContext: {},
   proxySubjects: {},
+  routerSubjects: {},
+  routerHistory: [],
   $remove(componentName) {
     if (this.components[componentName]) {
       this.components[componentName] = null
@@ -41,11 +43,17 @@ export const combination = {
     if (!this.proxySubjects[ins.name]) {
       this.proxySubjects[ins.name] = new BehaviorSubject(null)
     }
+    if (storeConfig.routerSubscribe && !this.routerSubjects[ins.name]) {
+      this.routerSubjects[ins.name] = new BehaviorSubject(this.routerHistory[0])
+    }
     connectSubject.next({
       name: ins.name,
       componentInstance: ins,
     })
     this.names.add(ins.name)
+  },
+  $routerBroadcast(value) {
+    this.routerHistory.push(value)
   },
   $broadcast(name, value, subjectKey) {
     if (name.includes('_')) {

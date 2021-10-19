@@ -1,14 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react'
 import { combination } from './combination'
-import {
-  useStoreDispose,
-  useStoreUpdate,
-  useSubscribe,
-} from './use-store-hooks'
+import { useSubscribe } from './useStoreHooks'
+import { useStoreDispose } from './useStoreDispose'
+import { useStoreUpdate } from './useStoreUpdate'
 import { Store } from './Store'
 import { createStoreSubject } from './subject'
-import createName from './utils/create-name'
+import createName from './utils/createName'
 
 function createStore(storeConfig) {
   const store = new Store(storeConfig)
@@ -55,6 +53,9 @@ export function createComponent(component) {
     }
     useEffect(() => {
       isNotMounted.current = false
+      if (store.current?.controller?.onMount) {
+        store.current.controller.onMount()
+      }
     }, [])
     useStoreUpdate(storeConfig, store.current, store.current.state, props)
     useSubscribe(storeConfig, store.current)
