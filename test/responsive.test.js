@@ -17,7 +17,7 @@ test('测试 responsive', async () => {
       hookAge: '',
       callMeName: '',
     },
-    proxySubscribe: {
+    notification: {
       callMe(name) {
         this.setter.callMeName(name)
       },

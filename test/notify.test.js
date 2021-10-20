@@ -15,7 +15,7 @@ test('派生功能是否可用', async () => {
       count: 0,
       loading: '',
     },
-    proxySubscribe: {
+    notification: {
       loading(state) {
         this.setter.loading(state)
       },
