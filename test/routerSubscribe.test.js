@@ -13,10 +13,14 @@ test('测试 routerSubscribe 响应内部 notify', async () => {
     state: {
       page: 'no router',
     },
-    routerSubscribe: {
-      after(value) {
-        expect(value).toStrictEqual({ route: { name: 'page', path: '/page' } })
-        this.setter.page('page')
+    subscribe: {
+      router: {
+        after(value) {
+          expect(value).toStrictEqual({
+            route: { name: 'page', path: '/page' },
+          })
+          this.setter.page('page')
+        },
       },
     },
     view: {

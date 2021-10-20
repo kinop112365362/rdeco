@@ -3,10 +3,10 @@ import React, { useEffect } from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { createComponent } from '../src'
-import { notify, syncNotify } from '../src/notify'
+import { notify } from '../src/notify'
 test('派生功能是否可用', async () => {
   notify(['Test1', 'loading', 'true'])
-  syncNotify(['Test1', 'syncLoading', 'true']).then((value) => {
+  notify(['Test1', 'syncLoading', 'true']).then((value) => {
     expect(value).toBe('是')
   })
   const Test = createComponent({
