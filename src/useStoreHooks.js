@@ -4,7 +4,7 @@ import { isFunction } from './utils/isFunction'
 import { combination } from './combination'
 import { nextTick } from './useStoreDispose'
 
-function createSubscription({ subscribe, proxySubscribe }, store) {
+function createSubscription({ subscribe, notification }, store) {
   return function bindSubject(subject) {
     let subscription = null
     subscription = subject.subscribe({
@@ -13,18 +13,14 @@ function createSubscription({ subscribe, proxySubscribe }, store) {
           return
         }
         // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件
-        if (!value.eventTargetMeta && proxySubscribe) {
+        if (!value.eventTargetMeta && notification) {
           return nextTick(() => {
-            if (!proxySubscribe[value.fnKey]) {
+            if (!notification[value.fnKey]) {
               throw new Error(
-                `调用失败, ${store.name} 组件的 proxySubscribe 上不存在 ${value.fnKey} 方法`
+                `调用失败, ${store.name} 组件的 notification 上不存在 ${value.fnKey} 方法`
               )
             }
-            proxySubscribe?.[value?.fnKey]?.call(
-              store,
-              value.data,
-              value.syncker
-            )
+            notification?.[value?.fnKey]?.call(store, value.data, value.syncker)
           })
         }
         const { componentName, subjectKey, fnKey, sid } = value?.eventTargetMeta
@@ -94,7 +90,7 @@ export function useSubscribe(storeConfig, store) {
         },
       })
     }
-    if (storeConfig.proxySubscribe) {
+    if (storeConfig.notification) {
       selfSubscription = bindSubject(combination.proxySubjects[store.name])
     }
     return () => {

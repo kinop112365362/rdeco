@@ -9,11 +9,6 @@ import '@testing-library/jest-dom/extend-expect'
 test('测试 unmount 组件销毁的过程', async () => {
   const Tag = createComponent({
     name: 'Tag',
-    subscribe: {
-      Test: {
-        state() {},
-      },
-    },
     controller: {
       onClick() {
         this.notify(['Test', 'notReady'])
@@ -35,7 +30,7 @@ test('测试 unmount 组件销毁的过程', async () => {
     state: {
       ready: true,
     },
-    proxySubscribe: {
+    notification: {
       notReady() {
         this.setter.ready(false)
       },
