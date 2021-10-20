@@ -35,7 +35,7 @@ export class Store {
       controller: new BehaviorSubject(null),
       view: new BehaviorSubject(null),
       service: new BehaviorSubject(null),
-      hooks: new BehaviorSubject(null),
+      tappable: new BehaviorSubject(null),
     }
     this.style = { ...storeConfig.style }
     this.readState = (componentName) => {
@@ -49,23 +49,23 @@ export class Store {
     this.props = {}
     // eslint-disable-next-line no-undef
     this.notify = notify
-    this.hooks = (fnKey, data) => {
+    this.tappable = (fnKey, data) => {
       const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
       if (!reg.test(fnKey)) {
-        throw new Error(`this.hooks 只支持驼峰命名的 hook`)
+        throw new Error(`this.tappable 只支持驼峰命名的 hook`)
       }
       const value = {
         eventTargetMeta: {
           componentName: this.props.sid
             ? `${this.name.split('_')[0]}:sid`
             : this.name.split('_')[0],
-          subjectKey: 'hooks',
+          subjectKey: 'tappable',
           fnKey,
         },
         data,
       }
 
-      combination.$broadcast(this.name, value, 'hooks')
+      combination.$broadcast(this.name, value, 'tappable')
     }
 
     const baseContext = {
@@ -75,7 +75,7 @@ export class Store {
       style: this.style,
       props: this.props,
       entites: combination.entites,
-      hooks: this.hooks,
+      tappable: this.tappable,
       notify: this.notify,
       readState: this.readState,
     }

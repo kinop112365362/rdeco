@@ -43,7 +43,7 @@ export const combination = {
     if (!this.proxySubjects[ins.name]) {
       this.proxySubjects[ins.name] = new ReplaySubject(99)
     }
-    if (storeConfig.routerSubscribe && !this.routerSubjects[ins.name]) {
+    if (storeConfig.router && !this.routerSubjects[ins.name]) {
       this.routerSubjects[ins.name] = new BehaviorSubject(this.routerHistory[0])
     }
     connectSubject.next({

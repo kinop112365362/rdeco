@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
 import { useEffect } from 'react'
-import { isFunction } from './utils/isFunction'
 import { combination } from './combination'
 import { nextTick } from './useStoreDispose'
 
@@ -50,42 +49,33 @@ export function useSubscribe(storeConfig, store) {
     let selfSubscription = null
     const bindSubject = createSubscription(storeConfig, store)
     if (storeConfig?.subscribe) {
-      if (isFunction(storeConfig.subscribe)) {
-        storeConfig.subscribe = storeConfig.subscribe()
-      }
       const subscribeNamesKeys = Object.keys(combination.subscribeNames)
       subscribeNamesKeys.forEach((name) => {
         const subscribeNames = Object.keys(combination.subscribeNames[name])
         subscribeNames.forEach((subscribeName) => {
           combination.subscribeNames[name][subscribeName].forEach(
             (subjectKey) => {
-              if (subscribeName.includes(':')) {
-                const componentKeys = Object.keys(combination.components)
-                const targets = componentKeys.filter((componentKey) => {
-                  return componentKey.includes(subscribeName.split(':')[0])
-                })
-                targets.forEach((target) => {
-                  const subscription = bindSubject(
-                    combination.components[target].subjects[subjectKey]
-                  )
-                  subscriptions.push(subscription)
-                })
-              } else {
+              const componentKeys = Object.keys(combination.components)
+              const reg = new RegExp(`^${subscribeName}`)
+              const targets = componentKeys.filter((componentKey) => {
+                return reg.test(componentKey)
+              })
+              targets.forEach((target) => {
                 const subscription = bindSubject(
-                  combination.components[subscribeName].subjects[subjectKey]
+                  combination.components[target].subjects[subjectKey]
                 )
                 subscriptions.push(subscription)
-              }
+              })
             }
           )
         })
       })
     }
-    if (storeConfig.routerSubscribe) {
+    if (storeConfig.router) {
       routerSubscription = combination.routerSubjects[store.name].subscribe({
         next(value) {
           if (value) {
-            storeConfig.routerSubscribe[value.subjectKey].call(store, value.arg)
+            storeConfig.router[value.subjectKey].call(store, value.arg)
           }
         },
       })

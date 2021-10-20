@@ -6,21 +6,19 @@ import { createComponent, notify } from '../src/index'
 import { combination } from '../src/combination'
 import '@testing-library/jest-dom/extend-expect'
 
-test('测试 routerSubscribe 响应内部 notify', async () => {
+test('测试 router 响应内部 notify', async () => {
   notify(['@@router', 'after', { route: { name: 'page', path: '/page' } }])
   const Test = createComponent({
     name: 'Test',
     state: {
       page: 'no router',
     },
-    subscribe: {
-      router: {
-        after(value) {
-          expect(value).toStrictEqual({
-            route: { name: 'page', path: '/page' },
-          })
-          this.setter.page('page')
-        },
+    router: {
+      after(value) {
+        expect(value).toStrictEqual({
+          route: { name: 'page', path: '/page' },
+        })
+        this.setter.page('page')
       },
     },
     view: {

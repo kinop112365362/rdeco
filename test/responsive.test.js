@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
@@ -23,26 +24,27 @@ test('测试 responsive', async () => {
       },
     },
     subscribe: {
-      ComponentA: {
-        hooks: {
+      state: {
+        ComponentA: {
+          name({ prevState, nextState, state }) {
+            this.setter.aname(nextState)
+          },
+        },
+      },
+      tappable: {
+        ComponentA: {
           setAgeOver(age) {
             this.setter.hookAge(age)
           },
         },
-        // eslint-disable-next-line no-unused-vars
-        state({ key, prevState, nextState }) {
-          if (key === 'name') {
-            this.setter.aname(nextState[key])
-          }
-        },
-        controller: {
+      },
+      controller: {
+        ComponentA: {
           onClick({ state }) {
             this.setter.age(state.age)
           },
         },
-      },
-      ComponentB: {
-        controller: {
+        ComponentB: {
           onClick({ state }) {
             this.setter.bage(state.age)
           },
@@ -52,7 +54,7 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.text('Hello World')
-        this.hooks('onClick')
+        this.tappable('onClick')
       },
     },
     view: {
@@ -82,17 +84,10 @@ test('测试 responsive', async () => {
       name: 'jacky',
       age: '18',
     },
-    subscribe() {
-      return {
-        ComponentB: {
-          state() {},
-        },
-      }
-    },
     controller: {
       onClick() {
         this.setter.age('20')
-        this.hooks('setAgeOver', 20)
+        this.tappable('setAgeOver', 20)
         this.setter.name('ann')
         // eslint-disable-next-line no-unused-vars
         const state = this.readState('ComponentB')
@@ -141,13 +136,15 @@ test('测试 responsive', async () => {
       sidHookName: '',
     },
     subscribe: {
-      ['ComponentC:sid']: {
-        controller: {
+      controller: {
+        ComponentC: {
           onClick() {
             this.setter.sidName('ComponentC:sid')
           },
         },
-        hooks: {
+      },
+      tappable: {
+        ComponentC: {
           onClick() {
             this.setter.sidHookName('ComponentC:sidHook')
           },
