@@ -1,4 +1,4 @@
-export { notify } from './notify'
+export { notify, syncNotify } from './notify'
 export { createMembrane } from './utils/createMembrane'
 export { enhanceContext } from './combination'
 export { createEntity } from './createEntity'
