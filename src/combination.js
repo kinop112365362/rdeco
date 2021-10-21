@@ -38,8 +38,8 @@ export const combination = {
     }
     return false
   },
-  $set(storeConfig, ins) {
-    this.components[ins.name] = ins
+  $set(storeConfig, ins, type = 'components') {
+    this[type][ins.name] = ins
     if (!this.proxySubjects[ins.name]) {
       this.proxySubjects[ins.name] = new ReplaySubject(99)
     }
@@ -49,6 +49,7 @@ export const combination = {
     connectSubject.next({
       name: ins.name,
       componentInstance: ins,
+      type,
     })
     this.names.add(ins.name)
   },

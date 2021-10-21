@@ -416,9 +416,9 @@ state: {
 // this.setter.foo.bar('2') wrong!!
 ```
 
-## derived
+## derivate
 
-`derived` 意指派生状态, `derived` 下的派生函数通过 `state` 中声明的状态派生出一个新值, 通过 `this.dervied[derivedKey]`可以直接获取到派生出来的值, 和 `state` 一样, 派生值发生变化也会触发 `render`, 详见下面的例子
+`derivate` 意指派生状态, `derivate` 下的派生函数通过 `state` 中声明的状态派生出一个新值, 通过 `this.dervied[derivedKey]`可以直接获取到派生出来的值, 和 `state` 一样, 派生值发生变化也会触发 `render`, 详见下面的例子
 
 ```jsx
 import React from 'react'
@@ -429,7 +429,7 @@ export default createComponent({
   state: {
     count: 0,
   },
-  derived: {
+  derivate: {
     countIsNotZero() {
       if (this.state.count !== 0) {
         return 'true'
@@ -464,7 +464,7 @@ export default createComponent({
               <button onClick={this.controller.onSubClick}>减 1</button>
             </span>{' '}
           </div>
-          <div>count changed:{this.derived.countIsNotZero}</div>
+          <div>count changed:{this.derivate.countIsNotZero}</div>
         </>
       )
     },

@@ -5,32 +5,7 @@ import { combination } from './combination'
 import { useSubscribe } from './useStoreHooks'
 import { useStoreDispose } from './useStoreDispose'
 import { useStoreUpdate } from './useStoreUpdate'
-import { Store } from './Store'
-import { createStoreSubject } from './subject'
-import createName from './utils/createName'
-import { forEachByKeys } from './utils/forEachByKeys'
-
-function createStore(storeConfig) {
-  const store = new Store(storeConfig)
-  if (storeConfig.subscribe) {
-    if (!combination.subscribeNames[store.name]) {
-      combination.subscribeNames[store.name] = {}
-    }
-    forEachByKeys(storeConfig.subscribe, (subjectKey) => {
-      if (!combination.subscribeNames[store.name][subjectKey]) {
-        combination.subscribeNames[store.name][subjectKey] = new Set()
-      }
-      forEachByKeys(storeConfig.subscribe[subjectKey], (componentKey) => {
-        combination.subscribeNames[store.name][subjectKey].add(componentKey)
-      })
-    })
-  }
-  createStoreSubject.next({
-    componentName: createName(storeConfig),
-    meta: storeConfig,
-  })
-  return store
-}
+import { createStore } from './createStore'
 
 export function createComponent(component) {
   if (!module.hot) {

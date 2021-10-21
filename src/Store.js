@@ -16,18 +16,18 @@ export class Store {
     }
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     this.state = { ...storeConfig.state }
-    if (storeConfig.derived) {
-      this.derived = {}
+    if (storeConfig.derivate) {
+      this.derivate = {}
       const propsObj = {}
-      const derivedKeys = Object.keys(storeConfig.derived)
+      const derivedKeys = Object.keys(storeConfig.derivate)
       derivedKeys.forEach((derivedKey) => {
         propsObj[derivedKey] = {
           get: () => {
-            return storeConfig.derived[derivedKey].call(this)
+            return storeConfig.derivate[derivedKey].call(this)
           },
         }
       })
-      Object.defineProperties(this.derived, propsObj)
+      Object.defineProperties(this.derivate, propsObj)
     }
     this.name = createName(storeConfig)
     this.subjects = {
@@ -69,7 +69,7 @@ export class Store {
     const baseContext = {
       name: this.name,
       state: this.state,
-      derived: this.derived,
+      derivate: this.derivate,
       style: this.style,
       props: this.props,
       entites: combination.entites,

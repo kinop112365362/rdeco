@@ -1,5 +1,5 @@
+export { createEntity } from './createEntity'
 export { notify, syncNotify } from './notify'
 export { createMembrane } from './utils/createMembrane'
 export { enhanceContext } from './combination'
 export { createComponent } from './createComponent'
-export { Store } from './Store'

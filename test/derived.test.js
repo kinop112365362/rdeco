@@ -9,7 +9,7 @@ test('派生功能是否可用', async () => {
     state: {
       count: 0,
     },
-    derived: {
+    derivate: {
       count1() {
         return this.state.count + 1
       },
@@ -32,9 +32,9 @@ test('派生功能是否可用', async () => {
         }, [])
         return (
           <div>
-            <span role="count1">{this.derived.count1}</span>
-            <span role="count2">{this.derived.count2}</span>
-            <span role="name">{this.derived.nameFromProps}</span>
+            <span role="count1">{this.derivate.count1}</span>
+            <span role="count2">{this.derivate.count2}</span>
+            <span role="name">{this.derivate.nameFromProps}</span>
           </div>
         )
       },
