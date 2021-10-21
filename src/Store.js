@@ -56,9 +56,7 @@ export class Store {
       }
       const value = {
         eventTargetMeta: {
-          componentName: this.props.sid
-            ? `${this.name.split('_')[0]}:sid`
-            : this.name.split('_')[0],
+          componentName: this.props.sid ? this.name.split('_')[0] : this.name,
           subjectKey: 'tappable',
           fnKey,
         },

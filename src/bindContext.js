@@ -16,8 +16,8 @@ export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
       }
       const eventTargetMeta = {
         componentName: instance.props.sid
-          ? `${instance.name.split('_')[0]}:sid`
-          : instance.name.split('_')[0],
+          ? instance.name.split('_')[0]
+          : instance.name,
         subjectKey,
         fnKey,
         sid: instance.props.sid,

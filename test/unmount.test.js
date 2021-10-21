@@ -11,7 +11,7 @@ test('测试 unmount 组件销毁的过程', async () => {
     name: 'Tag',
     controller: {
       onClick() {
-        this.notify(['Test', 'notReady'])
+        this.notify('Test', 'notReady')
       },
     },
     view: {

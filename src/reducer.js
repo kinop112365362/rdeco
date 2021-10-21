@@ -23,11 +23,12 @@ export function reducer(state, action) {
     eventTargetMeta: {
       componentName: action[3],
       subjectKey: 'state',
+      fnKey: getStateType(action[0]),
     },
     data: {
-      key: getStateType(action[0]),
-      prevState: state,
-      nextState: newState,
+      prevState: state[getStateType(action[0])],
+      nextState: action[1],
+      state: newState,
     },
   }
   combination.$broadcast(action[3], value, 'state')

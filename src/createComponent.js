@@ -8,6 +8,7 @@ import { useStoreUpdate } from './useStoreUpdate'
 import { Store } from './Store'
 import { createStoreSubject } from './subject'
 import createName from './utils/createName'
+import { forEachByKeys } from './utils/forEachByKeys'
 
 function createStore(storeConfig) {
   const store = new Store(storeConfig)
@@ -15,14 +16,12 @@ function createStore(storeConfig) {
     if (!combination.subscribeNames[store.name]) {
       combination.subscribeNames[store.name] = {}
     }
-    const subscribeNameKeys = Object.keys(storeConfig.subscribe)
-    subscribeNameKeys.forEach((key) => {
-      if (!combination.subscribeNames[store.name][key]) {
-        combination.subscribeNames[store.name][key] = new Set([])
+    forEachByKeys(storeConfig.subscribe, (subjectKey) => {
+      if (!combination.subscribeNames[store.name][subjectKey]) {
+        combination.subscribeNames[store.name][subjectKey] = new Set()
       }
-      const subjectKeys = Object.keys(storeConfig.subscribe[key])
-      subjectKeys.forEach((subjectKey) => {
-        combination.subscribeNames[store.name][key].add(subjectKey)
+      forEachByKeys(storeConfig.subscribe[subjectKey], (componentKey) => {
+        combination.subscribeNames[store.name][subjectKey].add(componentKey)
       })
     })
   }

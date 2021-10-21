@@ -154,10 +154,8 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.name(this.props.name)
-        this.notify(
-          ['ComponentC', 'callMe', 'helloC'],
-          ['ComponentC_cc', 'callMe', 'helloC']
-        )
+        this.notify('ComponentC', 'callMe', 'helloC')
+        this.notify('ComponentC_cc', 'callMe', 'helloC')
       },
     },
     view: {

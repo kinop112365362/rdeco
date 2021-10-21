@@ -4,9 +4,9 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { createComponent } from '../src'
 import { notify } from '../src/notify'
-test('派生功能是否可用', async () => {
-  notify(['Test1', 'loading', 'true'])
-  notify(['Test1', 'syncLoading', 'true']).then((value) => {
+test('测试 notify api', async () => {
+  notify('Test1', 'loading', 'true')
+  notify('Test1', 'syncLoading', 'true').then((value) => {
     expect(value).toBe('是')
   })
   const Test = createComponent({
