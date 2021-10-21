@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable valid-jsdoc */
 /* eslint-disable react/display-name */
 // @filename: Store.js
@@ -8,6 +9,8 @@ import createName from './utils/createName'
 import { storeConfigValidate } from './utils/storeConfigValidate'
 import { BehaviorSubject } from 'rxjs'
 import { notify } from './notify'
+import { isFunction } from './utils/isFunction'
+import * as deepmerge from 'deepmerge'
 
 export class Store {
   constructor(storeConfig) {
@@ -18,16 +21,51 @@ export class Store {
     this.state = { ...storeConfig.state }
     if (storeConfig.derivate) {
       this.derivate = {}
-      const propsObj = {}
-      const derivedKeys = Object.keys(storeConfig.derivate)
-      derivedKeys.forEach((derivedKey) => {
-        propsObj[derivedKey] = {
-          get: () => {
-            return storeConfig.derivate[derivedKey].call(this)
-          },
+      const baseHandler = {}
+      const derivateKeys = Object.keys(storeConfig.derivate)
+
+      derivateKeys.forEach((derivateKey) => {
+        if (isFunction(storeConfig.derivate[derivateKey])) {
+          baseHandler[derivateKey] = {
+            get: () => {
+              return storeConfig.derivate[derivateKey].call(
+                this,
+                this.state[derivateKey],
+                this.state
+              )
+            },
+          }
+        } else {
+          combination.$connectAsync(derivateKey, (target) => {
+            if (!target) {
+              throw new Error(
+                `${derivateKey} 组件未定义或 unmount, 跨组件状态派生, 被派生组件必须实例化且处于 mount`
+              )
+            }
+            const targetDerivateKeys = Object.keys(
+              storeConfig.derivate[derivateKey]
+            )
+            const targetHandler = {}
+            targetDerivateKeys.forEach((targetDerivateKey) => {
+              if (!target.state[targetDerivateKey]) {
+                throw new Error(
+                  `${derivateKey}.state.${targetDerivateKey} 未定义, 无法派生, 请检查`
+                )
+              }
+              targetHandler[targetDerivateKey] = {
+                get: () => {
+                  return storeConfig.derivate[derivateKey][
+                    targetDerivateKey
+                  ].call(this, target.state[targetDerivateKey], target.state)
+                },
+              }
+            })
+            this.derivate[derivateKey] = {}
+            Object.defineProperties(this.derivate[derivateKey], targetHandler)
+          })
         }
       })
-      Object.defineProperties(this.derivate, propsObj)
+      Object.defineProperties(this.derivate, baseHandler)
     }
     this.name = createName(storeConfig)
     this.subjects = {
@@ -38,13 +76,6 @@ export class Store {
       tappable: new BehaviorSubject(null),
     }
     this.style = { ...storeConfig.style }
-    this.readState = (componentName) => {
-      try {
-        return { ...combination.components[componentName].state }
-      } catch (error) {
-        throw new Error(`${componentName} 组件尚未实例化`)
-      }
-    }
     this.setter = {}
     this.props = {}
     // eslint-disable-next-line no-undef
@@ -72,7 +103,6 @@ export class Store {
       derivate: this.derivate,
       style: this.style,
       props: this.props,
-      entites: combination.entites,
       tappable: this.tappable,
       notify: this.notify,
       readState: this.readState,
@@ -123,8 +153,27 @@ export class Store {
     this.controller = ctrlBindContext
     this.service = serviceBindContext
   }
-  dispatch() {
-    throw new Error('dispatch 没有被正确初始化, 请检查 hook 初始化部分的代码')
+  dispatch([...args]) {
+    if (/Entity$/.test(this.name)) {
+      const [type, payload, stateKey, name] = args
+      const prevState = { ...this.state[stateKey] }
+      this.state[stateKey] = payload
+      const value = {
+        eventTargetMeta: {
+          componentName: name,
+          subjectKey: 'state',
+          fnKey: stateKey,
+        },
+        data: {
+          prevState,
+          nextState: payload,
+          state: this.state,
+        },
+      }
+      combination.$broadcast(name, value, 'state')
+    } else {
+      throw new Error('dispatch 没有被正确初始化, 请检查 hook 初始化部分的代码')
+    }
   }
   dispose() {
     combination.$remove(this.name)

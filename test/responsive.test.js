@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 test('测试 responsive', async () => {
   const ComponentC = createComponent({
-    name: 'ComponentC',
+    name: 'ComponentCCom',
     state: {
       text: '',
       age: 0,
@@ -25,26 +25,26 @@ test('测试 responsive', async () => {
     },
     subscribe: {
       state: {
-        ComponentA: {
+        ComponentACom: {
           name({ prevState, nextState, state }) {
             this.setter.aname(nextState)
           },
         },
       },
       tappable: {
-        ComponentA: {
+        ComponentACom: {
           setAgeOver(age) {
             this.setter.hookAge(age)
           },
         },
       },
       controller: {
-        ComponentA: {
+        ComponentACom: {
           onClick({ state }) {
             this.setter.age(state.age)
           },
         },
-        ComponentB: {
+        ComponentBCom: {
           onClick({ state }) {
             this.setter.bage(state.age)
           },
@@ -79,7 +79,7 @@ test('测试 responsive', async () => {
     },
   })
   const ComponentA = createComponent({
-    name: 'ComponentA',
+    name: 'ComponentACom',
     state: {
       name: 'jacky',
       age: '18',
@@ -89,8 +89,6 @@ test('测试 responsive', async () => {
         this.setter.age('20')
         this.tappable('setAgeOver', 20)
         this.setter.name('ann')
-        // eslint-disable-next-line no-unused-vars
-        const state = this.readState('ComponentB')
       },
     },
     view: {
@@ -105,7 +103,7 @@ test('测试 responsive', async () => {
     },
   })
   const ComponentB = createComponent({
-    name: 'ComponentB',
+    name: 'ComponentBCom',
     state: {
       name: 'ann',
       ctext: '',
@@ -129,7 +127,7 @@ test('测试 responsive', async () => {
     },
   })
   const ComponentD = createComponent({
-    name: 'ComponentD',
+    name: 'ComponentDCom',
     state: {
       name: 'd',
       sidName: '',
@@ -137,14 +135,14 @@ test('测试 responsive', async () => {
     },
     subscribe: {
       controller: {
-        ComponentC: {
+        ComponentCCom: {
           onClick() {
             this.setter.sidName('ComponentC:sid')
           },
         },
       },
       tappable: {
-        ComponentC: {
+        ComponentCCom: {
           onClick() {
             this.setter.sidHookName('ComponentC:sidHook')
           },
@@ -154,8 +152,8 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.name(this.props.name)
-        this.notify('ComponentC', 'callMe', 'helloC')
-        this.notify('ComponentC_cc', 'callMe', 'helloC')
+        this.notify('ComponentCCom', 'callMe', 'helloC')
+        this.notify('ComponentCCom_cc', 'callMe', 'helloC')
       },
     },
     view: {

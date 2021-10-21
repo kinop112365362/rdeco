@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/extend-expect'
 test('测试 responsive', async () => {
   const getConfig = () => {
     return {
-      name: 'Base',
+      name: 'BaseCom',
       state: { text: 'Base' },
       view: {
         render() {
@@ -18,9 +18,9 @@ test('测试 responsive', async () => {
   }
   const Test = createComponent(
     createMembrane(getConfig(), {
-      name: 'Membrane',
+      name: 'MembraneCom',
       state: {
-        text: 'Membrane',
+        text: 'MembraneCom',
       },
     })
   )

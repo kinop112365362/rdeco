@@ -2,12 +2,15 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react'
 import { combination } from './combination'
-import { useSubscribe } from './useStoreHooks'
+import { useSubscribe } from './useSubscribe'
 import { useStoreDispose } from './useStoreDispose'
 import { useStoreUpdate } from './useStoreUpdate'
 import { createStore } from './createStore'
 
 export function createComponent(component) {
+  if (!/Com$/.test(component.name)) {
+    throw new Error('Component.name 命名必须以 Com 结尾')
+  }
   if (!module.hot) {
     if (combination.$has(component)) {
       throw new Error(

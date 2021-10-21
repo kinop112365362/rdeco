@@ -5,12 +5,12 @@ import '@testing-library/jest-dom/extend-expect'
 import { createComponent } from '../src'
 import { notify } from '../src/notify'
 test('测试 notify api', async () => {
-  notify('Test1', 'loading', 'true')
-  notify('Test1', 'syncLoading', 'true').then((value) => {
+  notify('Test1Com', 'loading', 'true')
+  notify('Test1Com', 'syncLoading', 'true').then((value) => {
     expect(value).toBe('是')
   })
   const Test = createComponent({
-    name: 'Test1',
+    name: 'Test1Com',
     state: {
       count: 0,
       loading: '',

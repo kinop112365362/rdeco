@@ -12,20 +12,30 @@ export const combination = {
   proxySubjects: {},
   routerSubjects: {},
   routerHistory: [],
+  $getCollection(name) {
+    if (/Entity$/.test(name)) {
+      return this.entites
+    }
+    return this.components
+  },
   $remove(componentName) {
-    if (this.components[componentName]) {
-      this.components[componentName] = null
+    const collection = this.$getCollection(componentName)
+    if (collection[componentName]) {
+      collection[componentName] = null
     }
   },
   $connectAsync(componentName, handle) {
-    if (this.components[componentName]) {
-      handle.call(null, this.components[componentName])
+    const collection = this.$getCollection(componentName)
+    if (collection[componentName]) {
+      handle.call(null, collection[componentName])
     } else {
       const connectSub = connectSubject.subscribe({
         next: ({ name, componentInstance }) => {
           if (name === componentName) {
             handle.call(null, componentInstance)
             connectSub?.unsubscribe()
+          } else {
+            // throw new Error(`订阅异常: 组件集合中为找到 ${componentName} 组件`)
           }
         },
       })
@@ -33,7 +43,8 @@ export const combination = {
   },
   $has({ name, sid }) {
     const componentName = createName({ name, sid })
-    if (this.components[componentName]) {
+    const collection = this.$getCollection(componentName)
+    if (collection[componentName]) {
       return true
     }
     return false
@@ -58,7 +69,8 @@ export const combination = {
     this.routerHistory.push({ subjectKey, arg, syncker })
   },
   $broadcast(name, value, subjectKey) {
-    this.components[name].subjects[subjectKey].next(value)
+    const collection = this.$getCollection(name)
+    collection[name].subjects[subjectKey].next(value)
   },
   $getSidNames(sidName) {
     const names = Array.from(this.names)

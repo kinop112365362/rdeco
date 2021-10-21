@@ -1,5 +1,6 @@
 import { combination } from './combination'
 import { createStore } from './createStore'
+import { createSubscriptions } from './createSubscriptions'
 
 export function createEntity(entity) {
   if (!/Entity$/.test(entity.name)) {
@@ -7,4 +8,5 @@ export function createEntity(entity) {
   }
   const entityStore = createStore(entity)
   combination.$set(entity, entityStore, 'entites')
+  createSubscriptions(entity, entityStore)
 }

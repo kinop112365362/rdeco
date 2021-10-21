@@ -1,5 +1,5 @@
 import { actionIsUndefined } from './utils/actionIsUndefined'
-import { getReducerModel, getStateType } from './utils/getReducerModel'
+import { getReducerModel } from './utils/getReducerModel'
 import { isFunction } from './utils/isFunction'
 import deepmerge from 'deepmerge'
 import { combination } from './combination'
@@ -23,10 +23,10 @@ export function reducer(state, action) {
     eventTargetMeta: {
       componentName: action[3],
       subjectKey: 'state',
-      fnKey: getStateType(action[0]),
+      fnKey: action[2],
     },
     data: {
-      prevState: state[getStateType(action[0])],
+      prevState: state[action[2]],
       nextState: action[1],
       state: newState,
     },

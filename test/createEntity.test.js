@@ -11,59 +11,74 @@ test('测试 Entity 和 组件协同工作', async () => {
     state: {
       result: null,
     },
-    subscribe: {
-      controller: {
-        Test: {
-          onLoginButtonClick() {
-            const { username, password } = this.derivate.Test
-            this.service.getLogin()
-          },
+    derivate: {
+      TestCom: {
+        username(value) {
+          return value
+        },
+        password(value) {
+          return value
         },
       },
-      derivate: {
-        Test: {
-          username(value) {
-            return value
-          },
-          password(value) {
-            return value
+    },
+    subscribe: {
+      controller: {
+        TestCom: {
+          onLoginButtonClick() {
+            this.service.getLogin()
           },
         },
       },
     },
     service: {
-      getLogin(username, password) {
-        setTimeout(() => {
-          this.setter.result({
-            code: 200,
-            data: {
-              message: 'success',
-            },
-          })
-        }, 2000)
+      getLogin() {
+        const { username, password } = this.derivate.TestCom
+        expect(username).toBe('ann')
+        expect(password).toBe(123)
+        this.setter.result({
+          code: 200,
+          data: {
+            message: 'success',
+          },
+        })
+        expect(this.state.result).toStrictEqual({
+          code: 200,
+          data: {
+            message: 'success',
+          },
+        })
       },
     },
   })
   const BaseButton = {
-    name: 'Test1',
+    name: 'TestCom',
     state: {
-      text: 'jacky',
+      username: 'jacky',
+      password: 12345,
+      message: '',
     },
-    ref: {
-      count: 0,
+    subscribe: {
+      state: {
+        TestEntity: {
+          result({ prevState, nextState, state }) {
+            expect(nextState.code).toBe(200)
+            this.setter.message(nextState.data.message)
+          },
+        },
+      },
     },
     controller: {
-      onClick() {
-        ++this.ref.count
-        this.setter.text('ann')
+      onMount() {
+        this.setter.username('ann')
+        this.setter.password(123)
       },
+      onLoginButtonClick() {},
     },
     view: {
       render() {
         return (
-          <div role="button" onClick={this.controller.onClick}>
-            <div role="ref">{this.ref.count}</div>
-            <div role="text">{this.state.text}</div>
+          <div role="button" onClick={this.controller.onLoginButtonClick}>
+            <div role="message">{this.state.message}</div>
           </div>
         )
       },
@@ -72,5 +87,7 @@ test('测试 Entity 和 组件协同工作', async () => {
   const Test = createComponent(BaseButton)
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('button'))
-  await waitFor(() => expect(screen.getByRole('ref')).toHaveTextContent('1'))
+  await waitFor(() => {
+    expect(screen.getByRole('message')).toHaveTextContent('success')
+  })
 })

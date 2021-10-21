@@ -6,7 +6,7 @@ import { createComponent } from '../src'
 
 test('测试 ref 有效性', async () => {
   const BaseButton = {
-    name: 'Test1',
+    name: 'Test1Com',
     state: {
       text: 'jacky',
     },

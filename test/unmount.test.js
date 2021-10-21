@@ -8,10 +8,10 @@ import '@testing-library/jest-dom/extend-expect'
 
 test('测试 unmount 组件销毁的过程', async () => {
   const Tag = createComponent({
-    name: 'Tag',
+    name: 'TagCom',
     controller: {
       onClick() {
-        this.notify('Test', 'notReady')
+        this.notify('TestCom', 'notReady')
       },
     },
     view: {
@@ -26,7 +26,7 @@ test('测试 unmount 组件销毁的过程', async () => {
   })
 
   const Test = createComponent({
-    name: 'Test',
+    name: 'TestCom',
     state: {
       ready: true,
     },
@@ -50,6 +50,6 @@ test('测试 unmount 组件销毁的过程', async () => {
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('notReady'))
   await waitFor(() => {
-    expect(combination.components.Tag).toBe(null)
+    expect(combination.components.TagCom).toBe(null)
   })
 })

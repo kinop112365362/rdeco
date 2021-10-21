@@ -20,7 +20,7 @@ test('运行 createComponent  基本功能测试, state → controller → servi
     },
   }
   const Test = createComponent({
-    name: 'Test1',
+    name: 'Test1Com',
     state,
     service,
     controller,
@@ -67,7 +67,7 @@ test('运行异步 service 测试', async () => {
     },
   }
   const Test = createComponent({
-    name: 'Test2',
+    name: 'Test2Com',
     state,
     service,
     controller,
@@ -113,7 +113,7 @@ test('运行 controller 增强模式测试, logPlugin 运行正常', async () =>
     },
   }
   const Test = createComponent({
-    name: 'Test3',
+    name: 'Test3Com',
     state,
     service,
     controller,
@@ -139,7 +139,7 @@ test('运行 controller 增强模式测试, logPlugin 运行正常', async () =>
 })
 test('运行 view 模块, 测试 render 函数', async () => {
   const Test = createComponent({
-    name: 'Test4',
+    name: 'Test4Com',
     state: {
       renderButton: true,
     },
@@ -183,7 +183,7 @@ test('测试 enhancContext', async () => {
     },
   })
   const Test = createComponent({
-    name: 'Test4',
+    name: 'Test5Com',
     state: {
       renderButton: true,
     },
