@@ -171,7 +171,6 @@ export class Store {
         state: this.state,
       },
     }
-    console.debug(value)
     combination.$broadcast(this.baseSymbol, value, 'state')
   }
   dispose() {

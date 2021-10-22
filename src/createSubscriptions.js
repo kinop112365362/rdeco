@@ -5,7 +5,6 @@ import { forEachByKeys } from './utils/forEachByKeys'
 function createSubscription(store) {
   const { subscribe, notification } = store
   return function bindSubject(subject) {
-    console.debug(subject)
     let subscription = null
     subscription = subject.subscribe({
       next(value) {
@@ -36,7 +35,6 @@ function createSubscription(store) {
           }
         }
         if (subjectKey === 'state') {
-          console.debug(fnKey)
           setTimeout(() => {
             handle()
           }, 33)

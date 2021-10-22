@@ -56,7 +56,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
     state: {
       currentSelectRowId: null,
       lastSelectRowId: null,
-      dataSource: createMap(10),
+      dataSource: createMap(100),
     },
     notification: {
       selectRow(id) {
