@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react'
-import { combination } from './combination'
-import { useSubscribe } from './useSubscribe'
-import { useStoreDispose } from './useStoreDispose'
-import { useStoreUpdate } from './useStoreUpdate'
-import { createStore } from './createStore'
-import { validate } from './utils/validate'
+import { combination } from '../core/combination'
+import { useSubscribe } from './reactHooks/useSubscribe'
+import { useStoreDispose } from './reactHooks/useStoreDispose'
+import { useStoreUpdate } from './reactHooks/useStoreUpdate'
+import { createStore } from '../core/createStore'
+import { validate } from '../utils/validate'
 
 export function createComponent(component) {
   const baseSymbol = validate(component.name)

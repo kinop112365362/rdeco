@@ -3,7 +3,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import { createComponent } from '../src/index'
-import { combination } from '../src/combination'
+import { combination } from '../src/core/combination'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 unmount 组件销毁的过程', async () => {

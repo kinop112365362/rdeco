@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { combination } from './combination'
 import { Store } from './Store'
-import { forEachByKeys } from './utils/forEachByKeys'
+import { forEachByKeys } from '../utils/forEachByKeys'
 
 export function createStore(storeConfig) {
   const store = new Store(storeConfig)

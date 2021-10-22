@@ -1,7 +1,7 @@
-import { actionIsUndefined } from './utils/actionIsUndefined'
-import { getReducerModel } from './utils/getReducerModel'
+import { actionIsUndefined } from '../utils/actionIsUndefined'
+import { getReducerModel } from '../utils/getReducerModel'
 import deepmerge from 'deepmerge'
-import { combination } from './combination'
+import { combination } from '../core/combination'
 
 export function reducer(state, action) {
   const stateKeys = Object.keys(state)

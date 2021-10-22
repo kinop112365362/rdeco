@@ -5,11 +5,11 @@
 // @filename: Store.js
 import { bindContext } from './bindContext'
 import { combination } from './combination'
-import { getReducerType } from './utils/getReducerModel'
-import { storeConfigValidate } from './utils/storeConfigValidate'
+import { getReducerType } from '../utils/getReducerModel'
+import { storeConfigValidate } from '../utils/storeConfigValidate'
 import { BehaviorSubject } from 'rxjs'
 import { notify } from './notify'
-import { isFunction } from './utils/isFunction'
+import { isFunction } from '../utils/isFunction'
 import * as deepmerge from 'deepmerge'
 
 export class Store {

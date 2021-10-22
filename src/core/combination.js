@@ -1,4 +1,4 @@
-import { connectSubject } from './subject'
+import { connectSubject } from '../subscribe/subject'
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
 export const combination = {

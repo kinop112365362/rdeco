@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { createSubscriptions } from './createSubscriptions'
+import { createSubscriptions } from '../../subscribe/createSubscriptions'
 
 export function useSubscribe(store, proxySubject) {
   useEffect(() => {

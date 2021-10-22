@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import { combination } from './combination'
 import { createStore } from './createStore'
-import { createSubscriptions } from './createSubscriptions'
-import { validate } from './utils/validate'
+import { createSubscriptions } from '../subscribe/createSubscriptions'
+import { validate } from '../utils/validate'
 
 export function createEntity(entity) {
   const symbol = validate(entity.name)

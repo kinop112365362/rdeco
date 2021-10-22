@@ -1,5 +1,5 @@
 import { useReducer, useRef } from 'react'
-import { reducer } from './reducer'
+import { reducer } from '../reducer'
 
 export function useStoreUpdate(store, nextState, props) {
   const [state, dispatch] = useReducer(reducer, nextState)
