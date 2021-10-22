@@ -25,9 +25,13 @@ try {
     Buffer.from(JSON.stringify(packagejsonObject, null, 2))
   )
   await writeFile(packagejsonPath, newPackagejsonObjectData)
-  shelljs.exec('yarn clean && yarn build')
+  if (shelljs.exec('yarn clean && yarn build').code !== 0) {
+    shell.echo('Error: Babel Build Faild');
+    shell.exit(1);
+  }
   shelljs.exec('yarn publish --registry https://registry.npmjs.org/')
   shelljs.exec('yarn publish')
+  shelljs.exec('git add .')
   shelljs.exec(`git commit -a -m"chore(version): v${nextVersion}"`)
   shelljs.exec(`git tag v${nextVersion}`)
   shelljs.exec('git push')
