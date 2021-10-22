@@ -5,94 +5,106 @@ import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { createComponent, createEntity } from '../src'
 
-test('测试 Entity 和 组件协同工作', async () => {
-  createEntity({
-    name: '@test/login-entity',
+test('测试多实例下, data-table 对 row 进行单选控制', async () => {
+  const Row = createComponent({
+    name: '@test/row',
     state: {
-      result: null,
+      value: '',
+      selected: 'false',
     },
-    derivate: {
-      ['@test/base-button']: {
-        username: (v) => v,
-        password: (v) => v,
+    notification: {
+      select(selected) {
+        this.setter.selected(selected)
       },
-    },
-    subscribe: {
-      controller: [
-        [
-          '@test/base-button',
-          {
-            onLoginButtonClick() {
-              this.service.getLogin()
-            },
-          },
-        ],
-      ],
-    },
-    service: {
-      getLogin() {
-        const { username, password } = this.derivate['@test/base-button']
-        expect(username).toBe('ann')
-        expect(password).toBe(123)
-        this.setter.result({
-          code: 200,
-          data: {
-            message: 'success',
-          },
-        })
-        expect(this.state.result).toStrictEqual({
-          code: 200,
-          data: {
-            message: 'success',
-          },
-        })
-      },
-    },
-  })
-  const BaseButton = {
-    name: '@test/base-button',
-    state: {
-      username: 'jacky',
-      password: 12345,
-      message: '',
-    },
-    subscribe: {
-      state: [
-        [
-          '@test/login-entity',
-          {
-            result({ prevState, nextState, state }) {
-              expect(nextState.code).toBe(200)
-              this.setter.message(nextState.data.message)
-            },
-          },
-        ],
-      ],
-    },
-    service: {
-      test() {},
     },
     controller: {
-      onMount() {
-        this.setter.username('ann')
-        this.setter.password(123)
+      onChange(e) {
+        this.setter.value(e.target.value)
       },
-      onLoginButtonClick() {},
+      onClick() {
+        this.notify('@test/data-table', 'selectRow', this.props.id)
+        this.setter.selected('true')
+      },
     },
     view: {
       render() {
         return (
-          <div role="button" onClick={this.controller.onLoginButtonClick}>
-            <div role="message">{this.state.message}</div>
+          <div
+            role={`${this.props.id}`}
+            onClick={(e) => this.controller.onClick()}
+          >
+            <input
+              type="text"
+              onChange={this.controller.onChange}
+              value={this.state.value}
+            />
+            <div role={`selected_${this.props.id}`}>{this.state.selected}</div>
           </div>
         )
       },
     },
+  })
+  function createMap(max) {
+    const map = []
+    for (let index = 0; index < max; index++) {
+      map.push(index)
+    }
+    return map
   }
-  const Test = createComponent(BaseButton)
-  render(<Test></Test>)
-  fireEvent.click(screen.getByRole('button'))
+  const DataTable = createComponent({
+    name: '@test/data-table',
+    state: {
+      currentSelectRowId: null,
+      lastSelectRowId: null,
+      dataSource: createMap(10),
+    },
+    notification: {
+      selectRow(id) {
+        if (!this.state.lastSelectRowId) {
+          this.setter.lastSelectRowId(id)
+        } else {
+          this.notify(
+            [
+              '@test/row',
+              ({ id }) => {
+                return id === this.state.lastSelectRowId
+              },
+            ],
+            'select',
+            'false'
+          )
+        }
+        this.setter.currentSelectRowId(id)
+      },
+    },
+    view: {
+      render() {
+        return (
+          <>
+            <div role="currentSelectRowId">{this.state.currentSelectRowId}</div>
+            {this.state.dataSource.map((data) => {
+              return (
+                <Row key={data} id={data}>
+                  data
+                </Row>
+              )
+            })}
+          </>
+        )
+      },
+    },
+  })
+
+  render(<DataTable></DataTable>)
+  fireEvent.click(screen.getByRole('5'))
   await waitFor(() => {
-    expect(screen.getByRole('message')).toHaveTextContent('success')
+    expect(screen.getByRole('selected_5')).toHaveTextContent('true')
+    expect(screen.getByRole('currentSelectRowId')).toHaveTextContent('5')
+  })
+  fireEvent.click(screen.getByRole('4'))
+  await waitFor(() => {
+    expect(screen.getByRole('selected_4')).toHaveTextContent('true')
+    expect(screen.getByRole('currentSelectRowId')).toHaveTextContent('4')
+    expect(screen.getByRole('selected_5')).toHaveTextContent('false')
   })
 })

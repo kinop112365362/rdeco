@@ -1,4 +1,7 @@
 export function storeConfigValidate(storeConfig) {
+  if (!storeConfig.name) {
+    throw new Error(`name 未定义`)
+  }
   if (!storeConfig.service) {
     storeConfig.service = {}
   }

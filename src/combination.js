@@ -1,7 +1,6 @@
 import { connectSubject } from './subject'
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
-/* eslint-disable no-undef */
 export const combination = {
   subscribeIds: {},
   components: {},
@@ -18,6 +17,45 @@ export const combination = {
       collection[symbol] = null
     }
   },
+  $connectProxySubjectAsync(name, handle) {
+    const collection = this.proxySubjects
+    let componentName = name
+    let findHandler = null
+    if (Array.isArray(name)) {
+      componentName = name[0]
+      findHandler = name[1]
+    }
+    function connectAsyncCall(instance) {
+      if (instance.shadow.length > 0) {
+        if (findHandler) {
+          const target = collection[componentName]?.shadow.find(
+            (shadowProxy) => {
+              return findHandler(shadowProxy.ins.props)
+            }
+          )
+          return handle.call(null, target)
+        }
+        return instance.shadow.forEach((shadowTarget) => {
+          handle.call(null, shadowTarget)
+        })
+      }
+      handle.call(null, instance)
+    }
+    if (collection[componentName]) {
+      connectAsyncCall(collection[componentName])
+    } else {
+      const connectSub = connectSubject.subscribe({
+        next: ({ name, proxySubject }) => {
+          if (name === componentName) {
+            connectAsyncCall(proxySubject)
+            connectSub?.unsubscribe()
+          } else {
+            // throw new Error(`订阅异常: 组件集合中为找到 ${componentName} 组件`)
+          }
+        },
+      })
+    }
+  },
   $connectAsync(componentName, handle) {
     const collection = this.$getCollection(componentName)
     if (collection[componentName]) {
@@ -28,8 +66,6 @@ export const combination = {
           if (name === componentName) {
             handle.call(null, componentInstance)
             connectSub?.unsubscribe()
-          } else {
-            // throw new Error(`订阅异常: 组件集合中为找到 ${componentName} 组件`)
           }
         },
       })
@@ -37,17 +73,35 @@ export const combination = {
   },
   $set(symbol, ins) {
     const collection = this.$getCollection()
-    collection[symbol] = ins
+    let proxySubject = {
+      subject: new ReplaySubject(99),
+      ins,
+      shadow: [],
+    }
+    if (!collection[symbol]) {
+      collection[symbol] = ins
+      collection[symbol].shadow = []
+    } else {
+      collection[symbol].shadow.push(ins)
+    }
     if (!this.proxySubjects[symbol]) {
-      this.proxySubjects[symbol] = new ReplaySubject(99)
+      this.proxySubjects[symbol] = proxySubject
+    } else {
+      proxySubject = {
+        subject: new ReplaySubject(99),
+        ins,
+      }
+      this.proxySubjects[symbol].shadow.push(proxySubject)
     }
     if (ins.router && !this.routerSubjects[symbol]) {
       this.routerSubjects[symbol] = new BehaviorSubject(this.routerHistory[0])
     }
     connectSubject.next({
       name: symbol,
+      proxySubject,
       componentInstance: ins,
     })
+    return proxySubject
   },
   $routerBroadcast(...args) {
     const [subjectKey, arg, syncker] = args

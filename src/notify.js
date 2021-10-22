@@ -10,8 +10,8 @@ export const notify = (...args) => {
     syncker.unsubscribe()
   }
   const infrom = (target, fnKey, data, next) => {
-    combination.$connectAsync(target, () => {
-      combination.proxySubjects[target].next({
+    combination.$connectProxySubjectAsync(target, (targetProxy) => {
+      targetProxy.subject.next({
         fnKey,
         data,
         next,

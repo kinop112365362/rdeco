@@ -23,6 +23,7 @@ test('测试 Entity 和 组件协同工作', async () => {
           '@test/base-button',
           {
             onLoginButtonClick() {
+              console.debug('click')
               this.service.getLogin()
             },
           },
@@ -63,6 +64,7 @@ test('测试 Entity 和 组件协同工作', async () => {
           {
             result({ prevState, nextState, state }) {
               expect(nextState.code).toBe(200)
+              console.debug(nextState.data.message)
               this.setter.message(nextState.data.message)
             },
           },

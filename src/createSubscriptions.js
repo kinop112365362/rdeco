@@ -5,6 +5,7 @@ import { forEachByKeys } from './utils/forEachByKeys'
 function createSubscription(store) {
   const { subscribe, notification } = store
   return function bindSubject(subject) {
+    console.debug(subject)
     let subscription = null
     subscription = subject.subscribe({
       next(value) {
@@ -35,6 +36,7 @@ function createSubscription(store) {
           }
         }
         if (subjectKey === 'state') {
+          console.debug(fnKey)
           setTimeout(() => {
             handle()
           }, 33)
@@ -57,12 +59,12 @@ function createRouterSubscription(store) {
     })
   }
 }
-function createSelfSubscription(bindSubject, store) {
+function createSelfSubscription(bindSubject, store, proxySubject) {
   if (store.notification) {
-    return bindSubject(combination.proxySubjects[store.baseSymbol])
+    return bindSubject(proxySubject.subject)
   }
 }
-export function createSubscriptions(store) {
+export function createSubscriptions(store, proxySubject) {
   const subscriptions = []
   const bindSubject = createSubscription(store)
   if (store.subscribe) {
@@ -76,6 +78,10 @@ export function createSubscriptions(store) {
     })
   }
   const routerSubscription = createRouterSubscription(store)
-  const selfSubscription = createSelfSubscription(bindSubject, store)
+  const selfSubscription = createSelfSubscription(
+    bindSubject,
+    store,
+    proxySubject
+  )
   return { routerSubscription, selfSubscription, subscriptions }
 }
