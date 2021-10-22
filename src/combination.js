@@ -1,27 +1,21 @@
 import { connectSubject } from './subject'
-import createName from './utils/createName'
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
 /* eslint-disable no-undef */
 export const combination = {
-  names: new Set(),
-  subscribeNames: {},
-  entites: {},
+  subscribeIds: {},
   components: {},
   enhanceContext: {},
   proxySubjects: {},
   routerSubjects: {},
   routerHistory: [],
-  $getCollection(name) {
-    if (/Entity$/.test(name)) {
-      return this.entites
-    }
+  $getCollection() {
     return this.components
   },
-  $remove(componentName) {
-    const collection = this.$getCollection(componentName)
-    if (collection[componentName]) {
-      collection[componentName] = null
+  $remove(symbol) {
+    const collection = this.$getCollection(symbol)
+    if (collection[symbol]) {
+      collection[symbol] = null
     }
   },
   $connectAsync(componentName, handle) {
@@ -41,42 +35,27 @@ export const combination = {
       })
     }
   },
-  $has({ name, sid }) {
-    const componentName = createName({ name, sid })
-    const collection = this.$getCollection(componentName)
-    if (collection[componentName]) {
-      return true
+  $set(symbol, ins) {
+    const collection = this.$getCollection()
+    collection[symbol] = ins
+    if (!this.proxySubjects[symbol]) {
+      this.proxySubjects[symbol] = new ReplaySubject(99)
     }
-    return false
-  },
-  $set(storeConfig, ins, type = 'components') {
-    this[type][ins.name] = ins
-    if (!this.proxySubjects[ins.name]) {
-      this.proxySubjects[ins.name] = new ReplaySubject(99)
-    }
-    if (storeConfig.router && !this.routerSubjects[ins.name]) {
-      this.routerSubjects[ins.name] = new BehaviorSubject(this.routerHistory[0])
+    if (ins.router && !this.routerSubjects[symbol]) {
+      this.routerSubjects[symbol] = new BehaviorSubject(this.routerHistory[0])
     }
     connectSubject.next({
-      name: ins.name,
+      name: symbol,
       componentInstance: ins,
-      type,
     })
-    this.names.add(ins.name)
   },
   $routerBroadcast(...args) {
     const [subjectKey, arg, syncker] = args
     this.routerHistory.push({ subjectKey, arg, syncker })
   },
-  $broadcast(name, value, subjectKey) {
-    const collection = this.$getCollection(name)
-    collection[name].subjects[subjectKey].next(value)
-  },
-  $getSidNames(sidName) {
-    const names = Array.from(this.names)
-    return names.filter((name) => {
-      name.split('_')[0] === sidName
-    })
+  $broadcast(symbol, value, subjectKey) {
+    const collection = this.$getCollection()
+    collection[symbol].subjects[subjectKey].next(value)
   },
 }
 export function enhanceContext(key, value) {
@@ -85,8 +64,6 @@ export function enhanceContext(key, value) {
 if (window) {
   window.$$rdecoLog = () => {
     return {
-      names: Object.freeze(combination.names),
-      entites: Object.freeze(combination.entites),
       components: Object.freeze(combination.components),
       enhanceContext: Object.freeze(combination.enhanceContext),
     }

@@ -1,12 +1,14 @@
+/* eslint-disable no-undef */
 import { combination } from './combination'
 import { createStore } from './createStore'
 import { createSubscriptions } from './createSubscriptions'
+import { validate } from './utils/validate'
 
 export function createEntity(entity) {
-  if (!/Entity$/.test(entity.name)) {
-    throw new Error('Entity 的命名必须以 ***Entity 结尾')
-  }
+  const symbol = validate(entity.name)
+  entity.baseSymbol = symbol
   const entityStore = createStore(entity)
-  combination.$set(entity, entityStore, 'entites')
-  createSubscriptions(entity, entityStore)
+  combination.$set(symbol, entityStore)
+  createSubscriptions(entityStore)
+  return { symbol }
 }

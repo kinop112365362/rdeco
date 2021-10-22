@@ -5,16 +5,17 @@ import { forEachByKeys } from './utils/forEachByKeys'
 
 export function createStore(storeConfig) {
   const store = new Store(storeConfig)
-  if (storeConfig.subscribe) {
-    if (!combination.subscribeNames[store.name]) {
-      combination.subscribeNames[store.name] = {}
+  if (store.subscribe) {
+    if (!combination.subscribeIds[store.baseSymbol]) {
+      combination.subscribeIds[store.baseSymbol] = {}
     }
-    forEachByKeys(storeConfig.subscribe, (subjectKey) => {
-      if (!combination.subscribeNames[store.name][subjectKey]) {
-        combination.subscribeNames[store.name][subjectKey] = new Set()
+    forEachByKeys(store.subscribe, (subjectKey) => {
+      if (!combination.subscribeIds[store.baseSymbol][subjectKey]) {
+        combination.subscribeIds[store.baseSymbol][subjectKey] = new Set()
       }
-      forEachByKeys(storeConfig.subscribe[subjectKey], (componentKey) => {
-        combination.subscribeNames[store.name][subjectKey].add(componentKey)
+      store.subscribe[subjectKey].forEach((meta) => {
+        const [target] = meta
+        combination.subscribeIds[store.baseSymbol][subjectKey].add(target)
       })
     })
   }

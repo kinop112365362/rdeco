@@ -1,37 +1,38 @@
 /* eslint-disable react/display-name */
 import { combination } from './combination'
 
-export function bindContext(fnKeys, fnObj, context, instance, subjectKey) {
+export function bindContext(fnKeys, fnObj, context, ins, subjectKey) {
   if (!fnObj) {
     return {}
   }
   const fnObjBindContext = {}
   fnKeys.forEach((fnKey) => {
     fnObjBindContext[fnKey] = (...args) => {
-      const data = {
-        key: fnKey,
-        args: args,
-        name: instance.name,
-        state: instance.state,
+      if (subjectKey !== 'view') {
+        const data = {
+          key: fnKey,
+          args: args,
+          state: ins.state,
+        }
+        const eventTargetMeta = {
+          componentName: ins.baseSymbol,
+          subjectKey,
+          fnKey,
+        }
+        const value = {
+          eventTargetMeta,
+          data,
+        }
+        combination.$broadcast(ins.baseSymbol, value, subjectKey)
       }
-      const eventTargetMeta = {
-        componentName: instance.props.sid
-          ? instance.name.split('_')[0]
-          : instance.name,
-        subjectKey,
-        fnKey,
-        sid: instance.props.sid,
-      }
-      const value = {
-        eventTargetMeta,
-        data,
-      }
-      combination.$broadcast(instance.name, value, subjectKey)
       return fnObj[fnKey].call(
         { ...combination.enhanceContext, ...context },
         ...args
       )
     }
+    Object.defineProperty(fnObjBindContext[fnKey], 'name', {
+      value: `${fnKey}BindContext`,
+    })
   })
   return fnObjBindContext
 }

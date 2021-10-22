@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { createComponent } from '../src'
 test('派生功能是否可用', async () => {
   const Test = createComponent({
-    name: 'Test1Com',
+    name: '@test/com1',
     state: {
       count: 0,
     },

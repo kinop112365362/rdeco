@@ -4,9 +4,9 @@ import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import { createComponent } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
-test('测试 props 带有 sid 的渲染正确性, 有 name 没有 sid 的情况', async () => {
+test('测试 props 的正确归属', async () => {
   const Text = createComponent({
-    name: 'TextCom',
+    name: '@test/com',
     state: {
       text: 'default',
     },
@@ -34,9 +34,7 @@ test('测试 props 带有 sid 的渲染正确性, 有 name 没有 sid 的情况'
           { name: 't1', text: { display: 't1' } },
           { name: 't2', text: { display: 't2' } },
         ].map((d) => {
-          return (
-            <Text sid={d.name} name={d.name} key={d.name} text={d.text}></Text>
-          )
+          return <Text name={d.name} key={d.name} text={d.text}></Text>
         })}
       </div>
     )

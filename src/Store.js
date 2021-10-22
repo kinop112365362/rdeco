@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable valid-jsdoc */
 /* eslint-disable react/display-name */
@@ -5,7 +6,6 @@
 import { bindContext } from './bindContext'
 import { combination } from './combination'
 import { getReducerType } from './utils/getReducerModel'
-import createName from './utils/createName'
 import { storeConfigValidate } from './utils/storeConfigValidate'
 import { BehaviorSubject } from 'rxjs'
 import { notify } from './notify'
@@ -14,11 +14,15 @@ import * as deepmerge from 'deepmerge'
 
 export class Store {
   constructor(storeConfig) {
-    if (!storeConfig.name && typeof storeConfig.name !== 'string') {
-      throw new Error(`组件必须声明 name 字段, 不可以为空`)
-    }
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     this.state = { ...storeConfig.state }
+    this.router = storeConfig.router ? { ...storeConfig.router } : null
+    this.notification = storeConfig.notification
+      ? { ...storeConfig.notification }
+      : null
+    this.subscribe = storeConfig.subscribe ? { ...storeConfig.subscribe } : null
+    this.ref = storeConfig.ref ? { ...storeConfig.ref } : null
+    this.baseSymbol = storeConfig.baseSymbol
     if (storeConfig.derivate) {
       this.derivate = {}
       const baseHandler = {}
@@ -67,15 +71,14 @@ export class Store {
       })
       Object.defineProperties(this.derivate, baseHandler)
     }
-    this.name = createName(storeConfig)
+    this.name = storeConfig.name
     this.subjects = {
       state: new BehaviorSubject(null),
       controller: new BehaviorSubject(null),
-      view: new BehaviorSubject(null),
       service: new BehaviorSubject(null),
       tappable: new BehaviorSubject(null),
     }
-    this.style = { ...storeConfig.style }
+    this.style = storeConfig.style ? { ...storeConfig.style } : null
     this.setter = {}
     this.props = {}
     // eslint-disable-next-line no-undef
@@ -83,18 +86,18 @@ export class Store {
     this.tappable = (fnKey, data) => {
       const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
       if (!reg.test(fnKey)) {
-        throw new Error(`this.tappable 只支持驼峰命名的 hook`)
+        throw new Error(`this.tappable 只支持驼峰命名的 tappable`)
       }
       const value = {
         eventTargetMeta: {
-          componentName: this.props.sid ? this.name.split('_')[0] : this.name,
+          componentName: this.baseSymbol,
           subjectKey: 'tappable',
           fnKey,
         },
         data,
       }
 
-      combination.$broadcast(this.name, value, 'tappable')
+      combination.$broadcast(this.baseSymbol, value, 'tappable')
     }
 
     const baseContext = {
@@ -105,13 +108,12 @@ export class Store {
       props: this.props,
       tappable: this.tappable,
       notify: this.notify,
-      readState: this.readState,
     }
     const stateKeys = Object.keys(this.state)
     stateKeys.forEach((stateKey) => {
       const type = getReducerType(stateKey)
       this.setter[stateKey] = (payload) => {
-        this.dispatch([type, payload, stateKey, this.name])
+        this.dispatch([type, payload, stateKey, this.baseSymbol])
         return payload
       }
     })
@@ -154,29 +156,25 @@ export class Store {
     this.service = serviceBindContext
   }
   dispatch([...args]) {
-    if (/Entity$/.test(this.name)) {
-      const [type, payload, stateKey, name] = args
-      const prevState = { ...this.state[stateKey] }
-      this.state[stateKey] = payload
-      const value = {
-        eventTargetMeta: {
-          componentName: name,
-          subjectKey: 'state',
-          fnKey: stateKey,
-        },
-        data: {
-          prevState,
-          nextState: payload,
-          state: this.state,
-        },
-      }
-      combination.$broadcast(name, value, 'state')
-    } else {
-      throw new Error('dispatch 没有被正确初始化, 请检查 hook 初始化部分的代码')
+    const [type, payload, stateKey, name] = args
+    const prevState = { ...this.state[stateKey] }
+    this.state[stateKey] = payload
+    const value = {
+      eventTargetMeta: {
+        componentName: name,
+        subjectKey: 'state',
+        fnKey: stateKey,
+      },
+      data: {
+        prevState,
+        nextState: payload,
+        state: this.state,
+      },
     }
+    combination.$broadcast(this.baseSymbol, value, 'state')
   }
   dispose() {
-    combination.$remove(this.name)
+    combination.$remove(this.baseSymbol)
   }
   update(state, dispatch, props, ref) {
     for (const contextName in this.private) {

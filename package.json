@@ -95,6 +95,7 @@
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
-    "rxjs": "^7.3.0"
+    "rxjs": "^7.3.0",
+    "validate-npm-package-name": "^3.0.0"
   }
 }

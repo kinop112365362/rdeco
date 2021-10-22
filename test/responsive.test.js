@@ -6,8 +6,56 @@ import { createComponent } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 responsive', async () => {
+  const ComponentA = createComponent({
+    name: '@test/component-a',
+    state: {
+      name: 'jacky',
+      age: '18',
+    },
+    controller: {
+      onClick() {
+        this.setter.age('20')
+        this.tappable('setAgeOver', 20)
+        this.setter.name('ann')
+      },
+    },
+    view: {
+      render() {
+        return (
+          <div role="namea">
+            {this.state.name}
+            <button role="button" onClick={this.controller.onClick}></button>
+          </div>
+        )
+      },
+    },
+  })
+  const ComponentB = createComponent({
+    name: '@test/component-b',
+    state: {
+      name: 'ann',
+      ctext: '',
+      age: 0,
+    },
+    controller: {
+      onClick() {
+        this.setter.age(19)
+      },
+    },
+    view: {
+      render() {
+        return (
+          <div>
+            <div role="name">{this.state.name}</div>
+            <button role="buttonb" onClick={this.controller.onClick}></button>
+            <div role="ctext">{this.state.ctext}</div>
+          </div>
+        )
+      },
+    },
+  })
   const ComponentC = createComponent({
-    name: 'ComponentCCom',
+    name: '@test/component-c',
     state: {
       text: '',
       age: 0,
@@ -24,32 +72,44 @@ test('测试 responsive', async () => {
       },
     },
     subscribe: {
-      state: {
-        ComponentACom: {
-          name({ prevState, nextState, state }) {
-            this.setter.aname(nextState)
+      state: [
+        [
+          '@test/component-a',
+          {
+            name({ prevState, nextState, state }) {
+              this.setter.aname(nextState)
+            },
           },
-        },
-      },
-      tappable: {
-        ComponentACom: {
-          setAgeOver(age) {
-            this.setter.hookAge(age)
+        ],
+      ],
+      tappable: [
+        [
+          '@test/component-a',
+          {
+            setAgeOver(age) {
+              this.setter.hookAge(age)
+            },
           },
-        },
-      },
-      controller: {
-        ComponentACom: {
-          onClick({ state }) {
-            this.setter.age(state.age)
+        ],
+      ],
+      controller: [
+        [
+          '@test/component-a',
+          {
+            onClick({ state }) {
+              this.setter.age(state.age)
+            },
           },
-        },
-        ComponentBCom: {
-          onClick({ state }) {
-            this.setter.bage(state.age)
+        ],
+        [
+          '@test/component-a',
+          {
+            onClick({ state }) {
+              this.setter.bage(state.age)
+            },
           },
-        },
-      },
+        ],
+      ],
     },
     controller: {
       onClick() {
@@ -78,82 +138,40 @@ test('测试 responsive', async () => {
       },
     },
   })
-  const ComponentA = createComponent({
-    name: 'ComponentACom',
-    state: {
-      name: 'jacky',
-      age: '18',
-    },
-    controller: {
-      onClick() {
-        this.setter.age('20')
-        this.tappable('setAgeOver', 20)
-        this.setter.name('ann')
-      },
-    },
-    view: {
-      render() {
-        return (
-          <div role="namea">
-            {this.state.name}
-            <button role="button" onClick={this.controller.onClick}></button>
-          </div>
-        )
-      },
-    },
-  })
-  const ComponentB = createComponent({
-    name: 'ComponentBCom',
-    state: {
-      name: 'ann',
-      ctext: '',
-      age: 0,
-    },
-    controller: {
-      onClick() {
-        this.setter.age(19)
-      },
-    },
-    view: {
-      render() {
-        return (
-          <div>
-            <div role="name">{this.state.name}</div>
-            <button role="buttonb" onClick={this.controller.onClick}></button>
-            <div role="ctext">{this.state.ctext}</div>
-          </div>
-        )
-      },
-    },
-  })
+
   const ComponentD = createComponent({
-    name: 'ComponentDCom',
+    name: '@test/component-d',
     state: {
       name: 'd',
       sidName: '',
       sidHookName: '',
     },
     subscribe: {
-      controller: {
-        ComponentCCom: {
-          onClick() {
-            this.setter.sidName('ComponentC:sid')
+      controller: [
+        [
+          '@test/component-c',
+          {
+            onClick() {
+              this.setter.sidName('ComponentC:sid')
+            },
           },
-        },
-      },
-      tappable: {
-        ComponentCCom: {
-          onClick() {
-            this.setter.sidHookName('ComponentC:sidHook')
+        ],
+      ],
+      tappable: [
+        [
+          '@test/component-c',
+          {
+            onClick() {
+              this.setter.sidHookName('ComponentC:sidHook')
+            },
           },
-        },
-      },
+        ],
+      ],
     },
     controller: {
       onClick() {
         this.setter.name(this.props.name)
-        this.notify('ComponentCCom', 'callMe', 'helloC')
-        this.notify('ComponentCCom_cc', 'callMe', 'helloC')
+        this.notify('@test/component-c', 'callMe', 'helloC')
       },
     },
     view: {
@@ -180,13 +198,8 @@ test('测试 responsive', async () => {
       <div>
         <ComponentB></ComponentB>
         <ComponentA></ComponentA>
-        CC
-        <CComponentC sid="cc"></CComponentC>
-        CC
         <ComponentC></ComponentC>
         <ComponentD buttonRole="buttonc" name="d"></ComponentD>
-        <ComponentD sid="d" buttonRole="buttond" name="ddd"></ComponentD>
-        <ComponentD sid="e" buttonRole="buttone" name="eee"></ComponentD>
       </div>
     )
   }
@@ -194,7 +207,6 @@ test('测试 responsive', async () => {
   fireEvent.click(screen.getByRole('button'))
   fireEvent.click(screen.getByRole('buttonb'))
   fireEvent.click(screen.getByRole('buttonc'))
-  fireEvent.click(screen.getByRole('ccc'))
   await waitFor(() => {
     screen.getAllByRole('age').forEach((el) => {
       expect(el).toHaveTextContent('18')
@@ -210,12 +222,6 @@ test('测试 responsive', async () => {
     })
     screen.getAllByRole('hookAge').forEach((el) => {
       expect(el).toHaveTextContent('20')
-    })
-    screen.getAllByRole('sidName').forEach((el) => {
-      expect(el).toHaveTextContent('ComponentC:sid')
-    })
-    screen.getAllByRole('sidNameHook').forEach((el) => {
-      expect(el).toHaveTextContent('ComponentC:sidHook')
     })
   })
 })

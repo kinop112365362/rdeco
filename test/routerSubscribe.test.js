@@ -9,7 +9,7 @@ import '@testing-library/jest-dom/extend-expect'
 test('测试 router 响应内部 notify', async () => {
   notify(['@@router', 'after', { route: { name: 'page', path: '/page' } }])
   const Test = createComponent({
-    name: 'TestCom',
+    name: '@test/com1',
     state: {
       page: 'no router',
     },

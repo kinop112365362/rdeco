@@ -4,13 +4,13 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { createComponent } from '../src'
 import { notify } from '../src/notify'
+notify('@test/com1', 'loading', 'true')
+notify('@test/com1', 'syncLoading', 'true').then((value) => {
+  expect(value).toBe('是')
+})
 test('测试 notify api', async () => {
-  notify('Test1Com', 'loading', 'true')
-  notify('Test1Com', 'syncLoading', 'true').then((value) => {
-    expect(value).toBe('是')
-  })
   const Test = createComponent({
-    name: 'Test1Com',
+    name: '@test/com1',
     state: {
       count: 0,
       loading: '',
@@ -57,6 +57,7 @@ test('测试 notify api', async () => {
       },
     },
   })
+
   render(<Test name="jacky"></Test>)
   expect(screen.getByRole('count1')).toHaveTextContent('2')
   expect(screen.getByRole('count2')).toHaveTextContent('3')

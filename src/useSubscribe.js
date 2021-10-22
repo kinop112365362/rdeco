@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { createSubscriptions } from './createSubscriptions'
 
-export function useSubscribe(storeConfig, store) {
+export function useSubscribe(store) {
   useEffect(() => {
     const { routerSubscription, selfSubscription, subscriptions } =
-      createSubscriptions(storeConfig, store)
+      createSubscriptions(store)
     return () => {
       subscriptions.forEach((sub) => {
         sub.unsubscribe()
