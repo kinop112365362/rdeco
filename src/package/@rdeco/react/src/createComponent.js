@@ -2,11 +2,11 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react'
 // eslint-disable-next-line import/no-unresolved
-import { combination, createStore } from '@rdeco/core'
+import { combination, createStore } from '../../core/src'
 import { useSubscribe } from './reactHooks/useSubscribe'
 import { useStoreDispose } from './reactHooks/useStoreDispose'
 import { useStoreUpdate } from './reactHooks/useStoreUpdate'
-import { validate } from '../../rdecoCore/src/utils/validate'
+import { validate } from '../../core/src/utils/validate'
 
 export function createComponent(component) {
   const baseSymbol = validate(component.name)

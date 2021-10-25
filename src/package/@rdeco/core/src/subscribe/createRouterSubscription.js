@@ -1,4 +1,4 @@
-import { combination } from '../core/combination'
+import { combination } from '../store/combination'
 
 export function createRouterSubscription(store) {
   if (store.router) {

@@ -1,7 +1,6 @@
 {
-  "name": "rdeco-group",
-  "private": true,
-  "version": "0.0.0",
+  "name": "rdeco",
+  "version": "2.3.0",
   "description": "基于响应式的 React 应用开发框架",
   "keywords": [
     "react",

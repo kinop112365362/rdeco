@@ -8,7 +8,7 @@ export function createStore(storeConfig) {
     if (!combination.subscribeIds[store.baseSymbol]) {
       combination.subscribeIds[store.baseSymbol] = {}
     }
-    store.subscribe.forEach((subjectKey) => {
+    Object.keys(store.subscribe).forEach((subjectKey) => {
       if (!combination.subscribeIds[store.baseSymbol][subjectKey]) {
         combination.subscribeIds[store.baseSymbol][subjectKey] = new Set()
       }

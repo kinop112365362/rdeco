@@ -1,8 +1,7 @@
-import { actionIsUndefined } from '../../../rdecoCore/src/utils/actionIsUndefined'
+import { actionIsUndefined } from '../../../core/src/utils/actionIsUndefined'
 import { getReducerModel } from './getReducerModel'
 import deepmerge from 'deepmerge'
-// eslint-disable-next-line import/no-unresolved
-import { combination } from '@rdeco/core'
+import { combination } from '../../../core/src'
 
 export function reducer(state, action) {
   const stateKeys = Object.keys(state)

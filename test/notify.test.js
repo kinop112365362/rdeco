@@ -2,8 +2,8 @@
 import React, { useEffect } from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent } from '../src'
-import { notify } from '../src/core/subscribe/notify'
+import { createComponent, notify } from '../src'
+
 notify('@test/com1', 'loading', 'true')
 notify('@test/com1', 'syncLoading', 'true').then((value) => {
   expect(value).toBe('是')

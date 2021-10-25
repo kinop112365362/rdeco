@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { useEffect } from 'react'
-import { createSubscriptions } from '@rdeco/core'
+import { createSubscriptions } from '../../../core/src'
 
 export function useSubscribe(store, proxySubject) {
   useEffect(() => {

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { AsyncSubject } from 'rxjs'
-import { combination } from '../core/combination'
+import { combination } from '../store/combination'
 
 export const notify = (...args) => {
   const syncker = new AsyncSubject(null)
