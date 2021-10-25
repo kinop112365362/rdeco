@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import { combination } from './combination'
 import { Store } from './Store'
-import { forEachByKeys } from '../utils/forEachByKeys'
 
 export function createStore(storeConfig) {
   const store = new Store(storeConfig)
@@ -9,7 +8,7 @@ export function createStore(storeConfig) {
     if (!combination.subscribeIds[store.baseSymbol]) {
       combination.subscribeIds[store.baseSymbol] = {}
     }
-    forEachByKeys(store.subscribe, (subjectKey) => {
+    store.subscribe.forEach((subjectKey) => {
       if (!combination.subscribeIds[store.baseSymbol][subjectKey]) {
         combination.subscribeIds[store.baseSymbol][subjectKey] = new Set()
       }

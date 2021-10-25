@@ -5,10 +5,9 @@
 // @filename: Store.js
 import { bindContext } from './bindContext'
 import { combination } from './combination'
-import { getReducerType } from '../utils/getReducerModel'
 import { storeConfigValidate } from '../utils/storeConfigValidate'
 import { BehaviorSubject } from 'rxjs'
-import { notify } from './notify'
+import { notify } from '../subscribe/notify'
 import { isFunction } from '../utils/isFunction'
 import * as deepmerge from 'deepmerge'
 
@@ -111,7 +110,7 @@ export class Store {
     }
     const stateKeys = Object.keys(this.state)
     stateKeys.forEach((stateKey) => {
-      const type = getReducerType(stateKey)
+      const type = stateKey
       this.setter[stateKey] = (payload) => {
         this.dispatch([type, payload, stateKey, this.baseSymbol])
         return payload

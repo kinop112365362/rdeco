@@ -1,5 +1,7 @@
-export { createEntity } from './core/createEntity'
-export { notify, syncNotify } from './core/notify'
-export { createMembrane } from './utils/createMembrane'
-export { enhanceContext } from './core/combination'
-export { createComponent } from './reactComponent/createComponent'
+export {
+  enhanceContext,
+  createEntity,
+  createMembrane,
+  notify,
+} from '../package/rdecoCore/src/index'
+export { createComponent } from '../package/rdecoReact/src/createComponent'

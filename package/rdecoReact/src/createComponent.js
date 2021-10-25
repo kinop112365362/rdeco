@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react'
-import { combination } from '../core/combination'
+// eslint-disable-next-line import/no-unresolved
+import { combination, createStore } from '@rdeco/core'
 import { useSubscribe } from './reactHooks/useSubscribe'
 import { useStoreDispose } from './reactHooks/useStoreDispose'
 import { useStoreUpdate } from './reactHooks/useStoreUpdate'
-import { createStore } from '../core/createStore'
-import { validate } from '../utils/validate'
+import { validate } from '../../rdecoCore/src/utils/validate'
 
 export function createComponent(component) {
   const baseSymbol = validate(component.name)
