@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useEffect, useRef } from 'react'
-import { combination, createStore } from '../../core/src'
+import { combination, createStore } from '../core'
 import { useSubscribe } from './reactHooks/useSubscribe'
 import { useStoreDispose } from './reactHooks/useStoreDispose'
 import { useStoreUpdate } from './reactHooks/useStoreUpdate'
-import { validate } from '../../core/src/utils/validate'
+import { validate } from '../core/utils/validate'
 
 export function useComponent(component, props) {
   const baseSymbol = validate(component.name)

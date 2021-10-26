@@ -1,11 +1,12 @@
 import { connectSubject } from '../subscribe/subject'
-import { BehaviorSubject, ReplaySubject } from 'rxjs'
+import { ReplaySubject } from 'rxjs'
 
 export const combination = {
   subscribeIds: {},
   components: {},
   enhanceContext: {},
   proxySubjects: {},
+  extends: {},
   routerSubjects: null,
   routerHistory: [],
   $getCollection() {
@@ -93,22 +94,12 @@ export const combination = {
       }
       this.proxySubjects[symbol].shadow.push(proxySubject)
     }
-    if (!this.routerSubjects) {
-      this.routerSubjects = new BehaviorSubject(this.routerHistory[0])
-    }
     connectSubject.next({
       name: symbol,
       proxySubject,
       componentInstance: ins,
     })
     return proxySubject
-  },
-  $routerBroadcast(...args) {
-    const [subjectKey, arg, next] = args
-    this.routerHistory.push({ subjectKey, arg, next })
-    if (this.routerSubjects) {
-      this.routerSubjects.next({ subjectKey, arg, next })
-    }
   },
   $broadcast(symbol, value, subjectKey) {
     const collection = this.$getCollection()
@@ -117,6 +108,12 @@ export const combination = {
 }
 export function enhanceContext(key, value) {
   combination.enhanceContext[key] = value
+}
+export function extendsSubscribe(key, handler) {
+  if (combination.extends[key]) {
+    throw new Error(`ExtendsError: ${key} 已经被扩展了, 不能再次扩展`)
+  }
+  combination.extends[key] = handler
 }
 if (window) {
   window.$$rdecoLog = () => {

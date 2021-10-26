@@ -17,8 +17,9 @@ export const notify = (...args) => {
       })
     })
   }
-  if (args[0] === '@@router') {
-    combination.$routerBroadcast(args[1], args[2], next)
+  if (/^@@/.test(args[0])) {
+    const { beforeNotify, subject } = combination.extends[args[0]]
+    subject.next(beforeNotify(args[1], args[2], next))
   } else {
     infrom(...args, next)
   }

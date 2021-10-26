@@ -1,6 +1,6 @@
 import React from 'react'
-import { combination, createStore, createSubscriptions } from '../../core/src'
-import { validate } from '../../core/src/utils/validate'
+import { combination, createStore, createSubscriptions } from '../core'
+import { validate } from '../core/utils/validate'
 
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component'

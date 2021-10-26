@@ -3,9 +3,11 @@ export {
   createEntity,
   createMembrane,
   notify,
-} from './package/@rdeco/core/src/index'
+} from './package/@rdeco/core/index'
 export {
   createComponent,
   withComponent,
   useComponent,
-} from './package/@rdeco/react/src'
+} from './package/@rdeco/react'
+
+import './package/@rdeco/router5'

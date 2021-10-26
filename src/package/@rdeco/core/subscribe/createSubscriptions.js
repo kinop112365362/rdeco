@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
 import { combination } from '../store/combination'
-import { createRouterSubscription } from './createRouterSubscription'
 import { createSelfSubscription } from './createSelfSubscription'
 import { createSubscription } from './createSubscription'
 
@@ -12,16 +11,19 @@ export function createSubscriptions(store, proxySubject) {
     Object.keys(subscribeIds).forEach((subjectKey) => {
       subscribeIds[subjectKey].forEach((subscribeId) => {
         combination.$connectAsync(subscribeId, (target) => {
-          bindSubject(target.subjects[subjectKey])
+          subscriptions.push(bindSubject(target.subjects[subjectKey]))
         })
       })
     })
   }
-  const routerSubscription = createRouterSubscription(store)
+  Object.keys(combination.extends).forEach((extend) => {
+    const { subject, observeCreator } = combination.extends[extend]
+    subscriptions.push(subject.subscribe(observeCreator(store)))
+  })
   const selfSubscription = createSelfSubscription(
     bindSubject,
     store,
     proxySubject
   )
-  return { routerSubscription, selfSubscription, subscriptions }
+  return { selfSubscription, subscriptions }
 }

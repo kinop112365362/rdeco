@@ -3,7 +3,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import { createComponent, notify } from '../src/index'
-import { combination } from '../src/package/@rdeco/core/src'
+import { combination } from '../src/package/@rdeco/core'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 router 响应内部 notify', async () => {
@@ -11,7 +11,6 @@ test('测试 router 响应内部 notify', async () => {
     to: 'home,',
     from: 'index',
     done: () => {
-      console.debug('done')
       notify('@@router', 'after', { route: { name: 'home', path: '/home' } })
     },
   }).then((done) => {
@@ -28,7 +27,6 @@ test('测试 router 响应内部 notify', async () => {
         next(done)
       },
       after(value) {
-        console.debug(value)
         expect(value).toStrictEqual({
           route: { name: 'home', path: '/home' },
         })
