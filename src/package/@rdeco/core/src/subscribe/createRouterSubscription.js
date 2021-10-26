@@ -5,7 +5,7 @@ export function createRouterSubscription(store) {
     return combination.routerSubjects[store.baseSymbol].subscribe({
       next(value) {
         if (value) {
-          store.router[value.subjectKey].call(store, value.arg)
+          store?.router?.[value.subjectKey]?.call(store, value.arg, value.next)
         }
       },
     })

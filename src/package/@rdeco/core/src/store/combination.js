@@ -104,8 +104,8 @@ export const combination = {
     return proxySubject
   },
   $routerBroadcast(...args) {
-    const [subjectKey, arg, syncker] = args
-    this.routerHistory.push({ subjectKey, arg, syncker })
+    const [subjectKey, arg, next] = args
+    this.routerHistory.push({ subjectKey, arg, next })
   },
   $broadcast(symbol, value, subjectKey) {
     const collection = this.$getCollection()
