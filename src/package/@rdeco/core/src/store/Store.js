@@ -154,6 +154,9 @@ export class Store {
     this.controller = ctrlBindContext
     this.service = serviceBindContext
   }
+  updateState(nextState) {
+    this.state = nextState
+  }
   dispatch([...args]) {
     const [type, payload, stateKey, name] = args
     const prevState = { ...this.state[stateKey] }

@@ -1,11 +1,52 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, createEntity } from '../src'
+import { createComponent, createEntity, withComponent } from '../src'
 
 test('测试 Entity 和 组件协同工作', async () => {
+  class Comopnent extends React.Component {
+    constructor(props) {
+      super(props)
+      this.store = this.props.store
+    }
+    render() {
+      return (
+        <>
+          <div role="class">{this.store.state.text}</div>
+          <button role="classBtn" onClick={this.store.controller.onClick}>
+            {this.store.state.btnValue}
+          </button>
+        </>
+      )
+    }
+  }
+  const WithComponent = withComponent(Comopnent, {
+    name: '@test/class-component',
+    state: {
+      text: 'hoc',
+      btnValue: null,
+    },
+    subscribe: {
+      controller: [
+        [
+          '@test/base-button',
+          {
+            onLoginButtonClick() {
+              this.setter.btnValue('base')
+            },
+          },
+        ],
+      ],
+    },
+    controller: {
+      onClick() {
+        this.setter.text('hoc over')
+      },
+    },
+  })
   createEntity({
     name: '@test/login-entity',
     state: {
@@ -84,6 +125,7 @@ test('测试 Entity 和 组件协同工作', async () => {
         return (
           <div role="button" onClick={this.controller.onLoginButtonClick}>
             <div role="message">{this.state.message}</div>
+            <WithComponent></WithComponent>
           </div>
         )
       },
@@ -94,5 +136,11 @@ test('测试 Entity 和 组件协同工作', async () => {
   fireEvent.click(screen.getByRole('button'))
   await waitFor(() => {
     expect(screen.getByRole('message')).toHaveTextContent('success')
+    expect(screen.getByRole('class')).toHaveTextContent('hoc')
+    expect(screen.getByRole('classBtn')).toHaveTextContent('base')
+  })
+  fireEvent.click(screen.getByRole('classBtn'))
+  await waitFor(() => {
+    expect(screen.getByRole('class')).toHaveTextContent('hoc over')
   })
 })
