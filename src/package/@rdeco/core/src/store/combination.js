@@ -6,7 +6,7 @@ export const combination = {
   components: {},
   enhanceContext: {},
   proxySubjects: {},
-  routerSubjects: {},
+  routerSubjects: null,
   routerHistory: [],
   $getCollection() {
     return this.components
@@ -93,8 +93,8 @@ export const combination = {
       }
       this.proxySubjects[symbol].shadow.push(proxySubject)
     }
-    if (ins.router && !this.routerSubjects[symbol]) {
-      this.routerSubjects[symbol] = new BehaviorSubject(this.routerHistory[0])
+    if (!this.routerSubjects) {
+      this.routerSubjects = new BehaviorSubject(this.routerHistory[0])
     }
     connectSubject.next({
       name: symbol,
@@ -106,6 +106,9 @@ export const combination = {
   $routerBroadcast(...args) {
     const [subjectKey, arg, next] = args
     this.routerHistory.push({ subjectKey, arg, next })
+    if (this.routerSubjects) {
+      this.routerSubjects.next({ subjectKey, arg, next })
+    }
   },
   $broadcast(symbol, value, subjectKey) {
     const collection = this.$getCollection()

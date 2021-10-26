@@ -11,11 +11,11 @@ test('测试 router 响应内部 notify', async () => {
     to: 'home,',
     from: 'index',
     done: () => {
+      console.debug('done')
       notify('@@router', 'after', { route: { name: 'home', path: '/home' } })
     },
   }).then((done) => {
-    expect(done).toBe('done')
-    // done && done()
+    done && done()
   })
 
   const Test = createComponent({
@@ -25,13 +25,14 @@ test('测试 router 响应内部 notify', async () => {
     },
     router: {
       before({ to, from, done }, next) {
-        next('done')
+        next(done)
       },
       after(value) {
+        console.debug(value)
         expect(value).toStrictEqual({
-          route: { name: 'page', path: '/page' },
+          route: { name: 'home', path: '/home' },
         })
-        this.setter.page('page')
+        this.setter.page('home')
       },
     },
     view: {
@@ -47,4 +48,7 @@ test('测试 router 响应内部 notify', async () => {
 
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('click'))
+  await waitFor(() => {
+    expect(screen.getByRole('page')).toHaveTextContent('home')
+  })
 })
