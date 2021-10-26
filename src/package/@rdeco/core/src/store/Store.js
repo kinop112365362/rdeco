@@ -82,10 +82,10 @@ export class Store {
     this.props = {}
     // eslint-disable-next-line no-undef
     this.notify = notify
-    this.tappable = (fnKey, data) => {
+    this.tap = (fnKey, data) => {
       const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
       if (!reg.test(fnKey)) {
-        throw new Error(`this.tappable 只支持驼峰命名的 tappable`)
+        throw new Error(`this.tap 只支持驼峰命名的 tappable`)
       }
       const value = {
         eventTargetMeta: {
@@ -105,7 +105,7 @@ export class Store {
       derivate: this.derivate,
       style: this.style,
       props: this.props,
-      tappable: this.tappable,
+      tap: this.tap,
       notify: this.notify,
     }
     const stateKeys = Object.keys(this.state)

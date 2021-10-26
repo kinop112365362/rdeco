@@ -15,7 +15,7 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.age('20')
-        this.tappable('setAgeOver', 20)
+        this.tap('setAgeOver', 20)
         this.setter.name('ann')
       },
     },
@@ -114,7 +114,7 @@ test('测试 responsive', async () => {
     controller: {
       onClick() {
         this.setter.text('Hello World')
-        this.tappable('onClick')
+        this.tap('onClick')
       },
     },
     view: {
