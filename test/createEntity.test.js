@@ -52,6 +52,9 @@ test('测试 Entity 和 组件协同工作', async () => {
     state: {
       result: null,
     },
+    notification: {
+      query() {},
+    },
     derivate: {
       ['@test/base-button']: {
         username: (v) => v,
@@ -118,7 +121,9 @@ test('测试 Entity 和 组件协同工作', async () => {
         this.setter.username('ann')
         this.setter.password(123)
       },
-      onLoginButtonClick() {},
+      onLoginButtonClick() {
+        this.notify('@test/login-entity', 'query')
+      },
     },
     view: {
       render() {
