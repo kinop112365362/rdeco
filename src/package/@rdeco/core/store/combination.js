@@ -48,7 +48,6 @@ export const combination = {
       const connectSub = connectSubject.subscribe({
         next: ({ name, proxySubject }) => {
           if (name === componentName) {
-            console.debug(proxySubject)
             connectAsyncCall(proxySubject)
             connectSub?.unsubscribe()
           } else {

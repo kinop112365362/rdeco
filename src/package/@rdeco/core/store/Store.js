@@ -106,6 +106,7 @@ export class Store {
       style: this.style,
       props: this.props,
       tap: this.tap,
+      setter: this.setter,
       notify: this.notify,
     }
     const stateKeys = Object.keys(this.state)
@@ -145,9 +146,7 @@ export class Store {
       'service'
     )
     this.private.serviceContext.service = serviceBindContext
-    this.private.serviceContext.setter = this.setter
     this.private.controllerContext.service = serviceBindContext
-    this.private.controllerContext.setter = this.setter
     this.private.viewContext.controller = ctrlBindContext
     this.private.viewContext.view = viewBindContext
     this.view = viewBindContext
