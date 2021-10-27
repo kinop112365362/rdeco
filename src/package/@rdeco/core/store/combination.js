@@ -82,7 +82,7 @@ export const combination = {
     }
     if (!collection[symbol]) {
       collection[symbol] = ins
-      collection[symbol].shadow = []
+      collection[symbol].shadow = [ins]
     } else {
       collection[symbol].shadow.push(ins)
     }
