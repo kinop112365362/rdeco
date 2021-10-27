@@ -10,4 +10,4 @@ export {
   useComponent,
 } from './package/@rdeco/react'
 
-import './package/@rdeco/router5'
+export { RouteView, App } from './package/@rdeco/router5'

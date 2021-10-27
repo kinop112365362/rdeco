@@ -1,5 +1,6 @@
 import { extendsSubscribe } from '../core'
 import { BehaviorSubject } from 'rxjs'
+import App from './App'
 
 extendsSubscribe('@@router', {
   subject: new BehaviorSubject(null),
@@ -23,3 +24,6 @@ extendsSubscribe('@@router', {
     }
   },
 })
+
+export { RouteView } from './RouteView'
+export { App }
