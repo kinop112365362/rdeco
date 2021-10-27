@@ -27,20 +27,15 @@ export const combination = {
       findHandler = name[1]
     }
     function connectAsyncCall(instance) {
-      if (instance.shadow.length > 0) {
-        if (findHandler) {
-          const target = collection[componentName]?.shadow.find(
-            (shadowProxy) => {
-              return findHandler(shadowProxy.ins.props)
-            }
-          )
-          return handle.call(null, target)
-        }
-        return instance.shadow.forEach((shadowTarget) => {
-          handle.call(null, shadowTarget)
+      if (findHandler) {
+        const target = collection[componentName]?.shadow.find((shadowProxy) => {
+          return findHandler(shadowProxy.ins.props)
         })
+        return handle.call(null, target)
       }
-      handle.call(null, instance)
+      return instance.shadow.forEach((shadowTarget) => {
+        handle.call(null, shadowTarget)
+      })
     }
     if (collection[componentName]) {
       connectAsyncCall(collection[componentName])
@@ -82,12 +77,14 @@ export const combination = {
     }
     if (!collection[symbol]) {
       collection[symbol] = ins
-      collection[symbol].shadow = [ins]
+      collection[symbol].shadow = []
+      collection[symbol].shadow.push(ins)
     } else {
       collection[symbol].shadow.push(ins)
     }
     if (!this.proxySubjects[symbol]) {
       this.proxySubjects[symbol] = proxySubject
+      this.proxySubjects[symbol].shadow.push(proxySubject)
     } else {
       proxySubject = {
         subject: new ReplaySubject(99),
