@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import { combination } from '../store/combination'
-import { createSelfSubscription } from './createSelfSubscription'
+import { createNotificationSubscription } from './createNotificationSubscription'
 import { createSubscription } from './createSubscription'
 
 export function createSubscriptions(store, proxySubject) {
@@ -20,7 +20,7 @@ export function createSubscriptions(store, proxySubject) {
     const { subject, observeCreator } = combination.extends[extend]
     subscriptions.push(subject.subscribe(observeCreator(store)))
   })
-  const selfSubscription = createSelfSubscription(
+  const selfSubscription = createNotificationSubscription(
     bindSubject,
     store,
     proxySubject

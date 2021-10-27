@@ -53,7 +53,9 @@ test('测试 Entity 和 组件协同工作', async () => {
       result: null,
     },
     notification: {
-      query() {},
+      query(next) {
+        next('done')
+      },
     },
     derivate: {
       ['@test/base-button']: {
@@ -122,7 +124,9 @@ test('测试 Entity 和 组件协同工作', async () => {
         this.setter.password(123)
       },
       onLoginButtonClick() {
-        this.notify('@test/login-entity', 'query')
+        this.notify('@test/login-entity', 'query').then((value) => {
+          expect(value).toBe('done')
+        })
       },
     },
     view: {

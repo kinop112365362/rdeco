@@ -48,9 +48,11 @@ export const combination = {
       const connectSub = connectSubject.subscribe({
         next: ({ name, proxySubject }) => {
           if (name === componentName) {
+            console.debug(proxySubject)
             connectAsyncCall(proxySubject)
             connectSub?.unsubscribe()
           } else {
+            connectAsyncCall(proxySubject)
             // throw new Error(`订阅异常: 组件集合中为找到 ${componentName} 组件`)
           }
         },
