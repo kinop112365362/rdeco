@@ -9,7 +9,7 @@ export const notify = (...args) => {
     syncker.complete()
   }
   const infrom = (target, fnKey, data, next) => {
-    combination.$connectProxySubjectAsync(target, (targetProxy) => {
+    combination.$connectAllAsync(target, (targetProxy) => {
       targetProxy.subject.next({
         fnKey,
         data,

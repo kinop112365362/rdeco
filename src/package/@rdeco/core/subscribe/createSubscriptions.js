@@ -10,8 +10,8 @@ export function createSubscriptions(store, proxySubject) {
     const subscribeIds = combination.subscribeIds[store.baseSymbol]
     Object.keys(subscribeIds).forEach((subjectKey) => {
       subscribeIds[subjectKey].forEach((subscribeId) => {
-        combination.$connectAsync(subscribeId, (target) => {
-          subscriptions.push(bindSubject(target.subjects[subjectKey]))
+        combination.$connectAllAsync(subscribeId, (target) => {
+          subscriptions.push(bindSubject(target.ins.subjects[subjectKey]))
         })
       })
     })

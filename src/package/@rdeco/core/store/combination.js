@@ -18,7 +18,7 @@ export const combination = {
       collection[symbol] = null
     }
   },
-  $connectProxySubjectAsync(name, handle) {
+  $connectAllAsync(name, handle) {
     const collection = this.proxySubjects
     let componentName = name
     let findHandler = null
