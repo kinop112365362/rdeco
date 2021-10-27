@@ -116,8 +116,7 @@ export function extendsSubscribe(key, handler) {
 if (window) {
   window.$$rdecoLog = () => {
     return {
-      components: Object.freeze(combination.components),
-      enhanceContext: Object.freeze(combination.enhanceContext),
+      components: Object.freeze({ ...combination }),
     }
   }
 }
