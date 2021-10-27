@@ -1,6 +1,6 @@
 {
   "name": "rdeco",
-  "version": "2.3.7",
+  "version": "2.3.8",
   "description": "基于响应式的 React 应用开发框架",
   "keywords": [
     "react",
