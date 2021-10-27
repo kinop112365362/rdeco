@@ -13,7 +13,7 @@ function getPath(parentPath, path) {
  * @param {ReactDOM} props.Component
  */
 const RouteView = createComponent({
-  name: '@rdeco/router5',
+  name: '@rdeco/router5-route-view',
   state: {
     active: false,
   },
