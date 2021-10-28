@@ -17,6 +17,22 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
         this.setter.selected(selected)
       },
     },
+    subscribe: {
+      state: [
+        [
+          [
+            '@test/data-table',
+            (targetProps, selfProps) => {
+              expect(targetProps).toStrictEqual({ groupId: 1 })
+              return true
+            },
+            {
+              currentSelectRowId() {},
+            },
+          ],
+        ],
+      ],
+    },
     controller: {
       onChange(e) {
         this.setter.value(e.target.value)
@@ -92,7 +108,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
     },
   })
 
-  render(<DataTable></DataTable>)
+  render(<DataTable groupId={1}></DataTable>)
   fireEvent.click(screen.getByRole('0'))
   await waitFor(() => {
     expect(screen.getByRole('selected_0')).toHaveTextContent('true')

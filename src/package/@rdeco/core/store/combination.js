@@ -18,7 +18,7 @@ export const combination = {
       collection[symbol] = null
     }
   },
-  $connectAllAsync(name, handle) {
+  $connectAllAsync(name, handle, observeStore = { props: {} }) {
     const collection = this.proxySubjects
     let componentName = name
     let findHandler = null
@@ -29,8 +29,18 @@ export const combination = {
     function connectAsyncCall(instance) {
       if (findHandler) {
         const target = collection[componentName]?.shadow.find((shadowProxy) => {
-          return findHandler(shadowProxy.ins.props)
+          return findHandler(shadowProxy.ins.props, observeStore.props)
         })
+        if (!target) {
+          throw new Error(
+            `查找 ${componentName} 组件下的某个实例失败, 请检查 finder 函数里是否 return, 或者匹配规则是否正确`
+          )
+        }
+        if (Array.isArray(target)) {
+          target.forEach((t) => {
+            handle.call(null, t)
+          })
+        }
         return handle.call(null, target)
       }
       return instance.shadow.forEach((shadowTarget) => {
