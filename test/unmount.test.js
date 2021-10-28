@@ -17,7 +17,10 @@ test('测试 unmount 组件销毁的过程', async () => {
     view: {
       render() {
         return (
-          <div role="notReady" onClick={this.controller.onClick}>
+          <div
+            role={`notReady${this.props.id}`}
+            onClick={this.controller.onClick}
+          >
             Tag
           </div>
         )
@@ -42,14 +45,25 @@ test('测试 unmount 组件销毁的过程', async () => {
     },
     view: {
       render() {
-        return <>{this.state.ready ? <Tag /> : <div>notReady</div>}</>
+        return (
+          <>
+            {this.state.ready ? (
+              <div>
+                <Tag id={1} />
+                <Tag />
+              </div>
+            ) : (
+              <div>notReady</div>
+            )}
+          </>
+        )
       },
     },
   })
 
   render(<Test></Test>)
-  fireEvent.click(screen.getByRole('notReady'))
+  fireEvent.click(screen.getByRole('notReady1'))
   await waitFor(() => {
-    expect(combination.components['@test/tag']).toBe(null)
+    expect(combination.components['@test/tag']).toStrictEqual([])
   })
 })

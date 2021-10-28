@@ -22,6 +22,7 @@ export class Store {
     this.subscribe = storeConfig.subscribe ? { ...storeConfig.subscribe } : null
     this.ref = storeConfig.ref ? { ...storeConfig.ref } : null
     this.baseSymbol = storeConfig.baseSymbol
+    this.symbol = Symbol()
     if (storeConfig.derivate) {
       this.derivate = {}
       const baseHandler = {}
@@ -183,7 +184,7 @@ export class Store {
     combination.$broadcast(this.baseSymbol, value, 'state')
   }
   dispose() {
-    combination.$remove(this.baseSymbol)
+    combination.$remove(this.symbol, this.baseSymbol)
   }
   update(state, dispatch, props, ref) {
     for (const contextName in this.private) {

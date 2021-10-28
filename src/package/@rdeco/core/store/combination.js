@@ -12,11 +12,12 @@ export const combination = {
   $getCollection() {
     return this.components
   },
-  $remove(symbol) {
-    const collection = this.$getCollection(symbol)
-    if (collection[symbol]) {
-      collection[symbol] = null
-    }
+  $remove(symbol, baseSymbol) {
+    this.components[baseSymbol] = this.components[baseSymbol].filter(
+      (component) => {
+        return component.instance.symbol !== symbol
+      }
+    )
   },
   $connect(meta, handle, observeStore = null) {
     let name = meta
