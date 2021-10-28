@@ -1,10 +1,10 @@
 export function createNotificationSubscription(
   bindSubject,
   store,
-  proxySubject
+  notificationSubject
 ) {
   if (store.notification) {
-    return proxySubject.subject.subscribe({
+    return notificationSubject.subscribe({
       next(value) {
         if (value !== null) {
           // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件

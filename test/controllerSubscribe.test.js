@@ -22,7 +22,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
         [
           [
             '@test/data-table',
-            (targetProps, selfProps) => {
+            (targetProps) => {
               expect(targetProps).toStrictEqual({ groupId: 1 })
               return true
             },

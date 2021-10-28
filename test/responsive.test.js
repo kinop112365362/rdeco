@@ -97,7 +97,6 @@ test('测试 responsive', async () => {
           '@test/component-a',
           {
             onClick({ state }) {
-              console.debug('click')
               this.setter.age(state.age)
             },
           },

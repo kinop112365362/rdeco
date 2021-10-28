@@ -39,7 +39,7 @@ export class Store {
             },
           }
         } else {
-          combination.$connectAsync(derivateKey, (target) => {
+          combination.$connect(derivateKey, (target) => {
             if (!target) {
               throw new Error(
                 `${derivateKey} 组件未定义或 unmount, 跨组件状态派生, 被派生组件必须实例化且处于 mount`
@@ -50,7 +50,7 @@ export class Store {
             )
             const targetHandler = {}
             targetDerivateKeys.forEach((targetDerivateKey) => {
-              if (!target.state[targetDerivateKey]) {
+              if (!target.instance.state[targetDerivateKey]) {
                 throw new Error(
                   `${derivateKey}.state.${targetDerivateKey} 未定义, 无法派生, 请检查`
                 )
@@ -59,7 +59,11 @@ export class Store {
                 get: () => {
                   return storeConfig.derivate[derivateKey][
                     targetDerivateKey
-                  ].call(this, target.state[targetDerivateKey], target.state)
+                  ].call(
+                    this,
+                    target.instance.state[targetDerivateKey],
+                    target.instance.state
+                  )
                 },
               }
             })

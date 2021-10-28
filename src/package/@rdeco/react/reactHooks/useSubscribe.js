@@ -2,11 +2,11 @@
 import { useEffect } from 'react'
 import { createSubscriptions } from '../../core'
 
-export function useSubscribe(store, proxySubject) {
+export function useSubscribe(store, notificationSubject) {
   useEffect(() => {
     const { selfSubscription, subscriptions } = createSubscriptions(
       store,
-      proxySubject
+      notificationSubject
     )
     return () => {
       subscriptions.forEach((sub) => {
