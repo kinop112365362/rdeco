@@ -30,7 +30,14 @@ export const combination = {
       let targets = this.components[name]
       if (finder) {
         targets = this.components[name].filter((component) => {
-          return finder(component.instance.props, observeStore)
+          if (observeStore) {
+            const context = {
+              state: { ...observeStore.state },
+              props: { ...observeStore.props },
+            }
+            return finder(component.instance.props, context)
+          }
+          return finder(component.instance.props)
         })
         if (!targets) {
           throw new Error(

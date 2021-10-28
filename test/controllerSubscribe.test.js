@@ -24,7 +24,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
             '@test/data-table',
             (targetProps, context) => {
               expect(targetProps).toStrictEqual({ groupId: 1 })
-              expect(context.baseSymbol).toBe('@test/row')
+              expect(context.props.groupId).toBe(1)
               return true
             },
             {
@@ -98,7 +98,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
             <div role="currentSelectRowId">{this.state.currentSelectRowId}</div>
             {this.state.dataSource.map((data) => {
               return (
-                <Row key={data} id={data}>
+                <Row groupId={this.props.groupId} key={data} id={data}>
                   data
                 </Row>
               )
