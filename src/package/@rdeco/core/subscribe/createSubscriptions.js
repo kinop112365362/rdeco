@@ -10,9 +10,15 @@ export function createSubscriptions(store, notificationSubject) {
     const subscribeIds = combination.subscribeIds[store.baseSymbol]
     Object.keys(subscribeIds).forEach((subjectKey) => {
       subscribeIds[subjectKey].forEach((subscribeId) => {
-        combination.$connect(subscribeId, (target) => {
-          subscriptions.push(bindSubject(target.instance.subjects[subjectKey]))
-        })
+        combination.$connect(
+          subscribeId,
+          (target) => {
+            subscriptions.push(
+              bindSubject(target.instance.subjects[subjectKey])
+            )
+          },
+          store
+        )
       })
     })
   }

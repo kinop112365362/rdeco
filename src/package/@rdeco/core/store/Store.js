@@ -39,37 +39,41 @@ export class Store {
             },
           }
         } else {
-          combination.$connect(derivateKey, (target) => {
-            if (!target) {
-              throw new Error(
-                `${derivateKey} 组件未定义或 unmount, 跨组件状态派生, 被派生组件必须实例化且处于 mount`
-              )
-            }
-            const targetDerivateKeys = Object.keys(
-              storeConfig.derivate[derivateKey]
-            )
-            const targetHandler = {}
-            targetDerivateKeys.forEach((targetDerivateKey) => {
-              if (!target.instance.state[targetDerivateKey]) {
+          combination.$connect(
+            derivateKey,
+            (target) => {
+              if (!target) {
                 throw new Error(
-                  `${derivateKey}.state.${targetDerivateKey} 未定义, 无法派生, 请检查`
+                  `${derivateKey} 组件未定义或 unmount, 跨组件状态派生, 被派生组件必须实例化且处于 mount`
                 )
               }
-              targetHandler[targetDerivateKey] = {
-                get: () => {
-                  return storeConfig.derivate[derivateKey][
-                    targetDerivateKey
-                  ].call(
-                    this,
-                    target.instance.state[targetDerivateKey],
-                    target.instance.state
+              const targetDerivateKeys = Object.keys(
+                storeConfig.derivate[derivateKey]
+              )
+              const targetHandler = {}
+              targetDerivateKeys.forEach((targetDerivateKey) => {
+                if (!target.instance.state[targetDerivateKey]) {
+                  throw new Error(
+                    `${derivateKey}.state.${targetDerivateKey} 未定义, 无法派生, 请检查`
                   )
-                },
-              }
-            })
-            this.derivate[derivateKey] = {}
-            Object.defineProperties(this.derivate[derivateKey], targetHandler)
-          })
+                }
+                targetHandler[targetDerivateKey] = {
+                  get: () => {
+                    return storeConfig.derivate[derivateKey][
+                      targetDerivateKey
+                    ].call(
+                      this,
+                      target.instance.state[targetDerivateKey],
+                      target.instance.state
+                    )
+                  },
+                }
+              })
+              this.derivate[derivateKey] = {}
+              Object.defineProperties(this.derivate[derivateKey], targetHandler)
+            },
+            this
+          )
         }
       })
       Object.defineProperties(this.derivate, baseHandler)

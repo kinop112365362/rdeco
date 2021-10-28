@@ -18,24 +18,30 @@ export const combination = {
       collection[symbol] = null
     }
   },
-  $connect(meta, handle) {
+  $connect(meta, handle, observeStore = null) {
     let name = meta
     let finder = null
     if (Array.isArray(meta)) {
       name = meta[0]
       finder = meta[1]
     }
+    const peformCount = 20
     const invoke = () => {
       let targets = this.components[name]
       if (finder) {
         targets = this.components[name].filter((component) => {
-          return finder(component.instance.props)
+          return finder(component.instance.props, observeStore)
         })
         if (!targets) {
           throw new Error(
             `查找 ${name} 组件下的某个实例失败, 请检查 finder 函数里是否 return, 或者匹配规则是否正确`
           )
         }
+      }
+      if (targets.length > peformCount) {
+        console.error(
+          `触发的监听器数量较都, 可能产生性能问题, 请尽可能精确监听, 避免批量监听 监听器: ${name}`
+        )
       }
       targets.forEach((target) => {
         handle.call(null, target)
