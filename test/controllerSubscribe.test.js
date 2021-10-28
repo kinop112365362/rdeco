@@ -17,6 +17,23 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
         this.setter.selected(selected)
       },
     },
+    subscribe: {
+      state: [
+        [
+          [
+            '@test/data-table',
+            (targetProps, context) => {
+              expect(targetProps).toStrictEqual({ groupId: 1 })
+              expect(context.props.groupId).toBe(1)
+              return true
+            },
+          ],
+          {
+            currentSelectRowId() {},
+          },
+        ],
+      ],
+    },
     controller: {
       onChange(e) {
         this.setter.value(e.target.value)
@@ -55,19 +72,16 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
     name: '@test/data-table',
     state: {
       currentSelectRowId: null,
-      lastSelectRowId: null,
-      dataSource: createMap(100),
+      dataSource: createMap(5),
     },
     notification: {
       selectRow(id) {
-        if (!this.state.lastSelectRowId) {
-          this.setter.lastSelectRowId(id)
-        } else {
+        if (this.state.currentSelectRowId !== null) {
           this.notify(
             [
               '@test/row',
               ({ id }) => {
-                return id === this.state.lastSelectRowId
+                return id === this.state.currentSelectRowId
               },
             ],
             'select',
@@ -84,7 +98,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
             <div role="currentSelectRowId">{this.state.currentSelectRowId}</div>
             {this.state.dataSource.map((data) => {
               return (
-                <Row key={data} id={data}>
+                <Row groupId={this.props.groupId} key={data} id={data}>
                   data
                 </Row>
               )
@@ -95,16 +109,16 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
     },
   })
 
-  render(<DataTable></DataTable>)
-  fireEvent.click(screen.getByRole('5'))
+  render(<DataTable groupId={1}></DataTable>)
+  fireEvent.click(screen.getByRole('0'))
   await waitFor(() => {
-    expect(screen.getByRole('selected_5')).toHaveTextContent('true')
-    expect(screen.getByRole('currentSelectRowId')).toHaveTextContent('5')
+    expect(screen.getByRole('selected_0')).toHaveTextContent('true')
+    expect(screen.getByRole('currentSelectRowId')).toHaveTextContent('0')
   })
   fireEvent.click(screen.getByRole('4'))
   await waitFor(() => {
     expect(screen.getByRole('selected_4')).toHaveTextContent('true')
     expect(screen.getByRole('currentSelectRowId')).toHaveTextContent('4')
-    expect(screen.getByRole('selected_5')).toHaveTextContent('false')
+    expect(screen.getByRole('selected_0')).toHaveTextContent('false')
   })
 })

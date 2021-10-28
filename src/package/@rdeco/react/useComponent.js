@@ -12,11 +12,14 @@ export function useComponent(component, props) {
   const storeConfig = useRef({ ...component }).current
   const store = useRef(null)
   const isNotMounted = useRef(true)
-  const proxySubject = useRef(null)
+  const notificationSubject = useRef(null)
   if (isNotMounted.current) {
     storeConfig.baseSymbol = baseSymbol
     store.current = createStore(storeConfig)
-    proxySubject.current = combination.$set(baseSymbol, store.current)
+    notificationSubject.current = combination.$register(
+      baseSymbol,
+      store.current
+    )
   }
   useEffect(() => {
     isNotMounted.current = false
@@ -25,7 +28,7 @@ export function useComponent(component, props) {
     }
   }, [])
   useStoreUpdate(store.current, store.current.state, props)
-  useSubscribe(store.current, proxySubject.current)
+  useSubscribe(store.current, notificationSubject.current)
   useStoreDispose(store.current)
   return store.current
 }

@@ -3,16 +3,22 @@ import { combination } from '../store/combination'
 import { createNotificationSubscription } from './createNotificationSubscription'
 import { createSubscription } from './createSubscription'
 
-export function createSubscriptions(store, proxySubject) {
+export function createSubscriptions(store, notificationSubject) {
   const subscriptions = []
   const bindSubject = createSubscription(store)
   if (store.subscribe) {
     const subscribeIds = combination.subscribeIds[store.baseSymbol]
     Object.keys(subscribeIds).forEach((subjectKey) => {
       subscribeIds[subjectKey].forEach((subscribeId) => {
-        combination.$connectAsync(subscribeId, (target) => {
-          subscriptions.push(bindSubject(target.subjects[subjectKey]))
-        })
+        combination.$connect(
+          subscribeId,
+          (target) => {
+            subscriptions.push(
+              bindSubject(target.instance.subjects[subjectKey])
+            )
+          },
+          store
+        )
       })
     })
   }
@@ -23,7 +29,7 @@ export function createSubscriptions(store, proxySubject) {
   const selfSubscription = createNotificationSubscription(
     bindSubject,
     store,
-    proxySubject
+    notificationSubject
   )
   return { selfSubscription, subscriptions }
 }

@@ -12,100 +12,77 @@ export const combination = {
   $getCollection() {
     return this.components
   },
-  $remove(symbol) {
-    const collection = this.$getCollection(symbol)
-    if (collection[symbol]) {
-      collection[symbol] = null
-    }
+  $remove(symbol, baseSymbol) {
+    this.components[baseSymbol] = this.components[baseSymbol].filter(
+      (component) => {
+        return component.instance.symbol !== symbol
+      }
+    )
   },
-  $connectProxySubjectAsync(name, handle) {
-    const collection = this.proxySubjects
-    let componentName = name
-    let findHandler = null
-    if (Array.isArray(name)) {
-      componentName = name[0]
-      findHandler = name[1]
+  $connect(meta, handle, observeStore = null) {
+    let name = meta
+    let finder = null
+    if (Array.isArray(meta)) {
+      name = meta[0]
+      finder = meta[1]
     }
-    function connectAsyncCall(instance) {
-      if (instance.shadow.length > 0) {
-        if (findHandler) {
-          const target = collection[componentName]?.shadow.find(
-            (shadowProxy) => {
-              return findHandler(shadowProxy.ins.props)
+    const peformCount = 20
+    const invoke = () => {
+      let targets = this.components[name]
+      if (finder) {
+        targets = this.components[name].filter((component) => {
+          if (observeStore) {
+            const context = {
+              state: { ...observeStore.state },
+              props: { ...observeStore.props },
             }
-          )
-          return handle.call(null, target)
-        }
-        return instance.shadow.forEach((shadowTarget) => {
-          handle.call(null, shadowTarget)
+            return finder(component.instance.props, context)
+          }
+          return finder(component.instance.props)
         })
+        if (!targets) {
+          throw new Error(
+            `查找 ${name} 组件下的某个实例失败, 请检查 finder 函数里是否 return, 或者匹配规则是否正确`
+          )
+        }
       }
-      handle.call(null, instance)
+      if (targets.length > peformCount) {
+        console.error(
+          `触发的监听器数量较都, 可能产生性能问题, 请尽可能精确监听, 避免批量监听 监听器: ${name}`
+        )
+      }
+      targets.forEach((target) => {
+        handle.call(null, target)
+      })
     }
-    if (collection[componentName]) {
-      connectAsyncCall(collection[componentName])
+    if (this.components[name]) {
+      invoke()
     } else {
-      const connectSub = connectSubject.subscribe({
-        next: ({ name, proxySubject }) => {
-          if (name === componentName) {
-            console.debug(proxySubject)
-            connectAsyncCall(proxySubject)
-            connectSub?.unsubscribe()
-          } else {
-            connectAsyncCall(proxySubject)
-            // throw new Error(`订阅异常: 组件集合中为找到 ${componentName} 组件`)
+      connectSubject.subscribe({
+        next: (connectName) => {
+          if (connectName === name) {
+            invoke()
           }
         },
       })
     }
   },
-  $connectAsync(componentName, handle) {
-    const collection = this.$getCollection(componentName)
-    if (collection[componentName]) {
-      handle.call(null, collection[componentName])
-    } else {
-      const connectSub = connectSubject.subscribe({
-        next: ({ name, componentInstance }) => {
-          if (name === componentName) {
-            handle.call(null, componentInstance)
-            connectSub?.unsubscribe()
-          }
-        },
-      })
+  $register(symbol, instance) {
+    const notificationSubject = new ReplaySubject(99)
+    if (!this.components[symbol]) {
+      this.components[symbol] = []
     }
-  },
-  $set(symbol, ins) {
-    const collection = this.$getCollection()
-    let proxySubject = {
-      subject: new ReplaySubject(99),
-      ins,
-      shadow: [],
-    }
-    if (!collection[symbol]) {
-      collection[symbol] = ins
-      collection[symbol].shadow = []
-    } else {
-      collection[symbol].shadow.push(ins)
-    }
-    if (!this.proxySubjects[symbol]) {
-      this.proxySubjects[symbol] = proxySubject
-    } else {
-      proxySubject = {
-        subject: new ReplaySubject(99),
-        ins,
-      }
-      this.proxySubjects[symbol].shadow.push(proxySubject)
-    }
-    connectSubject.next({
-      name: symbol,
-      proxySubject,
-      componentInstance: ins,
+    this.components[symbol].push({
+      instance,
+      notificationSubject,
     })
-    return proxySubject
+    connectSubject.next(symbol)
+    return notificationSubject
   },
   $broadcast(symbol, value, subjectKey) {
-    const collection = this.$getCollection()
-    collection[symbol].subjects[subjectKey].next(value)
+    this.components[symbol].forEach((component) => {
+      component.instance.subjects[subjectKey].next(value)
+    })
   },
 }
 export function enhanceContext(key, value) {
@@ -120,8 +97,7 @@ export function extendsSubscribe(key, handler) {
 if (window) {
   window.$$rdecoLog = () => {
     return {
-      components: Object.freeze(combination.components),
-      enhanceContext: Object.freeze(combination.enhanceContext),
+      components: Object.freeze({ ...combination }),
     }
   }
 }

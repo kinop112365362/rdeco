@@ -24,7 +24,10 @@ test('测试 responsive', async () => {
         return (
           <div role="namea">
             {this.state.name}
-            <button role="button" onClick={this.controller.onClick}></button>
+            <button
+              role={`button${this.props.id}`}
+              onClick={this.controller.onClick}
+            ></button>
           </div>
         )
       },
@@ -84,7 +87,7 @@ test('测试 responsive', async () => {
       ],
       tappable: [
         [
-          '@test/component-a',
+          ['@test/component-a'],
           {
             setAgeOver(age) {
               this.setter.hookAge(age)
@@ -197,14 +200,16 @@ test('测试 responsive', async () => {
     return (
       <div>
         <ComponentB></ComponentB>
-        <ComponentA></ComponentA>
+        <ComponentA id="a-1"></ComponentA>
+        <ComponentA id="a-2"></ComponentA>
         <ComponentC></ComponentC>
         <ComponentD buttonRole="buttonc" name="d"></ComponentD>
       </div>
     )
   }
   render(<Test></Test>)
-  fireEvent.click(screen.getByRole('button'))
+  fireEvent.click(screen.getByRole('buttona-1'))
+  fireEvent.click(screen.getByRole('buttona-2'))
   fireEvent.click(screen.getByRole('buttonb'))
   fireEvent.click(screen.getByRole('buttonc'))
   await waitFor(() => {

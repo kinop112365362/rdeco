@@ -21,7 +21,7 @@ export function withComponent(WrappedComponent, component) {
       this.store = createStore(this.storeConfig)
       const dispatch = this.dispatch.bind(this)
       this.store.update(this.storeConfig.state, dispatch, this.props, this.ref)
-      this.proxySubject = combination.$set(baseSymbol, this.store)
+      this.notificationSubject = combination.$register(baseSymbol, this.store)
     }
     dispatch(args) {
       // eslint-disable-next-line no-unused-vars
@@ -43,7 +43,7 @@ export function withComponent(WrappedComponent, component) {
         this.store.controller.onMount()
       }
       const { routerSubscription, selfSubscription, subscriptions } =
-        createSubscriptions(this.store, this.proxySubject)
+        createSubscriptions(this.store, this.notificationSubject)
       this.routerSubscription = routerSubscription
       this.selfSubscription = selfSubscription
       this.subscriptions = subscriptions

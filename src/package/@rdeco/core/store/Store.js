@@ -22,6 +22,7 @@ export class Store {
     this.subscribe = storeConfig.subscribe ? { ...storeConfig.subscribe } : null
     this.ref = storeConfig.ref ? { ...storeConfig.ref } : null
     this.baseSymbol = storeConfig.baseSymbol
+    this.symbol = Symbol()
     if (storeConfig.derivate) {
       this.derivate = {}
       const baseHandler = {}
@@ -39,33 +40,41 @@ export class Store {
             },
           }
         } else {
-          combination.$connectAsync(derivateKey, (target) => {
-            if (!target) {
-              throw new Error(
-                `${derivateKey} 组件未定义或 unmount, 跨组件状态派生, 被派生组件必须实例化且处于 mount`
-              )
-            }
-            const targetDerivateKeys = Object.keys(
-              storeConfig.derivate[derivateKey]
-            )
-            const targetHandler = {}
-            targetDerivateKeys.forEach((targetDerivateKey) => {
-              if (!target.state[targetDerivateKey]) {
+          combination.$connect(
+            derivateKey,
+            (target) => {
+              if (!target) {
                 throw new Error(
-                  `${derivateKey}.state.${targetDerivateKey} 未定义, 无法派生, 请检查`
+                  `${derivateKey} 组件未定义或 unmount, 跨组件状态派生, 被派生组件必须实例化且处于 mount`
                 )
               }
-              targetHandler[targetDerivateKey] = {
-                get: () => {
-                  return storeConfig.derivate[derivateKey][
-                    targetDerivateKey
-                  ].call(this, target.state[targetDerivateKey], target.state)
-                },
-              }
-            })
-            this.derivate[derivateKey] = {}
-            Object.defineProperties(this.derivate[derivateKey], targetHandler)
-          })
+              const targetDerivateKeys = Object.keys(
+                storeConfig.derivate[derivateKey]
+              )
+              const targetHandler = {}
+              targetDerivateKeys.forEach((targetDerivateKey) => {
+                if (!target.instance.state[targetDerivateKey]) {
+                  throw new Error(
+                    `${derivateKey}.state.${targetDerivateKey} 未定义, 无法派生, 请检查`
+                  )
+                }
+                targetHandler[targetDerivateKey] = {
+                  get: () => {
+                    return storeConfig.derivate[derivateKey][
+                      targetDerivateKey
+                    ].call(
+                      this,
+                      target.instance.state[targetDerivateKey],
+                      target.instance.state
+                    )
+                  },
+                }
+              })
+              this.derivate[derivateKey] = {}
+              Object.defineProperties(this.derivate[derivateKey], targetHandler)
+            },
+            this
+          )
         }
       })
       Object.defineProperties(this.derivate, baseHandler)
@@ -106,6 +115,7 @@ export class Store {
       style: this.style,
       props: this.props,
       tap: this.tap,
+      setter: this.setter,
       notify: this.notify,
     }
     const stateKeys = Object.keys(this.state)
@@ -145,9 +155,7 @@ export class Store {
       'service'
     )
     this.private.serviceContext.service = serviceBindContext
-    this.private.serviceContext.setter = this.setter
     this.private.controllerContext.service = serviceBindContext
-    this.private.controllerContext.setter = this.setter
     this.private.viewContext.controller = ctrlBindContext
     this.private.viewContext.view = viewBindContext
     this.view = viewBindContext
@@ -176,7 +184,7 @@ export class Store {
     combination.$broadcast(this.baseSymbol, value, 'state')
   }
   dispose() {
-    combination.$remove(this.baseSymbol)
+    combination.$remove(this.symbol, this.baseSymbol)
   }
   update(state, dispatch, props, ref) {
     for (const contextName in this.private) {
