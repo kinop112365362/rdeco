@@ -53,18 +53,20 @@ export function createSubscriptions(store) {
   if (depsSource) {
     depsSource.forEach((targetKey) => {
       const source = combination.subjects.target[targetKey]
-      if (Array.isArray(source)) {
-        source.forEach((targetSubjects) => {
-          targetSubjects.forEach((targetSubject) => {
-            subscriptions.push(targetSubject.subscribe(observe))
+      if (source) {
+        if (Array.isArray(source)) {
+          source.forEach((targetSubjects) => {
+            targetSubjects.forEach((targetSubject) => {
+              subscriptions.push(targetSubject.subscribe(observe))
+            })
           })
-        })
-      } else {
-        Object.keys(source).forEach((targetSubject) => {
-          if (source[targetSubject].subscribe) {
-            subscriptions.push(source[targetSubject].subscribe(observe))
-          }
-        })
+        } else {
+          Object.keys(source).forEach((targetSubject) => {
+            if (source[targetSubject].subscribe) {
+              subscriptions.push(source[targetSubject].subscribe(observe))
+            }
+          })
+        }
       }
     })
   }

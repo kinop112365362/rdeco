@@ -46,7 +46,4 @@ test('测试广播监听的用例', async () => {
 
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('click'))
-  await waitFor(() => {
-    console.debug(combination.subjects.target['@test/com'].controller)
-  })
 })
