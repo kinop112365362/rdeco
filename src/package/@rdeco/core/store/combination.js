@@ -1,29 +1,39 @@
-import { BehaviorSubject, ReplaySubject } from 'rxjs'
+import { ReplaySubject } from 'rxjs'
 
-/* eslint-disable no-undef */
 export const combination = {
   components: {},
   notificationSubjects: {},
+  // eslint-disable-next-line no-undef
   observableList: new Set(),
   subjects: {
     deps: {},
-    target: {},
+    targets: {},
   },
   enhanceContext: {},
+  connectTargetSubject: new ReplaySubject(20),
   extends: {},
+  $connectTargetSubject(targetKey, handle) {
+    return this.connectTargetSubject.subscribe({
+      next: (value) => {
+        if (value.targetKey === targetKey) {
+          handle(this.subjects.targets[targetKey])
+        }
+      },
+    })
+  },
+  $setSubject(baseSymbol, subject) {
+    if (!this.subjects.targets[baseSymbol]) {
+      this.subjects.targets[baseSymbol] = []
+    }
+    this.subjects.targets[baseSymbol].push(subject)
+    this.connectTargetSubject.next({
+      targetKey: baseSymbol,
+    })
+  },
   $isObservable(baseSymbol) {
     return this.observableList.has(baseSymbol)
   },
   $metaHandle(meta) {
-    if (meta.includes('::')) {
-      const metaInfo = meta.split('::')
-      if (metaInfo.length !== 3) {
-        throw new Error(
-          `${metaInfo} 格式错误, 应包含对应的 propsKey 和 propsValue`
-        )
-      }
-      return [metaInfo[0], metaInfo[1], metaInfo[2]]
-    }
     return [meta]
   },
   $getCollection() {
@@ -35,22 +45,6 @@ export const combination = {
         return component.instance.symbol !== symbol
       }
     )
-    const targets = this.subjects.target
-    Object.keys(targets)
-      .filter((targetKey) => {
-        return new RegExp(`^${baseSymbol}`).test(targetKey)
-      })
-      .forEach((matchKey) => {
-        if (Array.isArray(targets[matchKey])) {
-          targets[matchKey] = targets[matchKey].filter((t) => {
-            return t.symbol !== symbol
-          })
-        } else {
-          if (targets[matchKey] && targets[matchKey].symbol === symbol) {
-            targets[matchKey] = null
-          }
-        }
-      })
   },
   $createNotificationSubject({ notification }, baseSymbol) {
     if (notification) {
@@ -61,44 +55,24 @@ export const combination = {
     }
     return this.notificationSubjects[baseSymbol]
   },
-  $createSubjects({ subscribe }, baseSymbol, symbol, props = {}) {
+  $createSubjects({ subscribe }, baseSymbol) {
     if (subscribe) {
       if (!this.subjects.deps[baseSymbol]) {
+        // eslint-disable-next-line no-undef
         this.subjects.deps[baseSymbol] = new Set()
       }
       Object.keys(subscribe).forEach((observeTagetKey) => {
-        const subjects = {
-          state: new BehaviorSubject(null),
-          controller: new BehaviorSubject(null),
-          service: new BehaviorSubject(null),
-          tappable: new BehaviorSubject(null),
-          eventKey: observeTagetKey,
-          symbol,
-        }
-        const [name, propsKey, propsValue] = this.$metaHandle(observeTagetKey)
         this.subjects.deps[baseSymbol].add(observeTagetKey)
-        this.observableList.add(name)
-        if (propsKey) {
-          if (props[propsKey] === propsValue) {
-            if (!this.subjects.target[observeTagetKey]) {
-              this.subjects.target[observeTagetKey] = []
-            }
-            this.subjects.target[observeTagetKey].push(subjects)
-          }
-        } else {
-          if (!this.subjects.target[name]) {
-            this.subjects.target[name] = subjects
-          }
-        }
+        this.observableList.add(observeTagetKey)
       })
     }
     return null
   },
-  $register(symbol, instance) {
-    if (!this.components[symbol]) {
-      this.components[symbol] = []
+  $register(baseSymbol, instance) {
+    if (!this.components[baseSymbol]) {
+      this.components[baseSymbol] = []
     }
-    this.components[symbol].push({
+    this.components[baseSymbol].push({
       instance,
     })
   },
@@ -108,20 +82,7 @@ export const combination = {
         baseSymbol: componentStore.baseSymbol,
         props: componentStore.props,
       }
-      const targets = this.subjects.target
-      Object.keys(targets)
-        .filter((targetKey) => {
-          return new RegExp(`^${componentStore.baseSymbol}`).test(targetKey)
-        })
-        .forEach((matchKey) => {
-          if (Array.isArray(targets[matchKey])) {
-            targets[matchKey].forEach((targetSubject) => {
-              targetSubject[subjectKey].next(value)
-            })
-          } else {
-            targets[matchKey][subjectKey].next(value)
-          }
-        })
+      componentStore.subjects[subjectKey].next(value)
     }
   },
 }

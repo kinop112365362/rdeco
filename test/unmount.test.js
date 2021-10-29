@@ -70,6 +70,5 @@ test('测试 unmount 组件销毁的过程', async () => {
   fireEvent.click(screen.getByRole('notReady1'))
   await waitFor(() => {
     expect(combination.components['@test/tag']).toStrictEqual([])
-    expect(combination.subjects.target['@test/tag']).toBe(null)
   })
 })

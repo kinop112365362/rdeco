@@ -35,7 +35,9 @@ test('测试广播监听的用例', async () => {
   const Test = createComponent({
     name: '@test/com',
     controller: {
-      onClick() {},
+      onClick() {
+        console.debug('click')
+      },
     },
     view: {
       render() {

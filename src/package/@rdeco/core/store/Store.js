@@ -48,15 +48,23 @@ export class Store {
       Object.defineProperties(this.derivate, baseHandler)
     }
     this.name = storeConfig.name
-    this.subjects = combination.$createSubjects(
+    this.style = storeConfig.style ? { ...storeConfig.style } : null
+    this.setter = {}
+    this.props = storeConfig.props
+    this.subjects = {
+      state: new BehaviorSubject(null),
+      controller: new BehaviorSubject(null),
+      service: new BehaviorSubject(null),
+      tappable: new BehaviorSubject(null),
+      symbol: this.symbol,
+    }
+    combination.$setSubject(this.baseSymbol, this.subjects)
+    combination.$createSubjects(
       storeConfig,
       this.baseSymbol,
       this.symbol,
       this.props
     )
-    this.style = storeConfig.style ? { ...storeConfig.style } : null
-    this.setter = {}
-    this.props = {}
     // eslint-disable-next-line no-undef
     this.notify = notify
     this.tap = (fnKey, data) => {

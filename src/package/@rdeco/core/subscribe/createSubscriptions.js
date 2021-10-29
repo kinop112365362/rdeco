@@ -14,30 +14,9 @@ export function createSubscriptions(store) {
         if (store.subscribe[targetMeta.baseSymbol]) {
           store.subscribe[targetMeta.baseSymbol]?.[subjectKey]?.[fnKey]?.call(
             store,
-            value.data
+            value.data,
+            store.props
           )
-        } else {
-          /**
-           * 如果不能直接通过 target 命中, 意味着这是一个批量订阅, 再执行过程中需要对消息源进行匹配, 命中才执行
-           */
-          const matchsSubscriberKey = Object.keys(store.subscribe).find(
-            (rawName) => {
-              const [name, propsKey, propsValue] =
-                combination.$metaHandle(rawName)
-              if (name === targetMeta.baseSymbol) {
-                if (targetMeta.props[propsKey] === propsValue) {
-                  return true
-                }
-                return false
-              }
-            }
-          )
-          if (matchsSubscriberKey) {
-            store.subscribe[matchsSubscriberKey]?.[subjectKey]?.[fnKey]?.call(
-              store,
-              value.data
-            )
-          }
         }
       }
       if (subjectKey === 'state') {
@@ -52,21 +31,22 @@ export function createSubscriptions(store) {
   const depsSource = combination.subjects.deps[store.baseSymbol]
   if (depsSource) {
     depsSource.forEach((targetKey) => {
-      const source = combination.subjects.target[targetKey]
-      if (source) {
-        if (Array.isArray(source)) {
-          source.forEach((targetSubjects) => {
-            targetSubjects.forEach((targetSubject) => {
-              subscriptions.push(targetSubject.subscribe(observe))
-            })
-          })
-        } else {
-          Object.keys(source).forEach((targetSubject) => {
-            if (source[targetSubject].subscribe) {
-              subscriptions.push(source[targetSubject].subscribe(observe))
+      const source = combination.subjects.targets[targetKey]
+      const handle = (source) => {
+        source.forEach((targetSubjects) => {
+          Object.keys(targetSubjects).forEach((targetSubjectKey) => {
+            if (targetSubjects[targetSubjectKey].subscribe) {
+              subscriptions.push(
+                targetSubjects[targetSubjectKey].subscribe(observe)
+              )
             }
           })
-        }
+        })
+      }
+      if (source) {
+        handle(source)
+      } else {
+        subscriptions.push(combination.$connectTargetSubject(targetKey, handle))
       }
     })
   }

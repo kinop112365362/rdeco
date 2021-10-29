@@ -14,6 +14,7 @@ export function useComponent(component, props) {
   const isNotMounted = useRef(true)
   if (isNotMounted.current) {
     storeConfig.baseSymbol = baseSymbol
+    storeConfig.props = props
     store.current = new Store(storeConfig)
     combination.$register(baseSymbol, store.current)
   }
