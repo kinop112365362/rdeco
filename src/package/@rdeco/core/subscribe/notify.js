@@ -8,14 +8,27 @@ export const notify = (...args) => {
     syncker.next(value)
     syncker.complete()
   }
-  const infrom = (target, fnKey, data, next) => {
-    combination.$connect(target, (component) => {
-      component.notificationSubject.next({
+  const infrom = (targetMeta, fnKey, data, next) => {
+    if (!Array.isArray(targetMeta)) {
+      throw new Error(`${targetMeta} 不是一个数组`)
+    }
+    const [target, finder] = targetMeta
+    if (combination.notificationSubjects[target]) {
+      combination.notificationSubjects[target].next({
         fnKey,
         data,
         next,
+        finder,
       })
-    })
+    }
+    combination
+      .$createNotificationSubject({ notification: true }, target)
+      .next({
+        fnKey,
+        data,
+        next,
+        finder,
+      })
   }
   if (/^@@/.test(args[0])) {
     const { beforeNotify, subject } = combination.extends[args[0]]

@@ -5475,7 +5475,7 @@ rsvp@^4.8.4:
   resolved "http://npm.dc.servyou-it.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
   integrity sha1-yPFVMR0Wf2jyHhaN9x7FsIMRNzQ=
 
-rxjs@^7.3.0:
+rxjs@^7.4.0:
   version "7.4.0"
   resolved "http://npm.dc.servyou-it.com/rxjs/-/rxjs-7.4.0.tgz#a12a44d7eebf016f5ff2441b87f28c9a51cebc68"
   integrity sha1-oSpE1+6/AW9f8kQbh/KMmlHOvGg=

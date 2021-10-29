@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import createRouter from 'router5'
 import browserPlugin from 'router5-plugin-browser'
-import loggerPlugin from 'router5-plugin-logger'
+// import loggerPlugin from 'router5-plugin-logger'
 import { notify, enhanceContext } from '../core'
 import { createComponent } from '../react'
 import { beforMiddleware } from './beforMiddleware'
@@ -44,7 +44,7 @@ class App {
       }
     }
 
-    this.router.usePlugin(browserPlugin(config.router?.option), loggerPlugin)
+    this.router.usePlugin(browserPlugin(config.router?.option))
     this.router.useMiddleware(beforMiddleware)
     this.router.subscribe(({ route, previousRoute }) => {
       notify('@@router', 'after', { route, previousRoute })

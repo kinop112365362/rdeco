@@ -22,6 +22,10 @@ export class Store {
     this.subscribe = storeConfig.subscribe ? { ...storeConfig.subscribe } : null
     this.ref = storeConfig.ref ? { ...storeConfig.ref } : null
     this.baseSymbol = storeConfig.baseSymbol
+    this.notificationSubject = combination.$createNotificationSubject(
+      storeConfig,
+      this.baseSymbol
+    )
     this.symbol = Symbol()
     if (storeConfig.derivate) {
       this.derivate = {}
@@ -39,53 +43,17 @@ export class Store {
               )
             },
           }
-        } else {
-          combination.$connect(
-            derivateKey,
-            (target) => {
-              if (!target) {
-                throw new Error(
-                  `${derivateKey} 组件未定义或 unmount, 跨组件状态派生, 被派生组件必须实例化且处于 mount`
-                )
-              }
-              const targetDerivateKeys = Object.keys(
-                storeConfig.derivate[derivateKey]
-              )
-              const targetHandler = {}
-              targetDerivateKeys.forEach((targetDerivateKey) => {
-                if (!target.instance.state[targetDerivateKey]) {
-                  throw new Error(
-                    `${derivateKey}.state.${targetDerivateKey} 未定义, 无法派生, 请检查`
-                  )
-                }
-                targetHandler[targetDerivateKey] = {
-                  get: () => {
-                    return storeConfig.derivate[derivateKey][
-                      targetDerivateKey
-                    ].call(
-                      this,
-                      target.instance.state[targetDerivateKey],
-                      target.instance.state
-                    )
-                  },
-                }
-              })
-              this.derivate[derivateKey] = {}
-              Object.defineProperties(this.derivate[derivateKey], targetHandler)
-            },
-            this
-          )
         }
       })
       Object.defineProperties(this.derivate, baseHandler)
     }
     this.name = storeConfig.name
-    this.subjects = {
-      state: new BehaviorSubject(null),
-      controller: new BehaviorSubject(null),
-      service: new BehaviorSubject(null),
-      tappable: new BehaviorSubject(null),
-    }
+    this.subjects = combination.$createSubjects(
+      storeConfig,
+      this.baseSymbol,
+      this.symbol,
+      this.props
+    )
     this.style = storeConfig.style ? { ...storeConfig.style } : null
     this.setter = {}
     this.props = {}
@@ -98,14 +66,13 @@ export class Store {
       }
       const value = {
         eventTargetMeta: {
-          componentName: this.baseSymbol,
           subjectKey: 'tappable',
           fnKey,
         },
         data,
       }
 
-      combination.$broadcast(this.baseSymbol, value, 'tappable')
+      combination.$broadcast(this, value, 'tappable')
     }
 
     const baseContext = {
@@ -122,7 +89,7 @@ export class Store {
     stateKeys.forEach((stateKey) => {
       const type = stateKey
       this.setter[stateKey] = (payload) => {
-        this.dispatch([type, payload, stateKey, this.baseSymbol])
+        this.dispatch([type, payload, stateKey, this])
         return payload
       }
     })
@@ -166,12 +133,11 @@ export class Store {
     this.state = nextState
   }
   dispatch([...args]) {
-    const [type, payload, stateKey, name] = args
+    const [type, payload, stateKey, store] = args
     const prevState = { ...this.state[stateKey] }
     this.state[stateKey] = payload
     const value = {
       eventTargetMeta: {
-        componentName: name,
         subjectKey: 'state',
         fnKey: stateKey,
       },
@@ -181,7 +147,7 @@ export class Store {
         state: this.state,
       },
     }
-    combination.$broadcast(this.baseSymbol, value, 'state')
+    combination.$broadcast(this, value, 'state')
   }
   dispose() {
     combination.$remove(this.symbol, this.baseSymbol)

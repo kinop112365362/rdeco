@@ -15,7 +15,6 @@ export function reducer(state, action) {
   })
   const value = {
     eventTargetMeta: {
-      componentName: action[3],
       subjectKey: 'state',
       fnKey: action[2],
     },

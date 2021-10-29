@@ -9,9 +9,14 @@ import '@testing-library/jest-dom/extend-expect'
 test('测试 unmount 组件销毁的过程', async () => {
   const Tag = createComponent({
     name: '@test/tag',
+    subscribe: {
+      ['@test/tag']: {
+        state: {},
+      },
+    },
     controller: {
       onClick() {
-        this.notify('@test/com', 'notReady')
+        this.notify(['@test/com'], 'notReady')
       },
     },
     view: {
@@ -65,5 +70,6 @@ test('测试 unmount 组件销毁的过程', async () => {
   fireEvent.click(screen.getByRole('notReady1'))
   await waitFor(() => {
     expect(combination.components['@test/tag']).toStrictEqual([])
+    expect(combination.subjects.target['@test/tag']).toBe(null)
   })
 })

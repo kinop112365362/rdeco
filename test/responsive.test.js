@@ -5,7 +5,7 @@ import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import { createComponent } from '../src/index'
 import '@testing-library/jest-dom/extend-expect'
 
-test('测试 responsive', async () => {
+test('测试 responsive 非多实例下的用例', async () => {
   const ComponentA = createComponent({
     name: '@test/component-a',
     state: {
@@ -75,44 +75,30 @@ test('测试 responsive', async () => {
       },
     },
     subscribe: {
-      state: [
-        [
-          '@test/component-a',
-          {
-            name({ prevState, nextState, state }) {
-              this.setter.aname(nextState)
-            },
+      ['@test/component-a']: {
+        state: {
+          name({ prevState, nextState, state }) {
+            this.setter.aname(nextState)
           },
-        ],
-      ],
-      tappable: [
-        [
-          ['@test/component-a'],
-          {
-            setAgeOver(age) {
-              this.setter.hookAge(age)
-            },
+        },
+        tappable: {
+          setAgeOver(age) {
+            this.setter.hookAge(age)
           },
-        ],
-      ],
-      controller: [
-        [
-          '@test/component-a',
-          {
-            onClick({ state }) {
-              this.setter.age(state.age)
-            },
+        },
+        controller: {
+          onClick({ state }) {
+            this.setter.age(state.age)
           },
-        ],
-        [
-          '@test/component-a',
-          {
-            onClick({ state }) {
-              this.setter.bage(state.age)
-            },
+        },
+      },
+      ['@test/component-b']: {
+        controller: {
+          onClick({ state }) {
+            this.setter.bage(state.age)
           },
-        ],
-      ],
+        },
+      },
     },
     controller: {
       onClick() {
@@ -150,31 +136,23 @@ test('测试 responsive', async () => {
       sidHookName: '',
     },
     subscribe: {
-      controller: [
-        [
-          '@test/component-c',
-          {
-            onClick() {
-              this.setter.sidName('ComponentC:sid')
-            },
+      ['@test/component-c']: {
+        controller: {
+          onClick() {
+            this.setter.sidName('ComponentC:sid')
           },
-        ],
-      ],
-      tappable: [
-        [
-          '@test/component-c',
-          {
-            onClick() {
-              this.setter.sidHookName('ComponentC:sidHook')
-            },
+        },
+        tappable: {
+          onClick() {
+            this.setter.sidHookName('ComponentC:sidHook')
           },
-        ],
-      ],
+        },
+      },
     },
     controller: {
       onClick() {
         this.setter.name(this.props.name)
-        this.notify('@test/component-c', 'callMe', 'helloC')
+        this.notify(['@test/component-c'], 'callMe', 'helloC')
       },
     },
     view: {
@@ -200,16 +178,14 @@ test('测试 responsive', async () => {
     return (
       <div>
         <ComponentB></ComponentB>
-        <ComponentA id="a-1"></ComponentA>
-        <ComponentA id="a-2"></ComponentA>
+        <ComponentA channel="a" id={1}></ComponentA>
         <ComponentC></ComponentC>
         <ComponentD buttonRole="buttonc" name="d"></ComponentD>
       </div>
     )
   }
   render(<Test></Test>)
-  fireEvent.click(screen.getByRole('buttona-1'))
-  fireEvent.click(screen.getByRole('buttona-2'))
+  fireEvent.click(screen.getByRole('button1'))
   fireEvent.click(screen.getByRole('buttonb'))
   fireEvent.click(screen.getByRole('buttonc'))
   await waitFor(() => {

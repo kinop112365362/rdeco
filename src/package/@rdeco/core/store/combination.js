@@ -1,14 +1,31 @@
-import { connectSubject } from '../subscribe/subject'
-import { ReplaySubject } from 'rxjs'
+import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
+/* eslint-disable no-undef */
 export const combination = {
-  subscribeIds: {},
   components: {},
+  notificationSubjects: {},
+  observableList: new Set(),
+  subjects: {
+    deps: {},
+    target: {},
+  },
   enhanceContext: {},
-  proxySubjects: {},
   extends: {},
-  routerSubjects: null,
-  routerHistory: [],
+  $isObservable(baseSymbol) {
+    return this.observableList.has(baseSymbol)
+  },
+  $metaHandle(meta) {
+    if (meta.includes('::')) {
+      const metaInfo = meta.split('::')
+      if (metaInfo.length !== 3) {
+        throw new Error(
+          `${metaInfo} 格式错误, 应包含对应的 propsKey 和 propsValue`
+        )
+      }
+      return [metaInfo[0], metaInfo[1], metaInfo[2]]
+    }
+    return [meta]
+  },
   $getCollection() {
     return this.components
   },
@@ -18,71 +35,94 @@ export const combination = {
         return component.instance.symbol !== symbol
       }
     )
-  },
-  $connect(meta, handle, observeStore = null) {
-    let name = meta
-    let finder = null
-    if (Array.isArray(meta)) {
-      name = meta[0]
-      finder = meta[1]
-    }
-    const peformCount = 20
-    const invoke = () => {
-      let targets = this.components[name]
-      if (finder) {
-        targets = this.components[name].filter((component) => {
-          if (observeStore) {
-            const context = {
-              state: { ...observeStore.state },
-              props: { ...observeStore.props },
-            }
-            return finder(component.instance.props, context)
+    const targets = this.subjects.target
+    Object.keys(targets)
+      .filter((targetKey) => {
+        return new RegExp(`^${baseSymbol}`).test(targetKey)
+      })
+      .forEach((matchKey) => {
+        if (Array.isArray(targets[matchKey])) {
+          targets[matchKey] = targets[matchKey].filter((t) => {
+            return t.symbol !== symbol
+          })
+        } else {
+          if (targets[matchKey] && targets[matchKey].symbol === symbol) {
+            targets[matchKey] = null
           }
-          return finder(component.instance.props)
-        })
-        if (!targets) {
-          throw new Error(
-            `查找 ${name} 组件下的某个实例失败, 请检查 finder 函数里是否 return, 或者匹配规则是否正确`
-          )
         }
-      }
-      if (targets.length > peformCount) {
-        console.error(
-          `触发的监听器数量较都, 可能产生性能问题, 请尽可能精确监听, 避免批量监听 监听器: ${name}`
-        )
-      }
-      targets.forEach((target) => {
-        handle.call(null, target)
       })
+  },
+  $createNotificationSubject({ notification }, baseSymbol) {
+    if (notification) {
+      const notificationSubject = new ReplaySubject(99)
+      if (!this.notificationSubjects[baseSymbol]) {
+        this.notificationSubjects[baseSymbol] = notificationSubject
+      }
     }
-    if (this.components[name]) {
-      invoke()
-    } else {
-      connectSubject.subscribe({
-        next: (connectName) => {
-          if (connectName === name) {
-            invoke()
+    return this.notificationSubjects[baseSymbol]
+  },
+  $createSubjects({ subscribe }, baseSymbol, symbol, props) {
+    if (subscribe) {
+      if (!this.subjects.deps[baseSymbol]) {
+        this.subjects.deps[baseSymbol] = new Set()
+      }
+      Object.keys(subscribe).forEach((observeTagetKey) => {
+        const subjects = {
+          state: new BehaviorSubject(null),
+          controller: new BehaviorSubject(null),
+          service: new BehaviorSubject(null),
+          tappable: new BehaviorSubject(null),
+          eventKey: observeTagetKey,
+          symbol,
+        }
+        const [name, propsKey, propsValue] = this.$metaHandle(observeTagetKey)
+        this.subjects.deps[baseSymbol].add(observeTagetKey)
+        this.observableList.add(name)
+        if (propsKey) {
+          if (props[propsKey] === propsValue) {
+            if (!this.subjects.target[observeTagetKey]) {
+              this.subjects.target[observeTagetKey] = []
+            }
+            this.subjects.target[observeTagetKey].push(subjects)
           }
-        },
+        } else {
+          if (!this.subjects.target[name]) {
+            this.subjects.target[name] = subjects
+          }
+        }
       })
     }
+    return null
   },
   $register(symbol, instance) {
-    const notificationSubject = new ReplaySubject(99)
     if (!this.components[symbol]) {
       this.components[symbol] = []
     }
     this.components[symbol].push({
       instance,
-      notificationSubject,
     })
-    connectSubject.next(symbol)
-    return notificationSubject
   },
-  $broadcast(symbol, value, subjectKey) {
-    this.components[symbol].forEach((component) => {
-      component.instance.subjects[subjectKey].next(value)
-    })
+  $broadcast(componentStore, value, subjectKey) {
+    if (this.$isObservable(componentStore.baseSymbol)) {
+      value.targetMeta = {
+        baseSymbol: componentStore.baseSymbol,
+        props: componentStore.props,
+      }
+      const targets = this.subjects.target
+      Object.keys(targets)
+        .filter((targetKey) => {
+          return new RegExp(`^${componentStore.baseSymbol}`).test(targetKey)
+        })
+        .forEach((matchKey) => {
+          if (Array.isArray(targets[matchKey])) {
+            targets[matchKey].forEach((targetSubject) => {
+              targetSubject[subjectKey].next(value)
+            })
+          } else {
+            targets[matchKey][subjectKey].next(value)
+          }
+        })
+    }
   },
 }
 export function enhanceContext(key, value) {
