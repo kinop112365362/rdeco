@@ -61,7 +61,7 @@ export const combination = {
     }
     return this.notificationSubjects[baseSymbol]
   },
-  $createSubjects({ subscribe }, baseSymbol, symbol, props) {
+  $createSubjects({ subscribe }, baseSymbol, symbol, props = {}) {
     if (subscribe) {
       if (!this.subjects.deps[baseSymbol]) {
         this.subjects.deps[baseSymbol] = new Set()
