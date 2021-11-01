@@ -1,6 +1,6 @@
 import React from 'react'
 import { RouteView, App, createComponent } from '../src'
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor, fireEvent, screen } from '@testing-library/react'
 
 describe('test <RouteView>', () => {
   const app = new App({
@@ -106,48 +106,27 @@ describe('test <RouteView>', () => {
     render(<div id="root" />)
   })
 
-  it("default path '/'", async () => {
-    app.start('/')
+  it("change: path '/' to '/secondComponent' to '/secondComponent/threeComponent'", async () => {
+    app.start()
     const node = document.getElementById('Container')
-
     render(<BaseComponent />, {
       container: node,
     })
 
-    await waitFor(() => {
-      expect(node.innerHTML).toContain(
-        '<div><button role="button">button</button></div>'
-      )
-    })
-  })
-
-  it("default path '/secondComponent'", async () => {
-    app.start('/secondComponent')
-    const node = document.getElementById('Container')
-
-    render(<BaseComponent />, {
-      container: node,
-    })
-
-    await waitFor(() => {
+    expect(node.innerHTML).toContain(
+      '<div><button role="button">button</button></div>'
+    )
+    fireEvent.click(screen.getByRole('button'))
+    await waitFor(async () => {
       expect(node.innerHTML).toContain(
         '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div></div>'
       )
-    })
-  })
-
-  it("default path '/secondComponent/threeComponent'", async () => {
-    app.start('/secondComponent/threeComponent')
-    const node = document.getElementById('Container')
-
-    render(<BaseComponent />, {
-      container: node,
-    })
-
-    await waitFor(() => {
-      expect(node.innerHTML).toContain(
-        '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div><div>ThreeComponent</div></div>'
-      )
+      app.router.navigate('/secondComponent/threeComponent')
+      await waitFor(() => {
+        expect(node.innerHTML).toContain(
+          '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div><div>ThreeComponent</div></div>'
+        )
+      })
     })
   })
 })

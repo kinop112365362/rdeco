@@ -106,8 +106,8 @@ describe('test <RouteView>', () => {
     render(<div id="root" />)
   })
 
-  it("default path '/'", async () => {
-    app.start('/')
+  it("default path '/secondComponentChild/threeComponent'", async () => {
+    app.start('/secondComponentChild/threeComponent')
     const node = document.getElementById('Container')
 
     render(<BaseComponent />, {
@@ -116,37 +116,7 @@ describe('test <RouteView>', () => {
 
     await waitFor(() => {
       expect(node.innerHTML).toContain(
-        '<div><button role="button">button</button></div>'
-      )
-    })
-  })
-
-  it("default path '/secondComponent'", async () => {
-    app.start('/secondComponent')
-    const node = document.getElementById('Container')
-
-    render(<BaseComponent />, {
-      container: node,
-    })
-
-    await waitFor(() => {
-      expect(node.innerHTML).toContain(
-        '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div></div>'
-      )
-    })
-  })
-
-  it("default path '/secondComponent/threeComponent'", async () => {
-    app.start('/secondComponent/threeComponent')
-    const node = document.getElementById('Container')
-
-    render(<BaseComponent />, {
-      container: node,
-    })
-
-    await waitFor(() => {
-      expect(node.innerHTML).toContain(
-        '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div><div>ThreeComponent</div></div>'
+        '<div><button role="button">button</button><div><div>secondComponentChild</div><div>ThreeComponent</div></div></div>'
       )
     })
   })
