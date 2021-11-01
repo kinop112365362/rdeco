@@ -1,6 +1,6 @@
 {
   "name": "rdeco",
-  "version": "2.3.19",
+  "version": "2.3.23",
   "description": "基于响应式的 React 应用开发框架",
   "keywords": [
     "react",
@@ -98,7 +98,7 @@
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1",
     "router5-plugin-logger": "^8.0.1",
-    "rxjs": "^7.3.0",
+    "rxjs": "^7.4.0",
     "validate-npm-package-name": "^3.0.0"
   }
 }

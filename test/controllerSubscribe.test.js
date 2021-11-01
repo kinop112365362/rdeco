@@ -18,28 +18,18 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
       },
     },
     subscribe: {
-      state: [
-        [
-          [
-            '@test/data-table',
-            (targetProps, context) => {
-              expect(targetProps).toStrictEqual({ groupId: 1 })
-              expect(context.props.groupId).toBe(1)
-              return true
-            },
-          ],
-          {
-            currentSelectRowId() {},
-          },
-        ],
-      ],
+      ['@test/data-table']: {
+        state: {
+          currentSelectRowId() {},
+        },
+      },
     },
     controller: {
       onChange(e) {
         this.setter.value(e.target.value)
       },
       onClick() {
-        this.notify('@test/data-table', 'selectRow', this.props.id)
+        this.notify(['@test/data-table'], 'selectRow', this.props.id)
         this.setter.selected('true')
       },
     },
@@ -78,12 +68,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
       selectRow(id) {
         if (this.state.currentSelectRowId !== null) {
           this.notify(
-            [
-              '@test/row',
-              ({ id }) => {
-                return id === this.state.currentSelectRowId
-              },
-            ],
+            ['@test/row', ({ channel }) => channel === 'data-row'],
             'select',
             'false'
           )
@@ -98,7 +83,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
             <div role="currentSelectRowId">{this.state.currentSelectRowId}</div>
             {this.state.dataSource.map((data) => {
               return (
-                <Row groupId={this.props.groupId} key={data} id={data}>
+                <Row channel="data-row" key={data} id={data}>
                   data
                 </Row>
               )

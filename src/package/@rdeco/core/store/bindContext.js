@@ -15,7 +15,6 @@ export function bindContext(fnKeys, fnObj, context, ins, subjectKey) {
           state: ins.state,
         }
         const eventTargetMeta = {
-          componentName: ins.baseSymbol,
           subjectKey,
           fnKey,
         }
@@ -23,7 +22,7 @@ export function bindContext(fnKeys, fnObj, context, ins, subjectKey) {
           eventTargetMeta,
           data,
         }
-        combination.$broadcast(ins.baseSymbol, value, subjectKey)
+        combination.$broadcast(ins, value, subjectKey)
       }
       return fnObj[fnKey].call(
         { ...combination.enhanceContext, ...context },

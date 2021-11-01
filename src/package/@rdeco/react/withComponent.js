@@ -1,5 +1,5 @@
 import React from 'react'
-import { combination, createStore, createSubscriptions } from '../core'
+import { combination, Store, createSubscriptions } from '../core'
 import { validate } from '../core/utils/validate'
 
 function getDisplayName(WrappedComponent) {
@@ -18,10 +18,10 @@ export function withComponent(WrappedComponent, component) {
         ...this.storeConfig.state,
       }
       this.ref = { ...component.ref }
-      this.store = createStore(this.storeConfig)
+      this.store = new Store(this.storeConfig)
       const dispatch = this.dispatch.bind(this)
       this.store.update(this.storeConfig.state, dispatch, this.props, this.ref)
-      this.notificationSubject = combination.$register(baseSymbol, this.store)
+      combination.$register(baseSymbol, this.store)
     }
     dispatch(args) {
       // eslint-disable-next-line no-unused-vars
@@ -43,7 +43,7 @@ export function withComponent(WrappedComponent, component) {
         this.store.controller.onMount()
       }
       const { routerSubscription, selfSubscription, subscriptions } =
-        createSubscriptions(this.store, this.notificationSubject)
+        createSubscriptions(this.store)
       this.routerSubscription = routerSubscription
       this.selfSubscription = selfSubscription
       this.subscriptions = subscriptions

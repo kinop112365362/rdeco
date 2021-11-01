@@ -9,9 +9,14 @@ import '@testing-library/jest-dom/extend-expect'
 test('测试 unmount 组件销毁的过程', async () => {
   const Tag = createComponent({
     name: '@test/tag',
+    subscribe: {
+      ['@test/tag']: {
+        state: {},
+      },
+    },
     controller: {
       onClick() {
-        this.notify('@test/com', 'notReady')
+        this.notify(['@test/com'], 'notReady')
       },
     },
     view: {

@@ -30,16 +30,13 @@ test('测试 Entity 和 组件协同工作', async () => {
       btnValue: null,
     },
     subscribe: {
-      controller: [
-        [
-          '@test/base-button',
-          {
-            onLoginButtonClick() {
-              this.setter.btnValue('base')
-            },
+      ['@test/base-button']: {
+        controller: {
+          onLoginButtonClick() {
+            this.setter.btnValue('base')
           },
-        ],
-      ],
+        },
+      },
     },
     controller: {
       onClick() {
@@ -51,35 +48,34 @@ test('测试 Entity 和 组件协同工作', async () => {
     name: '@test/login-entity',
     state: {
       result: null,
+      username: null,
+      password: null,
     },
     notification: {
       query(next) {
         next('done')
       },
     },
-    derivate: {
-      ['@test/base-button']: {
-        username: (v) => v,
-        password: (v) => v,
-      },
-    },
     subscribe: {
-      controller: [
-        [
-          '@test/base-button',
-          {
-            onLoginButtonClick() {
-              this.service.getLogin()
-            },
+      ['@test/base-button']: {
+        state: {
+          username({ nextState }) {
+            this.setter.username(nextState)
           },
-        ],
-      ],
+          password({ nextState }) {
+            this.setter.password(nextState)
+          },
+        },
+        controller: {
+          onLoginButtonClick() {
+            this.service.getLogin()
+          },
+        },
+      },
     },
     service: {
       getLogin() {
-        const { username, password } = this.derivate['@test/base-button']
-        expect(username).toBe('ann')
-        expect(password).toBe(123)
+        const { username, password } = this.state
         this.setter.result({
           code: 200,
           data: {
@@ -103,17 +99,14 @@ test('测试 Entity 和 组件协同工作', async () => {
       message: '',
     },
     subscribe: {
-      state: [
-        [
-          '@test/login-entity',
-          {
-            result({ prevState, nextState, state }) {
-              expect(nextState.code).toBe(200)
-              this.setter.message(nextState.data.message)
-            },
+      ['@test/login-entity']: {
+        state: {
+          result({ prevState, nextState, state }) {
+            expect(nextState.code).toBe(200)
+            this.setter.message(nextState.data.message)
           },
-        ],
-      ],
+        },
+      },
     },
     service: {
       test() {},
@@ -124,7 +117,7 @@ test('测试 Entity 和 组件协同工作', async () => {
         this.setter.password(123)
       },
       onLoginButtonClick() {
-        this.notify('@test/login-entity', 'query').then((value) => {
+        this.notify(['@test/login-entity'], 'query').then((value) => {
           expect(value).toBe('done')
         })
       },

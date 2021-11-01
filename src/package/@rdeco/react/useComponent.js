@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useEffect, useRef } from 'react'
-import { combination, createStore } from '../core'
+import { combination, Store } from '../core'
 import { useSubscribe } from './reactHooks/useSubscribe'
 import { useStoreDispose } from './reactHooks/useStoreDispose'
 import { useStoreUpdate } from './reactHooks/useStoreUpdate'
@@ -12,14 +12,11 @@ export function useComponent(component, props) {
   const storeConfig = useRef({ ...component }).current
   const store = useRef(null)
   const isNotMounted = useRef(true)
-  const notificationSubject = useRef(null)
   if (isNotMounted.current) {
     storeConfig.baseSymbol = baseSymbol
-    store.current = createStore(storeConfig)
-    notificationSubject.current = combination.$register(
-      baseSymbol,
-      store.current
-    )
+    storeConfig.props = props
+    store.current = new Store(storeConfig)
+    combination.$register(baseSymbol, store.current)
   }
   useEffect(() => {
     isNotMounted.current = false
@@ -28,7 +25,7 @@ export function useComponent(component, props) {
     }
   }, [])
   useStoreUpdate(store.current, store.current.state, props)
-  useSubscribe(store.current, notificationSubject.current)
+  useSubscribe(store.current)
   useStoreDispose(store.current)
   return store.current
 }

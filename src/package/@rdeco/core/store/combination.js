@@ -1,14 +1,41 @@
-import { connectSubject } from '../subscribe/subject'
 import { ReplaySubject } from 'rxjs'
 
 export const combination = {
-  subscribeIds: {},
   components: {},
+  notificationSubjects: {},
+  // eslint-disable-next-line no-undef
+  observableList: new Set(),
+  subjects: {
+    deps: {},
+    targets: {},
+  },
   enhanceContext: {},
-  proxySubjects: {},
+  connectTargetSubject: new ReplaySubject(20),
   extends: {},
-  routerSubjects: null,
-  routerHistory: [],
+  $connectTargetSubject(targetKey, handle) {
+    return this.connectTargetSubject.subscribe({
+      next: (value) => {
+        if (value.targetKey === targetKey) {
+          handle(this.subjects.targets[targetKey])
+        }
+      },
+    })
+  },
+  $setSubject(baseSymbol, subject) {
+    if (!this.subjects.targets[baseSymbol]) {
+      this.subjects.targets[baseSymbol] = []
+    }
+    this.subjects.targets[baseSymbol].push(subject)
+    this.connectTargetSubject.next({
+      targetKey: baseSymbol,
+    })
+  },
+  $isObservable(baseSymbol) {
+    return this.observableList.has(baseSymbol)
+  },
+  $metaHandle(meta) {
+    return [meta]
+  },
   $getCollection() {
     return this.components
   },
@@ -19,70 +46,44 @@ export const combination = {
       }
     )
   },
-  $connect(meta, handle, observeStore = null) {
-    let name = meta
-    let finder = null
-    if (Array.isArray(meta)) {
-      name = meta[0]
-      finder = meta[1]
-    }
-    const peformCount = 20
-    const invoke = () => {
-      let targets = this.components[name]
-      if (finder) {
-        targets = this.components[name].filter((component) => {
-          if (observeStore) {
-            const context = {
-              state: { ...observeStore.state },
-              props: { ...observeStore.props },
-            }
-            return finder(component.instance.props, context)
-          }
-          return finder(component.instance.props)
-        })
-        if (!targets) {
-          throw new Error(
-            `查找 ${name} 组件下的某个实例失败, 请检查 finder 函数里是否 return, 或者匹配规则是否正确`
-          )
-        }
+  $createNotificationSubject({ notification }, baseSymbol) {
+    if (notification) {
+      const notificationSubject = new ReplaySubject(99)
+      if (!this.notificationSubjects[baseSymbol]) {
+        this.notificationSubjects[baseSymbol] = notificationSubject
       }
-      if (targets.length > peformCount) {
-        console.error(
-          `触发的监听器数量较都, 可能产生性能问题, 请尽可能精确监听, 避免批量监听 监听器: ${name}`
-        )
-      }
-      targets.forEach((target) => {
-        handle.call(null, target)
-      })
     }
-    if (this.components[name]) {
-      invoke()
-    } else {
-      connectSubject.subscribe({
-        next: (connectName) => {
-          if (connectName === name) {
-            invoke()
-          }
-        },
-      })
-    }
+    return this.notificationSubjects[baseSymbol]
   },
-  $register(symbol, instance) {
-    const notificationSubject = new ReplaySubject(99)
-    if (!this.components[symbol]) {
-      this.components[symbol] = []
+  $createSubjects({ subscribe }, baseSymbol) {
+    if (subscribe) {
+      if (!this.subjects.deps[baseSymbol]) {
+        // eslint-disable-next-line no-undef
+        this.subjects.deps[baseSymbol] = new Set()
+      }
+      Object.keys(subscribe).forEach((observeTagetKey) => {
+        this.subjects.deps[baseSymbol].add(observeTagetKey)
+        this.observableList.add(observeTagetKey)
+      })
     }
-    this.components[symbol].push({
+    return null
+  },
+  $register(baseSymbol, instance) {
+    if (!this.components[baseSymbol]) {
+      this.components[baseSymbol] = []
+    }
+    this.components[baseSymbol].push({
       instance,
-      notificationSubject,
     })
-    connectSubject.next(symbol)
-    return notificationSubject
   },
-  $broadcast(symbol, value, subjectKey) {
-    this.components[symbol].forEach((component) => {
-      component.instance.subjects[subjectKey].next(value)
-    })
+  $broadcast(componentStore, value, subjectKey) {
+    if (this.$isObservable(componentStore.baseSymbol)) {
+      value.targetMeta = {
+        baseSymbol: componentStore.baseSymbol,
+        props: componentStore.props,
+      }
+      componentStore.subjects[subjectKey].next(value)
+    }
   },
 }
 export function enhanceContext(key, value) {

@@ -1,35 +1,88 @@
 /* eslint-disable react/display-name */
 import { combination } from '../store/combination'
-import { createNotificationSubscription } from './createNotificationSubscription'
-import { createSubscription } from './createSubscription'
 
-export function createSubscriptions(store, notificationSubject) {
+export function createSubscriptions(store) {
   const subscriptions = []
-  const bindSubject = createSubscription(store)
-  if (store.subscribe) {
-    const subscribeIds = combination.subscribeIds[store.baseSymbol]
-    Object.keys(subscribeIds).forEach((subjectKey) => {
-      subscribeIds[subjectKey].forEach((subscribeId) => {
-        combination.$connect(
-          subscribeId,
-          (target) => {
-            subscriptions.push(
-              bindSubject(target.instance.subjects[subjectKey])
-            )
-          },
-          store
-        )
-      })
+  const observe = {
+    next(value) {
+      if (value === null) {
+        return
+      }
+      const { subjectKey, fnKey } = value?.eventTargetMeta
+      const { targetMeta } = value
+      const handle = () => {
+        if (store.subscribe[targetMeta.baseSymbol]) {
+          store.subscribe[targetMeta.baseSymbol]?.[subjectKey]?.[fnKey]?.call(
+            store,
+            value.data,
+            store.props
+          )
+        }
+      }
+      if (subjectKey === 'state') {
+        setTimeout(() => {
+          handle()
+        }, 16)
+      } else {
+        handle()
+      }
+    },
+  }
+  const depsSource = combination.subjects.deps[store.baseSymbol]
+  if (depsSource) {
+    depsSource.forEach((targetKey) => {
+      const source = combination.subjects.targets[targetKey]
+      const handle = (source) => {
+        source.forEach((targetSubjects) => {
+          Object.keys(targetSubjects).forEach((targetSubjectKey) => {
+            if (targetSubjects[targetSubjectKey].subscribe) {
+              subscriptions.push(
+                targetSubjects[targetSubjectKey].subscribe(observe)
+              )
+            }
+          })
+        })
+      }
+      if (source) {
+        handle(source)
+      } else {
+        subscriptions.push(combination.$connectTargetSubject(targetKey, handle))
+      }
     })
   }
+
   Object.keys(combination.extends).forEach((extend) => {
     const { subject, observeCreator } = combination.extends[extend]
     subscriptions.push(subject.subscribe(observeCreator(store)))
   })
-  const selfSubscription = createNotificationSubscription(
-    bindSubject,
-    store,
-    notificationSubject
-  )
+
+  let selfSubscription = null
+  if (store.notification) {
+    selfSubscription = store.notificationSubject.subscribe({
+      next(value) {
+        if (value !== null) {
+          // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件
+          if (!store.notification[value.fnKey]) {
+            throw new Error(
+              `调用失败, ${store.name} 组件的 notification 上不存在 ${value.fnKey} 方法`
+            )
+          }
+          if (value.finder) {
+            if (!value.finder(store.props)) {
+              /**
+               * 通过 props 对比可以判断是否匹配通知规则, 不匹配则不触发订阅逻辑
+               */
+              return
+            }
+          }
+          store.notification?.[value?.fnKey]?.call(
+            store,
+            value.data,
+            value.next
+          )
+        }
+      },
+    })
+  }
   return { selfSubscription, subscriptions }
 }
