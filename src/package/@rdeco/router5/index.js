@@ -3,7 +3,7 @@ import { ReplaySubject } from 'rxjs'
 import App from './App'
 
 extendsSubscribe('@@router', {
-  subject: new ReplaySubject(9),
+  subject: new ReplaySubject(2),
   beforeNotify(...args) {
     const [subjectKey, arg, next] = args
     return { subjectKey, arg, next }
