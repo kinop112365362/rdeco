@@ -20,15 +20,16 @@ export const notify = (...args) => {
         next,
         finder,
       })
+    } else {
+      combination
+        .$createNotificationSubject({ notification: true }, target)
+        .next({
+          fnKey,
+          data,
+          next,
+          finder,
+        })
     }
-    combination
-      .$createNotificationSubject({ notification: true }, target)
-      .next({
-        fnKey,
-        data,
-        next,
-        finder,
-      })
   }
   if (/^@@/.test(args[0])) {
     const { beforeNotify, subject } = combination.extends[args[0]]

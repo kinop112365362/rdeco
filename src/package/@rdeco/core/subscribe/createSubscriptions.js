@@ -58,8 +58,10 @@ export function createSubscriptions(store) {
 
   let selfSubscription = null
   if (store.notification) {
+    console.debug('subscribe')
     selfSubscription = store.notificationSubject.subscribe({
       next(value) {
+        console.debug(value)
         if (value !== null) {
           // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件
           if (!store.notification[value.fnKey]) {

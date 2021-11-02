@@ -10,33 +10,20 @@ import { combination } from '../src/package/@rdeco/core'
 test('测试广播监听的用例', async () => {
   createEntity({
     name: '@test/entity-1',
-    subscribe: {
-      ['@test/com']: {
-        controller: {
-          onClick() {
-            console.debug('click-1')
-          },
-        },
+    notification: {
+      click() {
+        console.debug('click')
       },
     },
   })
   createEntity({
     name: '@test/entity-2',
-    subscribe: {
-      ['@test/com']: {
-        controller: {
-          onClick() {
-            console.debug('click-2')
-          },
-        },
-      },
-    },
   })
   const Test = createComponent({
     name: '@test/com',
     controller: {
       onClick() {
-        console.debug('click')
+        this.notify(['@test/entity-1'], 'click')
       },
     },
     view: {
