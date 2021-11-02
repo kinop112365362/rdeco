@@ -1,4 +1,4 @@
-import { ReplaySubject } from 'rxjs'
+import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
 export const combination = {
   components: {},
@@ -48,7 +48,7 @@ export const combination = {
   },
   $createNotificationSubject({ notification }, baseSymbol) {
     if (notification) {
-      const notificationSubject = new ReplaySubject(99)
+      const notificationSubject = new BehaviorSubject(null)
       if (!this.notificationSubjects[baseSymbol]) {
         this.notificationSubjects[baseSymbol] = notificationSubject
       }
@@ -98,7 +98,7 @@ export function extendsSubscribe(key, handler) {
 if (window) {
   window.$$rdecoLog = () => {
     return {
-      components: Object.freeze({ ...combination }),
+      logger: Object.freeze({ ...combination }),
     }
   }
 }
