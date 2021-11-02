@@ -1,4 +1,4 @@
-import { BehaviorSubject, ReplaySubject } from 'rxjs'
+import { ReplaySubject } from 'rxjs'
 
 export const combination = {
   components: {},
@@ -21,11 +21,11 @@ export const combination = {
       },
     })
   },
-  $setSubject(baseSymbol, subject) {
+  $setSubject(baseSymbol, subject, props) {
     if (!this.subjects.targets[baseSymbol]) {
       this.subjects.targets[baseSymbol] = []
     }
-    this.subjects.targets[baseSymbol].push(subject)
+    this.subjects.targets[baseSymbol].push({ subject, props })
     this.connectTargetSubject.next({
       targetKey: baseSymbol,
     })
@@ -48,7 +48,7 @@ export const combination = {
   },
   $createNotificationSubject({ notification }, baseSymbol) {
     if (notification) {
-      const notificationSubject = new BehaviorSubject(null)
+      const notificationSubject = new ReplaySubject(9)
       if (!this.notificationSubjects[baseSymbol]) {
         this.notificationSubjects[baseSymbol] = notificationSubject
       }

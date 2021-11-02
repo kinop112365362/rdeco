@@ -19,8 +19,13 @@ test('测试广播监听的用例', async () => {
         createEntity({
           name: '@test/entity-1',
           notification: {
-            click() {
-              console.debug('click')
+            click() {},
+          },
+          subscribe: {
+            '@test/com': {
+              controller: {
+                onClick() {},
+              },
             },
           },
         })

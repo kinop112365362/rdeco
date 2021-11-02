@@ -58,7 +58,7 @@ export class Store {
       tappable: new BehaviorSubject(null),
       symbol: this.symbol,
     }
-    combination.$setSubject(this.baseSymbol, this.subjects)
+    combination.$setSubject(this.baseSymbol, this.subjects, this.props)
     combination.$createSubjects(
       storeConfig,
       this.baseSymbol,

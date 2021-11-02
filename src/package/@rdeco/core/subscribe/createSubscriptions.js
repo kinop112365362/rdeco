@@ -1,9 +1,8 @@
 /* eslint-disable react/display-name */
 import { combination } from '../store/combination'
 
-export function createSubscriptions(store) {
-  const subscriptions = []
-  const observe = {
+const createObserve = (store, props) => {
+  return {
     next(value) {
       if (value === null) {
         return
@@ -15,7 +14,7 @@ export function createSubscriptions(store) {
           store.subscribe[targetMeta.baseSymbol]?.[subjectKey]?.[fnKey]?.call(
             store,
             value.data,
-            store.props
+            props
           )
         }
       }
@@ -28,21 +27,27 @@ export function createSubscriptions(store) {
       }
     },
   }
+}
+export function createSubscriptions(store) {
+  const subscriptions = []
+
   const depsSource = combination.subjects.deps[store.baseSymbol]
   if (depsSource) {
     depsSource.forEach((targetKey) => {
-      const source = combination.subjects.targets[targetKey]
       const handle = (source) => {
         source.forEach((targetSubjects) => {
-          Object.keys(targetSubjects).forEach((targetSubjectKey) => {
-            if (targetSubjects[targetSubjectKey].subscribe) {
+          Object.keys(targetSubjects.subject).forEach((targetSubjectKey) => {
+            if (targetSubjects.subject[targetSubjectKey].subscribe) {
               subscriptions.push(
-                targetSubjects[targetSubjectKey].subscribe(observe)
+                targetSubjects.subject[targetSubjectKey].subscribe(
+                  createObserve(store, targetSubjects.props)
+                )
               )
             }
           })
         })
       }
+      const source = combination.subjects.targets[targetKey]
       if (source) {
         handle(source)
       } else {
@@ -58,10 +63,8 @@ export function createSubscriptions(store) {
 
   let selfSubscription = null
   if (store.notification) {
-    console.debug('subscribe')
     selfSubscription = store.notificationSubject.subscribe({
       next(value) {
-        console.debug(value)
         if (value !== null) {
           // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件
           if (!store.notification[value.fnKey]) {

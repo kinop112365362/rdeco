@@ -31,9 +31,7 @@ test('测试分组监听的正确性', async () => {
     subscribe: {
       '@test/tag': {
         tappable: {
-          selectChange(id, props) {
-            console.debug(id)
-          },
+          selectChange(id, props) {},
         },
       },
     },
