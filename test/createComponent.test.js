@@ -5,10 +5,10 @@ import '@testing-library/jest-dom/extend-expect'
 import { createComponent, enhanceContext } from '../src'
 
 test('运行 createComponent  基本功能测试, state → controller → service → reducer → view', async () => {
-  const state = {
-    showConfirmModal: false,
+  const state = ({ showConfirmModal }) => ({
+    showConfirmModal,
     array: [1, 2, 3],
-  }
+  })
   const service = {
     openModal() {},
   }
@@ -39,7 +39,8 @@ test('运行 createComponent  基本功能测试, state → controller → servi
       },
     },
   })
-  render(<Test></Test>)
+  render(<Test showConfirmModal="false"></Test>)
+  expect(screen.getByRole('showConfirmModal')).toHaveTextContent('false')
   fireEvent.click(screen.getByRole('confirm'))
   await waitFor(() => {
     expect(screen.getByRole('showConfirmModal')).toHaveTextContent('true')

@@ -14,7 +14,11 @@ import * as deepmerge from 'deepmerge'
 export class Store {
   constructor(storeConfig) {
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
-    this.state = { ...storeConfig.state }
+    if (isFunction(storeConfig.state)) {
+      this.state = storeConfig.state(storeConfig.props)
+    } else {
+      this.state = { ...storeConfig.state }
+    }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
     this.notification = storeConfig.notification
       ? { ...storeConfig.notification }
