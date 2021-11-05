@@ -7,4 +7,5 @@ export {
   enhanceContext,
   combination,
   extendsSubscribe,
+  readState,
 } from './store/combination'

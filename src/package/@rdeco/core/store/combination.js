@@ -83,6 +83,28 @@ export const combination = {
     }
   },
 }
+export function readState(name, handle) {
+  if (!combination.components[name]) {
+    throw new Error(
+      `${name} 组件不存在或者未实例化, 如果是异步渲染, 请通过事件监听来读取 state, readState 只支持同步读取`
+    )
+  }
+  if (handle) {
+    return combination.components[name].map((component) => {
+      return handle({
+        state: component.instance.state,
+        props: component.instance.props,
+      })
+    })
+  } else {
+    return combination.components[name].map((component) => {
+      return {
+        state: component.instance.state,
+        props: component.instance.props,
+      }
+    })
+  }
+}
 export function enhanceContext(key, value) {
   combination.enhanceContext[key] = value
 }

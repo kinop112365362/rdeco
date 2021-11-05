@@ -3,6 +3,7 @@ export {
   createEntity,
   createMembrane,
   notify,
+  readState,
 } from './package/@rdeco/core/index'
 export {
   createComponent,
