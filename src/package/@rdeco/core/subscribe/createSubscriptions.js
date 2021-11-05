@@ -30,12 +30,12 @@ const createObserve = (store, props) => {
 }
 export function createSubscriptions(store) {
   const subscriptions = []
-
   const depsSource = combination.subjects.deps[store.baseSymbol]
-  if (depsSource) {
-    depsSource.forEach((targetKey) => {
-      const handle = (source) => {
-        source.forEach((targetSubjects) => {
+  depsSource?.forEach((targetKey) => {
+    const proxy = combination.subjects.targetsProxy[targetKey]
+    proxy.subscribe({
+      next(targetSubjects) {
+        if (targetSubjects) {
           Object.keys(targetSubjects.subject).forEach((targetSubjectKey) => {
             if (targetSubjects.subject[targetSubjectKey].subscribe) {
               subscriptions.push(
@@ -45,16 +45,10 @@ export function createSubscriptions(store) {
               )
             }
           })
-        })
-      }
-      const source = combination.subjects.targets[targetKey]
-      if (source) {
-        handle(source)
-      } else {
-        subscriptions.push(combination.$connectTargetSubject(targetKey, handle))
-      }
+        }
+      },
     })
-  }
+  })
 
   Object.keys(combination.extends).forEach((extend) => {
     const { subject, observeCreator } = combination.extends[extend]

@@ -62,13 +62,13 @@ export class Store {
       tappable: new BehaviorSubject(null),
       symbol: this.symbol,
     }
-    combination.$setSubject(this.baseSymbol, this.subjects, this.props)
     combination.$createSubjects(
       storeConfig,
       this.baseSymbol,
       this.symbol,
       this.props
     )
+    combination.$setSubject(this.baseSymbol, this.subjects, this.props)
     // eslint-disable-next-line no-undef
     this.notify = notify
     this.tap = (fnKey, data) => {

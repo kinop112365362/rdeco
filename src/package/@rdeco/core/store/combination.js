@@ -1,4 +1,4 @@
-import { ReplaySubject } from 'rxjs'
+import { ReplaySubject, BehaviorSubject } from 'rxjs'
 
 export const combination = {
   components: {},
@@ -8,27 +8,23 @@ export const combination = {
   subjects: {
     deps: {},
     targets: {},
+    targetsProxy: {},
   },
   enhanceContext: {},
-  connectTargetSubject: new ReplaySubject(20),
   extends: {},
-  $connectTargetSubject(targetKey, handle) {
-    return this.connectTargetSubject.subscribe({
-      next: (value) => {
-        if (value.targetKey === targetKey) {
-          handle(this.subjects.targets[targetKey])
-        }
-      },
-    })
+  $initTargetProxy(baseSymbol) {
+    if (!this.subjects.targetsProxy[baseSymbol]) {
+      this.subjects.targetsProxy[baseSymbol] = new BehaviorSubject(null)
+    }
   },
   $setSubject(baseSymbol, subject, props) {
     if (!this.subjects.targets[baseSymbol]) {
       this.subjects.targets[baseSymbol] = []
     }
-    this.subjects.targets[baseSymbol].push({ subject, props })
-    this.connectTargetSubject.next({
-      targetKey: baseSymbol,
-    })
+    this.$initTargetProxy(baseSymbol)
+    const targetSubjects = { subject, props }
+    this.subjects.targets[baseSymbol].push(targetSubjects)
+    this.subjects.targetsProxy[baseSymbol].next(targetSubjects)
   },
   $isObservable(baseSymbol) {
     return this.observableList.has(baseSymbol)
@@ -64,6 +60,7 @@ export const combination = {
       Object.keys(subscribe).forEach((observeTagetKey) => {
         this.subjects.deps[baseSymbol].add(observeTagetKey)
         this.observableList.add(observeTagetKey)
+        this.$initTargetProxy(observeTagetKey)
       })
     }
     return null
