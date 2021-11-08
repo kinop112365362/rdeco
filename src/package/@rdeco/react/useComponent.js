@@ -16,10 +16,10 @@ export function useComponent(component, props) {
     storeConfig.baseSymbol = baseSymbol
     storeConfig.props = props
     store.current = new Store(storeConfig)
-    combination.$register(baseSymbol, store.current)
   }
   useEffect(() => {
     isNotMounted.current = false
+    combination.$register(baseSymbol, store.current)
     if (store.current?.controller?.onMount) {
       store.current.controller.onMount()
     }

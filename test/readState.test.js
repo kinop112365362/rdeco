@@ -21,10 +21,7 @@ test('测试广播监听的用例', async () => {
         controller: {
           onClick() {
             const stateList = readState('@test/com')
-            console.debug(stateList)
-            const stateList1 = readState('@test/com', ({ state, props }) => {
-              console.debug(state, props)
-            })
+            const stateList1 = readState('@test/com', ({ state, props }) => {})
           },
         },
       },

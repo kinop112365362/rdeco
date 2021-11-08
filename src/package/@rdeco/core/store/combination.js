@@ -36,11 +36,15 @@ export const combination = {
     return this.components
   },
   $remove(symbol, baseSymbol) {
+    const rawLenth = this.components[baseSymbol]
     this.components[baseSymbol] = this.components[baseSymbol].filter(
       (component) => {
         return component.instance.symbol !== symbol
       }
     )
+    if (this.components[baseSymbol] >= rawLenth) {
+      throw new Error(`${baseSymbol} 组件卸载异常`)
+    }
   },
   $createNotificationSubject({ notification }, baseSymbol) {
     if (notification) {
