@@ -36,7 +36,9 @@ const RouteView = createComponent({
         this.setter.active(isMatch)
       }
 
-      next(done)
+      if (isMatch) {
+        next(done)
+      }
     },
   },
   view: {
