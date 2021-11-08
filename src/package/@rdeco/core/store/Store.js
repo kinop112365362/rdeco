@@ -68,7 +68,7 @@ export class Store {
       this.symbol,
       this.props
     )
-    combination.$setSubject(this.baseSymbol, this.subjects, this.props)
+    combination.$setSubject(this.baseSymbol, this)
     // eslint-disable-next-line no-undef
     this.notify = notify
     this.tap = (fnKey, data) => {

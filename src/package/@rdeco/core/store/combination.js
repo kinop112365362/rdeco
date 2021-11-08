@@ -1,5 +1,4 @@
-import { ReplaySubject, BehaviorSubject } from 'rxjs'
-
+import { ReplaySubject } from 'rxjs'
 export const combination = {
   components: {},
   notificationSubjects: {},
@@ -14,17 +13,16 @@ export const combination = {
   extends: {},
   $initTargetProxy(baseSymbol) {
     if (!this.subjects.targetsProxy[baseSymbol]) {
-      this.subjects.targetsProxy[baseSymbol] = new BehaviorSubject(null)
+      this.subjects.targetsProxy[baseSymbol] = new ReplaySubject(Infinity)
     }
   },
-  $setSubject(baseSymbol, subject, props) {
+  $setSubject(baseSymbol, store) {
     if (!this.subjects.targets[baseSymbol]) {
       this.subjects.targets[baseSymbol] = []
     }
     this.$initTargetProxy(baseSymbol)
-    const targetSubjects = { subject, props }
-    this.subjects.targets[baseSymbol].push(targetSubjects)
-    this.subjects.targetsProxy[baseSymbol].next(targetSubjects)
+    this.subjects.targets[baseSymbol].push(store)
+    this.subjects.targetsProxy[baseSymbol].next(store)
   },
   $isObservable(baseSymbol) {
     return this.observableList.has(baseSymbol)

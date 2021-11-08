@@ -34,13 +34,13 @@ export function createSubscriptions(store) {
   depsSource?.forEach((targetKey) => {
     const proxy = combination.subjects.targetsProxy[targetKey]
     proxy.subscribe({
-      next(targetSubjects) {
-        if (targetSubjects) {
-          Object.keys(targetSubjects.subject).forEach((targetSubjectKey) => {
-            if (targetSubjects.subject[targetSubjectKey].subscribe) {
+      next(targetStore) {
+        if (targetStore) {
+          Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
+            if (targetStore.subjects[targetSubjectKey].subscribe) {
               subscriptions.push(
-                targetSubjects.subject[targetSubjectKey].subscribe(
-                  createObserve(store, targetSubjects.props)
+                targetStore.subjects[targetSubjectKey].subscribe(
+                  createObserve(store, targetStore.props)
                 )
               )
             }
