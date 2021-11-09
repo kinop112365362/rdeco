@@ -5,7 +5,7 @@ import browserPlugin from 'router5-plugin-browser'
 import loggerPlugin from 'router5-plugin-logger'
 import { notify, enhanceContext } from '../core'
 import { createComponent } from '../react'
-import { beforMiddleware } from './beforMiddleware'
+import { beforeDoneMiddleware, beforMiddleware } from './beforMiddleware'
 
 function pathToName(path = '') {
   return path === '/'
@@ -60,7 +60,10 @@ class App {
         ? Object.assign({}, { useHash: true }, config?.router?.browserPlugin)
         : { useHash: true }
     this.router.usePlugin(browserPlugin(routerOptions), loggerPlugin)
-    this.router.useMiddleware(beforMiddleware)
+    this.router.useMiddleware(
+      beforeDoneMiddleware(config?.router?.beforeDone),
+      beforMiddleware
+    )
     this.router.subscribe(({ route, previousRoute }) => {
       notify('@@router', 'after', { route, previousRoute })
     })
