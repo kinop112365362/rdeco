@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import createRouter from 'router5'
 import browserPlugin from 'router5-plugin-browser'
 import loggerPlugin from 'router5-plugin-logger'
-import { notify, enhanceContext } from '../core'
+import { enhanceContext } from '../core'
 import { createComponent } from '../react'
 import { beforeDoneMiddleware, beforMiddleware } from './beforMiddleware'
 
@@ -65,9 +65,6 @@ class App {
       this.router.usePlugin(browserPlugin(browserPluginOption))
     }
     this.router.useMiddleware(beforeDoneMiddleware(beforeDone), beforMiddleware)
-    this.router.subscribe(({ route, previousRoute }) => {
-      notify('@@router', 'after', { route, previousRoute })
-    })
     enhanceContext('context', { router: this.router })
     this.Container = createComponent(config.Container)
   }
