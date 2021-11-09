@@ -6,19 +6,7 @@ import loggerPlugin from 'router5-plugin-logger'
 import { enhanceContext } from '../core'
 import { createComponent } from '../react'
 import { beforeDoneMiddleware, beforMiddleware } from './beforMiddleware'
-
-function pathToName(path = '') {
-  return path === '/'
-    ? '/'
-    : path
-        .substring(1)
-        .split('/')
-        .reduce(
-          (previousValue, currentValue) =>
-            previousValue +
-            currentValue.replace(currentValue[0], currentValue[0].toUpperCase())
-        )
-}
+import { getRouterConfig, pathToName } from './utils'
 
 class App {
   constructor(config) {
@@ -29,12 +17,13 @@ class App {
     }
     const routerConfig = config.routerConfig || {}
     const {
+      router5Option = { allowNotFound: true },
       beforeDone,
       browserPluginOption = { useHash: true },
       loggerPluginEnable = false,
-    } = routerConfig
+    } = getRouterConfig(routerConfig)
     const routers = config?.router || [{ name: '/', path: '/' }]
-    this.router = createRouter(routers, { allowNotFound: true })
+    this.router = createRouter(routers, router5Option)
 
     const _oldNavigate = this.router.navigate.bind(this)
     this.router.navigate = (...args) => {
