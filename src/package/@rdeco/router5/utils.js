@@ -22,4 +22,20 @@ function getRouterConfig(config = {}) {
   return Object.assign({}, defaultRouterConfig, config)
 }
 
-export { pathToName, getRouterConfig }
+function getPath(parentPath, path) {
+  function handlePath(str) {
+    if (str[0] !== '/') {
+      str = `/${str}`
+    }
+    str = str.replace(/(\/*)$/, '')
+    str = str.replace(/(\/)\1+/g, '/')
+    return str
+  }
+
+  let basePath = handlePath(parentPath === '/' ? '' : parentPath || '')
+  let subPath = handlePath(path || '/')
+
+  return basePath + subPath || '/'
+}
+
+export { pathToName, getRouterConfig, getPath }

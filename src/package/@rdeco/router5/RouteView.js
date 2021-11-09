@@ -1,12 +1,7 @@
 import React, { useContext } from 'react'
 import { createComponent } from '../react'
 import RouterContext from './RouterContext'
-
-function getPath(parentPath, path) {
-  const basePath = parentPath === '/' ? '' : parentPath || ''
-  const subPath = path || ''
-  return basePath + subPath || '/'
-}
+import { getPath } from './utils'
 
 /**
  * @param {String} props.path
