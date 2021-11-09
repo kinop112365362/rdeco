@@ -25,5 +25,5 @@ extendsSubscribe('@@router', {
   },
 })
 
-export { RouteView } from './RouteView'
+export { Router, RouteView } from './RouteView'
 export { App }

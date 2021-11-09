@@ -1,5 +1,5 @@
 import React from 'react'
-import { RouteView, App, createComponent } from '../src'
+import { Router, RouteView, App, createComponent } from '../src'
 import { render, waitFor } from '@testing-library/react'
 
 describe('test <RouteView>', () => {
@@ -69,7 +69,7 @@ describe('test <RouteView>', () => {
     view: {
       render() {
         return (
-          <RouteView>
+          <Router>
             <div>
               <button role="button" onClick={this.controller.onChangeRouter}>
                 button
@@ -79,7 +79,7 @@ describe('test <RouteView>', () => {
                 Component={SecondComponent}
               />
               <RouteView
-                path={'/secondComponent'}
+                path={'/secondComponent//'}
                 Component={() => <div>com2</div>}
               >
                 <div>{this.state.com2Text}</div>
@@ -93,7 +93,7 @@ describe('test <RouteView>', () => {
                 Component={SecondComponentChild}
               />
             </div>
-          </RouteView>
+          </Router>
         )
       },
     },

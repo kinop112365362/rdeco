@@ -3,22 +3,10 @@ import ReactDOM from 'react-dom'
 import createRouter from 'router5'
 import browserPlugin from 'router5-plugin-browser'
 import loggerPlugin from 'router5-plugin-logger'
-import { enhanceContext } from '../core'
+import { notify, enhanceContext } from '../core'
 import { createComponent } from '../react'
 import { beforeDoneMiddleware, beforMiddleware } from './beforMiddleware'
-
-function pathToName(path = '') {
-  return path === '/'
-    ? '/'
-    : path
-        .substring(1)
-        .split('/')
-        .reduce(
-          (previousValue, currentValue) =>
-            previousValue +
-            currentValue.replace(currentValue[0], currentValue[0].toUpperCase())
-        )
-}
+import { getRouterConfig, pathToName } from './utils'
 
 class App {
   constructor(config) {
@@ -29,12 +17,13 @@ class App {
     }
     const routerConfig = config.routerConfig || {}
     const {
+      router5Option = { allowNotFound: true },
       beforeDone,
       browserPluginOption = { useHash: true },
       loggerPluginEnable = false,
-    } = routerConfig
+    } = getRouterConfig(routerConfig)
     const routers = config?.router || [{ name: '/', path: '/' }]
-    this.router = createRouter(routers, { allowNotFound: true })
+    this.router = createRouter(routers, router5Option)
 
     const _oldNavigate = this.router.navigate.bind(this)
     this.router.navigate = (...args) => {
@@ -65,14 +54,20 @@ class App {
       this.router.usePlugin(browserPlugin(browserPluginOption))
     }
     this.router.useMiddleware(beforeDoneMiddleware(beforeDone), beforMiddleware)
+    this.router.subscribe(({ route, previousRoute }) => {
+      notify('@@router', 'after', { route, previousRoute })
+    })
     enhanceContext('context', { router: this.router })
     this.Container = createComponent(config.Container)
   }
 
   start(path) {
-    this.router.start(path || '/', (err, state) => {
-      console.log(err, state)
-    })
+    this.router.start(
+      path || window.location.hash.replace('#', ''),
+      (err, state) => {
+        console.log(err, state)
+      }
+    )
     const AppContainer = this.Container
     ReactDOM.render(<AppContainer />, document.getElementById('root'))
   }
