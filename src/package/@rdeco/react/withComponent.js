@@ -25,6 +25,8 @@ export function withComponent(WrappedComponent, component) {
       }
       this.ref = { ...component.ref }
       if (props.membrane) {
+        const newBaseSymbol = validate(props.membrane.name)
+        this.storeConfig.baseSymbol = newBaseSymbol
         this.store = new Store(createMembrane(this.storeConfig, props.membrane))
       } else {
         this.store = new Store(this.storeConfig)

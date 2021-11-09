@@ -35,6 +35,7 @@ export const combination = {
   },
   $remove(symbol, baseSymbol) {
     const rawLenth = this.components[baseSymbol]
+    console.debug(this.components, baseSymbol)
     this.components[baseSymbol] = this.components[baseSymbol].filter(
       (component) => {
         return component.instance.symbol !== symbol

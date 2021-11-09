@@ -8,7 +8,7 @@ import { useStoreUpdate } from './reactHooks/useStoreUpdate'
 import { validate } from '../core/utils/validate'
 
 export function useComponent(component, props) {
-  const baseSymbol = validate(component.name)
+  let baseSymbol = validate(component.name)
   const storeConfig = useRef({ ...component }).current
   const store = useRef(null)
   const isNotMounted = useRef(true)
@@ -16,6 +16,7 @@ export function useComponent(component, props) {
     storeConfig.baseSymbol = baseSymbol
     storeConfig.props = props
     if (props.membrane) {
+      baseSymbol = storeConfig.baseSymbol = validate(props.membrane.name)
       store.current = new Store(createMembrane(storeConfig, props.membrane))
     } else {
       store.current = new Store(storeConfig)
