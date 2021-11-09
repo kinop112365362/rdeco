@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import createRouter from 'router5'
 import browserPlugin from 'router5-plugin-browser'
 import loggerPlugin from 'router5-plugin-logger'
-import { notify, enhanceContext } from '../core'
+import { enhanceContext } from '../core'
 import { createComponent } from '../react'
 import { beforeDoneMiddleware, beforMiddleware } from './beforMiddleware'
 
@@ -27,10 +27,14 @@ class App {
         'Container 未定义, config 内必须声明 Container 作为应用的容器组件'
       )
     }
-    const routerConfig = Array.isArray(config?.router)
-      ? config.router
-      : config?.router?.router || [{ name: '/', path: '/' }]
-    this.router = createRouter(routerConfig, { allowNotFound: true })
+    const routerConfig = config.routerConfig || {}
+    const {
+      beforeDone,
+      browserPluginOption = { useHash: true },
+      loggerPluginEnable = false,
+    } = routerConfig
+    const routers = config?.router || [{ name: '/', path: '/' }]
+    this.router = createRouter(routers, { allowNotFound: true })
 
     const _oldNavigate = this.router.navigate.bind(this)
     this.router.navigate = (...args) => {
@@ -55,18 +59,12 @@ class App {
       }
     }
 
-    const routerOptions =
-      Object.prototype.toString.call(config?.router) === '[object Object]'
-        ? Object.assign({}, { useHash: true }, config?.router?.browserPlugin)
-        : { useHash: true }
-    this.router.usePlugin(browserPlugin(routerOptions), loggerPlugin)
-    this.router.useMiddleware(
-      beforeDoneMiddleware(config?.router?.beforeDone),
-      beforMiddleware
-    )
-    this.router.subscribe(({ route, previousRoute }) => {
-      notify('@@router', 'after', { route, previousRoute })
-    })
+    if (loggerPluginEnable) {
+      this.router.usePlugin(browserPlugin(browserPluginOption), loggerPlugin)
+    } else {
+      this.router.usePlugin(browserPlugin(browserPluginOption))
+    }
+    this.router.useMiddleware(beforeDoneMiddleware(beforeDone), beforMiddleware)
     enhanceContext('context', { router: this.router })
     this.Container = createComponent(config.Container)
   }

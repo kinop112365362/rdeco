@@ -4,14 +4,14 @@ import React from 'react'
 
 describe('test <RouteView> browserPlugin default options', () => {
   const app = new App({
-    router: {
-      router: [
-        {
-          name: 'home',
-          path: '/home',
-        },
-      ],
-      browserPlugin: {
+    router: [
+      {
+        name: 'home',
+        path: '/home',
+      },
+    ],
+    routerConfig: {
+      browserPluginOption: {
         useHash: false,
       },
     },
