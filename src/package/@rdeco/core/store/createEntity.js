@@ -10,5 +10,8 @@ export function createEntity(entity) {
   const entityStore = new Store(entity)
   combination.$register(symbol, entityStore)
   createSubscriptions(entityStore)
+  if (entityStore.controller.onMount) {
+    entityStore?.controller?.onMount()
+  }
   return { symbol }
 }

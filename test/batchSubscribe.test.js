@@ -10,6 +10,15 @@ import { combination } from '../src/package/@rdeco/core'
 test('测试广播监听的用例', async () => {
   createEntity({
     name: '@test/entity-2',
+    state: {
+      text: 'hello world',
+    },
+    controller: {
+      onMount() {
+        this.setter.text('onMount')
+        expect(this.state.text).toBe('onMount')
+      },
+    },
   })
   const Test = createComponent({
     name: '@test/com',
