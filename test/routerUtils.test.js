@@ -51,5 +51,14 @@ describe('测试 router utils', () => {
     expect(getPath('//index/', 'home//')).toBe('/index/home')
     expect(getPath('//index//', 'home//')).toBe('/index/home')
     expect(getPath('//index///xx///', 'home//')).toBe('/index/xx/home')
+    expect(() => getPath('/home', '/')).toThrow(
+      new Error("RouteView props path Can't be nul and '/'")
+    )
+    expect(() => getPath('/home', '')).toThrow(
+      new Error("RouteView props path Can't be nul and '/'")
+    )
+    expect(() => getPath('/', '')).toThrow(
+      new Error("RouteView props path Can't be nul and '/'")
+    )
   })
 })

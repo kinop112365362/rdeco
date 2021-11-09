@@ -1,4 +1,4 @@
-import { App, RouteView } from '../src/package/@rdeco/router5'
+import { App, Router } from '../src/package/@rdeco/router5'
 import { render, waitFor } from '@testing-library/react'
 import React from 'react'
 
@@ -17,7 +17,11 @@ describe('test <RouteView> browserPlugin default options', () => {
       },
       view: {
         render() {
-          return <RouteView id={'Container'}>{this.state.text}</RouteView>
+          return (
+            <Router path={'/home'} id={'Container'}>
+              {this.state.text}
+            </Router>
+          )
         },
       },
     },

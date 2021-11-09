@@ -11,6 +11,18 @@ function pathToName(path = '') {
         )
 }
 
+function handlePath(str = '') {
+  if (str === '/') {
+    return str
+  }
+  if (str[0] !== '/') {
+    str = `/${str}`
+  }
+  str = str.replace(/(\/*)$/, '')
+  str = str.replace(/(\/)\1+/g, '/')
+  return str
+}
+
 function getRouterConfig(config = {}) {
   const defaultRouterConfig = {
     router5Option: { allowNotFound: true },
@@ -23,19 +35,14 @@ function getRouterConfig(config = {}) {
 }
 
 function getPath(parentPath, path) {
-  function handlePath(str) {
-    if (str[0] !== '/') {
-      str = `/${str}`
-    }
-    str = str.replace(/(\/*)$/, '')
-    str = str.replace(/(\/)\1+/g, '/')
-    return str
-  }
-
   let basePath = handlePath(parentPath === '/' ? '' : parentPath || '')
   let subPath = handlePath(path || '/')
+
+  if (parentPath && subPath === '/') {
+    throw new Error("RouteView props path Can't be nul and '/'")
+  }
 
   return basePath + subPath || '/'
 }
 
-export { pathToName, getRouterConfig, getPath }
+export { pathToName, getRouterConfig, getPath, handlePath }

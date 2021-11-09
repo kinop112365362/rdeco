@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { createComponent } from '../react'
 import RouterContext from './RouterContext'
-import { getPath } from './utils'
+import { getPath, handlePath } from './utils'
 
 /**
  * @param {String} props.path
@@ -18,7 +18,7 @@ const RouteView = createComponent({
   router: {
     before({ toState, done }, next) {
       const parentPath = this.ref.parentPath
-      const path = this.props.path || '/'
+      const path = handlePath(this.props.path || '/')
       const toStatePath = toState.path
       const currentPath = getPath(parentPath, path)
 
@@ -60,4 +60,17 @@ const RouteView = createComponent({
   },
 })
 
-export { RouteView }
+const Router = createComponent({
+  name: '@rdeco/router5-router',
+  view: {
+    render() {
+      return (
+        <RouteView path={this.props.path || ''}>
+          {this.props.children}
+        </RouteView>
+      )
+    },
+  },
+})
+
+export { Router, RouteView }
