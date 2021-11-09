@@ -1,5 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import { combination, Store, createSubscriptions } from '../core'
+import {
+  combination,
+  Store,
+  createSubscriptions,
+  createMembrane,
+} from '../core'
 import { validate } from '../core/utils/validate'
 
 function getDisplayName(WrappedComponent) {
@@ -18,7 +24,11 @@ export function withComponent(WrappedComponent, component) {
         ...this.storeConfig.state,
       }
       this.ref = { ...component.ref }
-      this.store = new Store(this.storeConfig)
+      if (props.membrane) {
+        this.store = new Store(createMembrane(this.storeConfig, props.membrane))
+      } else {
+        this.store = new Store(this.storeConfig)
+      }
       const dispatch = this.dispatch.bind(this)
       this.store.update(this.storeConfig.state, dispatch, this.props, this.ref)
       combination.$register(baseSymbol, this.store)

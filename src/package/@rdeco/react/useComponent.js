@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useEffect, useRef } from 'react'
-import { combination, Store } from '../core'
+import { combination, createMembrane, Store } from '../core'
 import { useSubscribe } from './reactHooks/useSubscribe'
 import { useStoreDispose } from './reactHooks/useStoreDispose'
 import { useStoreUpdate } from './reactHooks/useStoreUpdate'
@@ -15,7 +15,11 @@ export function useComponent(component, props) {
   if (isNotMounted.current) {
     storeConfig.baseSymbol = baseSymbol
     storeConfig.props = props
-    store.current = new Store(storeConfig)
+    if (props.membrane) {
+      store.current = new Store(createMembrane(storeConfig, props.membrane))
+    } else {
+      store.current = new Store(storeConfig)
+    }
   }
   useEffect(() => {
     isNotMounted.current = false
