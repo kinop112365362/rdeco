@@ -59,9 +59,12 @@ class App {
   }
 
   start(path) {
-    this.router.start(path || '/', (err, state) => {
-      console.log(err, state)
-    })
+    this.router.start(
+      path || window.location.hash.replace('#', ''),
+      (err, state) => {
+        console.log(err, state)
+      }
+    )
     const AppContainer = this.Container
     ReactDOM.render(<AppContainer />, document.getElementById('root'))
   }
