@@ -17,11 +17,9 @@ class App {
     }
     const routerConfig = config.routerConfig || {}
     const {
-      router5Option = {
-        queryParamsMode: 'loose',
-      },
+      router5Option,
       beforeDone,
-      browserPluginOption = { useHash: true },
+      browserPluginOption,
       loggerPluginEnable = false,
     } = getRouterConfig(routerConfig)
     const routers = config?.router || [{ name: '/', path: '/' }]
