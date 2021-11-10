@@ -150,4 +150,19 @@ describe('test <RouteView>', () => {
       )
     })
   })
+
+  it("default path param '/secondComponent/threeComponent?param=23'", async () => {
+    app.start('/secondComponent/threeComponent')
+    const node = document.getElementById('Container')
+
+    render(<BaseComponent />, {
+      container: node,
+    })
+
+    await waitFor(() => {
+      expect(node.innerHTML).toContain(
+        '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div><div>ThreeComponent</div></div>'
+      )
+    })
+  })
 })
