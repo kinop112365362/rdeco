@@ -17,13 +17,16 @@ class App {
     }
     const routerConfig = config.routerConfig || {}
     const {
-      router5Option = { allowNotFound: true },
+      router5Option,
       beforeDone,
-      browserPluginOption = { useHash: true },
+      browserPluginOption,
       loggerPluginEnable = false,
     } = getRouterConfig(routerConfig)
     const routers = config?.router || [{ name: '/', path: '/' }]
-    this.router = createRouter(routers, router5Option)
+    this.router = createRouter(routers, {
+      ...router5Option,
+      allowNotFound: true,
+    })
 
     const _oldNavigate = this.router.navigate.bind(this)
     this.router.navigate = (...args) => {

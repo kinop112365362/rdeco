@@ -19,7 +19,7 @@ const RouteView = createComponent({
     before({ toState, done }, next) {
       const parentPath = this.ref.parentPath
       const path = handlePath(this.props.path || '/')
-      const toStatePath = toState.path
+      const toStatePath = handlePath(toState.path)
       const currentPath = getPath(parentPath, path)
 
       let isMatch =

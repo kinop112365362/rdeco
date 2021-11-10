@@ -2,6 +2,7 @@ import {
   getRouterConfig,
   pathToName,
   getPath,
+  handlePath
 } from '../src/package/@rdeco/router5/utils'
 
 describe('测试 router utils', () => {
@@ -60,5 +61,12 @@ describe('测试 router utils', () => {
     expect(() => getPath('/', '')).toThrow(
       new Error("RouteView props path Can't be nul and '/'")
     )
+  })
+
+  it('handlePath', async () => {
+    expect(handlePath()).toBe('')
+    expect(handlePath('/')).toBe('/')
+    expect(handlePath('/?a=1')).toBe('/')
+    expect(handlePath('/home?a=1&cc=22')).toBe('/home')
   })
 })

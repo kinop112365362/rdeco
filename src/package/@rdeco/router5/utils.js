@@ -1,4 +1,5 @@
 function pathToName(path = '') {
+  path = path.split('?')[0]
   return path === '/'
     ? '/'
     : path
@@ -12,6 +13,7 @@ function pathToName(path = '') {
 }
 
 function handlePath(str = '') {
+  str = str.split('?')[0]
   if (str === '/') {
     return str
   }
@@ -25,7 +27,7 @@ function handlePath(str = '') {
 
 function getRouterConfig(config = {}) {
   const defaultRouterConfig = {
-    router5Option: { allowNotFound: true },
+    router5Option: { queryParamsMode: 'loose', allowNotFound: true },
     beforeDone: null,
     browserPluginOption: { useHash: true },
     loggerPluginEnable: false,
