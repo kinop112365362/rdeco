@@ -13,5 +13,5 @@ export function createEntity(entity) {
   if (entityStore.controller.onMount) {
     entityStore?.controller?.onMount()
   }
-  return { symbol }
+  return entityStore
 }

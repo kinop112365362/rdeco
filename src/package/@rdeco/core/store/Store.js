@@ -30,6 +30,12 @@ export class Store {
       storeConfig,
       this.baseSymbol
     )
+    Object.keys(combination.enhanceContext).forEach((contextKey) => {
+      if (this[contextKey]) {
+        throw new Error(`${contextKey} 是 store 上已经存在的, 不可覆盖`)
+      }
+      this[contextKey] = combination.enhanceContext[contextKey]
+    })
     this.symbol = Symbol()
     if (storeConfig.derivate) {
       this.derivate = {}

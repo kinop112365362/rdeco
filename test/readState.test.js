@@ -5,12 +5,17 @@ import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { createComponent, createEntity, withComponent } from '../src'
-import { combination, readState } from '../src/package/@rdeco/core'
-
-test('测试广播监听的用例', async () => {
-  createEntity({
+import {
+  combination,
+  readState,
+  enhanceContext,
+} from '../src/package/@rdeco/core'
+enhanceContext('context', { name: 'context' })
+test('测试 readState', async () => {
+  const entityStore = createEntity({
     name: '@test/entity-2',
   })
+  expect(entityStore.context.name).toBe('context')
   createEntity({
     name: '@test/entity-1',
     notification: {
