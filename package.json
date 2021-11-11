@@ -95,6 +95,7 @@
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
+    "query-string": "^7.0.1",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1",
     "router5-plugin-logger": "^8.0.1",

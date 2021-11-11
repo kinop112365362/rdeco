@@ -1,3 +1,5 @@
+import queryString from 'query-string'
+
 function pathToName(path = '') {
   path = path.split('?')[0]
   return path === '/'
@@ -47,4 +49,14 @@ function getPath(parentPath, path) {
   return basePath + subPath || '/'
 }
 
-export { pathToName, getRouterConfig, getPath, handlePath }
+function handleRoute(route = {}) {
+  if (route?.name === '@@router5/UNKNOWN_ROUTE' && route.params) {
+    route.params = {
+      ...route.params,
+      ...queryString.parseUrl(route?.params?.path || '').query,
+    }
+  }
+  return route
+}
+
+export { pathToName, getRouterConfig, getPath, handlePath, handleRoute }
