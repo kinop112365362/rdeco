@@ -2,7 +2,8 @@ import {
   getRouterConfig,
   pathToName,
   getPath,
-  handlePath
+  handlePath,
+  handleRoute,
 } from '../src/package/@rdeco/router5/utils'
 
 describe('测试 router utils', () => {
@@ -68,5 +69,48 @@ describe('测试 router utils', () => {
     expect(handlePath('/')).toBe('/')
     expect(handlePath('/?a=1')).toBe('/')
     expect(handlePath('/home?a=1&cc=22')).toBe('/home')
+  })
+
+  it('handleRoute', async () => {
+    expect(
+      handleRoute({
+        name: '@@router5/UNKNOWN_ROUTE',
+        params: {
+          path: '/secondComponentChild/threeComponent?a=1&b=2',
+        },
+      })
+    ).toMatchObject({
+      name: '@@router5/UNKNOWN_ROUTE',
+      params: {
+        a: '1',
+        b: '2',
+      },
+    })
+
+    expect(
+      handleRoute({
+        name: '@@router5/UNKNOWN_ROUTE',
+        params: {},
+      })
+    ).toMatchObject({
+      name: '@@router5/UNKNOWN_ROUTE',
+      params: {},
+    })
+
+    expect(
+      handleRoute({
+        name: 'home',
+        params: {
+          a: 1,
+          b: 2,
+        },
+      })
+    ).toMatchObject({
+      name: 'home',
+      params: {
+        a: 1,
+        b: 2,
+      },
+    })
   })
 })

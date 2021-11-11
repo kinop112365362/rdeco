@@ -61,6 +61,22 @@ describe('test <RouteView>', () => {
     state: {
       com2Text: 'com2 text',
     },
+    router: {
+      before({ toState }) {
+        console.log(toState)
+
+        expect(toState.params).toMatchObject({
+          a: 1,
+          b: 2,
+        })
+      },
+      after({ state }) {
+        expect(state.params).toMatchObject({
+          a: 1,
+          b: 2,
+        })
+      },
+    },
     controller: {
       onChangeRouter() {
         this.context.router.navigate('/secondComponent')
@@ -106,8 +122,8 @@ describe('test <RouteView>', () => {
     render(<div id="root" />)
   })
 
-  it("default path '/secondComponentChild/threeComponent'", async () => {
-    app.start('/secondComponentChild/threeComponent')
+  it("default path '/secondComponentChild/threeComponent?a=1&b=2'", async () => {
+    app.start('/secondComponentChild/threeComponent?a=1&b=2')
     const node = document.getElementById('Container')
 
     render(<BaseComponent />, {

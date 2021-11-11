@@ -1,7 +1,9 @@
 import { notify } from '../core'
+import { handleRoute } from './utils'
 
 export const beforeDoneMiddleware = (beforeDone) => {
   return () => (toState, fromState, done) => {
+    toState = handleRoute(toState)
     if (beforeDone) {
       beforeDone(toState, fromState, done)
     } else {
