@@ -37,10 +37,14 @@ export const notify = (...args) => {
   } else {
     infrom(...args, next)
   }
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     syncker.subscribe({
       next(value) {
-        resolve(value)
+        if (value instanceof Error) {
+          reject(value)
+        } else {
+          resolve(value)
+        }
       },
     })
   })
