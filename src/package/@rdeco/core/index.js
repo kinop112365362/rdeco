@@ -1,6 +1,6 @@
 export { createSubscriptions } from './subscribe/createSubscriptions'
-export { notify } from './subscribe/notify'
-export { createEntity } from './store/createEntity'
+export { invoke } from './subscribe/invoke'
+export { create } from './store/create'
 export { createMembrane } from './store/createMembrane'
 export { Store } from './store/Store'
 export {

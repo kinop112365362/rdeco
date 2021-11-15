@@ -2,7 +2,7 @@
 import { AsyncSubject } from 'rxjs'
 import { combination } from '../store/combination'
 
-export const notify = (...args) => {
+export const invoke = (...args) => {
   const syncker = new AsyncSubject(null)
   const next = (value) => {
     syncker.next(value)
@@ -21,14 +21,12 @@ export const notify = (...args) => {
         finder,
       })
     } else {
-      combination
-        .$createNotificationSubject({ notification: true }, target)
-        .next({
-          fnKey,
-          data,
-          next,
-          finder,
-        })
+      combination.$createNotificationSubject({ register: true }, target).next({
+        fnKey,
+        data,
+        next,
+        finder,
+      })
     }
   }
   if (/^@@/.test(args[0])) {

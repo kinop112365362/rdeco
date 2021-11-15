@@ -4,11 +4,11 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, createEntity, withComponent } from '../src'
+import { createComponent, create, withComponent } from '../src'
 import { combination } from '../src/package/@rdeco/core'
 
 test('测试通过 props 传递 Membrane', async () => {
-  createEntity({
+  create({
     name: '@test/entity',
     subscribe: {
       '@test/com-membrane': {

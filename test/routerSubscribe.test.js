@@ -2,16 +2,16 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { createComponent, notify } from '../src/index'
+import { createComponent, invoke } from '../src/index'
 import { combination } from '../src/package/@rdeco/core'
 import '@testing-library/jest-dom/extend-expect'
 
-test('测试 router 响应内部 notify', async () => {
-  notify('@@router', 'before', {
+test('测试 router 响应内部 invoke', async () => {
+  invoke('@@router', 'before', {
     to: 'home,',
     from: 'index',
     done: () => {
-      notify('@@router', 'after', { route: { name: 'home', path: '/home' } })
+      invoke('@@router', 'after', { route: { name: 'home', path: '/home' } })
     },
   }).then((done) => {
     done && done()

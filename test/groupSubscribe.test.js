@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, createEntity, withComponent } from '../src'
+import { createComponent, create, withComponent } from '../src'
 import { combination } from '../src/package/@rdeco/core'
 
 test('测试分组监听的正确性', async () => {
@@ -12,7 +12,7 @@ test('测试分组监听的正确性', async () => {
     name: '@test/tag',
     controller: {
       onClick() {
-        this.tap('selectChange', this.props.id)
+        this.emit('selectChange', this.props.id)
       },
     },
     view: {
@@ -30,7 +30,7 @@ test('测试分组监听的正确性', async () => {
     name: '@test/com',
     subscribe: {
       '@test/tag': {
-        tappable: {
+        event: {
           selectChange(id, props) {},
         },
       },

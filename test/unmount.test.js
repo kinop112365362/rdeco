@@ -16,7 +16,7 @@ test('测试 unmount 组件销毁的过程', async () => {
     },
     controller: {
       onClick() {
-        this.notify(['@test/com'], 'notReady')
+        this.invoke(['@test/com'], 'notReady')
       },
     },
     view: {
@@ -38,7 +38,7 @@ test('测试 unmount 组件销毁的过程', async () => {
     state: {
       ready: true,
     },
-    notification: {
+    register: {
       notReady() {
         this.setter.ready(false)
       },

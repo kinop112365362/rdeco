@@ -4,11 +4,11 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, createEntity, withComponent } from '../src'
+import { createComponent, create, withComponent } from '../src'
 import { combination } from '../src/package/@rdeco/core'
 
 test('测试广播监听的用例', async () => {
-  createEntity({
+  create({
     name: '@test/entity-2',
     state: {
       text: 'hello world',
@@ -24,10 +24,10 @@ test('测试广播监听的用例', async () => {
     name: '@test/com',
     controller: {
       onClick() {
-        this.notify(['@test/entity-1'], 'click')
-        createEntity({
+        this.invoke(['@test/entity-1'], 'click')
+        create({
           name: '@test/entity-1',
-          notification: {
+          register: {
             click() {},
           },
           subscribe: {

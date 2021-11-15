@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, createEntity, withComponent } from '../src'
+import { createComponent, create, withComponent } from '../src'
 import {
   combination,
   readState,
@@ -12,13 +12,13 @@ import {
 } from '../src/package/@rdeco/core'
 enhanceContext('context', { name: 'context' })
 test('测试 readState', async () => {
-  const entityStore = createEntity({
+  const entityStore = create({
     name: '@test/entity-2',
   })
   expect(entityStore.context.name).toBe('context')
-  createEntity({
+  create({
     name: '@test/entity-1',
-    notification: {
+    register: {
       click() {},
     },
     subscribe: {
@@ -39,7 +39,7 @@ test('测试 readState', async () => {
     },
     controller: {
       onClick() {
-        this.notify(['@test/entity-1'], 'click')
+        this.invoke(['@test/entity-1'], 'click')
       },
     },
     view: {

@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, createEntity, withComponent } from '../src'
+import { createComponent, create, withComponent } from '../src'
 
 test('测试 Entity 和 组件协同工作', async () => {
   class Comopnent extends React.Component {
@@ -44,14 +44,14 @@ test('测试 Entity 和 组件协同工作', async () => {
       },
     },
   })
-  createEntity({
+  create({
     name: '@test/login-entity',
     state: {
       result: null,
       username: null,
       password: null,
     },
-    notification: {
+    register: {
       query(next) {
         next('done')
       },
@@ -117,7 +117,7 @@ test('测试 Entity 和 组件协同工作', async () => {
         this.setter.password(123)
       },
       onLoginButtonClick() {
-        this.notify(['@test/login-entity'], 'query').then((value) => {
+        this.invoke(['@test/login-entity'], 'query').then((value) => {
           expect(value).toBe('done')
         })
       },

@@ -56,14 +56,14 @@ export function createSubscriptions(store) {
   })
 
   let selfSubscription = null
-  if (store.notification) {
+  if (store.register) {
     selfSubscription = store.notificationSubject.subscribe({
       next(value) {
         if (value !== null) {
           // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件
-          if (!store.notification[value.fnKey]) {
+          if (!store.register[value.fnKey]) {
             throw new Error(
-              `调用失败, ${store.name} 组件的 notification 上不存在 ${value.fnKey} 方法`
+              `调用失败, ${store.name} 组件的 register 上不存在 ${value.fnKey} 方法`
             )
           }
           if (value.finder) {
@@ -74,11 +74,7 @@ export function createSubscriptions(store) {
               return
             }
           }
-          store.notification?.[value?.fnKey]?.call(
-            store,
-            value.data,
-            value.next
-          )
+          store.register?.[value?.fnKey]?.call(store, value.data, value.next)
         }
       },
     })

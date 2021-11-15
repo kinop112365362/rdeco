@@ -7,7 +7,7 @@ import { bindContext } from './bindContext'
 import { combination } from './combination'
 import { storeConfigValidate } from '../utils/storeConfigValidate'
 import { BehaviorSubject } from 'rxjs'
-import { notify } from '../subscribe/notify'
+import { invoke } from '../subscribe/invoke'
 import { isFunction } from '../utils/isFunction'
 import * as deepmerge from 'deepmerge'
 
@@ -20,9 +20,7 @@ export class Store {
       this.state = { ...storeConfig.state }
     }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
-    this.notification = storeConfig.notification
-      ? { ...storeConfig.notification }
-      : null
+    this.register = storeConfig.register ? { ...storeConfig.register } : null
     this.subscribe = storeConfig.subscribe ? { ...storeConfig.subscribe } : null
     this.ref = storeConfig.ref ? { ...storeConfig.ref } : null
     this.baseSymbol = storeConfig.baseSymbol
@@ -65,7 +63,8 @@ export class Store {
       state: new BehaviorSubject(null),
       controller: new BehaviorSubject(null),
       service: new BehaviorSubject(null),
-      tappable: new BehaviorSubject(null),
+      event: new BehaviorSubject(null),
+      fallback: new BehaviorSubject(null),
       symbol: this.symbol,
     }
     combination.$createSubjects(
@@ -76,21 +75,21 @@ export class Store {
     )
     combination.$setSubject(this.baseSymbol, this)
     // eslint-disable-next-line no-undef
-    this.notify = notify
-    this.tap = (fnKey, data) => {
+    this.invoke = invoke
+    this.emit = (fnKey, data) => {
       const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
       if (!reg.test(fnKey)) {
-        throw new Error(`this.tap 只支持驼峰命名的 tappable`)
+        throw new Error(`this.emit 只支持驼峰命名的 event`)
       }
       const value = {
         eventTargetMeta: {
-          subjectKey: 'tappable',
+          subjectKey: 'event',
           fnKey,
         },
         data,
       }
 
-      combination.$broadcast(this, value, 'tappable')
+      combination.$broadcast(this, value, 'event')
     }
 
     const baseContext = {
@@ -99,9 +98,10 @@ export class Store {
       derivate: this.derivate,
       style: this.style,
       props: this.props,
-      tap: this.tap,
+      emit: this.emit,
       setter: this.setter,
-      notify: this.notify,
+      invoke: this.invoke,
+      subjects: this.subjects,
     }
     const stateKeys = Object.keys(this.state)
     stateKeys.forEach((stateKey) => {

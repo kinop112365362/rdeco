@@ -1,7 +1,8 @@
-import { ReplaySubject } from 'rxjs'
+import { ReplaySubject, BehaviorSubject } from 'rxjs'
 export const combination = {
   components: {},
   notificationSubjects: {},
+  registerSubject: new BehaviorSubject(null),
   // eslint-disable-next-line no-undef
   observableList: new Set(),
   subjects: {
@@ -44,8 +45,8 @@ export const combination = {
       throw new Error(`${baseSymbol} 组件卸载异常`)
     }
   },
-  $createNotificationSubject({ notification }, baseSymbol) {
-    if (notification) {
+  $createNotificationSubject({ register }, baseSymbol) {
+    if (register) {
       const notificationSubject = new ReplaySubject(9)
       if (!this.notificationSubjects[baseSymbol]) {
         this.notificationSubjects[baseSymbol] = notificationSubject
@@ -72,6 +73,10 @@ export const combination = {
       this.components[baseSymbol] = []
     }
     this.components[baseSymbol].push({
+      instance,
+    })
+    this.registerSubject.next({
+      baseSymbol,
       instance,
     })
   },
