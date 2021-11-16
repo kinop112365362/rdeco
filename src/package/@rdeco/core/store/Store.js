@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs'
 import { invoke } from '../subscribe/invoke'
 import { isFunction } from '../utils/isFunction'
 import * as deepmerge from 'deepmerge'
+import { createSubscriptions } from '..'
 
 export class Store {
   constructor(storeConfig) {
@@ -99,6 +100,15 @@ export class Store {
       style: this.style,
       props: this.props,
       emit: this.emit,
+      addSubscribe: (newSubscribe) => {
+        if (this.subscribe) {
+          this.subscribe = { ...this.subscribe, ...newSubscribe }
+        } else {
+          this.subscribe = newSubscribe
+        }
+        combination.$createSubjects(this, this.baseSymbol)
+        createSubscriptions(this)
+      },
       setter: this.setter,
       invoke: this.invoke,
       subjects: this.subjects,
@@ -152,7 +162,7 @@ export class Store {
   }
   dispatch([...args]) {
     const [type, payload, stateKey, store] = args
-    const prevState = { ...this.state[stateKey] }
+    const prevState = this.state[stateKey]
     this.state[stateKey] = payload
     const value = {
       eventTargetMeta: {

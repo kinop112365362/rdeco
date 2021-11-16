@@ -81,13 +81,11 @@ export const combination = {
     })
   },
   $broadcast(componentStore, value, subjectKey) {
-    if (this.$isObservable(componentStore.baseSymbol)) {
-      value.targetMeta = {
-        baseSymbol: componentStore.baseSymbol,
-        props: componentStore.props,
-      }
-      componentStore.subjects[subjectKey].next(value)
+    value.targetMeta = {
+      baseSymbol: componentStore.baseSymbol,
+      props: componentStore.props,
     }
+    componentStore.subjects[subjectKey].next(value)
   },
 }
 export function readState(name, handle) {
