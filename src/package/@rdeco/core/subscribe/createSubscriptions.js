@@ -10,12 +10,10 @@ const createObserve = (store, props) => {
       const { subjectKey, fnKey } = value?.eventTargetMeta
       const { targetMeta } = value
       const handle = () => {
-        if (store.subscribe[targetMeta.baseSymbol]) {
-          store.subscribe[targetMeta.baseSymbol]?.[subjectKey]?.[fnKey]?.call(
-            store,
-            value.data,
-            props
-          )
+        if (store.subscribeMeta[targetMeta.baseSymbol]) {
+          store.subscribeMeta[targetMeta.baseSymbol]?.[subjectKey]?.[
+            fnKey
+          ]?.call(store, value.data, props)
         }
       }
       if (subjectKey === 'state') {

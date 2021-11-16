@@ -24,7 +24,7 @@ test('测试动态追加 subscribe', async () => {
     name: '@test/com',
     controller: {
       onClick() {
-        this.addSubscribe({
+        this.subscribe({
           '@test/entity-2': {
             state: {
               text({ nextState }) {

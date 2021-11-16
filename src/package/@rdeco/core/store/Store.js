@@ -22,7 +22,9 @@ export class Store {
     }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
     this.register = storeConfig.register ? { ...storeConfig.register } : null
-    this.subscribe = storeConfig.subscribe ? { ...storeConfig.subscribe } : null
+    this.subscribeMeta = storeConfig.subscribe
+      ? { ...storeConfig.subscribe }
+      : null
     this.ref = storeConfig.ref ? { ...storeConfig.ref } : null
     this.baseSymbol = storeConfig.baseSymbol
     this.notificationSubject = combination.$createNotificationSubject(
@@ -100,11 +102,11 @@ export class Store {
       style: this.style,
       props: this.props,
       emit: this.emit,
-      addSubscribe: (newSubscribe) => {
-        if (this.subscribe) {
-          this.subscribe = { ...this.subscribe, ...newSubscribe }
+      subscribe: (newSubscribe) => {
+        if (this.subscribeMeta) {
+          this.subscribeMeta = { ...this.subscribeMeta, ...newSubscribe }
         } else {
-          this.subscribe = newSubscribe
+          this.subscribeMeta = newSubscribe
         }
         combination.$createSubjects(this, this.baseSymbol)
         createSubscriptions(this)
