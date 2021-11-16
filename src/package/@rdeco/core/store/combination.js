@@ -41,8 +41,17 @@ export const combination = {
         return component.instance.symbol !== symbol
       }
     )
-    if (this.components[baseSymbol] >= rawLenth) {
+    if (this.components[baseSymbol].length >= rawLenth) {
       throw new Error(`${baseSymbol} 组件卸载异常`)
+    }
+    const rawTargetsLenth = this.subjects.targets[baseSymbol]
+    this.subjects.targets[baseSymbol] = this.subjects.targets[
+      baseSymbol
+    ].filter((target) => {
+      return target.symbol !== symbol
+    })
+    if (this.subjects.targets[baseSymbol].length >= rawTargetsLenth) {
+      throw new Error(`${baseSymbol} 组件监听器卸载异常`)
     }
   },
   $createNotificationSubject({ register }, baseSymbol) {
