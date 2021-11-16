@@ -22,7 +22,7 @@ export class Store {
     }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
     this.register = storeConfig.register ? { ...storeConfig.register } : null
-    this.subscribeMeta = storeConfig.subscribe
+    this.subscriber = storeConfig.subscribe
       ? { ...storeConfig.subscribe }
       : null
     this.ref = storeConfig.ref ? { ...storeConfig.ref } : null
@@ -70,12 +70,7 @@ export class Store {
       fallback: new BehaviorSubject(null),
       symbol: this.symbol,
     }
-    combination.$createSubjects(
-      storeConfig,
-      this.baseSymbol,
-      this.symbol,
-      this.props
-    )
+    combination.$createSubjects(this, this.baseSymbol, this.symbol, this.props)
     combination.$setSubject(this.baseSymbol, this)
     // eslint-disable-next-line no-undef
     this.invoke = invoke
@@ -103,10 +98,10 @@ export class Store {
       props: this.props,
       emit: this.emit,
       subscribe: (newSubscribe) => {
-        if (this.subscribeMeta) {
-          this.subscribeMeta = { ...this.subscribeMeta, ...newSubscribe }
+        if (this.subscriber) {
+          this.subscriber = { ...this.subscriber, ...newSubscribe }
         } else {
-          this.subscribeMeta = newSubscribe
+          this.subscriber = newSubscribe
         }
         combination.$createSubjects(this, this.baseSymbol)
         createSubscriptions(this)

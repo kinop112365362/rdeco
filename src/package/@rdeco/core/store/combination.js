@@ -63,13 +63,13 @@ export const combination = {
     }
     return this.notificationSubjects[baseSymbol]
   },
-  $createSubjects({ subscribe }, baseSymbol) {
-    if (subscribe) {
+  $createSubjects({ subscriber }, baseSymbol) {
+    if (subscriber) {
       if (!this.subjects.deps[baseSymbol]) {
         // eslint-disable-next-line no-undef
         this.subjects.deps[baseSymbol] = new Set()
       }
-      Object.keys(subscribe).forEach((observeTagetKey) => {
+      Object.keys(subscriber).forEach((observeTagetKey) => {
         this.subjects.deps[baseSymbol].add(observeTagetKey)
         this.observableList.add(observeTagetKey)
         this.$initTargetProxy(observeTagetKey)

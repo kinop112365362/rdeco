@@ -28,6 +28,7 @@ test('测试动态追加 subscribe', async () => {
           '@test/entity-2': {
             state: {
               text({ nextState }) {
+                console.debug(nextState)
                 expect(nextState).toBe('onMount')
               },
             },
