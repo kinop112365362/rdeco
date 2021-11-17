@@ -11,6 +11,7 @@ import { invoke } from '../subscribe/invoke'
 import { isFunction } from '../utils/isFunction'
 import * as deepmerge from 'deepmerge'
 import { createSubscriptions } from '..'
+import { createObserve } from '../subscribe/createSubscriptions'
 
 export class Store {
   constructor(storeConfig) {
@@ -37,6 +38,7 @@ export class Store {
       }
       this[contextKey] = combination.enhanceContext[contextKey]
     })
+    this.dynamicSubscription = []
     this.symbol = Symbol()
     if (storeConfig.derivate) {
       this.derivate = {}
@@ -97,15 +99,7 @@ export class Store {
       style: this.style,
       props: this.props,
       emit: this.emit,
-      subscribe: (newSubscribe) => {
-        if (this.subscriber) {
-          this.subscriber = { ...this.subscriber, ...newSubscribe }
-        } else {
-          this.subscriber = newSubscribe
-        }
-        combination.$createSubjects(this, this.baseSymbol)
-        createSubscriptions(this)
-      },
+      subscribe: this.subscribe,
       setter: this.setter,
       invoke: this.invoke,
       subjects: this.subjects,
@@ -154,6 +148,32 @@ export class Store {
     this.controller = ctrlBindContext
     this.service = serviceBindContext
   }
+  subscribe(newSubscribe) {
+    if (this.subscriber) {
+      this.subscriber = { ...this.subscriber, ...newSubscribe }
+    } else {
+      this.subscriber = newSubscribe
+    }
+    combination.$createSubjects(this, this.baseSymbol)
+    Object.keys(newSubscribe).forEach((targetKey) => {
+      const proxy = combination.subjects.targetsProxy[targetKey]
+      proxy.subscribe({
+        next: (targetStore) => {
+          if (targetStore) {
+            Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
+              if (targetStore.subjects[targetSubjectKey].subscribe) {
+                targetStore.dynamicSubscription.push(
+                  targetStore.subjects[targetSubjectKey].subscribe(
+                    createObserve(this, targetStore.props)
+                  )
+                )
+              }
+            })
+          }
+        },
+      })
+    })
+  }
   updateState(nextState) {
     this.state = nextState
   }
@@ -175,6 +195,9 @@ export class Store {
     combination.$broadcast(this, value, 'state')
   }
   dispose() {
+    this.dynamicSubscription.forEach((s) => {
+      s.unsubscribe()
+    })
     combination.$remove(this.symbol, this.baseSymbol)
   }
   update(state, dispatch, props, ref) {

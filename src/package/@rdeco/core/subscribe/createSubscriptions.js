@@ -1,13 +1,12 @@
 /* eslint-disable react/display-name */
 import { combination } from '../store/combination'
 
-const createObserve = (store, props) => {
+export const createObserve = (store, props) => {
   return {
     next(value) {
       if (value === null) {
         return
       }
-      console.debug(value)
       const { subjectKey, fnKey } = value?.eventTargetMeta
       const { targetMeta } = value
       const handle = () => {

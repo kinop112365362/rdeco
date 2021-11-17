@@ -16,7 +16,6 @@ test('测试动态追加 subscribe', async () => {
     controller: {
       onMount() {
         this.setter.text('onMount')
-        expect(this.state.text).toBe('onMount')
       },
     },
   })
@@ -28,7 +27,6 @@ test('测试动态追加 subscribe', async () => {
           '@test/entity-2': {
             state: {
               text({ nextState }) {
-                console.debug(nextState)
                 expect(nextState).toBe('onMount')
               },
             },
