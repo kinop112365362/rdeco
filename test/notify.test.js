@@ -4,10 +4,6 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { createComponent, invoke } from '../src'
 
-invoke(['@test/com1'], 'loading', 'true')
-invoke(['@test/com1'], 'syncLoading', 'true').then((value) => {
-  expect(value).toBe('是')
-})
 test('测试 invoke api', async () => {
   const Test = createComponent({
     name: '@test/com1',
@@ -62,6 +58,10 @@ test('测试 invoke api', async () => {
   expect(screen.getByRole('count1')).toHaveTextContent('2')
   expect(screen.getByRole('count2')).toHaveTextContent('3')
   expect(screen.getByRole('name')).toHaveTextContent('hello jacky')
+  invoke(['@test/com1'], 'loading', 'true')
+  invoke(['@test/com1'], 'syncLoading', 'true').then((value) => {
+    expect(value).toBe('是')
+  })
   fireEvent.click(screen.getByRole('loading'))
   await waitFor(() => {
     expect(screen.getByRole('loading')).toHaveTextContent('true')
