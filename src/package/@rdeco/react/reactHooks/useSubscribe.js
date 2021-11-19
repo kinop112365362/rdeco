@@ -4,12 +4,14 @@ import { createSubscriptions } from '../../core'
 
 export function useSubscribe(store) {
   useEffect(() => {
-    const { selfSubscription, subscriptions } = createSubscriptions(store)
-    return () => {
-      subscriptions.forEach((sub) => {
-        sub.unsubscribe()
-      })
-      selfSubscription?.unsubscribe()
+    if (store?.props?.closeSubscribe !== true) {
+      const { selfSubscription, subscriptions } = createSubscriptions(store)
+      return () => {
+        subscriptions.forEach((sub) => {
+          sub.unsubscribe()
+        })
+        selfSubscription?.unsubscribe()
+      }
     }
   }, [])
 }
