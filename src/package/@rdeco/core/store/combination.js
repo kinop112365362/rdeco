@@ -9,12 +9,14 @@ export const combination = {
     deps: {},
     targets: {},
     targetsProxy: {},
+    targetsPropxyQueue: {},
   },
   enhanceContext: {},
   extends: {},
   $initTargetProxy(baseSymbol) {
     if (!this.subjects.targetsProxy[baseSymbol]) {
-      this.subjects.targetsProxy[baseSymbol] = new ReplaySubject(Infinity)
+      this.subjects.targetsProxy[baseSymbol] = new BehaviorSubject(null)
+      this.subjects.targetsPropxyQueue[baseSymbol] = []
     }
   },
   $setSubject(baseSymbol, store) {
@@ -23,7 +25,10 @@ export const combination = {
     }
     this.$initTargetProxy(baseSymbol)
     this.subjects.targets[baseSymbol].push(store)
-    this.subjects.targetsProxy[baseSymbol].next(store)
+    this.subjects.targetsPropxyQueue[baseSymbol].push(store)
+    this.subjects.targetsProxy[baseSymbol].next(
+      this.subjects.targetsPropxyQueue[baseSymbol]
+    )
   },
   $isObservable(baseSymbol) {
     return this.observableList.has(baseSymbol)
@@ -56,7 +61,7 @@ export const combination = {
   },
   $createNotificationSubject({ register }, baseSymbol) {
     if (register) {
-      const notificationSubject = new BehaviorSubject(null)
+      const notificationSubject = new ReplaySubject(9)
       if (!this.notificationSubjects[baseSymbol]) {
         this.notificationSubjects[baseSymbol] = notificationSubject
       }

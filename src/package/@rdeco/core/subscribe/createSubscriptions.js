@@ -34,17 +34,20 @@ export function createSubscriptions(store) {
   depsSource?.forEach((targetKey) => {
     const proxy = combination.subjects.targetsProxy[targetKey]
     proxy.subscribe({
-      next(targetStore) {
-        if (targetStore) {
-          Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
-            if (targetStore.subjects[targetSubjectKey].subscribe) {
-              subscriptions.push(
-                targetStore.subjects[targetSubjectKey].subscribe(
-                  createObserve(store, targetStore.props)
+      next(targetsQueue) {
+        if (targetsQueue && targetsQueue.length > 0) {
+          targetsQueue.forEach((targetStore) => {
+            Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
+              if (targetStore.subjects[targetSubjectKey].subscribe) {
+                subscriptions.push(
+                  targetStore.subjects[targetSubjectKey].subscribe(
+                    createObserve(store, targetStore.props)
+                  )
                 )
-              )
-            }
+              }
+            })
           })
+          targetsQueue.length = 0
         }
       },
     })

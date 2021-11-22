@@ -155,20 +155,24 @@ export class Store {
       this.subscriber = newSubscribe
     }
     combination.$createSubjects(this, this.baseSymbol)
+
     Object.keys(newSubscribe).forEach((targetKey) => {
       const proxy = combination.subjects.targetsProxy[targetKey]
       proxy.subscribe({
-        next: (targetStore) => {
-          if (targetStore) {
-            Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
-              if (targetStore.subjects[targetSubjectKey].subscribe) {
-                targetStore.dynamicSubscription.push(
-                  targetStore.subjects[targetSubjectKey].subscribe(
-                    createObserve(this, targetStore.props)
+        next: (targetsQueue) => {
+          if (targetsQueue && targetsQueue.length > 0) {
+            targetsQueue.forEach((targetStore) => {
+              Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
+                if (targetStore.subjects[targetSubjectKey].subscribe) {
+                  targetStore.dynamicSubscription.push(
+                    targetStore.subjects[targetSubjectKey].subscribe(
+                      createObserve(this, targetStore.props)
+                    )
                   )
-                )
-              }
+                }
+              })
             })
+            targetsQueue.length = 0
           }
         },
       })

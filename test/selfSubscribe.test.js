@@ -41,7 +41,7 @@ test('测试自己监听自己', async () => {
 
   render(
     <>
-      {[1, 2, 3, 4, 5].map((number) => {
+      {[1, 2].map((number) => {
         return <Test key={number} id={number}></Test>
       })}
     </>
