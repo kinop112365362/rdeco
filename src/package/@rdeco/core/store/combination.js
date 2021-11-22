@@ -58,6 +58,17 @@ export const combination = {
     if (this.subjects.targets[baseSymbol].length >= rawTargetsLenth) {
       throw new Error(`${baseSymbol} 组件监听器卸载异常`)
     }
+    const rawTargetsQueueLenth = this.subjects.targetsPropxyQueue[baseSymbol]
+    this.subjects.targetsPropxyQueue[baseSymbol] =
+      this.subjects.targetsPropxyQueue[baseSymbol].filter((target) => {
+        return target.symbol !== symbol
+      })
+    if (
+      this.subjects.targetsPropxyQueue[baseSymbol].length >=
+      rawTargetsQueueLenth
+    ) {
+      throw new Error(`${baseSymbol} 组件监听器卸载异常`)
+    }
   },
   $createNotificationSubject({ register }, baseSymbol) {
     if (register) {

@@ -35,6 +35,7 @@ export function createSubscriptions(store) {
     const proxy = combination.subjects.targetsProxy[targetKey]
     proxy.subscribe({
       next(targetsQueue) {
+        console.debug(store.baseSymbol)
         if (targetsQueue && targetsQueue.length > 0) {
           targetsQueue.forEach((targetStore) => {
             Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
@@ -47,7 +48,7 @@ export function createSubscriptions(store) {
               }
             })
           })
-          targetsQueue.length = 0
+          // targetsQueue.length = 0
         }
       },
     })
