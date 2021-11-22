@@ -33,25 +33,26 @@ export function createSubscriptions(store) {
   const depsSource = combination.subjects.deps[store.baseSymbol]
   depsSource?.forEach((targetKey) => {
     const proxy = combination.subjects.targetsProxy[targetKey]
-    proxy.subscribe({
-      next(targetsQueue) {
-        console.debug(store.baseSymbol)
-        if (targetsQueue && targetsQueue.length > 0) {
-          targetsQueue.forEach((targetStore) => {
-            Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
-              if (targetStore.subjects[targetSubjectKey].subscribe) {
-                subscriptions.push(
-                  targetStore.subjects[targetSubjectKey].subscribe(
-                    createObserve(store, targetStore.props)
+    subscriptions.push(
+      proxy.subscribe({
+        next(targetsQueue) {
+          if (targetsQueue && targetsQueue.length > 0) {
+            targetsQueue.forEach((targetStore) => {
+              Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
+                if (targetStore.subjects[targetSubjectKey].subscribe) {
+                  subscriptions.push(
+                    targetStore.subjects[targetSubjectKey].subscribe(
+                      createObserve(store, targetStore.props)
+                    )
                   )
-                )
-              }
+                }
+              })
             })
-          })
-          // targetsQueue.length = 0
-        }
-      },
-    })
+            // targetsQueue.length = 0
+          }
+        },
+      })
+    )
   })
 
   Object.keys(combination.extends).forEach((extend) => {

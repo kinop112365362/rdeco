@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import React from 'react'
+import React, { useState } from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { createComponent, create, withComponent } from '../src'
@@ -28,6 +28,7 @@ test('测试多实例监听多实例', async () => {
     name: '@test/com',
     state: {
       id: null,
+      hide: true,
     },
     subscribe: {
       '@test/switch': {
@@ -42,6 +43,9 @@ test('测试多实例监听多实例', async () => {
       onClick() {
         console.debug('click')
       },
+      onUnmount() {
+        console.log('onUnmount')
+      },
     },
     view: {
       render() {
@@ -53,17 +57,25 @@ test('测试多实例监听多实例', async () => {
       },
     },
   })
+  function App() {
+    const [hide, setHide] = useState(true)
 
-  render(
-    <>
-      <Switch></Switch>
-      {[1, 2].map((number) => {
-        return <Test key={number} id={number}></Test>
-      })}
-    </>
-  )
-  fireEvent.click(screen.getByRole('switch'))
+    return (
+      <div role="hide" onClick={() => setHide(false)}>
+        <Switch></Switch>
+        {hide &&
+          [1, 2].map((number) => {
+            return <Test key={number} id={number}></Test>
+          })}
+      </div>
+    )
+  }
+
+  render(<App></App>)
+  fireEvent.click(screen.getByRole('hide'))
   await waitFor(() => {
-    // expect(screen.getByRole('1')).toHaveTextContent('1')
+    expect(
+      combination.subjects.targets['@test/switch'][0].subjects.state.observers
+    ).toStrictEqual([])
   })
 })

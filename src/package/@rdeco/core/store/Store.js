@@ -149,34 +149,43 @@ export class Store {
     this.service = serviceBindContext
   }
   subscribe(newSubscribe) {
+    const subscriptions = []
     if (this.subscriber) {
       this.subscriber = { ...this.subscriber, ...newSubscribe }
     } else {
       this.subscriber = newSubscribe
     }
     combination.$createSubjects(this, this.baseSymbol)
-
     Object.keys(newSubscribe).forEach((targetKey) => {
       const proxy = combination.subjects.targetsProxy[targetKey]
-      proxy.subscribe({
-        next: (targetsQueue) => {
-          if (targetsQueue && targetsQueue.length > 0) {
-            targetsQueue.forEach((targetStore) => {
-              Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
-                if (targetStore.subjects[targetSubjectKey].subscribe) {
-                  targetStore.dynamicSubscription.push(
-                    targetStore.subjects[targetSubjectKey].subscribe(
-                      createObserve(this, targetStore.props)
-                    )
-                  )
-                }
+      subscriptions.push(
+        proxy.subscribe({
+          next: (targetsQueue) => {
+            if (targetsQueue && targetsQueue.length > 0) {
+              targetsQueue.forEach((targetStore) => {
+                Object.keys(targetStore.subjects).forEach(
+                  (targetSubjectKey) => {
+                    if (targetStore.subjects[targetSubjectKey].subscribe) {
+                      targetStore.dynamicSubscription.push(
+                        targetStore.subjects[targetSubjectKey].subscribe(
+                          createObserve(this, targetStore.props)
+                        )
+                      )
+                    }
+                  }
+                )
               })
-            })
-            targetsQueue.length = 0
-          }
-        },
-      })
+              targetsQueue.length = 0
+            }
+          },
+        })
+      )
     })
+    return function unsubscribe() {
+      subscriptions.forEach((sub) => {
+        sub.unsubscribe()
+      })
+    }
   }
   updateState(nextState) {
     this.state = nextState
