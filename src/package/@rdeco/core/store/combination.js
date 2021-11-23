@@ -46,7 +46,7 @@ export const combination = {
         return component.instance.symbol !== symbol
       }
     )
-    if (this.components[baseSymbol].length >= rawLenth) {
+    if (this.components[baseSymbol].length > rawLenth) {
       throw new Error(`${baseSymbol} 组件卸载异常`)
     }
     const rawTargetsLenth = this.subjects.targets[baseSymbol]
@@ -55,7 +55,7 @@ export const combination = {
     ].filter((target) => {
       return target.symbol !== symbol
     })
-    if (this.subjects.targets[baseSymbol].length >= rawTargetsLenth) {
+    if (this.subjects.targets[baseSymbol].length > rawTargetsLenth) {
       throw new Error(`${baseSymbol} 组件监听器卸载异常`)
     }
     const rawTargetsQueueLenth = this.subjects.targetsPropxyQueue[baseSymbol]
@@ -64,8 +64,7 @@ export const combination = {
         return target.symbol !== symbol
       })
     if (
-      this.subjects.targetsPropxyQueue[baseSymbol].length >=
-      rawTargetsQueueLenth
+      this.subjects.targetsPropxyQueue[baseSymbol].length > rawTargetsQueueLenth
     ) {
       throw new Error(`${baseSymbol} 组件监听器卸载异常`)
     }
