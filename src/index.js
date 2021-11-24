@@ -14,3 +14,4 @@ export {
 } from './package/@rdeco/react'
 
 export { Router, RouteView, App } from './package/@rdeco/router5'
+export { inject } from './package/@rdeco/module'
