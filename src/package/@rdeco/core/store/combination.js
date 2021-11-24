@@ -40,6 +40,9 @@ export const combination = {
     return this.components
   },
   $remove(symbol, baseSymbol) {
+    if (this.notificationSubjects[baseSymbol]) {
+      this.notificationSubjects[baseSymbol].next(null)
+    }
     const rawLenth = this.components[baseSymbol]
     this.components[baseSymbol] = this.components[baseSymbol].filter(
       (component) => {
