@@ -51,7 +51,7 @@ test('测试 Entity 和 组件协同工作', async () => {
       username: null,
       password: null,
     },
-    register: {
+    exports: {
       query(next) {
         next('done')
       },

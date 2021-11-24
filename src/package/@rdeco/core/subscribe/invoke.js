@@ -21,7 +21,7 @@ export const invoke = (...args) => {
         finder,
       })
     } else {
-      combination.$createNotificationSubject({ register: true }, target).next({
+      combination.$createNotificationSubject({ exports: true }, target).next({
         fnKey,
         data,
         next,

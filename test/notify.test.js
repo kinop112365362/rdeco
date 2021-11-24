@@ -11,7 +11,7 @@ test('测试 invoke api', async () => {
       count: 0,
       loading: '',
     },
-    register: {
+    exports: {
       loading(state) {
         this.setter.loading(state)
       },

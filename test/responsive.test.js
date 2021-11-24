@@ -69,7 +69,7 @@ test('测试 responsive 非多实例下的用例', async () => {
       hookAge: '',
       callMeName: '',
     },
-    register: {
+    exports: {
       callMe(name) {
         this.setter.callMeName(name)
       },

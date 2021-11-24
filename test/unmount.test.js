@@ -38,7 +38,7 @@ test('测试 unmount 组件销毁的过程', async () => {
     state: {
       ready: true,
     },
-    register: {
+    exports: {
       notReady() {
         this.setter.ready(false)
       },

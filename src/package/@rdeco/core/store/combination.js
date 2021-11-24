@@ -69,8 +69,8 @@ export const combination = {
       throw new Error(`${baseSymbol} 组件监听器卸载异常`)
     }
   },
-  $createNotificationSubject({ register }, baseSymbol) {
-    if (register) {
+  $createNotificationSubject({ exports }, baseSymbol) {
+    if (exports) {
       const notificationSubject = new ReplaySubject(9)
       if (!this.notificationSubjects[baseSymbol]) {
         this.notificationSubjects[baseSymbol] = notificationSubject

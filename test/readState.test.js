@@ -18,7 +18,7 @@ test('测试 readState', async () => {
   expect(entityStore.context.name).toBe('context')
   create({
     name: '@test/entity-1',
-    register: {
+    exports: {
       click() {},
     },
     subscribe: {

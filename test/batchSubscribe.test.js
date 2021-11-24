@@ -27,7 +27,7 @@ test('测试广播监听的用例', async () => {
         this.invoke(['@test/entity-1'], 'click')
         create({
           name: '@test/entity-1',
-          register: {
+          exports: {
             click() {},
           },
           subscribe: {

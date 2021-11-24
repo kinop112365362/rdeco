@@ -22,7 +22,7 @@ export class Store {
       this.state = { ...storeConfig.state }
     }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
-    this.register = storeConfig.register ? { ...storeConfig.register } : null
+    this.exports = storeConfig.exports ? { ...storeConfig.exports } : null
     this.subscriber = storeConfig.subscribe
       ? { ...storeConfig.subscribe }
       : null
