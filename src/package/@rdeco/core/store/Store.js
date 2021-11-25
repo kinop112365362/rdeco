@@ -6,7 +6,7 @@
 import { bindContext } from './bindContext'
 import { combination } from './combination'
 import { storeConfigValidate } from '../utils/storeConfigValidate'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, ReplaySubject } from 'rxjs'
 import { invoke } from '../subscribe/invoke'
 import { isFunction } from '../utils/isFunction'
 import * as deepmerge from 'deepmerge'
@@ -68,7 +68,7 @@ export class Store {
       state: new BehaviorSubject(null),
       controller: new BehaviorSubject(null),
       service: new BehaviorSubject(null),
-      event: new BehaviorSubject(null),
+      event: new ReplaySubject(9),
       fallback: new BehaviorSubject(null),
       symbol: this.symbol,
     }
