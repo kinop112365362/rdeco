@@ -1,5 +1,6 @@
 import { BehaviorSubject } from 'rxjs'
-export const combination = {
+
+let combination = {
   components: {},
   notificationSubjects: {},
   registerSubject: new BehaviorSubject(null),
@@ -147,9 +148,16 @@ export function extendsSubscribe(key, handler) {
   combination.extends[key] = handler
 }
 if (window) {
+  if (window.$$rdeco_combination) {
+    combination = window.$$rdeco_combination
+  } else {
+    window.$$rdeco_combination = combination
+  }
   window.$$rdecoLog = () => {
     return {
       logger: Object.freeze({ ...combination }),
     }
   }
 }
+
+export { combination }
