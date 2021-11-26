@@ -114,11 +114,15 @@ import { create, createComponent } from "rdeco";
 
 const todomvcService = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve([
-      { text: "起床", check: false },
-      { text: "吃饭", check: false },
-      { text: "睡觉", check: false }
-    ]);
+    if (localStorage.getItem("todolist")) {
+      resolve(JSON.parse(localStorage.getItem("todolist")));
+    } else {
+      resolve([
+        { text: "起床", check: false },
+        { text: "吃饭", check: false },
+        { text: "睡觉", check: false }
+      ]);
+    }
   }, 100);
 });
 
@@ -227,6 +231,7 @@ export default createComponent({
     }
   }
 });
+
 
 ```
 
