@@ -12,7 +12,7 @@ Rdeco 包含以下模块用于前端应用研发的不同场景和需求
 
 2. @rdeco/core 基于 Rx.js 的核心库, 提供了开发响应式模块的核心功能
 
-3. @rdeco/react 用于快速开发 react 组件, Rdeco 的架构并不和任何 UI 库绑定, 后续我们会开发和其他 UI库集成的包
+3. @rdeco/react 用于快速开发 react 组件, Rdeco 的架构并不和任何 UI 库绑定, 后续我们会开发和其他 UI 库集成的包
 
 ## 快速开始
 
@@ -28,41 +28,41 @@ yarn add rdeco
 
 ```js
 import React from 'react'
-import { createComponent } from "rdeco";
+import { createComponent } from 'rdeco'
 
 export default createComponent({
-  name: "todomvc",
+  name: 'todomvc',
   state: {
     todolist: [
-      { text: "起床", check: false },
-      { text: "吃饭", check: false },
-      { text: "睡觉", check: false }
+      { text: '起床', check: false },
+      { text: '吃饭', check: false },
+      { text: '睡觉', check: false },
     ],
-    newTodoValue: ""
+    newTodoValue: '',
   },
   controller: {
     onChange(e, index) {
-      this.state.todolist[index].check = e.target.checked;
-      this.setter.todolist(this.state.todolist);
+      this.state.todolist[index].check = e.target.checked
+      this.setter.todolist(this.state.todolist)
     },
     onNewTodoChange(e) {
-      this.setter.newTodoValue(e.target.value);
+      this.setter.newTodoValue(e.target.value)
     },
     onDeleteClick(index) {
       this.setter.todolist(
         this.state.todolist.filter((v, i) => {
-          return i !== index;
+          return i !== index
         })
-      );
+      )
     },
     onClick() {
       this.state.todolist.push({
         check: false,
-        text: this.state.newTodoValue
-      });
-      this.setter.todolist(this.state.todolist);
-      this.setter.newTodoValue("");
-    }
+        text: this.state.newTodoValue,
+      })
+      this.setter.todolist(this.state.todolist)
+      this.setter.newTodoValue('')
+    },
   },
   view: {
     render() {
@@ -82,7 +82,7 @@ export default createComponent({
                     删除
                   </button>
                 </li>
-              );
+              )
             })}
           </ul>
           <input
@@ -94,12 +94,121 @@ export default createComponent({
           <br />
           <button onClick={this.controller.onClick}>添加待办事项</button>
         </div>
-      );
-    }
-  }
-});
-
+      )
+    },
+  },
+})
 ```
 
 在线示例: <https://codesandbox.io/s/romantic-yalow-9ewds>
-> 关于更多的文档内容待后续更新
+
+### Rdeco 的应用架构模式
+
+快速开始中的示例展示了一种快速开发模式, 这种模式让编写的组件足够内聚, 并且组件内部有非常好的分层设计, 但对于较为复杂的应用来说往往需要开发多个组件, 并且为这些组件建立通信关系以便于交换和同步状态.
+
+因此你需要了解的进阶的应用架构模式, 我们称为`复杂模式`. 让我们看看如何将`简单模式` 下的 todomvc 修改成复杂模式下的版本. 为了让这个示例更接近真实, 我们利用 localStorage 来模拟数据库, 提供一些异步接口, 让 todomvc 能够具备持久化数据的能力
+
+```js
+import React from 'react'
+import { create, createComponent } from 'rdeco'
+
+const todomvcModel = create({
+  name: 'todomvc-model',
+  state: {
+    todolist: [
+      { text: '起床', check: false },
+      { text: '吃饭', check: false },
+      { text: '睡觉', check: false },
+    ],
+  },
+  controller: {
+    onCompleteTodo(index, checked) {
+      this.state.todolist[index].check = checked
+      this.setter.todolist(this.state.todolist)
+    },
+    onAddTodo(text) {
+      this.state.todolist.push({
+        text,
+        check: false,
+      })
+      this.setter.todolist(this.state.todolist)
+    },
+    onDeletTodo(index) {
+      this.setter.todolist(
+        this.state.todolist.filter((v, i) => {
+          return i !== index
+        })
+      )
+    },
+  },
+})
+
+export default createComponent({
+  name: 'todolist',
+  subscribe: {
+    'todomvc-model': {
+      state: {
+        todolist({ nextState }) {
+          this.setter.todolist(nextState)
+        },
+      },
+    },
+  },
+  state: {
+    todolist: todomvcModel.state.todolist,
+    newTodoValue: '',
+  },
+  controller: {
+    onChange(e, index) {
+      todomvcModel.controller.onCompleteTodo(index, e.target.checked)
+    },
+    onNewTodoChange(e) {
+      this.setter.newTodoValue(e.target.value)
+    },
+    onDeleteClick(index) {
+      todomvcModel.controller.onDeletTodo(index)
+    },
+    onClick() {
+      todomvcModel.controller.onAddTodo(this.state.newTodoValue)
+      this.setter.newTodoValue('')
+    },
+  },
+  view: {
+    render() {
+      return (
+        <div className="App">
+          <ul>
+            {this.state.todolist.map((todo, index) => {
+              return (
+                <li key={todo.text}>
+                  <input
+                    onChange={(e) => this.controller.onChange(e, index)}
+                    checked={todo.check}
+                    type="checkbox"
+                  />
+                  {todo.text}
+                  <button onClick={() => this.controller.onDeleteClick(index)}>
+                    删除
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+          <input
+            type="text"
+            onChange={this.controller.onNewTodoChange}
+            value={this.state.newTodoValue}
+          />
+          <br />
+          <br />
+          <button onClick={this.controller.onClick}>添加待办事项</button>
+        </div>
+      )
+    },
+  },
+})
+```
+
+在线示例: <https://codesandbox.io/s/romantic-yalow-9ewds?file=/src/Complex.js:0-2383>
+
+> 更多详细的文档待更新...
