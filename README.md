@@ -109,69 +109,89 @@ export default createComponent({
 因此你需要了解的进阶的应用架构模式, 我们称为`复杂模式`. 让我们看看如何将`简单模式` 下的 todomvc 修改成复杂模式下的版本. 为了让这个示例更接近真实, 我们利用 localStorage 来模拟数据库, 提供一些异步接口, 让 todomvc 能够具备持久化数据的能力
 
 ```js
-import React from 'react'
-import { create, createComponent } from 'rdeco'
+import React from "react";
+import { create, createComponent } from "rdeco";
+
+const todomvcService = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve([
+      { text: "起床", check: false },
+      { text: "吃饭", check: false },
+      { text: "睡觉", check: false }
+    ]);
+  }, 100);
+});
 
 const todomvcModel = create({
-  name: 'todomvc-model',
+  name: "todomvc-model",
   state: {
-    todolist: [
-      { text: '起床', check: false },
-      { text: '吃饭', check: false },
-      { text: '睡觉', check: false },
-    ],
+    todolist: []
+  },
+  subscribe: {
+    "todomvc-model": {
+      state: {
+        todolist({ nextState }) {
+          localStorage.setItem("todolist", JSON.stringify(nextState));
+        }
+      }
+    }
   },
   controller: {
+    onMount() {
+      todomvcService.then((data) => {
+        this.setter.todolist(data);
+      });
+    },
     onCompleteTodo(index, checked) {
-      this.state.todolist[index].check = checked
-      this.setter.todolist(this.state.todolist)
+      this.state.todolist[index].check = checked;
+      this.setter.todolist(this.state.todolist);
     },
     onAddTodo(text) {
       this.state.todolist.push({
         text,
-        check: false,
-      })
-      this.setter.todolist(this.state.todolist)
+        check: false
+      });
+      this.setter.todolist(this.state.todolist);
     },
     onDeletTodo(index) {
       this.setter.todolist(
         this.state.todolist.filter((v, i) => {
-          return i !== index
+          return i !== index;
         })
-      )
-    },
-  },
-})
+      );
+    }
+  }
+});
 
 export default createComponent({
-  name: 'todolist',
+  name: "todolist",
   subscribe: {
-    'todomvc-model': {
+    "todomvc-model": {
       state: {
         todolist({ nextState }) {
-          this.setter.todolist(nextState)
-        },
-      },
-    },
+          this.setter.todolist(nextState);
+        }
+      }
+    }
   },
   state: {
     todolist: todomvcModel.state.todolist,
-    newTodoValue: '',
+    newTodoValue: ""
   },
   controller: {
     onChange(e, index) {
-      todomvcModel.controller.onCompleteTodo(index, e.target.checked)
+      todomvcModel.controller.onCompleteTodo(index, e.target.checked);
     },
     onNewTodoChange(e) {
-      this.setter.newTodoValue(e.target.value)
+      this.setter.newTodoValue(e.target.value);
     },
     onDeleteClick(index) {
-      todomvcModel.controller.onDeletTodo(index)
+      todomvcModel.controller.onDeletTodo(index);
     },
     onClick() {
-      todomvcModel.controller.onAddTodo(this.state.newTodoValue)
-      this.setter.newTodoValue('')
-    },
+      todomvcModel.controller.onAddTodo(this.state.newTodoValue);
+      this.setter.newTodoValue("");
+    }
   },
   view: {
     render() {
@@ -191,7 +211,7 @@ export default createComponent({
                     删除
                   </button>
                 </li>
-              )
+              );
             })}
           </ul>
           <input
@@ -203,10 +223,11 @@ export default createComponent({
           <br />
           <button onClick={this.controller.onClick}>添加待办事项</button>
         </div>
-      )
-    },
-  },
-})
+      );
+    }
+  }
+});
+
 ```
 
 在线示例: <https://codesandbox.io/s/romantic-yalow-9ewds?file=/src/Complex.js:0-2383>
