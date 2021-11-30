@@ -1,7 +1,7 @@
 {
   "name": "@rdeco/core",
   "version": "2.6.10",
-  "description": "基于响应式的 React 应用开发框架",
+  "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
     "flux",
