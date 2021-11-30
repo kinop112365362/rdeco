@@ -484,3 +484,50 @@ export default createComponent({
 ```
 
 在线示例: <https://codesandbox.io/s/romantic-yalow-9ewds?file=/src/Complex.js:0-2383>
+
+## API
+
+- createComponent(rdecoConfig) => ReactElement
+
+通过 createComponent 可以创建一个具有响应式能力的 React 组件， 响应式相关参见 @rdeco/core 章节
+
+```js
+import { createComponent } from 'rdeco';
+
+const Button = createComponent({
+  name: 'button',
+  controller: {
+    onClick() {
+      this.emit('clickOver');
+    },
+  },
+  view: {
+    render() {
+      return <button onClick={this.controller.onClick}> click me </button>;
+    },
+  },
+});
+
+const Text = createComponent({
+  name: 'text',
+  subscribe: {
+    button: {
+      event: {
+        clickOver() {
+          console.log('click button over');
+        },
+      },
+    },
+  },
+});
+
+function App() {
+  return (
+    <>
+      <Button />
+      <Text />
+    </>
+  );
+}
+// log when Button click trigger Text console.log 'click button over'
+```
