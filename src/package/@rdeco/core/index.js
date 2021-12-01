@@ -8,4 +8,5 @@ export {
   combination,
   extendsSubscribe,
   readState,
+  namelist,
 } from './store/combination'

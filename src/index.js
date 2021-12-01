@@ -4,6 +4,7 @@ export {
   createMembrane,
   invoke,
   readState,
+  namelist,
 } from './package/@rdeco/core/index'
 export {
   createComponent,

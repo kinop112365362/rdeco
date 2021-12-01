@@ -14,6 +14,8 @@ let combination = {
   },
   enhanceContext: {},
   extends: {},
+  // eslint-disable-next-line no-undef
+  namelist: new Set(),
   $initTargetProxy(baseSymbol) {
     if (!this.subjects.targetsProxy[baseSymbol]) {
       this.subjects.targetsProxy[baseSymbol] = new BehaviorSubject(null)
@@ -99,6 +101,7 @@ let combination = {
   $register(baseSymbol, instance) {
     if (!this.components[baseSymbol]) {
       this.components[baseSymbol] = []
+      this.namelist.add(baseSymbol)
     }
     this.components[baseSymbol].push({
       instance,
@@ -138,6 +141,9 @@ export function readState(name, handle) {
     })
   }
 }
+
+export const namelist = combination.namelist
+
 export function enhanceContext(key, value) {
   combination.enhanceContext[key] = value
 }
