@@ -16,7 +16,11 @@ export function useComponent(component, props) {
     storeConfig.baseSymbol = baseSymbol
     storeConfig.props = props
     if (props.membrane) {
-      baseSymbol = storeConfig.baseSymbol = validate(props.membrane.name)
+      if (props.membrane.name) {
+        baseSymbol = storeConfig.baseSymbol = validate(props.membrane.name)
+      } else {
+        baseSymbol = storeConfig.baseSymbol
+      }
       store.current = new Store(createMembrane(storeConfig, props.membrane))
     } else {
       store.current = new Store(storeConfig)
