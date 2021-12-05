@@ -1,7 +1,8 @@
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
 let combination = {
   components: {},
+  pluginSubject: new ReplaySubject(9999),
   notificationSubjects: {},
   registerSubject: new BehaviorSubject(null),
   // eslint-disable-next-line no-undef
@@ -112,11 +113,19 @@ let combination = {
     })
   },
   $broadcast(componentStore, value, subjectKey) {
+    /**
+     * TODO: 插件的编写主要在于监听这些代码的执行过程，以 @rdeco/logger 为例
+     * 编写一个插件，可以通过这个 ReplaySubject 获取所有响应式对象的执行过程中产生的数据
+     * logger 包就只是 subscribe 了这个 ReplaySubject 的数据。出于性能考虑，可以将插件的
+     * 执行放在一个 webWorker 里。
+     */
+
     value.targetMeta = {
       baseSymbol: componentStore.baseSymbol,
       props: componentStore.props,
     }
     componentStore.subjects[subjectKey].next(value)
+    this.pluginSubject.next(value)
   },
 }
 export function readState(name, handle) {

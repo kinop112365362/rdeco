@@ -48,7 +48,6 @@ export function createSubscriptions(store) {
                 }
               })
             })
-            // targetsQueue.length = 0
           }
         },
       })
