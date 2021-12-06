@@ -1,7 +1,6 @@
 import { actionIsUndefined } from '../../core/utils/actionIsUndefined'
 import { getReducerModel } from './getReducerModel'
 import deepmerge from 'deepmerge'
-import { combination } from '../../core'
 
 export function reducer(state, action) {
   const stateKeys = Object.keys(state)
@@ -13,18 +12,5 @@ export function reducer(state, action) {
       return srcValue
     },
   })
-  const value = {
-    eventTargetMeta: {
-      subjectKey: 'state',
-      fnKey: action[2],
-    },
-    data: {
-      prevState: state[action[2]],
-      nextState: action[1],
-      state: newState,
-    },
-  }
-  combination.$broadcast(action[3], value, 'state')
-
   return { ...newState }
 }

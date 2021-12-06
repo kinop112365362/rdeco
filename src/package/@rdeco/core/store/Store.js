@@ -108,7 +108,20 @@ export class Store {
     stateKeys.forEach((stateKey) => {
       const type = stateKey
       this.setter[stateKey] = (payload) => {
+        const value = {
+          eventTargetMeta: {
+            subjectKey: 'state',
+            fnKey: stateKey,
+          },
+          data: {
+            prevState: this.state[stateKey],
+            nextState: payload,
+            state: this.state,
+          },
+        }
+        combination.$broadcast(this, value, 'state')
         this.dispatch([type, payload, stateKey, this])
+
         return payload
       }
     })
@@ -192,20 +205,20 @@ export class Store {
   }
   dispatch([...args]) {
     const [type, payload, stateKey, store] = args
-    const prevState = this.state[stateKey]
+    // const prevState = this.state[stateKey]
     this.state[stateKey] = payload
-    const value = {
-      eventTargetMeta: {
-        subjectKey: 'state',
-        fnKey: stateKey,
-      },
-      data: {
-        prevState,
-        nextState: payload,
-        state: this.state,
-      },
-    }
-    combination.$broadcast(this, value, 'state')
+    // const value = {
+    //   eventTargetMeta: {
+    //     subjectKey: 'state',
+    //     fnKey: stateKey,
+    //   },
+    //   data: {
+    //     prevState,
+    //     nextState: payload,
+    //     state: this.state,
+    //   },
+    // }
+    // combination.$broadcast(this, value, 'state')
   }
   dispose() {
     this.dynamicSubscription.forEach((s) => {
