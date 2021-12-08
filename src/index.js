@@ -12,6 +12,7 @@ export {
   useComponent,
   Fallback,
   createFallback,
+  Inject,
 } from './package/@rdeco/react'
 
 export { Router, RouteView, App } from './package/@rdeco/router5'
