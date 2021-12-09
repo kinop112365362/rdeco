@@ -4,9 +4,8 @@ import { inject } from '../module'
 
 export function Inject(props) {
   const el = React.createRef()
-  const scope = new Date().getTime()
   useEffect(() => {
-    inject(props.name).render(el.current, props, scope)
+    inject(props.name).render(el.current, props)
   }, [props])
   return <div ref={el}></div>
 }
