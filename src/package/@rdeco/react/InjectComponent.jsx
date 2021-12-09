@@ -3,16 +3,13 @@ import { inject } from '../module'
 import { createComponent } from './createComponent'
 
 export const Inject = createComponent({
-  name: '@rdeco/react-inject',
+  name: `@rdeco/react-inject-${new Date().getTime()}`,
   ref: {
-    id: new Date().getTime(),
+    el: React.createRef(),
   },
   controller: {
     onRender() {
-      inject(this.props.name).render(
-        document.getElementById(this.ref.id),
-        this.props
-      )
+      inject(this.props.name).render(this.ref.el, this.props)
     },
   },
   view: {
@@ -20,7 +17,7 @@ export const Inject = createComponent({
       useEffect(() => {
         this.controller.onRender()
       }, [this.props])
-      return <div id={this.ref.id}></div>
+      return <div ref={this.ref.el}></div>
     },
   },
 })
