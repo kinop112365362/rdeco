@@ -21,7 +21,6 @@ test('React Inject Component Test', async () => {
     name: '@test/tag-module',
     exports: {
       render([el]) {
-        console.debug(el)
         ReactDOM.render(<Tag></Tag>, el)
       },
     },
