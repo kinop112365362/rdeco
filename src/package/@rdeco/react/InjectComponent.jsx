@@ -16,7 +16,7 @@ export const Inject = createComponent({
     render() {
       useEffect(() => {
         console.log('render', this.props)
-        this.controller.onRender
+        this.controller.onRender()
       }, [this.props])
       return <div ref={this.ref.el}></div>
     },

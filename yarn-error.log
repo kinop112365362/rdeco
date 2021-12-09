@@ -2,7 +2,7 @@ Arguments:
   /Users/LYN/.nvm/versions/node/v16.13.0/bin/node /Users/LYN/.nvm/versions/node/v16.13.0/bin/yarn publish
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/LYN/.nvm/versions/node/v16.13.0/bin
+  /bin:/usr/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/LYN/.nvm/versions/node/v16.13.0/bin
 
 Yarn version: 
   1.22.17
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/-/user/org.couchdb.user:admin: [conflict] User admin already exists
+  Error: http://npm.dc.servyou-it.com/-/user/org.couchdb.user:admin: user registration disabled
       at Request.params.callback [as _callback] (/Users/LYN/.nvm/versions/node/v16.13.0/lib/node_modules/yarn/lib/cli.js:67029:18)
       at Request.self.callback (/Users/LYN/.nvm/versions/node/v16.13.0/lib/node_modules/yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:390:28)
@@ -29,7 +29,7 @@ Trace:
 npm manifest: 
   {
     "name": "rdeco",
-    "version": "2.6.15",
+    "version": "2.7.5",
     "description": "基于响应式的应用开发框架",
     "keywords": [
       "react",
