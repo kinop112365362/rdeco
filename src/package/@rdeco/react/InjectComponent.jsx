@@ -7,11 +7,14 @@ export function Inject(props) {
   let deps = []
   if (props.deps) {
     deps = props.deps.map((dep) => {
-      return props[dep]
+      if (Array.isArray(props[dep])) {
+        return JSON.stringify(props[dep])
+      } else {
+        return props[dep]
+      }
     })
   }
   useEffect(() => {
-    console.debug(deps, '---deps---')
     inject(props.name).render(el.current, props)
   }, deps)
   return <div ref={el}></div>
