@@ -11,6 +11,7 @@ export function Inject(props) {
     })
   }
   useEffect(() => {
+    console.debug(deps, '---deps---')
     inject(props.name).render(el.current, props)
   }, deps)
   return <div ref={el}></div>
