@@ -9,7 +9,7 @@ export const Inject = createComponent({
   },
   controller: {
     onRender() {
-      inject(this.props.name).render(this.ref.el, this.props)
+      inject(this.props.name).render(this.ref.el.current, this.props)
     },
   },
   view: {
