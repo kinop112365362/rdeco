@@ -6,5 +6,5 @@ export function Inject(props) {
   useEffect(() => {
     inject(this.props.name).render(el.current, props)
   }, [props])
-  return <div ref={this.ref.el}></div>
+  return <div ref={el}></div>
 }
