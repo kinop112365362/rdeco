@@ -5,20 +5,22 @@ import { createComponent } from './createComponent'
 export const Inject = createComponent({
   name: '@rdeco/react-inject',
   ref: {
-    el: React.createRef(),
+    id: new Date().getTime(),
   },
   controller: {
     onRender() {
-      inject(this.props.name).render(this.ref.el.current, this.props)
+      inject(this.props.name).render(
+        document.getElementById(this.ref.id),
+        this.props
+      )
     },
   },
   view: {
     render() {
       useEffect(() => {
-        console.log('render', this.props)
         this.controller.onRender()
       }, [this.props])
-      return <div ref={this.ref.el}></div>
+      return <div id={this.ref.id}></div>
     },
   },
 })
