@@ -93,6 +93,7 @@ export class Store {
     }
 
     const baseContext = {
+      baseSymbol: this.baseSymbol,
       name: this.name,
       state: this.state,
       derivate: this.derivate,

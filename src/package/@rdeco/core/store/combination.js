@@ -86,6 +86,9 @@ let combination = {
     return this.notificationSubjects[baseSymbol]
   },
   $createSubjects({ subscriber }, baseSymbol) {
+    if (baseSymbol === undefined) {
+      throw new Error('baseSymbol is undefined!!')
+    }
     if (subscriber) {
       if (!this.subjects.deps[baseSymbol]) {
         // eslint-disable-next-line no-undef
