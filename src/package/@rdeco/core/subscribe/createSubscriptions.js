@@ -4,18 +4,16 @@ import { combination } from '../store/combination'
 export const createObserve = (store, props) => {
   return {
     next(value) {
-      if (value === null || !store.subscribe) {
+      if (value === null) {
         return
       }
       const { subjectKey, fnKey } = value?.eventTargetMeta
       const { targetMeta } = value
       const handle = () => {
         if (targetMeta) {
-          if (store.subscriber[targetMeta.baseSymbol]) {
-            store.subscriber[targetMeta.baseSymbol]?.[subjectKey]?.[
-              fnKey
-            ]?.call(store, value.data, props)
-          }
+          store?.subscriber?.[targetMeta.baseSymbol]?.[subjectKey]?.[
+            fnKey
+          ]?.call(store, value.data, props)
         }
       }
       if (subjectKey === 'state') {
