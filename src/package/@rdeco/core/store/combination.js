@@ -79,7 +79,7 @@ let combination = {
   },
   $createNotificationSubject({ exports }, baseSymbol) {
     if (exports) {
-      const notificationSubject = new ReplaySubject(9)
+      const notificationSubject = new BehaviorSubject(null)
       if (!this.notificationSubjects[baseSymbol]) {
         this.notificationSubjects[baseSymbol] = notificationSubject
       }
