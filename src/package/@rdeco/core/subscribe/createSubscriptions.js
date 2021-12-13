@@ -4,7 +4,7 @@ import { combination } from '../store/combination'
 export const createObserve = (store, props) => {
   return {
     next(value) {
-      if (value === null) {
+      if (value === null || !store.subscribe) {
         return
       }
       const { subjectKey, fnKey } = value?.eventTargetMeta
