@@ -65,7 +65,7 @@ export class Store {
     this.setter = {}
     this.props = storeConfig.props
     this.subjects = {
-      state: new BehaviorSubject(null),
+      state: new ReplaySubject(9),
       controller: new BehaviorSubject(null),
       service: new BehaviorSubject(null),
       event: new ReplaySubject(9),
