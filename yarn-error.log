@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: http://npm.dc.servyou-it.com/-/user/org.couchdb.user:admin: The provided password is too short. Please pick a password longer than 3 characters.
+  Error: http://npm.dc.servyou-it.com/-/user/org.couchdb.user:admin: user registration disabled
       at Request.params.callback [as _callback] (/Users/LYN/.nvm/versions/node/v16.13.0/lib/node_modules/yarn/lib/cli.js:67029:18)
       at Request.self.callback (/Users/LYN/.nvm/versions/node/v16.13.0/lib/node_modules/yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:390:28)
@@ -29,7 +29,7 @@ Trace:
 npm manifest: 
   {
     "name": "rdeco",
-    "version": "2.7.20",
+    "version": "2.8.3",
     "description": "基于响应式的应用开发框架",
     "keywords": [
       "react",
@@ -73,7 +73,11 @@ npm manifest:
     },
     "peerDependencies": {
       "@babel/runtime": "^7.12.1",
-      "react": "^16.8.3 || ^17"
+      "react": "^16.8.3 || ^17",
+      "router5": "^8.0.1",
+      "router5-plugin-browser": "^8.0.1",
+      "router5-plugin-logger": "^8.0.1",
+      "rxjs": "^7.4.0"
     },
     "devDependencies": {
       "@babel/cli": "^7.12.1",
@@ -119,16 +123,16 @@ npm manifest:
       "react-dom": "^16.14.0",
       "react-test-renderer": "^16.14.0",
       "rimraf": "^3.0.2",
+      "router5": "^8.0.1",
+      "router5-plugin-browser": "^8.0.1",
+      "router5-plugin-logger": "^8.0.1",
+      "rxjs": "^7.4.0",
       "shelljs": "^0.8.4",
       "typescript": "^4.2.3"
     },
     "dependencies": {
       "deepmerge": "^4.2.2",
       "query-string": "^7.0.1",
-      "router5": "^8.0.1",
-      "router5-plugin-browser": "^8.0.1",
-      "router5-plugin-logger": "^8.0.1",
-      "rxjs": "^7.4.0",
       "validate-npm-package-name": "^3.0.0"
     }
   }
