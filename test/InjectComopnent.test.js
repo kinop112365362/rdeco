@@ -21,12 +21,7 @@ test('React Inject Component Test', async () => {
     name: '@test/tag-module',
     exports: {
       render([el, props, Context]) {
-        ReactDOM.render(
-          <Context.Provider value={{ name: 'hello' }}>
-            <Tag></Tag>
-          </Context.Provider>,
-          el
-        )
+        ReactDOM.render(<Tag></Tag>, el)
       },
     },
   })

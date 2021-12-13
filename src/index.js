@@ -5,6 +5,7 @@ export {
   invoke,
   readState,
   namelist,
+  configModuleLoader,
 } from './package/@rdeco/core/index'
 export {
   createComponent,

@@ -1,7 +1,8 @@
-import { invoke } from '../core'
+import { combination, invoke } from '../core'
 
 /* eslint-disable no-undef */
 export function inject(moduleName) {
+  combination.loader(moduleName)
   if (!Proxy) {
     throw new Error(`当前浏览器不支持 Proxy, 无法使用 inject api 请改用 invoke`)
   }

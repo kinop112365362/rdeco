@@ -1,6 +1,7 @@
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
 let combination = {
+  loader: (n) => n,
   components: {},
   pluginSubject: new ReplaySubject(9999),
   notificationSubjects: {},
@@ -155,7 +156,9 @@ export function readState(name, handle) {
 }
 
 export const namelist = combination.namelist
-
+export function configModuleLoader(loader) {
+  combination.loader = loader
+}
 export function enhanceContext(key, value) {
   combination.enhanceContext[key] = value
 }

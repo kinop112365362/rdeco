@@ -9,4 +9,5 @@ export {
   extendsSubscribe,
   readState,
   namelist,
+  configModuleLoader,
 } from './store/combination'
