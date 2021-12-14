@@ -1,17 +1,19 @@
 import queryString from 'query-string'
 
 function pathToName(path = '') {
-  path = path.split('?')[0]
-  return path === '/'
-    ? '/'
-    : path
-        .substring(1)
-        .split('/')
-        .reduce(
-          (previousValue, currentValue) =>
-            previousValue +
-            currentValue.replace(currentValue[0], currentValue[0].toUpperCase())
-        )
+  let nowPath = path.split('?')[0]
+  if (nowPath === '/') {
+    return nowPath
+  } else if (nowPath[0] === '/') {
+    nowPath = nowPath.substring(1)
+  }
+  return nowPath
+    .split('/')
+    .reduce(
+      (previousValue, currentValue) =>
+        previousValue +
+        currentValue.replace(currentValue[0], currentValue[0].toUpperCase())
+    )
 }
 
 function handlePath(str = '') {
