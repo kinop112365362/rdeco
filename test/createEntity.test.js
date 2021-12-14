@@ -127,7 +127,7 @@ test('测试 Entity 和 组件协同工作', async () => {
         return (
           <div role="button" onClick={this.controller.onLoginButtonClick}>
             <div role="message">{this.state.message}</div>
-            <WithComponent></WithComponent>
+            {/* <WithComponent></WithComponent> */}
           </div>
         )
       },
@@ -138,11 +138,11 @@ test('测试 Entity 和 组件协同工作', async () => {
   fireEvent.click(screen.getByRole('button'))
   await waitFor(() => {
     expect(screen.getByRole('message')).toHaveTextContent('success')
-    expect(screen.getByRole('class')).toHaveTextContent('hoc')
+    // expect(screen.getByRole('class')).toHaveTextContent('hoc')
     // expect(screen.getByRole('classBtn')).toHaveTextContent('base')
   })
-  fireEvent.click(screen.getByRole('classBtn'))
+  // fireEvent.click(screen.getByRole('classBtn'))
   await waitFor(() => {
-    expect(screen.getByRole('class')).toHaveTextContent('hoc over')
+    // expect(screen.getByRole('class')).toHaveTextContent('hoc over')
   })
 })

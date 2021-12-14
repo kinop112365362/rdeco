@@ -12,8 +12,8 @@ export function useComponent(component, props) {
   let baseSymbol = validate(component.name)
   const storeConfig = useRef({ ...component }).current
   const contextRef = useRef({}).current
-  if (storeConfig.context) {
-    storeConfig.context.forEach((key) => {
+  if (storeConfig.reactContext) {
+    storeConfig.reactContext.forEach((key) => {
       contextRef[key] = useContext(getContext(key))
     })
   }

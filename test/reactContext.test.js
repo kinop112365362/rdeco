@@ -17,11 +17,11 @@ const CopyContext = registerReactContext('copy')
 test('React Context 使用', async () => {
   const Test = createComponent({
     name: '@test/com',
-    context: ['copy'],
+    reactContext: ['copy'],
     view: {
       render() {
         console.debug('render')
-        return <div role="copyName">{this.context.copy.name}</div>
+        return <div role="copyName">{this.reactContext.copy.name}</div>
       },
     },
   })

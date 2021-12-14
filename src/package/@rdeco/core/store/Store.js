@@ -206,20 +206,7 @@ export class Store {
   }
   dispatch([...args]) {
     const [type, payload, stateKey, store] = args
-    // const prevState = this.state[stateKey]
     this.state[stateKey] = payload
-    // const value = {
-    //   eventTargetMeta: {
-    //     subjectKey: 'state',
-    //     fnKey: stateKey,
-    //   },
-    //   data: {
-    //     prevState,
-    //     nextState: payload,
-    //     state: this.state,
-    //   },
-    // }
-    // combination.$broadcast(this, value, 'state')
   }
   dispose() {
     this.dynamicSubscription.forEach((s) => {
@@ -227,18 +214,7 @@ export class Store {
     })
     combination.$remove(this.symbol, this.baseSymbol)
   }
-  update(state, dispatch, props, ref, contextRef) {
-    for (const contextName in this.private) {
-      if (Object.hasOwnProperty.call(this.private, contextName)) {
-        this.private[contextName]['state'] = state
-        this.private[contextName]['props'] = props
-        this.private[contextName]['ref'] = ref
-        this.private[contextName]['context'] = contextRef
-      }
-    }
-    this.dispatch = dispatch
-    this.state = state
-    this.ref = ref
-    this.props = props
+  update(updater) {
+    updater(this)
   }
 }
