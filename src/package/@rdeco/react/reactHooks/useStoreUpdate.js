@@ -1,5 +1,6 @@
 import { useReducer, useRef } from 'react'
 import { reducer } from '../reducer'
+import * as emotion from '@emotion/react'
 
 export function useStoreUpdate(store, nextState, props, contextRef) {
   const [state, dispatch] = useReducer(reducer, nextState)
@@ -11,6 +12,7 @@ export function useStoreUpdate(store, nextState, props, contextRef) {
         ctx.private[contextName]['props'] = props
         ctx.private[contextName]['ref'] = ref
         ctx.private[contextName]['reactContext'] = contextRef
+        ctx.private[contextName]['emotion'] = emotion
       }
     }
     ctx.dispatch = dispatch
