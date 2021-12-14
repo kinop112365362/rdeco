@@ -227,12 +227,13 @@ export class Store {
     })
     combination.$remove(this.symbol, this.baseSymbol)
   }
-  update(state, dispatch, props, ref) {
+  update(state, dispatch, props, ref, contextRef) {
     for (const contextName in this.private) {
       if (Object.hasOwnProperty.call(this.private, contextName)) {
         this.private[contextName]['state'] = state
         this.private[contextName]['props'] = props
         this.private[contextName]['ref'] = ref
+        this.private[contextName]['context'] = contextRef
       }
     }
     this.dispatch = dispatch

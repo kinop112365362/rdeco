@@ -42,6 +42,7 @@ test('测试广播监听的用例', async () => {
     },
     view: {
       render() {
+        console.debug('render')
         return <div role="click" onClick={this.controller.onClick}></div>
       },
     },

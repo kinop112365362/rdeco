@@ -14,6 +14,7 @@ export {
   Fallback,
   createFallback,
   Inject,
+  registerReactContext,
 } from './package/@rdeco/react'
 
 export { Router, RouteView, App } from './package/@rdeco/router5'
