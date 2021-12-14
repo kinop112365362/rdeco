@@ -44,7 +44,7 @@ export {
 }
 
 if (window) {
-  window['@rdeco'] = {
+  window.rdeco = {
     core: {
       enhanceContext,
       create,
