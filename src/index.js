@@ -43,37 +43,37 @@ export {
   emotion,
 }
 
-if (window) {
-  if (window.rdeco) {
-    console.error(`当前环境存在多个版本的 rdeco，请检查是否意外引入了 rdeco 包`)
-  }
-  window.rdeco = {
-    core: {
-      enhanceContext,
-      create,
-      createMembrane,
-      invoke,
-      readState,
-      namelist,
-      configModuleLoader,
-    },
-    react: {
-      createComponent,
-      withComponent,
-      useComponent,
-      Fallback,
-      createFallback,
-      Inject,
-      registerReactContext,
-    },
-    router5: {
-      Router,
-      RouteView,
-      App,
-    },
-    module: {
-      inject,
-    },
-    emotion,
-  }
-}
+// if (window) {
+//   if (window.rdeco) {
+//     console.error(`当前环境存在多个版本的 rdeco，请检查是否意外引入了 rdeco 包`)
+//   }
+//   window.rdeco = {
+//     core: {
+//       enhanceContext,
+//       create,
+//       createMembrane,
+//       invoke,
+//       readState,
+//       namelist,
+//       configModuleLoader,
+//     },
+//     react: {
+//       createComponent,
+//       withComponent,
+//       useComponent,
+//       Fallback,
+//       createFallback,
+//       Inject,
+//       registerReactContext,
+//     },
+//     router5: {
+//       Router,
+//       RouteView,
+//       App,
+//     },
+//     module: {
+//       inject,
+//     },
+//     emotion,
+//   }
+// }
