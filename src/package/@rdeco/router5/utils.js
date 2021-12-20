@@ -1,4 +1,5 @@
 import queryString from 'query-string'
+import { pathToRegexp } from 'path-to-regexp'
 
 function pathToName(path = '') {
   let nowPath = path.split('?')[0]
@@ -61,4 +62,20 @@ function handleRoute(route = {}) {
   return route
 }
 
-export { pathToName, getRouterConfig, getPath, handlePath, handleRoute }
+function matchPath(currentPath, toStatePath = {}) {
+  const regexp = pathToRegexp(currentPath)
+  const length = (currentPath === '/' ? '' : currentPath).split('/').length
+  let urlStr = toStatePath.split('/').slice(0, length).join('/')
+  urlStr = urlStr[0] === '/' ? urlStr : '/' + urlStr
+
+  return Boolean(regexp.exec(urlStr))
+}
+
+export {
+  pathToName,
+  getRouterConfig,
+  getPath,
+  handlePath,
+  handleRoute,
+  matchPath,
+}

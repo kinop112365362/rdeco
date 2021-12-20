@@ -31,15 +31,18 @@ class App {
     const _oldNavigate = this.router.navigate.bind(this)
     this.router.navigate = (...args) => {
       const pathName = args[0]
-      const routeName = this.router.matchPath(pathName)
-        ? this.router.matchPath(pathName).name
-        : pathToName(pathName)
+      const matchRoute = this.router.matchPath(pathName)
+      const routeName = matchRoute ? matchRoute.name : pathToName(pathName)
       const lastArg = args[args.length - 1]
       const done = typeof lastArg === 'function' ? lastArg : () => {}
-      const routeParams = typeof args[1] === 'object' ? args[1] : {}
+      const routeParams = Object.assign(
+        {},
+        typeof args[1] === 'object' ? args[1] : {},
+        matchRoute.params
+      )
       const options = typeof args[2] === 'object' ? args[2] : {}
       // UNKNOWN_ROUTE
-      if (!this.router.buildState(routeName, routeParams)) {
+      if (!matchRoute) {
         // add router
         this.router.add({
           name: routeName,
