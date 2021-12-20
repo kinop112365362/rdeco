@@ -36,6 +36,8 @@ describe('测试 router utils', () => {
     expect(pathToName('/home')).toBe('home')
 
     expect(pathToName('/home/page/page1')).toBe('homePagePage1')
+
+    expect(pathToName('home/page/page1')).toBe('homePagePage1')
   })
 
   it('getPath', async () => {

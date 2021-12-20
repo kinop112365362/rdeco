@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { createComponent } from '../react'
 import RouterContext from './RouterContext'
-import { getPath, handlePath } from './utils'
+import { getPath, handlePath, pathToName, matchPath } from './utils'
 
 /**
  * @param {String} props.path
@@ -21,12 +21,17 @@ const RouteView = createComponent({
       const path = handlePath(this.props.path || '/')
       const toStatePath = handlePath(toState.path)
       const currentPath = getPath(parentPath, path)
+      const routeName = pathToName(currentPath)
+      // UNKNOWN_ROUTE
+      if (!this.context.router.matchPath(currentPath)) {
+        // add router
+        this.context.router.add({
+          name: routeName,
+          path: currentPath,
+        })
+      }
 
-      let isMatch =
-        path === '/' ||
-        currentPath === toStatePath ||
-        (toStatePath.indexOf(path) === 0 && toStatePath[path.length] === '/')
-
+      const isMatch = matchPath(currentPath, toStatePath)
       if (isMatch !== this.state.active) {
         this.setter.active(isMatch)
       }
@@ -39,9 +44,9 @@ const RouteView = createComponent({
   view: {
     render() {
       const { Component, path } = this.props
-      const context = useContext(RouterContext) || { parentPath: '' }
-      const parentPath = context.parentPath
-      const currentPath = getPath(context.parentPath, path)
+      const routerContext = useContext(RouterContext) || { parentPath: '' }
+      const parentPath = routerContext.parentPath
+      const currentPath = getPath(routerContext.parentPath, path)
       const active = this.state.active
 
       this.ref.parentPath = parentPath
