@@ -2,6 +2,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs'
 
 let combination = {
   loader: (n) => n,
+  modules: {},
   components: {},
   pluginSubject: new ReplaySubject(9999),
   notificationSubjects: {},
@@ -18,6 +19,12 @@ let combination = {
   extends: {},
   // eslint-disable-next-line no-undef
   namelist: new Set(),
+  $registerModule(key, value) {
+    if (this.modules[key]) {
+      console.error(`你覆盖了${key} module, 请确保这不是个意外`)
+    }
+    this.modules[key] = value
+  },
   $initTargetProxy(baseSymbol) {
     if (!this.subjects.targetsProxy[baseSymbol]) {
       this.subjects.targetsProxy[baseSymbol] = new BehaviorSubject(null)

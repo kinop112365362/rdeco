@@ -104,6 +104,7 @@ export class Store {
       setter: this.setter,
       invoke: this.invoke,
       subjects: this.subjects,
+      modules: combination.modules,
     }
     const stateKeys = Object.keys(this.state)
     stateKeys.forEach((stateKey) => {

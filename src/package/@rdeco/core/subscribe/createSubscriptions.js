@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 import { combination } from '../store/combination'
+import { isFunction } from '../utils/isFunction'
 
 export const createObserve = (store, props) => {
   return {
@@ -63,20 +64,24 @@ export function createSubscriptions(store) {
       next(value) {
         if (value !== null) {
           // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件
-          if (!store.exports[value.fnKey]) {
-            throw new Error(
-              `调用失败, ${store.name} 组件的 exports 上不存在 ${value.fnKey} 方法`
-            )
-          }
-          if (value.finder) {
-            if (!value.finder(store.props)) {
-              /**
-               * 通过 props 对比可以判断是否匹配通知规则, 不匹配则不触发订阅逻辑
-               */
-              return
+          if (isFunction(store.exports)) {
+            store.exports(value.next)
+          } else {
+            if (!store.exports[value.fnKey]) {
+              throw new Error(
+                `调用失败, ${store.name} 组件的 exports 上不存在 ${value.fnKey} 方法`
+              )
             }
+            if (value.finder) {
+              if (!value.finder(store.props)) {
+                /**
+                 * 通过 props 对比可以判断是否匹配通知规则, 不匹配则不触发订阅逻辑
+                 */
+                return
+              }
+            }
+            store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
           }
-          store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
         }
       },
     })
