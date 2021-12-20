@@ -10,4 +10,5 @@ export {
   readState,
   namelist,
   configModuleLoader,
+  registerModule,
 } from './store/combination'

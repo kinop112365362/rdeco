@@ -6,6 +6,7 @@ import {
   readState,
   namelist,
   configModuleLoader,
+  registerModule,
 } from './package/@rdeco/core/index'
 import {
   createComponent,
@@ -41,6 +42,7 @@ export {
   App,
   inject,
   emotion,
+  registerModule,
 }
 
 // if (window) {

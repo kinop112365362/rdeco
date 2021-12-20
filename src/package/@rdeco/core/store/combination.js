@@ -19,12 +19,6 @@ let combination = {
   extends: {},
   // eslint-disable-next-line no-undef
   namelist: new Set(),
-  $registerModule(key, value) {
-    if (this.modules[key]) {
-      console.error(`你覆盖了${key} module, 请确保这不是个意外`)
-    }
-    this.modules[key] = value
-  },
   $initTargetProxy(baseSymbol) {
     if (!this.subjects.targetsProxy[baseSymbol]) {
       this.subjects.targetsProxy[baseSymbol] = new BehaviorSubject(null)
@@ -138,6 +132,12 @@ let combination = {
     componentStore.subjects[subjectKey].next(value)
     this.pluginSubject.next(value)
   },
+}
+export function registerModule(key, value) {
+  if (combination.modules[key]) {
+    console.error(`你覆盖了${key} module, 请确保这不是个意外`)
+  }
+  combination.modules[key] = value
 }
 export function readState(name, handle) {
   if (!combination.components[name]) {
