@@ -1,17 +1,20 @@
 import queryString from 'query-string'
+import { pathToRegexp } from 'path-to-regexp'
 
 function pathToName(path = '') {
-  path = path.split('?')[0]
-  return path === '/'
-    ? '/'
-    : path
-        .substring(1)
-        .split('/')
-        .reduce(
-          (previousValue, currentValue) =>
-            previousValue +
-            currentValue.replace(currentValue[0], currentValue[0].toUpperCase())
-        )
+  let nowPath = path.split('?')[0]
+  if (nowPath === '/') {
+    return nowPath
+  } else if (nowPath[0] === '/') {
+    nowPath = nowPath.substring(1)
+  }
+  return nowPath
+    .split('/')
+    .reduce(
+      (previousValue, currentValue) =>
+        previousValue +
+        currentValue.replace(currentValue[0], currentValue[0].toUpperCase())
+    )
 }
 
 function handlePath(str = '') {
@@ -59,4 +62,20 @@ function handleRoute(route = {}) {
   return route
 }
 
-export { pathToName, getRouterConfig, getPath, handlePath, handleRoute }
+function matchPath(currentPath, toStatePath = {}) {
+  const regexp = pathToRegexp(currentPath)
+  const length = (currentPath === '/' ? '' : currentPath).split('/').length
+  let urlStr = toStatePath.split('/').slice(0, length).join('/')
+  urlStr = urlStr[0] === '/' ? urlStr : '/' + urlStr
+
+  return Boolean(regexp.exec(urlStr))
+}
+
+export {
+  pathToName,
+  getRouterConfig,
+  getPath,
+  handlePath,
+  handleRoute,
+  matchPath,
+}
