@@ -74,6 +74,16 @@ function matchPath(currentPath, toStatePath = {}, exact) {
   return Boolean(regexp.exec(urlStr))
 }
 
+function getConfigRouters(routers = [{ path: '/' }]) {
+  routers.forEach((item) => {
+    item.name = item.path === '/' ? '/' : pathToName(item.path)
+    if (item.forwardTo) {
+      item.forwardTo = pathToName(item.forwardTo)
+    }
+  })
+  return routers
+}
+
 export {
   pathToName,
   getRouterConfig,
@@ -81,4 +91,5 @@ export {
   handlePath,
   handleRoute,
   matchPath,
+  getConfigRouters,
 }

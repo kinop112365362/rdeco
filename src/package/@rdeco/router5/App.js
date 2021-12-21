@@ -6,7 +6,7 @@ import loggerPlugin from 'router5-plugin-logger'
 import { invoke, enhanceContext } from '../core'
 import { createComponent } from '../react'
 import { beforeDoneMiddleware, beforMiddleware } from './beforMiddleware'
-import { getRouterConfig, pathToName } from './utils'
+import { getRouterConfig, pathToName, getConfigRouters } from './utils'
 
 class App {
   constructor(config) {
@@ -22,7 +22,7 @@ class App {
       browserPluginOption,
       loggerPluginEnable = false,
     } = getRouterConfig(routerConfig)
-    const routers = config?.router || [{ name: '/', path: '/' }]
+    const routers = getConfigRouters(config.router)
     this.router = createRouter(routers, {
       ...router5Option,
       allowNotFound: true,
