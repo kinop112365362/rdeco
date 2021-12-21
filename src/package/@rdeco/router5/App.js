@@ -38,7 +38,7 @@ class App {
       const routeParams = Object.assign(
         {},
         typeof args[1] === 'object' ? args[1] : {},
-        matchRoute.params
+        matchRoute?.params
       )
       const options = typeof args[2] === 'object' ? args[2] : {}
       // UNKNOWN_ROUTE

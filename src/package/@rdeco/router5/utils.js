@@ -62,11 +62,14 @@ function handleRoute(route = {}) {
   return route
 }
 
-function matchPath(currentPath, toStatePath = {}) {
+function matchPath(currentPath, toStatePath = {}, exact) {
   const regexp = pathToRegexp(currentPath)
-  const length = (currentPath === '/' ? '' : currentPath).split('/').length
-  let urlStr = toStatePath.split('/').slice(0, length).join('/')
-  urlStr = urlStr[0] === '/' ? urlStr : '/' + urlStr
+  let urlStr = toStatePath
+  if (!exact) {
+    const length = (currentPath === '/' ? '' : currentPath).split('/').length
+    urlStr = toStatePath.split('/').slice(0, length).join('/')
+    urlStr = urlStr[0] === '/' ? urlStr : '/' + urlStr
+  }
 
   return Boolean(regexp.exec(urlStr))
 }

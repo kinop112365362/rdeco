@@ -21,15 +21,6 @@ const RouteView = createComponent({
       const path = handlePath(this.props.path || '/')
       const toStatePath = handlePath(toState.path)
       const currentPath = getPath(parentPath, path)
-      const routeName = pathToName(currentPath)
-      // UNKNOWN_ROUTE
-      if (!this.context.router.matchPath(currentPath)) {
-        // add router
-        this.context.router.add({
-          name: routeName,
-          path: currentPath,
-        })
-      }
 
       const isMatch = matchPath(currentPath, toStatePath)
       if (isMatch !== this.state.active) {
@@ -47,9 +38,19 @@ const RouteView = createComponent({
       const routerContext = useContext(RouterContext) || { parentPath: '' }
       const parentPath = routerContext.parentPath
       const currentPath = getPath(routerContext.parentPath, path)
+      const routeName = pathToName(currentPath)
       const active = this.state.active
 
       this.ref.parentPath = parentPath
+
+      // UNKNOWN_ROUTE
+      if (!this.context.router.matchPath(currentPath)) {
+        // add router
+        this.context.router.add({
+          name: routeName,
+          path: currentPath,
+        })
+      }
 
       return (
         <RouterContext.Provider

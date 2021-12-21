@@ -1,6 +1,7 @@
 import { extendsSubscribe } from '../core'
 import { ReplaySubject } from 'rxjs'
 import App from './App'
+import Redirect from './Redirect'
 
 extendsSubscribe('@@router', {
   subject: new ReplaySubject(2),
@@ -26,4 +27,4 @@ extendsSubscribe('@@router', {
 })
 
 export { Router, RouteView } from './RouteView'
-export { App }
+export { App, Redirect }
