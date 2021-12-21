@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { createComponent, create, withComponent } from '../src'
 import { combination } from '../src/package/@rdeco/core'
 
-test('测试广播监听的用例', async () => {
+test('测试动态追加 subscribe', async () => {
   create({
     name: '@test/entity-2',
     state: {
@@ -16,7 +16,6 @@ test('测试广播监听的用例', async () => {
     controller: {
       onMount() {
         this.setter.text('onMount')
-        expect(this.state.text).toBe('onMount')
       },
     },
   })
@@ -24,16 +23,11 @@ test('测试广播监听的用例', async () => {
     name: '@test/com',
     controller: {
       onClick() {
-        this.invoke(['@test/entity-1'], 'click')
-        create({
-          name: '@test/entity-1',
-          exports: {
-            click() {},
-          },
-          subscribe: {
-            '@test/com': {
-              controller: {
-                onClick() {},
+        this.subscribe({
+          '@test/entity-2': {
+            state: {
+              text({ nextState }) {
+                expect(nextState).toBe('onMount')
               },
             },
           },
@@ -42,7 +36,6 @@ test('测试广播监听的用例', async () => {
     },
     view: {
       render() {
-        console.debug('render')
         return <div role="click" onClick={this.controller.onClick}></div>
       },
     },
@@ -50,4 +43,10 @@ test('测试广播监听的用例', async () => {
 
   render(<Test></Test>)
   fireEvent.click(screen.getByRole('click'))
+  const p = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, 1000)
+  })
+  await p
 })

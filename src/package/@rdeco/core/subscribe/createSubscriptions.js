@@ -1,7 +1,8 @@
 /* eslint-disable react/display-name */
 import { combination } from '../store/combination'
+import { isFunction } from '../utils/isFunction'
 
-const createObserve = (store, props) => {
+export const createObserve = (store, props) => {
   return {
     next(value) {
       if (value === null) {
@@ -10,12 +11,10 @@ const createObserve = (store, props) => {
       const { subjectKey, fnKey } = value?.eventTargetMeta
       const { targetMeta } = value
       const handle = () => {
-        if (store.subscribe[targetMeta.baseSymbol]) {
-          store.subscribe[targetMeta.baseSymbol]?.[subjectKey]?.[fnKey]?.call(
-            store,
-            value.data,
-            props
-          )
+        if (targetMeta) {
+          store?.subscriber?.[targetMeta.baseSymbol]?.[subjectKey]?.[
+            fnKey
+          ]?.call(store, value.data, props)
         }
       }
       if (subjectKey === 'state') {
@@ -33,21 +32,25 @@ export function createSubscriptions(store) {
   const depsSource = combination.subjects.deps[store.baseSymbol]
   depsSource?.forEach((targetKey) => {
     const proxy = combination.subjects.targetsProxy[targetKey]
-    proxy.subscribe({
-      next(targetStore) {
-        if (targetStore) {
-          Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
-            if (targetStore.subjects[targetSubjectKey].subscribe) {
-              subscriptions.push(
-                targetStore.subjects[targetSubjectKey].subscribe(
-                  createObserve(store, targetStore.props)
-                )
-              )
-            }
-          })
-        }
-      },
-    })
+    subscriptions.push(
+      proxy.subscribe({
+        next(targetsQueue) {
+          if (targetsQueue && targetsQueue.length > 0) {
+            targetsQueue.forEach((targetStore) => {
+              Object.keys(targetStore.subjects).forEach((targetSubjectKey) => {
+                if (targetStore.subjects[targetSubjectKey].subscribe) {
+                  subscriptions.push(
+                    targetStore.subjects[targetSubjectKey].subscribe(
+                      createObserve(store, targetStore.props)
+                    )
+                  )
+                }
+              })
+            })
+          }
+        },
+      })
+    )
   })
 
   Object.keys(combination.extends).forEach((extend) => {
@@ -56,29 +59,29 @@ export function createSubscriptions(store) {
   })
 
   let selfSubscription = null
-  if (store.notification) {
+  if (store.exports) {
     selfSubscription = store.notificationSubject.subscribe({
       next(value) {
         if (value !== null) {
           // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件
-          if (!store.notification[value.fnKey]) {
-            throw new Error(
-              `调用失败, ${store.name} 组件的 notification 上不存在 ${value.fnKey} 方法`
-            )
-          }
-          if (value.finder) {
-            if (!value.finder(store.props)) {
-              /**
-               * 通过 props 对比可以判断是否匹配通知规则, 不匹配则不触发订阅逻辑
-               */
-              return
+          if (isFunction(store.exports)) {
+            store.exports(value.next)
+          } else {
+            if (!store.exports[value.fnKey]) {
+              throw new Error(
+                `调用失败, ${store.name} 组件的 exports 上不存在 ${value.fnKey} 方法`
+              )
             }
+            if (value.finder) {
+              if (!value.finder(store.props)) {
+                /**
+                 * 通过 props 对比可以判断是否匹配通知规则, 不匹配则不触发订阅逻辑
+                 */
+                return
+              }
+            }
+            store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
           }
-          store.notification?.[value?.fnKey]?.call(
-            store,
-            value.data,
-            value.next
-          )
         }
       },
     })

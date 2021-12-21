@@ -4,7 +4,7 @@ import { createSubscriptions } from '../subscribe/createSubscriptions'
 import { validate } from '../utils/validate'
 import { Store } from './Store'
 
-export function createEntity(entity) {
+export function create(entity) {
   const symbol = validate(entity.name)
   entity.baseSymbol = symbol
   const entityStore = new Store(entity)

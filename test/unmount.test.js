@@ -10,13 +10,13 @@ test('测试 unmount 组件销毁的过程', async () => {
   const Tag = createComponent({
     name: '@test/tag',
     subscribe: {
-      ['@test/tag']: {
+      '@test/tag': {
         state: {},
       },
     },
     controller: {
       onClick() {
-        this.notify(['@test/com'], 'notReady')
+        this.invoke(['@test/com'], 'notReady')
       },
     },
     view: {
@@ -38,7 +38,7 @@ test('测试 unmount 组件销毁的过程', async () => {
     state: {
       ready: true,
     },
-    notification: {
+    exports: {
       notReady() {
         this.setter.ready(false)
       },
@@ -70,5 +70,6 @@ test('测试 unmount 组件销毁的过程', async () => {
   fireEvent.click(screen.getByRole('notReady1'))
   await waitFor(() => {
     expect(combination.components['@test/tag']).toStrictEqual([])
+    expect(combination.subjects.targets['@test/tag']).toStrictEqual([])
   })
 })

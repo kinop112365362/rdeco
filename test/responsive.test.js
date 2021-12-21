@@ -15,7 +15,7 @@ test('测试 responsive 非多实例下的用例', async () => {
     controller: {
       onClick() {
         this.setter.age('20')
-        this.tap('setAgeOver', 20)
+        this.emit('setAgeOver', 20)
         this.setter.name('ann')
       },
     },
@@ -69,7 +69,7 @@ test('测试 responsive 非多实例下的用例', async () => {
       hookAge: '',
       callMeName: '',
     },
-    notification: {
+    exports: {
       callMe(name) {
         this.setter.callMeName(name)
       },
@@ -81,7 +81,7 @@ test('测试 responsive 非多实例下的用例', async () => {
             this.setter.aname(nextState)
           },
         },
-        tappable: {
+        event: {
           setAgeOver(age) {
             this.setter.hookAge(age)
           },
@@ -103,7 +103,7 @@ test('测试 responsive 非多实例下的用例', async () => {
     controller: {
       onClick() {
         this.setter.text('Hello World')
-        this.tap('onClick')
+        this.emit('onClick')
       },
     },
     view: {
@@ -142,7 +142,7 @@ test('测试 responsive 非多实例下的用例', async () => {
             this.setter.sidName('ComponentC:sid')
           },
         },
-        tappable: {
+        event: {
           onClick() {
             this.setter.sidHookName('ComponentC:sidHook')
           },
@@ -152,7 +152,7 @@ test('测试 responsive 非多实例下的用例', async () => {
     controller: {
       onClick() {
         this.setter.name(this.props.name)
-        this.notify(['@test/component-c'], 'callMe', 'helloC')
+        this.invoke(['@test/component-c'], 'callMe', 'helloC')
       },
     },
     view: {

@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, createEntity, withComponent } from '../src'
+import { createComponent, create, withComponent } from '../src'
 import { combination } from '../src/package/@rdeco/core'
 
 test('测试自己监听自己', async () => {
@@ -41,7 +41,7 @@ test('测试自己监听自己', async () => {
 
   render(
     <>
-      {[1, 2, 3, 4, 5].map((number) => {
+      {[1, 2].map((number) => {
         return <Test key={number} id={number}></Test>
       })}
     </>

@@ -1,7 +1,7 @@
 {
   "name": "rdeco",
-  "version": "2.4.3",
-  "description": "基于响应式的 React 应用开发框架",
+  "version": "2.9.8",
+  "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
     "flux",
@@ -44,7 +44,11 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.12.1",
-    "react": "^16.8.3 || ^17"
+    "react": "^16.8.3 || ^17",
+    "router5": "^8.0.1",
+    "router5-plugin-browser": "^8.0.1",
+    "router5-plugin-logger": "^8.0.1",
+    "rxjs": "^7.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -59,7 +63,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@babel/runtime": "^7.12.1",
     "@emotion/babel-plugin": "^11.2.0",
-    "@emotion/react": "^11.1.5",
+    "@emotion/react": "^11.7.1",
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
@@ -90,6 +94,10 @@
     "react-dom": "^16.14.0",
     "react-test-renderer": "^16.14.0",
     "rimraf": "^3.0.2",
+    "router5": "^8.0.1",
+    "router5-plugin-browser": "^8.0.1",
+    "router5-plugin-logger": "^8.0.1",
+    "rxjs": "^7.4.0",
     "shelljs": "^0.8.4",
     "typescript": "^4.2.3"
   },
@@ -97,10 +105,6 @@
     "deepmerge": "^4.2.2",
     "path-to-regexp": "^6.2.0",
     "query-string": "^7.0.1",
-    "router5": "^8.0.1",
-    "router5-plugin-browser": "^8.0.1",
-    "router5-plugin-logger": "^8.0.1",
-    "rxjs": "^7.4.0",
     "validate-npm-package-name": "^3.0.0"
   }
 }

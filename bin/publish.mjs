@@ -30,7 +30,6 @@ try {
     shell.exit(1);
   }
   shelljs.exec('yarn publish --registry https://registry.npmjs.org/')
-  shelljs.exec('yarn publish')
   shelljs.exec('git add .')
   shelljs.exec(`git commit -a -m"chore(version): v${nextVersion}"`)
   shelljs.exec(`git tag v${nextVersion}`)

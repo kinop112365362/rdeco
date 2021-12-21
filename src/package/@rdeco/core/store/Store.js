@@ -6,10 +6,12 @@
 import { bindContext } from './bindContext'
 import { combination } from './combination'
 import { storeConfigValidate } from '../utils/storeConfigValidate'
-import { BehaviorSubject } from 'rxjs'
-import { notify } from '../subscribe/notify'
+import { BehaviorSubject, ReplaySubject } from 'rxjs'
+import { invoke } from '../subscribe/invoke'
 import { isFunction } from '../utils/isFunction'
 import * as deepmerge from 'deepmerge'
+import { createSubscriptions } from '..'
+import { createObserve } from '../subscribe/createSubscriptions'
 
 export class Store {
   constructor(storeConfig) {
@@ -20,10 +22,10 @@ export class Store {
       this.state = { ...storeConfig.state }
     }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
-    this.notification = storeConfig.notification
-      ? { ...storeConfig.notification }
+    this.exports = storeConfig.exports ? { ...storeConfig.exports } : null
+    this.subscriber = storeConfig.subscribe
+      ? { ...storeConfig.subscribe }
       : null
-    this.subscribe = storeConfig.subscribe ? { ...storeConfig.subscribe } : null
     this.ref = storeConfig.ref ? { ...storeConfig.ref } : null
     this.baseSymbol = storeConfig.baseSymbol
     this.notificationSubject = combination.$createNotificationSubject(
@@ -36,6 +38,7 @@ export class Store {
       }
       this[contextKey] = combination.enhanceContext[contextKey]
     })
+    this.dynamicSubscription = []
     this.symbol = Symbol()
     if (storeConfig.derivate) {
       this.derivate = {}
@@ -62,52 +65,65 @@ export class Store {
     this.setter = {}
     this.props = storeConfig.props
     this.subjects = {
-      state: new BehaviorSubject(null),
+      state: new ReplaySubject(9),
       controller: new BehaviorSubject(null),
       service: new BehaviorSubject(null),
-      tappable: new BehaviorSubject(null),
+      event: new ReplaySubject(9),
+      fallback: new BehaviorSubject(null),
       symbol: this.symbol,
     }
-    combination.$createSubjects(
-      storeConfig,
-      this.baseSymbol,
-      this.symbol,
-      this.props
-    )
+    combination.$createSubjects(this, this.baseSymbol, this.symbol, this.props)
     combination.$setSubject(this.baseSymbol, this)
     // eslint-disable-next-line no-undef
-    this.notify = notify
-    this.tap = (fnKey, data) => {
+    this.invoke = invoke
+    this.emit = (fnKey, data) => {
       const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
       if (!reg.test(fnKey)) {
-        throw new Error(`this.tap 只支持驼峰命名的 tappable`)
+        throw new Error(`this.emit 只支持驼峰命名的 event`)
       }
       const value = {
         eventTargetMeta: {
-          subjectKey: 'tappable',
+          subjectKey: 'event',
           fnKey,
         },
         data,
       }
 
-      combination.$broadcast(this, value, 'tappable')
+      combination.$broadcast(this, value, 'event')
     }
 
     const baseContext = {
+      baseSymbol: this.baseSymbol,
       name: this.name,
       state: this.state,
       derivate: this.derivate,
       style: this.style,
       props: this.props,
-      tap: this.tap,
+      emit: this.emit,
+      subscribe: this.subscribe,
       setter: this.setter,
-      notify: this.notify,
+      invoke: this.invoke,
+      subjects: this.subjects,
+      modules: combination.modules,
     }
     const stateKeys = Object.keys(this.state)
     stateKeys.forEach((stateKey) => {
       const type = stateKey
       this.setter[stateKey] = (payload) => {
+        const value = {
+          eventTargetMeta: {
+            subjectKey: 'state',
+            fnKey: stateKey,
+          },
+          data: {
+            prevState: this.state[stateKey],
+            nextState: payload,
+            state: this.state,
+          },
+        }
+        combination.$broadcast(this, value, 'state')
         this.dispatch([type, payload, stateKey, this])
+
         return payload
       }
     })
@@ -147,40 +163,59 @@ export class Store {
     this.controller = ctrlBindContext
     this.service = serviceBindContext
   }
+  subscribe(newSubscribe) {
+    const subscriptions = []
+    if (this.subscriber) {
+      this.subscriber = { ...this.subscriber, ...newSubscribe }
+    } else {
+      this.subscriber = newSubscribe
+    }
+    combination.$createSubjects(this, this.baseSymbol)
+    Object.keys(newSubscribe).forEach((targetKey) => {
+      const proxy = combination.subjects.targetsProxy[targetKey]
+      subscriptions.push(
+        proxy.subscribe({
+          next: (targetsQueue) => {
+            if (targetsQueue && targetsQueue.length > 0) {
+              targetsQueue.forEach((targetStore) => {
+                Object.keys(targetStore.subjects).forEach(
+                  (targetSubjectKey) => {
+                    if (targetStore.subjects[targetSubjectKey].subscribe) {
+                      targetStore.dynamicSubscription.push(
+                        targetStore.subjects[targetSubjectKey].subscribe(
+                          createObserve(this, targetStore.props)
+                        )
+                      )
+                    }
+                  }
+                )
+              })
+              targetsQueue.length = 0
+            }
+          },
+        })
+      )
+    })
+    return function unsubscribe() {
+      subscriptions.forEach((sub) => {
+        sub.unsubscribe()
+      })
+    }
+  }
   updateState(nextState) {
     this.state = nextState
   }
   dispatch([...args]) {
     const [type, payload, stateKey, store] = args
-    const prevState = { ...this.state[stateKey] }
     this.state[stateKey] = payload
-    const value = {
-      eventTargetMeta: {
-        subjectKey: 'state',
-        fnKey: stateKey,
-      },
-      data: {
-        prevState,
-        nextState: payload,
-        state: this.state,
-      },
-    }
-    combination.$broadcast(this, value, 'state')
   }
   dispose() {
+    this.dynamicSubscription.forEach((s) => {
+      s.unsubscribe()
+    })
     combination.$remove(this.symbol, this.baseSymbol)
   }
-  update(state, dispatch, props, ref) {
-    for (const contextName in this.private) {
-      if (Object.hasOwnProperty.call(this.private, contextName)) {
-        this.private[contextName]['state'] = state
-        this.private[contextName]['props'] = props
-        this.private[contextName]['ref'] = ref
-      }
-    }
-    this.dispatch = dispatch
-    this.state = state
-    this.ref = ref
-    this.props = props
+  update(updater) {
+    updater(this)
   }
 }

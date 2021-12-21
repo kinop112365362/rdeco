@@ -1,4 +1,4 @@
-import { notify } from '../core'
+import { invoke } from '../core'
 import { handleRoute } from './utils'
 
 export const beforeDoneMiddleware = (beforeDone) => {
@@ -13,7 +13,7 @@ export const beforeDoneMiddleware = (beforeDone) => {
 }
 
 export const beforMiddleware = () => (toState, fromState, done) => {
-  notify('@@router', 'before', { toState, fromState, done }).then((done) => {
+  invoke('@@router', 'before', { toState, fromState, done }).then((done) => {
     done && done()
   })
 }

@@ -3,7 +3,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, createEntity } from '../src'
+import { createComponent, create } from '../src'
 
 test('测试多实例下, data-table 对 row 进行单选控制', async () => {
   const Row = createComponent({
@@ -12,7 +12,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
       value: '',
       selected: 'false',
     },
-    notification: {
+    exports: {
       select(selected) {
         this.setter.selected(selected)
       },
@@ -29,7 +29,7 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
         this.setter.value(e.target.value)
       },
       onClick() {
-        this.notify(['@test/data-table'], 'selectRow', this.props.id)
+        this.invoke(['@test/data-table'], 'selectRow', this.props.id)
         this.setter.selected('true')
       },
     },
@@ -64,10 +64,10 @@ test('测试多实例下, data-table 对 row 进行单选控制', async () => {
       currentSelectRowId: null,
       dataSource: createMap(5),
     },
-    notification: {
+    exports: {
       selectRow(id) {
         if (this.state.currentSelectRowId !== null) {
-          this.notify(
+          this.invoke(
             ['@test/row', ({ channel }) => channel === 'data-row'],
             'select',
             'false'
