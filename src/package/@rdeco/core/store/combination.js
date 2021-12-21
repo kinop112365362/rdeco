@@ -47,7 +47,7 @@ let combination = {
   },
   $remove(symbol, baseSymbol) {
     if (this.notificationSubjects[baseSymbol]) {
-      this.notificationSubjects[baseSymbol].next(null)
+      this.notificationSubjects[baseSymbol]._buffer.length = 0
     }
     const rawLenth = this.components[baseSymbol]
     this.components[baseSymbol] = this.components[baseSymbol].filter(
@@ -80,7 +80,7 @@ let combination = {
   },
   $createNotificationSubject({ exports }, baseSymbol) {
     if (exports) {
-      const notificationSubject = new BehaviorSubject(null)
+      const notificationSubject = new ReplaySubject()
       if (!this.notificationSubjects[baseSymbol]) {
         this.notificationSubjects[baseSymbol] = notificationSubject
       }

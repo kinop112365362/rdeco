@@ -12,12 +12,15 @@ test('inject 调用模块方法', async () => {
       name: 'remote-module',
       exports: {
         getName(name, next) {
+          console.debug(name)
           next('remote-module')
         },
       },
     })
   }, 1000)
   const name = await inject('remote-module').getName('helloword')
+  const name2 = await inject('remote-module').getName('helloword2')
+  const name3 = await inject('remote-module').getName('helloword3')
 
   // const p = new Promise((resolve) => {
   //   setTimeout(() => {
