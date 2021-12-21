@@ -18,7 +18,7 @@ import {
   registerReactContext,
 } from './package/@rdeco/react'
 
-import { Router, RouteView, App } from './package/@rdeco/router5'
+import { Router, RouteView, Redirect, App } from './package/@rdeco/router5'
 import { inject } from './package/@rdeco/module'
 import * as emotion from '@emotion/react'
 
@@ -39,6 +39,7 @@ export {
   registerReactContext,
   Router,
   RouteView,
+  Redirect,
   App,
   inject,
   emotion,
