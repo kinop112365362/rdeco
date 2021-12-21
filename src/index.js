@@ -11,4 +11,4 @@ export {
   useComponent,
 } from './package/@rdeco/react'
 
-export { Router, RouteView, App } from './package/@rdeco/router5'
+export { Router, RouteView, App, Redirect } from './package/@rdeco/router5'
