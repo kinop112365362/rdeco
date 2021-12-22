@@ -37,8 +37,8 @@ class App {
       const done = typeof lastArg === 'function' ? lastArg : () => {}
       const routeParams = Object.assign(
         {},
-        typeof args[1] === 'object' ? args[1] : {},
-        matchRoute?.params
+        matchRoute?.params,
+        typeof args[1] === 'object' ? args[1] : {}
       )
       const options = typeof args[2] === 'object' ? args[2] : {}
       // UNKNOWN_ROUTE
