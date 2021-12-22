@@ -47,7 +47,12 @@ let combination = {
   },
   $remove(symbol, baseSymbol) {
     if (this.notificationSubjects[baseSymbol]) {
-      this.notificationSubjects[baseSymbol]._events.length = 0
+      if (this.notificationSubjects[baseSymbol]._events) {
+        this.notificationSubjects[baseSymbol]._events.length = 0
+      }
+      if (this.notificationSubjects[baseSymbol]._buffer) {
+        this.notificationSubjects[baseSymbol]._buffer.length = 0
+      }
     }
     const rawLenth = this.components[baseSymbol]
     this.components[baseSymbol] = this.components[baseSymbol].filter(
