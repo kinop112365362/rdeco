@@ -76,7 +76,11 @@ export function createSubscriptions(store) {
               return
             }
           }
-          store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
+          if (value.data.length === 0) {
+            store.exports?.[value?.fnKey]?.call(store, value.next)
+          } else {
+            store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
+          }
         }
       },
     })
