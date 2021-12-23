@@ -103,6 +103,8 @@
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
+    "lodash.isplainobject": "^4.0.6",
+    "lodash.mergewith": "^4.6.2",
     "path-to-regexp": "^6.2.0",
     "query-string": "^7.0.1",
     "validate-npm-package-name": "^3.0.0"

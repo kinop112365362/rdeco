@@ -109,7 +109,7 @@ export class Store {
     const stateKeys = Object.keys(this.state)
     stateKeys.forEach((stateKey) => {
       const type = stateKey
-      this.setter[stateKey] = (payload) => {
+      this.setter[stateKey] = (payload, replace = false) => {
         const value = {
           eventTargetMeta: {
             subjectKey: 'state',
@@ -122,7 +122,7 @@ export class Store {
           },
         }
         combination.$broadcast(this, value, 'state')
-        this.dispatch([type, payload, stateKey, this])
+        this.dispatch([type, payload, stateKey, this, replace])
 
         return payload
       }
