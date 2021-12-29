@@ -13,6 +13,13 @@ export const invoke = (...args) => {
       throw new Error(`${targetMeta} 不是一个数组`)
     }
     const [target, finder] = targetMeta
+    const value = {
+      type: 'invoke',
+      targetMeta,
+      fnKey,
+      data,
+    }
+    combination.pluginSubject.next(value)
     if (combination.notificationSubjects[target]) {
       combination.notificationSubjects[target].next({
         fnKey,
@@ -39,8 +46,22 @@ export const invoke = (...args) => {
     syncker.subscribe({
       next(value) {
         if (value instanceof Error) {
+          const info = {
+            type: 'invokeError',
+            targetMeta,
+            fnKey,
+            error: value,
+          }
+          combination.pluginSubject.next(info)
           reject(value)
         } else {
+          const info = {
+            type: 'invokeSucess',
+            targetMeta,
+            fnKey,
+            result: value,
+          }
+          combination.pluginSubject.next(info)
           resolve(value)
         }
       },
