@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { createComponent } from '../src/index'
-import { combination } from '../src/package/@rdeco/core'
+import { createComponent } from '../packages/rdeco'
+import { combination } from '../packages/core'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 unmount 组件销毁的过程', async () => {

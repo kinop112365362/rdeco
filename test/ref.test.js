@@ -2,7 +2,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent } from '../src'
+import { createComponent } from '../packages/rdeco'
 
 test('测试 ref 有效性', async () => {
   const BaseButton = {

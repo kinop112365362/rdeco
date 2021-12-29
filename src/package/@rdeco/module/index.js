@@ -1,4 +1,4 @@
-import { combination, invoke } from '../core'
+import { combination, invoke } from '../../../../packages/core'
 
 /* eslint-disable no-undef */
 export function inject(moduleName) {

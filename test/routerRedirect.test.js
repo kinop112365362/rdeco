@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, RouteView, Redirect, App } from '../src'
+import { Router, RouteView, Redirect, App } from '../packages/rdeco'
 import { render, waitFor } from '@testing-library/react'
 
 describe('test <routerRedirect>', () => {

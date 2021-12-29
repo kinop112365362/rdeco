@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { createComponent, invoke } from '../src/index'
-import { combination } from '../src/package/@rdeco/core'
+import { createComponent, invoke } from '../packages/rdeco'
+import { combination } from '../packages/core'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 router 响应内部 invoke', async () => {

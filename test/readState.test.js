@@ -4,12 +4,12 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent } from '../src'
+import { createComponent, create, withComponent } from '../packages/rdeco'
 import {
   combination,
   readState,
   enhanceContext,
-} from '../src/package/@rdeco/core'
+} from '../packages/core'
 enhanceContext('context', { name: 'context' })
 test('测试 readState', async () => {
   const entityStore = create({

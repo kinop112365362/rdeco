@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { createComponent } from '../src/index'
+import { createComponent } from '../packages/rdeco'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 props 的正确归属', async () => {

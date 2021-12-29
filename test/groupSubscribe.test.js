@@ -4,8 +4,8 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent } from '../src'
-import { combination } from '../src/package/@rdeco/core'
+import { createComponent, create, withComponent } from '../packages/rdeco'
+import { combination } from '../packages/core'
 
 test('测试分组监听的正确性', async () => {
   const Tag = createComponent({
