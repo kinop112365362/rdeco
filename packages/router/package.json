@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/router",
-  "version": "2.10.6",
+  "version": "3.0.0",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -31,8 +31,8 @@
     "build": "npm run build:commonjs && npm run build:es"
   },
   "peerDependencies": {
-    "@rdeco/core": "2.10.6",
-    "@rdeco/react": "2.10.6",
+    "@rdeco/core": "^3.0.0",
+    "@rdeco/react": "^3.0.0",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1",
     "router5-plugin-logger": "^8.0.1"

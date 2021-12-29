@@ -21,7 +21,7 @@ import {
 } from '@rdeco/react/src'
 
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
-import { inject } from '@rdeco/module/src'
+import { inject } from '@rdeco/module'
 import * as emotion from '@emotion/react'
 
 export {
