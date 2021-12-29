@@ -9,8 +9,8 @@ import {
   create,
   withComponent,
   registerReactContext,
-} from '../src'
-import { combination } from '../src/package/@rdeco/core'
+} from 'rdeco/src'
+import { combination } from '@rdeco/core/src'
 
 const CopyContext = registerReactContext('copy')
 

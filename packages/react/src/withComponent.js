@@ -5,8 +5,8 @@ import {
   Store,
   createSubscriptions,
   createMembrane,
-} from '../core'
-import { validate } from '../core/utils/validate'
+  validate,
+} from '@rdeco/core/src'
 
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component'

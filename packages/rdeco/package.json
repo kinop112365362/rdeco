@@ -1,0 +1,43 @@
+{
+  "name": "rdeco",
+  "version": "2.10.6",
+  "description": "基于响应式的应用开发框架",
+  "private": true,
+  "keywords": [
+    "react",
+    "flux",
+    "hook",
+    "state",
+    "useReducer",
+    "rxjs"
+  ],
+  "licenses": "MIT",
+  "author": "shihong <112365362@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kinop112365362/structured-react-hook"
+  },
+  "types": "./types",
+  "main": "./lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "packages",
+    "es"
+  ],
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:commonjs": "cross-env NODE_ENV=production BABEL_ENV=commonjs babel --root-mode upward src --out-dir lib",
+    "build:es": "cross-env NODE_ENV=production babel src --root-mode upward --out-dir es",
+    "build": "npm run build:commonjs && npm run build:es"
+  },
+  "peerDependencies": {
+    "@rdeco/core": "2.10.6",
+    "@rdeco/module": "2.10.6",
+    "@rdeco/react": "2.10.6",
+    "@rdeco/router": "2.10.6"
+  }
+}

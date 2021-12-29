@@ -10,7 +10,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs'
 import { invoke } from '../subscribe/invoke'
 import { isFunction } from '../utils/isFunction'
 import * as deepmerge from 'deepmerge'
-import { createSubscriptions } from '..'
+import { createSubscriptions } from '../index'
 import { createObserve } from '../subscribe/createSubscriptions'
 
 export class Store {

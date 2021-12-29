@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from 'react'
 import { AsyncSubject } from 'rxjs'
-import { combination } from '../core'
+import { combination } from '@rdeco/core/src'
 
 export function createFallback(targetMeta, component) {
   const [baseSymbol, finder] = targetMeta

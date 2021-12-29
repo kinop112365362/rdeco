@@ -1,11 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useRef } from 'react'
-import { combination, createMembrane, Store } from '../core'
+import { combination, createMembrane, Store, validate } from '@rdeco/core/src'
 import { useSubscribe } from './reactHooks/useSubscribe'
 import { useStoreDispose } from './reactHooks/useStoreDispose'
 import { useStoreUpdate } from './reactHooks/useStoreUpdate'
-import { validate } from '../core/utils/validate'
 import { getContext } from './ContextManager'
 
 export function useComponent(component, props) {

@@ -1,4 +1,4 @@
-import { App, Router } from '../src/package/@rdeco/router5'
+import { App, Router } from '../packages/router'
 import { render, waitFor } from '@testing-library/react'
 import React from 'react'
 

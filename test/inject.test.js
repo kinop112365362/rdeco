@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent, inject, invoke } from '../src'
+import { createComponent, create, withComponent, inject, invoke } from 'rdeco/src'
 
 test('inject 调用模块方法', async () => {
   setTimeout(() => {

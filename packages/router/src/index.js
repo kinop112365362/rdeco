@@ -1,4 +1,4 @@
-import { extendsSubscribe } from '../core'
+import { extendsSubscribe } from '@rdeco/core/src'
 import { ReplaySubject } from 'rxjs'
 import App from './App'
 import Redirect from './Redirect'

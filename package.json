@@ -2,6 +2,7 @@
   "name": "rdeco",
   "version": "2.10.6",
   "description": "基于响应式的应用开发框架",
+  "private": true,
   "keywords": [
     "react",
     "flux",
@@ -22,25 +23,22 @@
   "files": [
     "dist",
     "lib",
-    "src",
+    "packages",
     "es"
   ],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build:commonjs": "cross-env NODE_ENV=production BABEL_ENV=commonjs babel src --out-dir lib",
-    "build:es": "cross-env NODE_ENV=production babel src --out-dir es",
-    "build": "npm run build:commonjs && npm run build:es",
-    "build:docs": "cd website && yarn build && cd ..",
+    "build": "yarn workspaces run build",
+    "ver": "lerna version",
+    "pub": "rm -rf .npmrc && lerna publish",
     "git:merge": "git co master && git pull && git co main && git merge master && git push && git co master",
     "clean": "rimraf lib dist es coverage types",
     "format": "prettier --write \"{src,test}/**/*.{js,ts}\" index.d.ts \"docs/**/*.md\"",
     "lint": "eslint src --fix",
     "pretest": "npm run lint",
-    "test": "jest",
-    "coverage": "codecov",
-    "gcg": "git co main",
-    "gcs": "git co master",
-    "pub": "rm -rf .npmrc && node ./bin/publish.mjs",
-    "tsc": "tsc"
+    "test": "jest"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.12.1",
@@ -89,6 +87,7 @@
     "eslint-plugin-react": "^7.21.5",
     "glob": "^7.1.6",
     "jest": "^26.6.3",
+    "lerna": "^4.0.0",
     "prettier": "^2.1.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -100,13 +99,5 @@
     "rxjs": "^7.4.0",
     "shelljs": "^0.8.4",
     "typescript": "^4.2.3"
-  },
-  "dependencies": {
-    "deepmerge": "^4.2.2",
-    "lodash.isplainobject": "^4.0.6",
-    "lodash.mergewith": "^4.6.2",
-    "path-to-regexp": "^6.2.0",
-    "query-string": "^7.0.1",
-    "validate-npm-package-name": "^3.0.0"
   }
 }
