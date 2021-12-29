@@ -25,6 +25,5 @@ extendsSubscribe('@@router', {
     }
   },
 })
-
 export { Router, RouteView } from './RouteView'
 export { App, Redirect }

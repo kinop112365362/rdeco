@@ -31,8 +31,9 @@
     "build": "npm run build:commonjs && npm run build:es"
   },
   "peerDependencies": {
-    "@rdeco/core": "2.10.6",
-    "@rdeco/rdeco": "2.10.6",
+    "@rdeco/core": "^3.0.0",
+    "@rdeco/rdeco": "^3.0.0",
     "rxjs": "^7.4.0"
-  }
+  },
+  "gitHead": "e47e4d2c5479aacca11202ea76e8a23ad4391387"
 }

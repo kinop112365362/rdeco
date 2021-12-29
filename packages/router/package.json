@@ -31,8 +31,8 @@
     "build": "npm run build:commonjs && npm run build:es"
   },
   "peerDependencies": {
-    "@rdeco/core": "2.10.6",
-    "@rdeco/react": "2.10.6",
+    "@rdeco/core": "^3.0.0",
+    "@rdeco/react": "^3.0.0",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1",
     "router5-plugin-logger": "^8.0.1"
@@ -40,5 +40,6 @@
   "dependencies": {
     "path-to-regexp": "^6.2.0",
     "query-string": "^7.0.1"
-  }
+  },
+  "gitHead": "e47e4d2c5479aacca11202ea76e8a23ad4391387"
 }

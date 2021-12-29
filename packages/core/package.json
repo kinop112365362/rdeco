@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/core",
-  "version": "2.10.6",
+  "version": "3.0.1",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -27,18 +27,14 @@
     "build": "npm run build:commonjs && npm run build:es"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.12.1",
-    "react": "^16.8.3 || ^17",
-    "router5": "^8.0.1",
-    "router5-plugin-browser": "^8.0.1",
-    "router5-plugin-logger": "^8.0.1",
-    "rxjs": "^7.4.0"
+    "@babel/runtime": "^7.12.1"
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
     "lodash.isplainobject": "^4.0.6",
     "lodash.mergewith": "^4.6.2",
+    "rxjs": "^7.4.0",
     "validate-npm-package-name": "^3.0.0"
   },
-  "devDependencies": {}
+  "gitHead": "e47e4d2c5479aacca11202ea76e8a23ad4391387"
 }
