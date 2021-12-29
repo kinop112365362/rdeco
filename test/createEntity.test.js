@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent } from '../packages/rdeco'
+import { createComponent, create, withComponent } from 'rdeco/src'
 
 test('测试 Entity 和 组件协同工作', async () => {
   class Comopnent extends React.Component {

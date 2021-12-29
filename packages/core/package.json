@@ -22,8 +22,8 @@
   "author": "shihong <112365362@qq.com>",
   "license": "MIT",
   "scripts": {
-    "build:commonjs": "cross-env NODE_ENV=production BABEL_ENV=commonjs babel index.js --out-dir lib",
-    "build:es": "cross-env NODE_ENV=production babel index.js --out-dir es",
+    "build:commonjs": "cross-env NODE_ENV=production BABEL_ENV=commonjs babel --root-mode upward src --out-dir lib",
+    "build:es": "cross-env NODE_ENV=production babel --root-mode upward src --out-dir es",
     "build": "npm run build:commonjs && npm run build:es"
   },
   "peerDependencies": {

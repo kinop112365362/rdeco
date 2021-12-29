@@ -4,8 +4,8 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent } from '../packages/rdeco'
-import { combination } from '../packages/core'
+import { createComponent, create, withComponent } from 'rdeco/src'
+import { combination } from '@rdeco/core/src'
 
 test('测试通过 props 传递 Membrane', async () => {
   create({

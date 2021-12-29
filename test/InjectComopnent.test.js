@@ -5,8 +5,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent, Inject } from '../packages/rdeco'
-import { combination } from '../packages/core'
+import { createComponent, create, withComponent, Inject } from 'rdeco/src'
+import { combination } from '@rdeco/core/src'
 
 test('React Inject Component Test', async () => {
   const Tag = createComponent({

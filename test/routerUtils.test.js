@@ -4,7 +4,7 @@ import {
   getPath,
   handlePath,
   handleRoute,
-} from '../packages/router5/utils'
+} from '../packages/router/src/utils'
 
 describe('测试 router utils', () => {
   it('getRouterConfig', async () => {

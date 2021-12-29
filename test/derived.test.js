@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent } from '../packages/rdeco'
+import { createComponent } from 'rdeco/src'
 test('派生功能是否可用', async () => {
   const Test = createComponent({
     name: '@test/com1',
