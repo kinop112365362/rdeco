@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import React from 'react'
-import { App } from 'rdeco/src'
+import { App } from '../src'
 
 test('测试 App start', () => {
   const app = new App({

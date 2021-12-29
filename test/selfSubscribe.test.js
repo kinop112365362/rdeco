@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent } from 'rdeco/src'
+import { createComponent, create, withComponent } from '@rdeco/js'
 import { combination } from '@rdeco/core/src'
 
 test('测试自己监听自己', async () => {

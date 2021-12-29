@@ -4,7 +4,7 @@
 import React, { useState } from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent } from 'rdeco/src'
+import { createComponent, create, withComponent } from '@rdeco/js'
 import { combination } from '@rdeco/core/src'
 
 test('测试多实例监听多实例', async () => {

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Router, RouteView, App, createComponent } from 'rdeco/src'
+import { createComponent } from '@rdeco/react'
+import { Router, RouteView, App } from '../src'
 import { render, waitFor } from '@testing-library/react'
 
 describe('test <routerUrlParams>', () => {

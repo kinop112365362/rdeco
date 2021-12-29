@@ -33,7 +33,7 @@
     "build": "yarn workspaces run build",
     "ver": "lerna version",
     "pub": "rm -rf .npmrc && yarn test && yarn build && lerna publish",
-    "link": "lerna link",
+    "link:lerna": "lerna link",
     "format": "prettier --write \"{src,test}/**/*.{js,ts}\" index.d.ts \"docs/**/*.md\"",
     "lint": "eslint packages/**/src --fix",
     "pretest": "npm run lint",

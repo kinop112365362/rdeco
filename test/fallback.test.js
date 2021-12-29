@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, Fallback, createFallback } from 'rdeco/src'
+import { createComponent, Fallback, createFallback } from '@rdeco/js'
 import { combination } from '@rdeco/core/src'
 
 test('fallBack 组件的异步占位渲染', async () => {

@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { createComponent } from 'rdeco/src'
+import { createComponent } from '@rdeco/js'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 responsive 非多实例下的用例', async () => {
