@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { createComponent } from 'rdeco/src'
+import { createComponent } from '@rdeco/js'
 import { combination } from '@rdeco/core/src'
 import '@testing-library/jest-dom/extend-expect'
 

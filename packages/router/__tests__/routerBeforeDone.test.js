@@ -1,4 +1,4 @@
-import { beforeDoneMiddleware } from '../packages/router/src/beforMiddleware'
+import { beforeDoneMiddleware } from '../src/beforMiddleware'
 
 describe('测试 beforeDoneMiddleware', () => {
   it('intercept done', async () => {

@@ -25,6 +25,9 @@
     "packages",
     "es"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build:commonjs": "cross-env NODE_ENV=production BABEL_ENV=commonjs babel --root-mode upward src --out-dir lib",
     "build:es": "cross-env NODE_ENV=production babel --root-mode upward src --out-dir es",

@@ -1,6 +1,7 @@
 import React from 'react'
-import { RouteView, Router, App, createComponent } from 'rdeco/src'
-import { render, waitFor } from '@testing-library/react'
+import { createComponent } from '@rdeco/react'
+import { Router, RouteView, App } from '../src'
+import { render, waitFor, fireEvent, screen } from '@testing-library/react'
 
 describe('test <RouteView>', () => {
   const app = new App({
@@ -61,22 +62,6 @@ describe('test <RouteView>', () => {
     state: {
       com2Text: 'com2 text',
     },
-    router: {
-      before({ toState }) {
-        console.log(toState)
-
-        expect(toState.params).toMatchObject({
-          a: 1,
-          b: 2,
-        })
-      },
-      after({ state }) {
-        expect(state.params).toMatchObject({
-          a: 1,
-          b: 2,
-        })
-      },
-    },
     controller: {
       onChangeRouter() {
         this.context.router.navigate('/secondComponent')
@@ -122,18 +107,27 @@ describe('test <RouteView>', () => {
     render(<div id="root" />)
   })
 
-  it("default path '/secondComponentChild/threeComponent?a=1&b=2'", async () => {
-    app.start('/secondComponentChild/threeComponent?a=1&b=2')
+  it("change: path '/' to '/secondComponent' to '/secondComponent/threeComponent'", async () => {
+    app.start()
     const node = document.getElementById('Container')
-
     render(<BaseComponent />, {
       container: node,
     })
 
-    await waitFor(() => {
+    expect(node.innerHTML).toContain(
+      '<div><button role="button">button</button></div>'
+    )
+    fireEvent.click(screen.getByRole('button'))
+    await waitFor(async () => {
       expect(node.innerHTML).toContain(
-        '<div><button role="button">button</button><div><div>secondComponentChild</div><div>ThreeComponent</div></div></div>'
+        '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div></div>'
       )
+      app.router.navigate('/secondComponent/threeComponent')
+      await waitFor(() => {
+        expect(node.innerHTML).toContain(
+          '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div><div>ThreeComponent</div></div>'
+        )
+      })
     })
   })
 })

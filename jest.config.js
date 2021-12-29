@@ -12,4 +12,6 @@ const standardConfig = {
 
 module.exports = {
   projects: [standardConfig],
+  testRegex: '/__test__/.+\\.test\\.ts$',
+  roots: ['packages/'],
 }

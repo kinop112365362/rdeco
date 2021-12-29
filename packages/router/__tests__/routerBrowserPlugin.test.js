@@ -1,4 +1,4 @@
-import { App, Router, RouteView } from '../packages/router'
+import { App, RouteView } from '../src'
 import { render, waitFor } from '@testing-library/react'
 import React from 'react'
 
