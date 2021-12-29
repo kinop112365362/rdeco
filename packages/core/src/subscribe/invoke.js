@@ -43,6 +43,7 @@ export const invoke = (...args) => {
     infrom(...args, next)
   }
   return new Promise((resolve, reject) => {
+    const [targetMeta, fnKey] = args
     syncker.subscribe({
       next(value) {
         if (value instanceof Error) {
