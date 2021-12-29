@@ -23,7 +23,6 @@ import {
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
 import { inject } from '@rdeco/module'
 import * as emotion from '@emotion/react'
-
 export {
   enhanceContext,
   create,
