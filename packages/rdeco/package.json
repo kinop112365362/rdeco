@@ -1,5 +1,5 @@
 {
-  "name": "rdeco",
+  "name": "@rdeco/js",
   "version": "3.0.0",
   "description": "基于响应式的应用开发框架",
   "keywords": [
@@ -35,5 +35,6 @@
     "@rdeco/module": "^3.0.0",
     "@rdeco/react": "^3.0.0",
     "@rdeco/router": "^3.0.0"
-  }
+  },
+  "gitHead": "e47e4d2c5479aacca11202ea76e8a23ad4391387"
 }
