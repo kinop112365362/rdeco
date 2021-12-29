@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import shelljs from 'shelljs'
+console.log('publish.mjs');
 const cwd = process.cwd();
 const basePackagesPath = path.resolve(cwd, 'packages/');
 const packages = fs.readdirSync(basePackagesPath);
