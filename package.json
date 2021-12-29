@@ -32,7 +32,7 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "ver": "lerna version",
-    "pub": "rm -rf .npmrc && yarn test && yarn build && lerna publish",
+    "pub": "rm -rf .npmrc && yarn test && yarn build && yarn ver && node ./bin/publish.mjs",
     "git:merge": "git co master && git pull && git co main && git merge master && git push && git co master",
     "clean": "rimraf lib dist es coverage types",
     "format": "prettier --write \"{src,test}/**/*.{js,ts}\" index.d.ts \"docs/**/*.md\"",
