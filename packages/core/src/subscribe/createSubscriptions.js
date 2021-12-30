@@ -86,18 +86,6 @@ export function createSubscriptions(store) {
           } else {
             store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
           }
-
-          combination.pluginSubject.next({
-            ...value,
-            source: store.exports?.[value?.fnKey],
-            targetMeta: {
-              baseSymbol: store.baseSymbol,
-            },
-            eventTargetMeta: {
-              fnKey: value.fnKey,
-              subjectKey: 'exports',
-            },
-          })
         }
       },
     })
