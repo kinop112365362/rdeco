@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.3...@rdeco/core@3.2.4) (2021-12-30)
+
+
+### Bug Fixes
+
+* **plugin:** 修改触发的逻辑 ([71fae38](https://github.com/kinop112365362/rdeco/commit/71fae3854ec74ad439fa83cb455d44738a7515e5))
+
+
+
+
+
 ## [3.2.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.2...@rdeco/core@3.2.3) (2021-12-30)
 
 
