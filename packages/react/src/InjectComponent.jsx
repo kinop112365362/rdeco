@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
-import { inject } from '@rdeco/module/src'
+import { inject } from '@rdeco/module'
 
 export function Inject(props) {
   const el = React.createRef()

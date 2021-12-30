@@ -18,7 +18,7 @@ import {
   createFallback,
   Inject,
   registerReactContext,
-} from '@rdeco/react/src'
+} from '@rdeco/react'
 
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
 import { inject } from '@rdeco/module'

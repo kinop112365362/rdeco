@@ -5,7 +5,7 @@ import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { createComponent, create, withComponent } from '@rdeco/js'
-import { combination } from '@rdeco/core/src'
+import { combination } from '@rdeco/core'
 
 test('测试广播监听的用例', async () => {
   create({

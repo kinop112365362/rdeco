@@ -1,4 +1,4 @@
-import { combination, invoke } from '@rdeco/core/src'
+import { combination, invoke } from '@rdeco/core'
 /* eslint-disable no-undef */
 export function inject(moduleName) {
   combination.loader(moduleName)

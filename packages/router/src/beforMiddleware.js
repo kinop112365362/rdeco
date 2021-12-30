@@ -1,4 +1,4 @@
-import { invoke } from '@rdeco/core/src'
+import { invoke } from '@rdeco/core'
 import { handleRoute } from './utils'
 
 export const beforeDoneMiddleware = (beforeDone) => {

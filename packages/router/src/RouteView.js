@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { createComponent } from '@rdeco/react/src'
+import { createComponent } from '@rdeco/react'
 import RouterContext from './RouterContext'
 import { getPath, handlePath, pathToName, matchPath } from './utils'
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useRef } from 'react'
-import { combination, createMembrane, Store, validate } from '@rdeco/core/src'
+import { combination, createMembrane, Store, validate } from '@rdeco/core'
 import { useSubscribe } from './reactHooks/useSubscribe'
 import { useStoreDispose } from './reactHooks/useStoreDispose'
 import { useStoreUpdate } from './reactHooks/useStoreUpdate'

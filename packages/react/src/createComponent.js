@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { validate } from '@rdeco/core/src'
+import { validate } from '@rdeco/core'
 import { useComponent } from './useComponent'
 
 export function createComponent(component) {

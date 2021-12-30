@@ -17,10 +17,7 @@ describe('test <routerUrlParams>', () => {
               {this.state.text}
               <Router>
                 <RouteView path={'/:id'} Component={Component_1} />
-                <RouteView
-                  path={'/:id/text'}
-                  Component={Component_2}
-                />
+                <RouteView path={'/:id/text'} Component={Component_2} />
               </Router>
             </div>
           )
