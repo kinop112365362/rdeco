@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/js",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -34,10 +34,10 @@
     "build": "npm run build:commonjs && npm run build:es"
   },
   "dependencies": {
-    "@rdeco/core": "3.1.1",
-    "@rdeco/module": "3.0.2",
-    "@rdeco/react": "3.0.2",
-    "@rdeco/router": "3.0.2"
+    "@rdeco/core": "3.1.2",
+    "@rdeco/module": "3.0.3",
+    "@rdeco/react": "3.0.3",
+    "@rdeco/router": "3.0.3"
   },
   "gitHead": "c08d43b6d7d84b085d0f8faba4ea6a04ff6db71b"
 }
