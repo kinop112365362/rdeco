@@ -14,11 +14,6 @@ export const createObserve = (store, props) => {
           store?.subscriber?.[targetMeta.baseSymbol]?.[subjectKey]?.[
             fnKey
           ]?.call(store, value.data, props)
-          combination.pluginSubject.next({
-            ...value,
-            source:
-              store?.subscriber?.[targetMeta.baseSymbol]?.[subjectKey]?.[fnKey],
-          })
         }
       }
       if (subjectKey === 'state') {
@@ -86,6 +81,18 @@ export function createSubscriptions(store) {
           } else {
             store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
           }
+
+          combination.pluginSubject.next({
+            ...value,
+            source: store.exports?.[value?.fnKey],
+            targetMeta: {
+              baseSymbol: store.baseSymbol,
+            },
+            eventTargetMeta: {
+              fnKey: value.fnKey,
+              subjectKey: 'exec',
+            },
+          })
         }
       },
     })
