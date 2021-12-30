@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.4...@rdeco/core@3.2.5) (2021-12-30)
+
+
+### Bug Fixes
+
+* **plugin:** 重复添加 setter 日志 ([9894f10](https://github.com/kinop112365362/rdeco/commit/9894f10e4be6c8c8e484f716b4fd5276ceeae2c7))
+
+
+
+
+
 ## [3.2.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.3...@rdeco/core@3.2.4) (2021-12-30)
 
 

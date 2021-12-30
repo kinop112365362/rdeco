@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/js",
-  "version": "3.0.9",
+  "version": "3.0.10",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -34,7 +34,7 @@
     "build": "npm run build:commonjs && npm run build:es"
   },
   "dependencies": {
-    "@rdeco/core": "3.2.4",
+    "@rdeco/core": "3.2.5",
     "@rdeco/module": "3.0.3",
     "@rdeco/react": "3.0.4",
     "@rdeco/router": "3.0.3"
