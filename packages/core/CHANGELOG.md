@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.1.3...@rdeco/core@3.2.0) (2021-12-30)
+
+
+### Features
+
+* **plugin:** 添加 addPlugin 代替直接操作 combination ([d19d017](https://github.com/kinop112365362/rdeco/commit/d19d01742c18bf280b3b5137ff09b8ec74009bc6))
+
+
+
+
+
 ## [3.1.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.1.2...@rdeco/core@3.1.3) (2021-12-30)
 
 
