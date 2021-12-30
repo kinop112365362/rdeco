@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.1...@rdeco/core@3.2.2) (2021-12-30)
+
+
+### Bug Fixes
+
+* **plugin:** no baseSymbol ([2aa27f5](https://github.com/kinop112365362/rdeco/commit/2aa27f547265f15bc27ec41680f076922b4fb056))
+
+
+
+
+
 ## [3.2.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.0...@rdeco/core@3.2.1) (2021-12-30)
 
 **Note:** Version bump only for package @rdeco/core
