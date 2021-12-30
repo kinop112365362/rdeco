@@ -93,6 +93,10 @@ export function createSubscriptions(store) {
             targetMeta: {
               baseSymbol: store.baseSymbol,
             },
+            eventTargetMeta: {
+              fnKey: value.fnKey,
+              subjectKey: 'exports',
+            },
           })
         }
       },
