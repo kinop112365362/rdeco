@@ -13,4 +13,5 @@ export {
   namelist,
   configModuleLoader,
   registerModule,
+  addPlugin,
 } from './store/combination'

@@ -138,6 +138,9 @@ let combination = {
     this.pluginSubject.next(value)
   },
 }
+export function addPlugin(subscirbeCall) {
+  return combination.pluginSubject.subscribe(subscirbeCall)
+}
 export function registerModule(key, value) {
   if (combination.modules[key]) {
     console.error(`你覆盖了${key} module, 请确保这不是个意外`)
