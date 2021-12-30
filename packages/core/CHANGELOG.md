@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.2...@rdeco/core@3.2.3) (2021-12-30)
+
+
+### Bug Fixes
+
+* **plugin:** no eventTargetMeta ([0ad87be](https://github.com/kinop112365362/rdeco/commit/0ad87bed25ef2881b7672485c3efbb2635fbdb50))
+
+
+
+
+
 ## [3.2.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.1...@rdeco/core@3.2.2) (2021-12-30)
 
 
