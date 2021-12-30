@@ -1,4 +1,4 @@
-import { actionIsUndefined } from '@rdeco/core/src/utils/actionIsUndefined'
+import { actionIsUndefined } from './actionIsUndefined'
 import { getReducerModel } from './getReducerModel'
 import mergeWith from 'lodash.mergewith'
 import isPlainObject from 'lodash.isplainobject'
