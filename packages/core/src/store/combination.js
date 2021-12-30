@@ -135,7 +135,6 @@ let combination = {
       props: componentStore.props,
     }
     componentStore.subjects[subjectKey].next(value)
-    this.pluginSubject.next(value)
   },
 }
 export function addPlugin(subscirbeCall) {
