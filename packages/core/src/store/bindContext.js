@@ -22,8 +22,8 @@ export function bindContext(fnKeys, fnObj, context, ins, subjectKey) {
           eventTargetMeta,
           data,
         }
-        const source = fnObj[fnKey]
-        combination.$broadcast(ins, value, subjectKey, source)
+        value.source = fnObj[fnKey]
+        combination.$broadcast(ins, value, subjectKey)
       }
       return fnObj[fnKey].call(
         { ...combination.enhanceContext, ...context },
