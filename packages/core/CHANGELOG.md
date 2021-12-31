@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.5...@rdeco/core@3.2.6) (2021-12-31)
+
+
+### Bug Fixes
+
+* **plugin:** controller  和 service 执行的时候没有 source ([45b8919](https://github.com/kinop112365362/rdeco/commit/45b8919eb5132f3ae149d98e06a7dfa56b133feb))
+
+
+
+
+
 ## [3.2.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.4...@rdeco/core@3.2.5) (2021-12-30)
 
 
