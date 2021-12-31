@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.6...@rdeco/core@3.2.7) (2021-12-31)
+
+
+### Bug Fixes
+
+* **subscribe:** value.data may be null ([60f5111](https://github.com/kinop112365362/rdeco/commit/60f5111df86d212e10e0a1dde2b461463bc0262b))
+
+
+
+
+
 ## [3.2.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.5...@rdeco/core@3.2.6) (2021-12-31)
 
 
