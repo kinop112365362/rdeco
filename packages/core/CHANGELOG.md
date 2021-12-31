@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.7...@rdeco/core@3.2.8) (2021-12-31)
+
+
+### Bug Fixes
+
+* **subscribe:** 处理 value.data 的边界情况 ([2b0da37](https://github.com/kinop112365362/rdeco/commit/2b0da37a0d0ed21246adcf6848fb361b6f3eb630))
+* **subscribe:** 处理 value.data 的兼容性 ([f5b5b8b](https://github.com/kinop112365362/rdeco/commit/f5b5b8bdc6d13312b71c19fea65d94544dc0da57))
+
+
+
+
+
 ## [3.2.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.6...@rdeco/core@3.2.7) (2021-12-31)
 
 
