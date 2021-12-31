@@ -76,11 +76,8 @@ export function createSubscriptions(store) {
               return
             }
           }
-          if (value.data || value.data.length === 0) {
-            store.exports?.[value?.fnKey]?.call(store, value.next)
-          } else {
-            store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
-          }
+
+          store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
 
           combination.pluginSubject.next({
             ...value,
