@@ -33,14 +33,12 @@
     "build:es": "cross-env NODE_ENV=production babel src --root-mode upward --out-dir es",
     "build": "npm run build:commonjs && npm run build:es"
   },
-  "peerDependencies": {
+  "dependencies": {
     "@rdeco/core": "^3.0.0",
     "@rdeco/react": "^3.0.0",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1",
-    "router5-plugin-logger": "^8.0.1"
-  },
-  "dependencies": {
+    "router5-plugin-logger": "^8.0.1",
     "path-to-regexp": "^6.2.0",
     "query-string": "^7.0.1"
   },
