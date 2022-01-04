@@ -33,10 +33,9 @@
     "build:es": "cross-env NODE_ENV=production babel --root-mode upward src --out-dir es",
     "build": "npm run build:commonjs && npm run build:es"
   },
-  "peerDependencies": {
+  "dependencies": {
     "@rdeco/core": "^3.0.0",
-    "@rdeco/rdeco": "^3.0.0",
-    "rxjs": "^7.4.0"
+    "@rdeco/rdeco": "^3.0.0"
   },
   "gitHead": "c08d43b6d7d84b085d0f8faba4ea6a04ff6db71b"
 }
