@@ -34,7 +34,8 @@
     "build": "npm run build:commonjs && npm run build:es"
   },
   "dependencies": {
-    "@rdeco/core": "3.2.10"
+    "@rdeco/core": "^3.2.10",
+    "@rdeco/module": "^3.0.3"
   },
   "gitHead": "b1410cd2dfc6cbc6ff18f3c02adb86891b9de06e"
 }
