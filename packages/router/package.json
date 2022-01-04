@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/router",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -35,12 +35,12 @@
   },
   "dependencies": {
     "@rdeco/core": "^3.2.8",
-    "@rdeco/react": "^3.0.4",
+    "@rdeco/react": "3.0.5",
+    "path-to-regexp": "^6.2.0",
+    "query-string": "^7.0.1",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1",
-    "router5-plugin-logger": "^8.0.1",
-    "path-to-regexp": "^6.2.0",
-    "query-string": "^7.0.1"
+    "router5-plugin-logger": "^8.0.1"
   },
   "gitHead": "c08d43b6d7d84b085d0f8faba4ea6a04ff6db71b"
 }
