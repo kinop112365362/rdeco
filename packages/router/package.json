@@ -34,8 +34,8 @@
     "build": "npm run build:commonjs && npm run build:es"
   },
   "dependencies": {
-    "@rdeco/core": "^3.0.0",
-    "@rdeco/react": "^3.0.0",
+    "@rdeco/core": "^3.2.8",
+    "@rdeco/react": "^3.0.4",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1",
     "router5-plugin-logger": "^8.0.1",
