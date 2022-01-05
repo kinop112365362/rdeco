@@ -6,7 +6,12 @@ import loggerPlugin from 'router5-plugin-logger'
 import { invoke, enhanceContext } from '@rdeco/core'
 import { createComponent } from '@rdeco/react'
 import { beforeDoneMiddleware, beforMiddleware } from './beforMiddleware'
-import { getRouterConfig, pathToName, getConfigRouters } from './utils'
+import {
+  getRouterConfig,
+  pathToName,
+  getConfigRouters,
+  matchName,
+} from './utils'
 
 class App {
   constructor(config) {
@@ -31,7 +36,9 @@ class App {
     const _oldNavigate = this.router.navigate.bind(this)
     this.router.navigate = (...args) => {
       const pathName = args[0]
-      const matchRoute = this.router.matchPath(pathName)
+      const matchRoute =
+        this.router.matchPath(pathName) ||
+        matchName(pathToName(pathName), this.router)
       const routeName = matchRoute ? matchRoute.name : pathToName(pathName)
       const lastArg = args[args.length - 1]
       const done = typeof lastArg === 'function' ? lastArg : () => {}

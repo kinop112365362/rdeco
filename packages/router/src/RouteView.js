@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { createComponent } from '@rdeco/react'
 import RouterContext from './RouterContext'
-import { getPath, handlePath, pathToName, matchPath } from './utils'
+import { getPath, handlePath, pathToName, matchPath, matchName } from './utils'
 
 /**
  * @param {String} props.path
@@ -44,7 +44,10 @@ const RouteView = createComponent({
       this.ref.parentPath = parentPath
 
       // UNKNOWN_ROUTE
-      if (!this.context.router.matchPath(currentPath)) {
+      if (
+        !this.context.router.matchPath(currentPath) &&
+        !matchName(routeName, this.context.router)
+      ) {
         // add router
         this.context.router.add({
           name: routeName,
@@ -55,6 +58,7 @@ const RouteView = createComponent({
       return (
         <RouterContext.Provider
           value={{
+            router: this.context.router,
             parentPath: currentPath,
           }}
         >
