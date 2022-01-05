@@ -1,6 +1,6 @@
 import React from 'react'
 import { createComponent } from '@rdeco/react'
-import { Router, RouteView, App } from '../src'
+import { Router, RouteView, App, useRouter } from '../src'
 import { render, waitFor } from '@testing-library/react'
 
 describe('test <RouteView>', () => {
@@ -43,6 +43,10 @@ describe('test <RouteView>', () => {
     name: 'second-component-child',
     view: {
       render() {
+        const router = useRouter()
+        expect(JSON.stringify(Object.keys(router))).toBe(
+          '["router","parentPath"]'
+        )
         return (
           <div>
             <div>secondComponentChild</div>
@@ -130,6 +134,8 @@ describe('test <RouteView>', () => {
     render(<BaseComponent />, {
       container: node,
     })
+
+    console.log(useRouter())
 
     await waitFor(() => {
       expect(node.innerHTML).toContain(

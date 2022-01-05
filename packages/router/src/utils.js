@@ -74,6 +74,17 @@ function matchPath(currentPath, toStatePath = {}, exact) {
   return Boolean(regexp.exec(urlStr))
 }
 
+function matchName(routerName, router = {}) {
+  const routeList = router?.rootNode?.children || []
+  let route = null
+  routeList.forEach((item) => {
+    if (item.name === routerName) {
+      route = item
+    }
+  })
+  return route
+}
+
 function getConfigRouters(routers = [{ path: '/' }]) {
   routers.forEach((item) => {
     item.name = item.path === '/' ? '/' : pathToName(item.path)
@@ -92,4 +103,5 @@ export {
   handleRoute,
   matchPath,
   getConfigRouters,
+  matchName,
 }

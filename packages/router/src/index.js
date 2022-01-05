@@ -2,6 +2,7 @@ import { extendsSubscribe } from '@rdeco/core'
 import { ReplaySubject } from 'rxjs'
 import App from './App'
 import Redirect from './Redirect'
+import { useRouter } from './useRouter'
 
 extendsSubscribe('@@router', {
   subject: new ReplaySubject(2),
@@ -27,3 +28,4 @@ extendsSubscribe('@@router', {
 })
 export { Router, RouteView } from './RouteView'
 export { App, Redirect }
+export { useRouter }
