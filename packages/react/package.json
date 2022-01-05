@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/react",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@rdeco/core": "^3.2.10",
-    "@rdeco/module": "^3.0.3"
+    "@rdeco/module": "3.0.4"
   },
   "gitHead": "b1410cd2dfc6cbc6ff18f3c02adb86891b9de06e"
 }
