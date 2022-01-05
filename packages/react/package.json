@@ -33,6 +33,9 @@
     "build:es": "cross-env NODE_ENV=production babel --root-mode upward src --out-dir es",
     "build": "npm run build:commonjs && npm run build:es"
   },
+  "peerDependencies": {
+    "@babel/runtime": "^7.12.1"
+  },
   "dependencies": {
     "@rdeco/core": "^3.2.10",
     "@rdeco/module": "^3.0.3"
