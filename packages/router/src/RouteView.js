@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { createComponent } from '@rdeco/react'
 import RouterContext from './RouterContext'
 import { getPath, handlePath, pathToName, matchPath, matchName } from './utils'
@@ -34,6 +34,7 @@ const RouteView = createComponent({
   },
   view: {
     render() {
+      const [isShow, setIsShow] = useState(false)
       const { Component, path } = this.props
       const routerContext = useContext(RouterContext) || { parentPath: '' }
       const parentPath = routerContext.parentPath
@@ -55,6 +56,10 @@ const RouteView = createComponent({
         })
       }
 
+      useEffect(() => {
+        setIsShow(active)
+      }, [active])
+
       return (
         <RouterContext.Provider
           value={{
@@ -62,8 +67,8 @@ const RouteView = createComponent({
             parentPath: currentPath,
           }}
         >
-          {active && Component && <Component />}
-          {active && this.props.children}
+          {isShow && Component && <Component />}
+          {isShow && this.props.children}
         </RouterContext.Provider>
       )
     },
