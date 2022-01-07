@@ -37,8 +37,8 @@
     "@babel/runtime": "^7.12.1"
   },
   "dependencies": {
-    "@rdeco/core": "3.3.1",
-    "@rdeco/module": "3.0.7"
+    "@rdeco/core": "^3.3.3",
+    "@rdeco/module": "^3.0.7"
   },
   "gitHead": "ef2de123fd27a1e617877e73b5675bc6c19b3c0c"
 }
