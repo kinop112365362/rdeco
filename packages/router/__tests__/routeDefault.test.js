@@ -71,14 +71,14 @@ describe('test <RouteView>', () => {
         console.log(toState)
 
         expect(toState.params).toMatchObject({
-          a: 1,
-          b: 2,
+          a: '1',
+          b: '2',
         })
       },
-      after({ state }) {
-        expect(state.params).toMatchObject({
-          a: 1,
-          b: 2,
+      after({ route }) {
+        expect(route.params).toMatchObject({
+          a: '1',
+          b: '2',
         })
       },
     },
