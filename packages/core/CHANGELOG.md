@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.3.1...@rdeco/core@3.3.3) (2022-01-07)
+
+
+### Bug Fixes
+
+* **core:** 避免多个 rdeco 加载时可能产生的冲突 ([46af5f4](https://github.com/kinop112365362/rdeco/commit/46af5f474c04133c357aa331a412b03a07493d7d))
+
+
+
+
+
 ## [3.3.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.2.10...@rdeco/core@3.3.1) (2022-01-07)
 
 **Note:** Version bump only for package @rdeco/core
