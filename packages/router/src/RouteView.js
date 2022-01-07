@@ -24,7 +24,13 @@ const RouteView = createComponent({
 
       const isMatch = matchPath(currentPath, toStatePath)
       if (isMatch !== this.state.active) {
-        this.setter.active(isMatch)
+        if (isMatch) {
+          setTimeout(() => {
+            this.setter.active(isMatch)
+          }, 0)
+        } else {
+          this.setter.active(isMatch)
+        }
       }
 
       if (isMatch) {

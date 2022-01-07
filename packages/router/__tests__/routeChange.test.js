@@ -114,19 +114,22 @@ describe('test <RouteView>', () => {
       container: node,
     })
 
-    expect(node.innerHTML).toContain(
-      '<div><button role="button">button</button></div>'
-    )
-    fireEvent.click(screen.getByRole('button'))
     await waitFor(async () => {
       expect(node.innerHTML).toContain(
-        '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div></div>'
+        '<div><button role="button">button</button></div>'
       )
-      app.router.navigate('/secondComponent/threeComponent')
-      await waitFor(() => {
+      await waitFor(async () => {
+        fireEvent.click(screen.getByRole('button'))
         expect(node.innerHTML).toContain(
-          '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div><div>ThreeComponent</div></div>'
+          '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div></div>'
         )
+
+        await waitFor(() => {
+          app.router.navigate('/secondComponent/threeComponent')
+          expect(node.innerHTML).toContain(
+            '<div><button role="button">button</button><div id="secondComponent">sub Component com1</div><div>com2</div><div>com2 text</div><div>ThreeComponent</div></div>'
+          )
+        })
       })
     })
   })
