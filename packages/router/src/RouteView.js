@@ -16,14 +16,20 @@ const RouteView = createComponent({
     parentPath: '',
   },
   router: {
-    before({ toState, done }, next) {
+    before({ toState, fromState = {}, done }, next) {
+      console.log(toState, fromState)
       const parentPath = this.ref.parentPath
       const path = handlePath(this.props.path || '/')
       const toStatePath = handlePath(toState.path)
       const currentPath = getPath(parentPath, path)
+      const toStateParams = toState?.params || {}
+      const fromStateParams = fromState?.params || {}
 
       const isMatch = matchPath(currentPath, toStatePath)
-      if (isMatch !== this.state.active) {
+      if (
+        isMatch !== this.state.active ||
+        JSON.stringify(toStateParams) !== JSON.stringify(fromStateParams)
+      ) {
         if (isMatch) {
           setTimeout(() => {
             this.setter.active(isMatch)
