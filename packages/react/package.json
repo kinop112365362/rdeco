@@ -1,6 +1,10 @@
 {
   "name": "@rdeco/react",
+<<<<<<< HEAD
   "version": "3.0.10",
+=======
+  "version": "3.0.12",
+>>>>>>> 09cf96760b152a21ffa766f82f03808bd195f7c9
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -37,8 +41,13 @@
     "@babel/runtime": "^7.12.1"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@rdeco/core": "3.3.1",
     "@rdeco/module": "3.0.6"
+=======
+    "@rdeco/core": "^3.3.3",
+    "@rdeco/module": "3.0.8"
+>>>>>>> 09cf96760b152a21ffa766f82f03808bd195f7c9
   },
-  "gitHead": "b1410cd2dfc6cbc6ff18f3c02adb86891b9de06e"
+  "gitHead": "ef2de123fd27a1e617877e73b5675bc6c19b3c0c"
 }

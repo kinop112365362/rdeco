@@ -11,7 +11,7 @@ export function inject(moduleName) {
       get: function (target, property) {
         return new Proxy(function () {}, {
           apply: function (target, thisArg, argumentsList) {
-            return invoke([moduleName], property, argumentsList)
+            return invoke([moduleName], property, ...argumentsList)
           },
         })
       },

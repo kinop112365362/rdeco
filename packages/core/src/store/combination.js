@@ -172,16 +172,27 @@ export function readState(name, handle) {
 
 export const namelist = combination.namelist
 export function configModuleLoader(loader) {
-  combination.loader = loader
+  if (!combination.loader) {
+    combination.loader = loader
+  } else {
+    console.error(
+      `loader 已经被注入了，再次注入 loader 不会生效，如果是组件集成，请检查注入 loader 的代码`
+    )
+  }
 }
 export function enhanceContext(key, value) {
-  combination.enhanceContext[key] = value
+  if (!combination.enhanceContext[key]) {
+    combination.enhanceContext[key] = value
+  } else {
+    console.error(
+      `Context ${key} 已经被注入了，再次注入同名的 Context 不会生效，如果是组件集成，请检查彼此的 Context 是否重名`
+    )
+  }
 }
 export function extendsSubscribe(key, handler) {
-  if (combination.extends[key]) {
-    throw new Error(`ExtendsError: ${key} 已经被扩展了, 不能再次扩展`)
+  if (!combination.extends[key]) {
+    combination.extends[key] = handler
   }
-  combination.extends[key] = handler
 }
 if (window) {
   if (window.$$rdeco_combination) {
