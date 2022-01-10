@@ -17,6 +17,7 @@ import {
   Fallback,
   createFallback,
   Inject,
+  InjectComponent,
   registerReactContext,
 } from '@rdeco/react'
 
@@ -37,6 +38,7 @@ export {
   Fallback,
   createFallback,
   Inject,
+  InjectComponent,
   registerReactContext,
   Router,
   RouteView,

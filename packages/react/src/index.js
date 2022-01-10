@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-export { Inject } from './InjectComponent'
+export { Inject, InjectComponent } from './InjectComponent'
 export { Fallback, createFallback } from './Fallback'
 export { createComponent } from './createComponent'
 export { useComponent } from './useComponent'

@@ -37,8 +37,8 @@
     "@babel/runtime": "^7.12.1"
   },
   "dependencies": {
-    "@rdeco/core": "3.3.4",
-    "@rdeco/react": "3.0.13",
+    "@rdeco/core": "^3.3.3",
+    "@rdeco/react": "3.0.12",
     "path-to-regexp": "^6.2.0",
     "query-string": "^7.0.1",
     "router5": "^8.0.1",
