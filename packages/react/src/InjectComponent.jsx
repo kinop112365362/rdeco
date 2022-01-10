@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { inject } from '@rdeco/module'
 
 export function Inject(props) {
@@ -18,4 +18,16 @@ export function Inject(props) {
     inject(props.name).render(el.current, props)
   }, deps)
   return <div ref={el}></div>
+}
+
+export function InjectComponent(props) {
+  const [component, setComponent] = useState(null)
+  useEffect(() => {
+    inject(props.name)
+      .getComponent()
+      .then((com) => {
+        setComponent(React.createElement(com, props))
+      })
+  }, [])
+  return <div>{component}</div>
 }
