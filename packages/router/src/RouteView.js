@@ -47,11 +47,14 @@ const RouteView = createComponent({
   view: {
     render() {
       const [isShow, setIsShow] = useState(false)
-      const { Component, path } = this.props
+      const { Component, path, noPrefixSlash } = this.props
       const routerContext = useContext(RouterContext) || { parentPath: '' }
       const parentPath = routerContext.parentPath
-      const currentPath = getPath(routerContext.parentPath, path)
+      let currentPath = getPath(routerContext.parentPath, path)
       const routeName = pathToName(currentPath)
+      if (noPrefixSlash && currentPath.length > 1 && currentPath[0] === '/') {
+        currentPath = currentPath.substr(1)
+      }
       const active = this.state.active
 
       this.ref.parentPath = parentPath

@@ -40,7 +40,7 @@
     "@rdeco/core": "^3.3.3",
     "@rdeco/module": "3.0.8",
     "@rdeco/react": "3.1.0",
-    "@rdeco/router": "3.0.13"
+    "@rdeco/router": "3.0.12"
   },
   "gitHead": "ef2de123fd27a1e617877e73b5675bc6c19b3c0c"
 }
