@@ -33,7 +33,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [3.0.19](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/js@3.0.17...@rdeco/js@3.0.19) (2022-01-07)
+## [3.0.19](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/js@3.0.18...@rdeco/js@3.0.19) (2022-01-06)
 
 **Note:** Version bump only for package @rdeco/js
 
