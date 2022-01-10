@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.0.12...@rdeco/react@3.1.0) (2022-01-10)
+
+
+### Features
+
+* **inject:** 添加不生成独立 React 树的 InjectComponent ([4dbdd2f](https://github.com/kinop112365362/structured-react-hook/commit/4dbdd2f852e81e80114beb30347a20106c71f4bf))
+
+
+
+
+
 ## [3.0.12](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.0.11...@rdeco/react@3.0.12) (2022-01-07)
 
 
