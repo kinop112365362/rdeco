@@ -109,18 +109,25 @@ let combination = {
     }
     return null
   },
-  $register(baseSymbol, instance) {
-    if (!this.components[baseSymbol]) {
-      this.components[baseSymbol] = []
-      this.namelist.add(baseSymbol)
+  $register(baseSymbol, instance, isSingle = true) {
+    if (isSingle) {
+      if (!this.components[baseSymbol]) {
+        this.components[baseSymbol] = [instance]
+        this.namelist.add(baseSymbol)
+      }
+    } else {
+      if (!this.components[baseSymbol]) {
+        this.components[baseSymbol] = []
+        this.namelist.add(baseSymbol)
+      }
+      this.components[baseSymbol].push({
+        instance,
+      })
+      this.registerSubject.next({
+        baseSymbol,
+        instance,
+      })
     }
-    this.components[baseSymbol].push({
-      instance,
-    })
-    this.registerSubject.next({
-      baseSymbol,
-      instance,
-    })
   },
   $broadcast(componentStore, value, subjectKey) {
     /**
