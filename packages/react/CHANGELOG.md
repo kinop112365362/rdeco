@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.0.14...@rdeco/react@3.1.0) (2022-01-11)
+
+
+### Features
+
+* **core:** combination.$register add isSingle 用于支持非多实例场景，create 默认为单例 ([3a286d6](https://github.com/kinop112365362/structured-react-hook/commit/3a286d690e8144017c9bd6865f0689a42b6a4ffd))
+
+
+
+
+
 ## [3.0.14](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.1.0...@rdeco/react@3.0.14) (2022-01-10)
 
 **Note:** Version bump only for package @rdeco/react
