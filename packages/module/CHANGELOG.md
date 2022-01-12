@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.13](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.0.11...@rdeco/module@3.0.13) (2022-01-12)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
 ## [3.0.11](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.0.10...@rdeco/module@3.0.11) (2022-01-11)
 
 **Note:** Version bump only for package @rdeco/module

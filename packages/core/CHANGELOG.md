@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.4.0...@rdeco/core@3.4.2) (2022-01-12)
+
+
+### Bug Fixes
+
+* **core:** 传递 value 的判断逻辑异常 ([559caf6](https://github.com/kinop112365362/rdeco/commit/559caf689c893e1fa4e26ef32bd5262c67701721))
+
+
+
+
+
 # [3.4.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.3.5...@rdeco/core@3.4.0) (2022-01-11)
 
 
