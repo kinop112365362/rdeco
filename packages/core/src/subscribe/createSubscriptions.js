@@ -76,7 +76,7 @@ export function createSubscriptions(store) {
               return
             }
           }
-          if (value?.data?.length === 0) {
+          if (value.data === undefined) {
             store.exports?.[value?.fnKey]?.call(store, value.next)
           } else {
             store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
