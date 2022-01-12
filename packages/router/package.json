@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/router",
-  "version": "3.0.17",
+  "version": "3.0.18",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
