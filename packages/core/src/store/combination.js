@@ -19,6 +19,11 @@ let combination = {
   extends: {},
   // eslint-disable-next-line no-undef
   namelist: new Set(),
+  $record(data) {
+    if (data.targetMeta.baseSymbol !== 'rdeco-dev-tools') {
+      this.pluginSubject.next(data)
+    }
+  },
   $initTargetProxy(baseSymbol) {
     if (!this.subjects.targetsProxy[baseSymbol]) {
       this.subjects.targetsProxy[baseSymbol] = new BehaviorSubject(null)
@@ -142,7 +147,7 @@ let combination = {
       props: componentStore.props,
     }
     componentStore.subjects[subjectKey].next(value)
-    this.pluginSubject.next(value)
+    this.$record(value)
   },
 }
 export function addPlugin(subscirbeCall) {

@@ -19,7 +19,7 @@ export const invoke = (...args) => {
       fnKey,
       data,
     }
-    combination.pluginSubject.next(value)
+    combination.$record(value)
     if (combination.notificationSubjects[target]) {
       combination.notificationSubjects[target].next({
         fnKey,
@@ -53,7 +53,7 @@ export const invoke = (...args) => {
             fnKey,
             error: value,
           }
-          combination.pluginSubject.next(info)
+          combination.$record(info)
           reject(value)
         } else {
           const info = {
@@ -62,7 +62,7 @@ export const invoke = (...args) => {
             fnKey,
             result: value,
           }
-          combination.pluginSubject.next(info)
+          combination.$record(info)
           resolve(value)
         }
       },

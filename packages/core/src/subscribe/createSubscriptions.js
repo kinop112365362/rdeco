@@ -82,7 +82,7 @@ export function createSubscriptions(store) {
             store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
           }
 
-          combination.pluginSubject.next({
+          combination.$record({
             ...value,
             source: store.exports?.[value?.fnKey],
             targetMeta: {
