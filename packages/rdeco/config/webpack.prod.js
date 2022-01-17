@@ -1,0 +1,12 @@
+const path = require('path')
+const npmPackageJson = require('../package.json')
+
+module.exports = {
+  mode: 'production',
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: `${npmPackageJson.name}-${npmPackageJson.version}.production.js`,
+  },
+  externals: ['react', 'react-dom'],
+}

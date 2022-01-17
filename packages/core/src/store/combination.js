@@ -114,10 +114,10 @@ let combination = {
     }
     return null
   },
-  $register(baseSymbol, instance, isSingle = true) {
+  $register(baseSymbol, instance, isSingle = false) {
     if (isSingle) {
       if (!this.components[baseSymbol]) {
-        this.components[baseSymbol] = [instance]
+        this.components[baseSymbol] = [{ instance }]
         this.namelist.add(baseSymbol)
       }
     } else {

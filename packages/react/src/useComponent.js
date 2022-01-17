@@ -34,7 +34,7 @@ export function useComponent(component, props) {
   }
   useEffect(() => {
     isNotMounted.current = false
-    combination.$register(baseSymbol, store.current, false)
+    combination.$register(baseSymbol, store.current)
     if (store.current?.controller?.onMount) {
       store.current.controller.onMount()
     }
