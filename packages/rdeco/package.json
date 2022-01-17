@@ -1,6 +1,6 @@
 {
-  "name": "@rdeco/js",
-  "version": "3.1.9",
+  "name": "@rdeco/web-app-sdk",
+  "version": "3.1.11",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -14,7 +14,7 @@
   "author": "shihong <112365362@qq.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kinop112365362/structured-react-hook"
+    "url": "https://github.com/kinop112365362/rdeco"
   },
   "types": "./types",
   "main": "./lib/index.js",
@@ -31,7 +31,8 @@
   "scripts": {
     "build:commonjs": "cross-env NODE_ENV=production BABEL_ENV=commonjs babel --root-mode upward src --out-dir lib",
     "build:es": "cross-env NODE_ENV=production babel src --root-mode upward --out-dir es",
-    "build": "npm run build:commonjs && npm run build:es"
+    "build": "npm run build:commonjs && npm run build:es",
+    "build:umd": "rm -rf ./dist && webpack --config ./config/webpack.dev.js && webpack --config ./config/webpack.prod.js"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.12.1"
@@ -40,7 +41,9 @@
     "@rdeco/core": "3.4.5",
     "@rdeco/module": "3.0.8",
     "@rdeco/react": "3.1.0",
-    "@rdeco/router": "3.0.12"
+    "@rdeco/router": "3.0.12",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
   },
   "gitHead": "07beef61ab20196a590a38e1a6e210e1b52e213b"
 }
