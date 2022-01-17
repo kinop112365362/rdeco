@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 3.2.0 (2022-01-17)
+
+
+### Bug Fixes
+
+* **register:** 默认多实例， create 特殊 ([ac03ace](https://github.com/kinop112365362/rdeco/commit/ac03ace72dad642023c4abc6bd612dffa3995de3))
+
+
+
+## 3.1.13 (2022-01-17)
+
+
+
+## 3.1.12 (2022-01-17)
+
+
+
+## 3.1.11 (2022-01-17)
+
+
+### Bug Fixes
+
+* **core:** 传递 value 的判断逻辑异常 ([559caf6](https://github.com/kinop112365362/rdeco/commit/559caf689c893e1fa4e26ef32bd5262c67701721))
+* **dep:** update dep ([55e4ad4](https://github.com/kinop112365362/rdeco/commit/55e4ad4cf771eb721a7ba71b5f3c887aa05b3442))
+* **path:** 包依赖路径错误 ([d664c1c](https://github.com/kinop112365362/rdeco/commit/d664c1cb9e48ccaaec79ed4b5aec84ca333d7136))
+* **version:** 修改模块间依赖 ([0ca1244](https://github.com/kinop112365362/rdeco/commit/0ca12443041b9209ef5aa5f529ef34d344c2c054))
+
+
+### Features
+
+* **inject:** 添加不生成独立 React 树的 InjectComponent ([4dbdd2f](https://github.com/kinop112365362/rdeco/commit/4dbdd2f852e81e80114beb30347a20106c71f4bf))
+
+
+
+
+
 ## [3.1.9](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/js@3.1.8...@rdeco/js@3.1.9) (2022-01-13)
 
 **Note:** Version bump only for package @rdeco/js
