@@ -3,10 +3,13 @@ const npmPackageJson = require('../package.json')
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/index.umd.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: `${npmPackageJson.name}-${npmPackageJson.version}.development.js`,
   },
-  externals: ['react', 'react-dom'],
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  },
 }

@@ -15,6 +15,11 @@ export const createObserve = (store, props) => {
             fnKey
           ]?.call(store, value.data, props)
         }
+        combination.$record({
+          ...value,
+          source:
+            store?.subscriber?.[targetMeta.baseSymbol]?.[subjectKey]?.[fnKey],
+        })
       }
       if (subjectKey === 'state') {
         setTimeout(() => {

@@ -3,7 +3,7 @@ const npmPackageJson = require('../package.json')
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.js',
+  entry: './src/index.umd.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: `${npmPackageJson.name}-${npmPackageJson.version}.production.js`,
