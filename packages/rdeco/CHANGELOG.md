@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.2.0...@rdeco/web-app-sdk@3.3.0) (2022-01-19)
+
+
+### Features
+
+* **rdt:** 增加对 subscribe 执行的记录 ([d25eb1d](https://github.com/kinop112365362/rdeco/commit/d25eb1d10efdd3439de018f83f2606c0a1b97d1a))
+
+
+
+
+
 # 3.2.0 (2022-01-17)
 
 
