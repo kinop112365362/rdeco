@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/react",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
