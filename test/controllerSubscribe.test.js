@@ -3,7 +3,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create } from '@rdeco/js'
+import { createComponent, create } from '@rdeco/web-app-sdk'
 
 test('测试多实例下, data-table 对 row 进行单选控制', async () => {
   const Row = createComponent({

@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent } from '@rdeco/js'
+import { createComponent, create, withComponent } from '@rdeco/web-app-sdk'
 import { combination } from '@rdeco/core/src'
 
 test('测试动态追加 subscribe', async () => {

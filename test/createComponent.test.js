@@ -2,7 +2,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, enhanceContext } from '@rdeco/js'
+import { createComponent, enhanceContext } from '@rdeco/web-app-sdk'
 
 test('运行 createComponent  基本功能测试, state → controller → service → reducer → view', async () => {
   const state = ({ showConfirmModal }) => ({

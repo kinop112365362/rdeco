@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, invoke } from '@rdeco/js'
+import { createComponent, invoke } from '@rdeco/web-app-sdk'
 
 test('测试 invoke api', async () => {
   const Test = createComponent({

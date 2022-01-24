@@ -12,7 +12,7 @@ import {
   withComponent,
   Inject,
   InjectComponent,
-} from '@rdeco/js'
+} from '@rdeco/web-app-sdk'
 import { combination } from '@rdeco/core/src'
 
 test('React Inject Component Test', async () => {

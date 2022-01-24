@@ -4,7 +4,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { createComponent, create, withComponent } from '@rdeco/js'
+import { createComponent, create, withComponent } from '@rdeco/web-app-sdk'
 import { combination, readState, enhanceContext } from '@rdeco/core/src'
 enhanceContext('context', { name: 'context' })
 test('测试 readState', async () => {

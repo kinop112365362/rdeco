@@ -3,7 +3,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import { createComponent } from '@rdeco/react'
-import { invoke } from '@rdeco/js'
+import { invoke } from '@rdeco/web-app-sdk'
 import '@testing-library/jest-dom/extend-expect'
 
 test('测试 router 响应内部 invoke', async () => {
