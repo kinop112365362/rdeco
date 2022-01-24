@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.5.1...@rdeco/core@3.5.2) (2022-01-24)
+
+
+### Bug Fixes
+
+* **remove:** 兼容某个旧版本的语法 ([9f8642d](https://github.com/kinop112365362/rdeco/commit/9f8642d0322546c1d03758e8cc346149133d777b))
+
+
+
+
+
 ## [3.5.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.5.0...@rdeco/core@3.5.1) (2022-01-19)
 
 
