@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-rdeco",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "babel plugin for rdeco  module",
   "keywords": [
     "rdeco"

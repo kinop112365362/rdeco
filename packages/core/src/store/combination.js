@@ -62,6 +62,9 @@ let combination = {
     const rawLenth = this.components[baseSymbol]
     this.components[baseSymbol] = this.components[baseSymbol].filter(
       (component) => {
+        if (component.symbol) {
+          return component.symbol !== symbol
+        }
         return component.instance.symbol !== symbol
       }
     )
