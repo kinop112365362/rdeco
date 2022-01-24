@@ -24,7 +24,31 @@ import {
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
 import { inject } from '@rdeco/module'
 import * as emotion from '@emotion/react'
-export const rdeco = {
+const rdeco = {
+  enhanceContext,
+  create,
+  createMembrane,
+  invoke,
+  readState,
+  namelist,
+  configModuleLoader,
+  createComponent,
+  withComponent,
+  useComponent,
+  Fallback,
+  createFallback,
+  Inject,
+  InjectComponent,
+  registerReactContext,
+  Router,
+  RouteView,
+  Redirect,
+  App,
+  inject,
+  emotion,
+  registerModule,
+}
+export {
   enhanceContext,
   create,
   createMembrane,
