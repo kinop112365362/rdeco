@@ -28,6 +28,6 @@ export function InjectComponent(props) {
       .then((com) => {
         setComponent(React.createElement(com, props))
       })
-  }, [])
+  }, [props])
   return <div>{component}</div>
 }
