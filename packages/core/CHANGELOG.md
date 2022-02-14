@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.0...@rdeco/core@3.6.1) (2022-02-14)
+
+
+### Bug Fixes
+
+* **exports:** error 需要显示调用 ([dad4ea3](https://github.com/kinop112365362/rdeco/commit/dad4ea353cb2922e0b35970440ff6df1d59784ec))
+
+
+
+
+
 # [3.6.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.5.2...@rdeco/core@3.6.0) (2022-02-14)
 
 
