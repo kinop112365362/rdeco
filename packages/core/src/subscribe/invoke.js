@@ -46,25 +46,17 @@ export const invoke = (...args) => {
     const [targetMeta, fnKey] = args
     syncker.subscribe({
       next(value) {
-        if (value instanceof Error) {
-          const info = {
-            type: 'invokeError',
-            targetMeta,
-            fnKey,
-            error: value,
-          }
-          combination.$record(info)
-          reject(value)
-        } else {
-          const info = {
-            type: 'invokeSucess',
-            targetMeta,
-            fnKey,
-            result: value,
-          }
-          combination.$record(info)
-          resolve(value)
+        const info = {
+          type: 'invokeSucess',
+          targetMeta,
+          fnKey,
+          result: value,
         }
+        combination.$record(info)
+        resolve(value)
+      },
+      error(e) {
+        reject(e)
       },
     })
   })
