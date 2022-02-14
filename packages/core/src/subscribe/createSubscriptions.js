@@ -85,9 +85,14 @@ export function createSubscriptions(store) {
             }
           }
           if (value.data === undefined) {
-            store.exports?.[value?.fnKey]?.call(store, value.next)
+            store.exports?.[value?.fnKey]?.call(store, value.next, value.error)
           } else {
-            store.exports?.[value?.fnKey]?.call(store, value.data, value.next)
+            store.exports?.[value?.fnKey]?.call(
+              store,
+              value.data,
+              value.next,
+              value.error
+            )
           }
 
           combination.$record({

@@ -8,7 +8,10 @@ export const invoke = (...args) => {
     syncker.next(value)
     syncker.complete()
   }
-  const infrom = (targetMeta, fnKey, data, next) => {
+  const error = (err) => {
+    syncker.error(err)
+  }
+  const infrom = (targetMeta, fnKey, data, next, error) => {
     if (!Array.isArray(targetMeta)) {
       throw new Error(`${targetMeta} 不是一个数组`)
     }
@@ -25,6 +28,7 @@ export const invoke = (...args) => {
         fnKey,
         data,
         next,
+        error,
         finder,
       })
     } else {
@@ -32,15 +36,16 @@ export const invoke = (...args) => {
         fnKey,
         data,
         next,
+        error,
         finder,
       })
     }
   }
   if (/^@@/.test(args[0])) {
     const { beforeNotify, subject } = combination.extends[args[0]]
-    subject.next(beforeNotify(args[1], args[2], next))
+    subject.next(beforeNotify(args[1], args[2], next, error))
   } else {
-    infrom(...args, next)
+    infrom(...args, next, error)
   }
   return new Promise((resolve, reject) => {
     const [targetMeta, fnKey] = args
