@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.5.2...@rdeco/core@3.6.0) (2022-02-14)
+
+
+### Features
+
+* **inject:** 添加对 error 的处理 ([9418144](https://github.com/kinop112365362/rdeco/commit/94181444bdf1159e77aadff3ca2f909ab1179d2b))
+
+
+
+
+
 ## [3.5.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.5.1...@rdeco/core@3.5.2) (2022-01-24)
 
 
