@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.8](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.2.7...@rdeco/react@3.2.8) (2022-02-14)
+
+
+### Bug Fixes
+
+* **inject:** injectComponent props 变更需要向下传递 ([85e6e0e](https://github.com/kinop112365362/structured-react-hook/commit/85e6e0e257e213a10262c7295a5a2391a635da1a))
+
+
+
+
+
 ## [3.2.7](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.2.6...@rdeco/react@3.2.7) (2022-01-25)
 
 **Note:** Version bump only for package @rdeco/react
