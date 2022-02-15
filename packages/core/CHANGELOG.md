@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.2...@rdeco/core@3.6.3) (2022-02-15)
+
+
+### Bug Fixes
+
+* **create:** baseSymbol → symbol ([10340e3](https://github.com/kinop112365362/rdeco/commit/10340e37e572aadcf96b69f7ed6b05221b335f94))
+
+
+
+
+
 ## [3.6.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.1...@rdeco/core@3.6.2) (2022-02-15)
 
 
