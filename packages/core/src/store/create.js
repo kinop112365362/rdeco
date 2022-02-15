@@ -16,5 +16,5 @@ export function create(entity) {
     }
     return entityStore
   }
-  return combination.components[baseSymbol]
+  return combination.components[symbol]
 }
