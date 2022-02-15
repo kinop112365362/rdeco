@@ -7,7 +7,7 @@ import { Store } from './Store'
 export function create(entity) {
   const symbol = validate(entity.name)
   entity.baseSymbol = symbol
-  if (!combination.components[baseSymbol]) {
+  if (!combination.components[symbol]) {
     const entityStore = new Store(entity)
     combination.$register(symbol, entityStore, true)
     createSubscriptions(entityStore)
