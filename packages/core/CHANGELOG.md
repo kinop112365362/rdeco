@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.1...@rdeco/core@3.6.2) (2022-02-15)
+
+
+### Bug Fixes
+
+* **create:** 默认 store 是单例不存在多实例 ([6a9fcf9](https://github.com/kinop112365362/rdeco/commit/6a9fcf9067d84e41c758649224afb150700e3e5f))
+* **create:** 默认 store 是单例不存在多实例 ([4ec968c](https://github.com/kinop112365362/rdeco/commit/4ec968ce6fad08f4a3336af895b57308b6a6703a))
+
+
+
+
+
 ## [3.6.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.0...@rdeco/core@3.6.1) (2022-02-14)
 
 
