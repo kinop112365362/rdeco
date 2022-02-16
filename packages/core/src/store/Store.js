@@ -13,13 +13,20 @@ import * as deepmerge from 'deepmerge'
 import { createSubscriptions } from '../index'
 import { createObserve } from '../subscribe/createSubscriptions'
 
+const copyState = (state) => {
+  try {
+    return JSON.parse(JSON.stringify(state))
+  } catch (error) {
+    console.error(error)
+  }
+}
 export class Store {
   constructor(storeConfig) {
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     if (isFunction(storeConfig.state)) {
-      this.state = storeConfig.state(storeConfig.props)
+      this.state = copyState(storeConfig.state(storeConfig.props))
     } else {
-      this.state = { ...storeConfig.state }
+      this.state = copyState(storeConfig.state)
     }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
     this.exports = storeConfig.exports ? { ...storeConfig.exports } : null
