@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-rdeco",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "babel plugin for rdeco  module",
   "keywords": [
     "rdeco"
@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "rm -rf lib && babel ./src/index.js --out-file ./lib/index.js",
-    "test":  "babel --config-file ./test/babel.config.js ./test/index.js --out-file ./test/index-complie.js"
+    "test": "babel --config-file ./test/babel.config.js ./test/index.js --out-file ./test/index-complie.js"
   },
   "gitHead": "b71cea6c67d0104be8b1da077ac467cb6b4b0124",
   "devDependencies": {

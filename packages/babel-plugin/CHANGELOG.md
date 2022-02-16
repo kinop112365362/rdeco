@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/kinop112365362/rdeco/compare/babel-plugin-rdeco@0.1.2...babel-plugin-rdeco@0.1.3) (2022-02-16)
+
+
+### Bug Fixes
+
+* **store:** 重新创建的组件的 state 没有被重置 ([7c11b70](https://github.com/kinop112365362/rdeco/commit/7c11b701c2bfd41dc57d05e8b559e07be2e01908))
+
+
+
+
+
 ## [0.1.2](https://github.com/kinop112365362/rdeco/compare/babel-plugin-rdeco@0.1.0...babel-plugin-rdeco@0.1.2) (2022-01-24)
 
 

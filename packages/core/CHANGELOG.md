@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.3...@rdeco/core@3.6.4) (2022-02-16)
+
+
+### Bug Fixes
+
+* **store:** 重新创建的组件的 state 没有被重置 ([2fb29b9](https://github.com/kinop112365362/rdeco/commit/2fb29b9cb0f83332c6627b35024ddab9186d7801))
+* **store:** 重新创建的组件的 state 没有被重置 ([7c11b70](https://github.com/kinop112365362/rdeco/commit/7c11b701c2bfd41dc57d05e8b559e07be2e01908))
+
+
+
+
+
 ## [3.6.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.2...@rdeco/core@3.6.3) (2022-02-15)
 
 
