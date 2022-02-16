@@ -9,24 +9,17 @@ import { storeConfigValidate } from '../utils/storeConfigValidate'
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
 import { invoke } from '../subscribe/invoke'
 import { isFunction } from '../utils/isFunction'
-import * as deepmerge from 'deepmerge'
+import deepmerge from 'deepmerge'
 import { createSubscriptions } from '../index'
 import { createObserve } from '../subscribe/createSubscriptions'
 
-const copyState = (state) => {
-  try {
-    return JSON.parse(JSON.stringify(state))
-  } catch (error) {
-    console.error(error)
-  }
-}
 export class Store {
   constructor(storeConfig) {
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
     if (isFunction(storeConfig.state)) {
-      this.state = copyState(storeConfig.state(storeConfig.props))
+      this.state = deepmerge({}, storeConfig.state(storeConfig.props) || {})
     } else {
-      this.state = copyState(storeConfig.state)
+      this.state = deepmerge({}, storeConfig.state || {})
     }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
     this.exports = storeConfig.exports ? { ...storeConfig.exports } : null
