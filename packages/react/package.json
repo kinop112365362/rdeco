@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/react",
-  "version": "3.2.15",
+  "version": "3.2.16",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -38,8 +38,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
-    "@rdeco/core": "3.6.6",
-    "@rdeco/module": "3.0.23",
+    "@rdeco/core": "3.6.7",
+    "@rdeco/module": "3.0.24",
     "deepmerge": "^4.2.2"
   },
   "gitHead": "b71cea6c67d0104be8b1da077ac467cb6b4b0124"

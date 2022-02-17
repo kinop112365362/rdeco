@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.6...@rdeco/core@3.6.7) (2022-02-17)
+
+
+### Bug Fixes
+
+* **proxy:** 没有设置 baseSymbol ([c07a96b](https://github.com/kinop112365362/rdeco/commit/c07a96bfd5c99bd9fde7cbd65fb0cbb77b17ad46))
+
+
+
+
+
 ## [3.6.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.5...@rdeco/core@3.6.6) (2022-02-17)
 
 
