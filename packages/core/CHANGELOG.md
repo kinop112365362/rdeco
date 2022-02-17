@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.5...@rdeco/core@3.6.6) (2022-02-17)
+
+
+### Bug Fixes
+
+* **prxoy:** 组件实例删除后，targetProxy 需要置空为 null ([8f0f301](https://github.com/kinop112365362/rdeco/commit/8f0f301e6bd8a4ee79061308d441a4ff848f86e9))
+
+
+
+
+
 ## [3.6.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.4...@rdeco/core@3.6.5) (2022-02-17)
 
 
