@@ -27,7 +27,7 @@ const foo1 = rdeco.inject("@hrss-component-hrss-data-model1/foo-1");
 const helloFooo2 = rdeco.inject("@hrss-component-hrss-data-model/hello-fooo-2");
 const foo = rdeco.inject("@hrss-component-hrss-data-model/foo");
 createComponent({
-  name: @hrss-component - hrss-data-model / helloFooo,
+  name: @hrss-component-hrss-data-model/hello-fooo,
   view: {
     render() {
       return null;
@@ -36,7 +36,7 @@ createComponent({
   }
 });
 createComponent({
-  name: @hrss-component - hrss-data-model / helloFooo2,
+  name: @hrss-component-hrss-data-model/hello-fooo-2,
   view: {
     render() {
       return null;
@@ -45,7 +45,7 @@ createComponent({
   }
 });
 create({
-  name: @hrss-component - hrss-data-model / foo,
+  name: @hrss-component-hrss-data-model/foo,
   controller: {
     onMount() {
       console.log('MYModule');

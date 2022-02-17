@@ -90,6 +90,9 @@ let combination = {
     ) {
       throw new Error(`${baseSymbol} 组件监听器卸载异常`)
     }
+    if (this.subjects.targetsPropxyQueue.length === 0) {
+      this.subjects.targetsProxy.next(null)
+    }
   },
   $createNotificationSubject({ exports }, baseSymbol) {
     if (exports) {

@@ -11,7 +11,7 @@ module.exports = function ({ template, types: t }, { externals, entry }) {
     externalsKeys.push(externalKey)
   })
   const buildRealModuleName = template(`
-    'APPCODE-CONFIG_NAME/MODULE_NAME'
+    'MODULE_NAME'
   `)
   const buildExternals = template(`
     import * as KEY from 'MODULE'
@@ -64,9 +64,9 @@ module.exports = function ({ template, types: t }, { externals, entry }) {
                               StringLiteral(SLPath) {
                                 SLPath.replaceWith(
                                   buildRealModuleName({
-                                    APPCODE: '@hrss-component',
-                                    CONFIG_NAME: 'hrss-data-model',
-                                    MODULE_NAME: SLPath.node.value,
+                                    MODULE_NAME: `@hrss-component-hrss-data-model/${kebabcase(
+                                      SLPath.node.value
+                                    )}`,
                                   })
                                 )
                               },
