@@ -3,8 +3,10 @@
 import React from 'react'
 import { validate } from '@rdeco/core'
 import { useComponent } from './useComponent'
+import deepmerge from 'deepmerge'
 
-export function createComponent(component) {
+export function createComponent(componentConfig) {
+  const component = deepmerge({}, componentConfig)
   const baseSymbol = validate(component.name)
   function HookComponent(props) {
     const store = useComponent(component, props)

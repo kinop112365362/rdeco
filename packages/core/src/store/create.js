@@ -3,8 +3,10 @@ import { combination } from './combination'
 import { createSubscriptions } from '../subscribe/createSubscriptions'
 import { validate } from '../utils/validate'
 import { Store } from './Store'
+import deepmerge from 'deepmerge'
 
-export function create(entity) {
+export function create(entityRaw) {
+  const entity = deepmerge({}, entityRaw)
   const symbol = validate(entity.name)
   entity.baseSymbol = symbol
   if (!combination.components[symbol]) {
