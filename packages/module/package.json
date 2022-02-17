@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/module",
-  "version": "3.0.21",
+  "version": "3.0.22",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -37,7 +37,7 @@
     "@babel/runtime": "^7.12.1"
   },
   "dependencies": {
-    "@rdeco/core": "3.6.4"
+    "@rdeco/core": "3.6.5"
   },
   "gitHead": "b71cea6c67d0104be8b1da077ac467cb6b4b0124"
 }
