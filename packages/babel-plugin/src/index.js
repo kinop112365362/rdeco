@@ -26,19 +26,8 @@ module.exports = function ({ template, types: t }, option) {
     const VAR = rdeco.inject('PACKAGE_NAME')
   `)
   let loadRemoteConfigIsReady = false
-  let lastImportDeclarationNode = null
-  let injectNames = []
-  let rdecoModules = []
   return {
     visitor: {
-      Program(path) {
-        for (let index = 0; index < path.node.body.length; index++) {
-          if (path.node.body[index].type !== 'ImportDeclaration') {
-            lastImportDeclarationNode = path.node.body[index - 1]
-            break
-          }
-        }
-      },
       CallExpression(CEPath) {
         CEPath.traverse({
           Identifier(IPath) {
@@ -51,8 +40,8 @@ module.exports = function ({ template, types: t }, option) {
                   OEPath.traverse({
                     ObjectProperty(OPPath) {
                       OPPath.traverse({
-                        Identifier(IPath) {
-                          if (IPath.node.name === 'name') {
+                        Identifier(I1Path) {
+                          if (I1Path.node.name === 'name') {
                             OPPath.traverse({
                               StringLiteral(SLPath) {
                                 if (!SLPath.node.value.includes('@')) {
@@ -83,75 +72,30 @@ module.exports = function ({ template, types: t }, option) {
             if (LPath.node.value.includes('remote://')) {
               const realValue = LPath.node.value.split('remote://')[1]
               const [appCode, configName] = realValue.split('/')
-
-              rdecoModules.push(
-                buildImport({ APPCODE: appCode, CONFIG_NAME: configName })
-              )
-              IDPath.traverse({
-                ImportSpecifier(ISPath) {
-                  injectNames.push([
-                    `@${appCode}-${configName}/${kebabcase(
-                      ISPath.node.imported.name
-                    )}`,
-                    ISPath.node.imported.name,
-                  ])
-                },
-              })
-              IDPath.remove()
-            }
-            if (LPath.node.value === lastImportDeclarationNode.source.value) {
-              injectNames.forEach((data) => {
-                const [packageName, varName] = data
-                IDPath.insertAfter(
-                  buildInject({
-                    PACKAGE_NAME: packageName,
-                    VAR: varName,
-                  })
-                )
-              })
-              // import externals
-              // if (
-              //   entry.find((entryPath) =>
-              //     state.file.opts.filename.includes(entryPath)
-              //   )
-              // ) {
-              //   externalsKeys.forEach((KEY) => {
-              //     IDPath.insertAfter(buildExternalsKey({ KEY }))
-              //   })
-              // }
-              rdecoModules.forEach((rdecoModuleTemplate) => {
-                IDPath.insertAfter(rdecoModuleTemplate)
-              })
-              // -->
-              if (!loadRemoteConfigIsReady && rdecoModules.length > 0) {
-                IDPath.insertAfter(buildImportLoadRemoteConfig())
+              if (!loadRemoteConfigIsReady) {
+                IDPath.insertBefore(buildImportLoadRemoteConfig())
                 loadRemoteConfigIsReady = true
               }
-              // 挂载 window key
-              // if (
-              //   entry.find((entryPath) =>
-              //     state.file.opts.filename.includes(entryPath)
-              //   )
-              // ) {
-              //   externalsModuleNames.forEach((data) => {
-              //     const [KEY, MODULE] = data
-              //     IDPath.insertAfter(buildExternals({ KEY, MODULE }))
-              //   })
-              // }
-              // -->
+
+              if (IDPath.node.specifiers) {
+                IDPath.node.specifiers.forEach((node) => {
+                  IDPath.insertAfter(
+                    buildInject({
+                      PACKAGE_NAME: `@${appCode}-${configName}/${kebabcase(
+                        node.imported.name
+                      )}`,
+                      VAR: node.imported.name,
+                    })
+                  )
+                })
+              }
+              IDPath.replaceWith(
+                buildImport({ APPCODE: appCode, CONFIG_NAME: configName })
+              )
             }
           },
         })
       },
-    },
-    post() {
-      loadRemoteConfigIsReady = null
-      lastImportDeclarationNode = null
-      injectNames = null
-      rdecoModules = null
-      // externalsKeys = null
-      // externalsModuleNames = null
-      // externalsModule = null
     },
   }
 }
