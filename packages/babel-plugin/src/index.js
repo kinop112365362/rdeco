@@ -1,15 +1,8 @@
 /* eslint-disable no-unused-vars */
 const kebabcase = require('lodash.kebabcase')
 
-module.exports = function ({ template, types: t }, { externals, entry }) {
-  let externalsModuleNames = []
-  let externalsKeys = []
-  let externalsModule = []
-  Object.keys(externals).forEach((externalKey) => {
-    externalsModuleNames.push([externalKey, externals[externalKey]])
-    externalsModule.push(externals[externalKey])
-    externalsKeys.push(externalKey)
-  })
+module.exports = function ({ template, types: t }, option) {
+  const { scope = null } = option
   const buildRealModuleName = template(`
     'MODULE_NAME'
   `)
@@ -62,13 +55,15 @@ module.exports = function ({ template, types: t }, { externals, entry }) {
                           if (IPath.node.name === 'name') {
                             OPPath.traverse({
                               StringLiteral(SLPath) {
-                                SLPath.replaceWith(
-                                  buildRealModuleName({
-                                    MODULE_NAME: `@hrss-component-hrss-data-model/${kebabcase(
-                                      SLPath.node.value
-                                    )}`,
-                                  })
-                                )
+                                if (!SLPath.node.value.includes('@')) {
+                                  SLPath.replaceWith(
+                                    buildRealModuleName({
+                                      MODULE_NAME: `@${scope.appCode}-${
+                                        scope.configName
+                                      }/${kebabcase(SLPath.node.value)}`,
+                                    })
+                                  )
+                                }
                               },
                             })
                           }
@@ -83,13 +78,6 @@ module.exports = function ({ template, types: t }, { externals, entry }) {
         })
       },
       ImportDeclaration(IDPath, state) {
-        externalsModule.forEach((module) => {
-          if (module === IDPath.node.source.value && IDPath.node.loc) {
-            throw IDPath.buildCodeFrameError(
-              '定义为 entry 的入口文件, 不能直接引用定义在 externals 里的模块'
-            )
-          }
-        })
         IDPath.traverse({
           StringLiteral(LPath) {
             if (LPath.node.value.includes('remote://')) {
@@ -122,27 +110,34 @@ module.exports = function ({ template, types: t }, { externals, entry }) {
                 )
               })
               // import externals
-              if (state.file.opts.filename.includes(entry)) {
-                externalsKeys.forEach((KEY) => {
-                  IDPath.insertAfter(buildExternalsKey({ KEY }))
-                })
-                rdecoModules.forEach((rdecoModuleTemplate) => {
-                  IDPath.insertAfter(rdecoModuleTemplate)
-                })
-              }
-
+              // if (
+              //   entry.find((entryPath) =>
+              //     state.file.opts.filename.includes(entryPath)
+              //   )
+              // ) {
+              //   externalsKeys.forEach((KEY) => {
+              //     IDPath.insertAfter(buildExternalsKey({ KEY }))
+              //   })
+              // }
+              rdecoModules.forEach((rdecoModuleTemplate) => {
+                IDPath.insertAfter(rdecoModuleTemplate)
+              })
               // -->
               if (!loadRemoteConfigIsReady && rdecoModules.length > 0) {
                 IDPath.insertAfter(buildImportLoadRemoteConfig())
                 loadRemoteConfigIsReady = true
               }
               // 挂载 window key
-              if (state.file.opts.filename.includes(entry)) {
-                externalsModuleNames.forEach((data) => {
-                  const [KEY, MODULE] = data
-                  IDPath.insertAfter(buildExternals({ KEY, MODULE }))
-                })
-              }
+              // if (
+              //   entry.find((entryPath) =>
+              //     state.file.opts.filename.includes(entryPath)
+              //   )
+              // ) {
+              //   externalsModuleNames.forEach((data) => {
+              //     const [KEY, MODULE] = data
+              //     IDPath.insertAfter(buildExternals({ KEY, MODULE }))
+              //   })
+              // }
               // -->
             }
           },
@@ -154,9 +149,9 @@ module.exports = function ({ template, types: t }, { externals, entry }) {
       lastImportDeclarationNode = null
       injectNames = null
       rdecoModules = null
-      externalsKeys = null
-      externalsModuleNames = null
-      externalsModule = null
+      // externalsKeys = null
+      // externalsModuleNames = null
+      // externalsModule = null
     },
   }
 }
