@@ -3,7 +3,7 @@ import { combination, invoke } from '@rdeco/core'
 export function inject(moduleName) {
   combination.loader(moduleName)
   if (!Proxy) {
-    throw new Error(`当前浏览器不支持 Proxy, 无法使用 inject api 请改用 invoke`)
+    console.error(`当前浏览器不支持 Proxy, 无法使用 inject api 请改用 invoke`)
   }
   return new Proxy(
     {},
