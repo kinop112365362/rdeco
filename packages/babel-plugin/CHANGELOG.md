@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@0.3.0...@afe/babel-plugin-rdeco@0.3.1) (2022-02-21)
+
+
+### Bug Fixes
+
+* **inject:** 不支持 proxy 不阻塞 ([93a553d](https://github.com/kinop112365362/rdeco/commit/93a553ddffe9e6eef547b6ec8b3957311ac1a649))
+
+
+
+
+
 # 0.3.0 (2022-02-18)
 
 

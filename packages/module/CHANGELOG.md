@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.25](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.0.24...@rdeco/module@3.0.25) (2022-02-21)
+
+
+### Bug Fixes
+
+* **inject:** 不支持 proxy 不阻塞 ([93a553d](https://github.com/kinop112365362/structured-react-hook/commit/93a553ddffe9e6eef547b6ec8b3957311ac1a649))
+
+
+
+
+
 ## [3.0.24](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.0.23...@rdeco/module@3.0.24) (2022-02-17)
 
 **Note:** Version bump only for package @rdeco/module
