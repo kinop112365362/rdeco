@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.4.0...@rdeco/web-app-sdk@3.4.1) (2022-02-22)
+
+
+### Bug Fixes
+
+* **umd:** umd 模式下没有导出 req ([76ff3e5](https://github.com/kinop112365362/rdeco/commit/76ff3e5aa03581a82098d23f00ffaaf6c4d6ab9e))
+
+
+
+
+
 # [3.4.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.3.17...@rdeco/web-app-sdk@3.4.0) (2022-02-22)
 
 
