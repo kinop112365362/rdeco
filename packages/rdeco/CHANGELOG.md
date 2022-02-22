@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.4.1...@rdeco/web-app-sdk@3.4.2) (2022-02-22)
+
+
+### Bug Fixes
+
+* **dep:** 移除 emotion 依赖 ([ff891a8](https://github.com/kinop112365362/rdeco/commit/ff891a8d28fb8aee935cea5c701c9c45b26b6796))
+* **dep:** 移除 emotion 依赖 ([972188c](https://github.com/kinop112365362/rdeco/commit/972188c4e5a69fb693dd215736e256ddd06cdf91))
+
+
+
+
+
 ## [3.4.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.4.0...@rdeco/web-app-sdk@3.4.1) (2022-02-22)
 
 

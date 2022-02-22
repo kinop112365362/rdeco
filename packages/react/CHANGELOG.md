@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.20](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.2.19...@rdeco/react@3.2.20) (2022-02-22)
+
+
+### Bug Fixes
+
+* **dep:** 移除 emotion 依赖 ([ff891a8](https://github.com/kinop112365362/structured-react-hook/commit/ff891a8d28fb8aee935cea5c701c9c45b26b6796))
+
+
+
+
+
 ## [3.2.19](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.2.18...@rdeco/react@3.2.19) (2022-02-22)
 
 **Note:** Version bump only for package @rdeco/react
