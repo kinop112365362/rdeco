@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.3.17...@rdeco/web-app-sdk@3.4.0) (2022-02-22)
+
+
+### Features
+
+* **module:** 配合 babel 插件完成 req  api ([8b0fb7e](https://github.com/kinop112365362/rdeco/commit/8b0fb7e318c5336d89b577f0746d67d7f9cadb64))
+
+
+
+
+
 ## [3.3.17](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.3.16...@rdeco/web-app-sdk@3.3.17) (2022-02-21)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk
