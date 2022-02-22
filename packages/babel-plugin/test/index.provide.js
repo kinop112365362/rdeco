@@ -2,9 +2,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { createComponent, create } from '@rdeco/web-app-sdk'
+// import {scope} from '@/contanst'
 
 createComponent({
-  name: 'helloFooo',
+  name: 'hello-fooo',
   view: {
     render() {
       return null
@@ -12,7 +13,7 @@ createComponent({
   },
 })
 createComponent({
-  name: 'helloFooo2',
+  name: '@scope/hello-fooo2',
   view: {
     render() {
       return null
@@ -21,7 +22,7 @@ createComponent({
 })
 
 create({
-  name: 'foo',
+  name: '@scope/foo',
   controller: {
     onMount() {
       console.log('MYModule')

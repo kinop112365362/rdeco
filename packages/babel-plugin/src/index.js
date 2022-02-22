@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const kebabcase = require('lodash.kebabcase')
+// const kebabcase = require('lodash.kebabcase')
 
 module.exports = function ({ template, types: t }, option) {
   const { scope = null } = option
@@ -44,12 +44,12 @@ module.exports = function ({ template, types: t }, option) {
                           if (I1Path.node.name === 'name') {
                             OPPath.traverse({
                               StringLiteral(SLPath) {
-                                if (!SLPath.node.value.includes('@')) {
+                                if (/^@scope/.test(SLPath.node.value)) {
                                   SLPath.replaceWith(
                                     buildRealModuleName({
                                       MODULE_NAME: `@${scope.appCode}-${
                                         scope.configName
-                                      }/${kebabcase(SLPath.node.value)}`,
+                                      }/${SLPath.node.value.split('/')[1]}`,
                                     })
                                   )
                                 }
@@ -66,36 +66,34 @@ module.exports = function ({ template, types: t }, option) {
           },
         })
       },
-      ImportDeclaration(IDPath, state) {
-        IDPath.traverse({
-          StringLiteral(LPath) {
-            if (LPath.node.value.includes('remote://')) {
-              const realValue = LPath.node.value.split('remote://')[1]
-              const [appCode, configName] = realValue.split('/')
-              if (!loadRemoteConfigIsReady) {
-                IDPath.insertBefore(buildImportLoadRemoteConfig())
-                loadRemoteConfigIsReady = true
-              }
+      // ImportDeclaration(IDPath, state) {
+      //   IDPath.traverse({
+      //     StringLiteral(LPath) {
+      //       if (LPath.node.value.includes('remote://')) {
+      //         const realValue = LPath.node.value.split('remote://')[1]
+      //         const [appCode, configName] = realValue.split('/')
+      //         if (!loadRemoteConfigIsReady) {
+      //           IDPath.insertBefore(buildImportLoadRemoteConfig())
+      //           loadRemoteConfigIsReady = true
+      //         }
 
-              if (IDPath.node.specifiers) {
-                IDPath.node.specifiers.forEach((node) => {
-                  IDPath.insertAfter(
-                    buildInject({
-                      PACKAGE_NAME: `@${appCode}-${configName}/${kebabcase(
-                        node.imported.name
-                      )}`,
-                      VAR: node.imported.name,
-                    })
-                  )
-                })
-              }
-              IDPath.replaceWith(
-                buildImport({ APPCODE: appCode, CONFIG_NAME: configName })
-              )
-            }
-          },
-        })
-      },
+      //         if (IDPath.node.specifiers) {
+      //           IDPath.node.specifiers.forEach((node) => {
+      //             IDPath.insertAfter(
+      //               buildInject({
+      //                 PACKAGE_NAME: `@${appCode}-${configName}/${node.imported.name}`,
+      //                 VAR: node.imported.name,
+      //               })
+      //             )
+      //           })
+      //         }
+      //         IDPath.replaceWith(
+      //           buildImport({ APPCODE: appCode, CONFIG_NAME: configName })
+      //         )
+      //       }
+      //     },
+      //   })
+      // },
     },
   }
 }

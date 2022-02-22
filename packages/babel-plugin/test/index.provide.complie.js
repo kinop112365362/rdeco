@@ -3,9 +3,10 @@
 /* eslint-disable no-unused-vars */
 
 /* eslint-disable no-undef */
-import { createComponent, create } from '@rdeco/web-app-sdk'
+import { createComponent, create } from '@rdeco/web-app-sdk' // import {scope} from '@/contanst'
+
 createComponent({
-  name: '@hrss-component-hrss-data-model/hello-fooo',
+  name: 'hello-fooo',
   view: {
     render() {
       return null
@@ -13,7 +14,7 @@ createComponent({
   },
 })
 createComponent({
-  name: '@hrss-component-hrss-data-model/hello-fooo-2',
+  name: '@hrss-component-hrss-data-model/hello-fooo2',
   view: {
     render() {
       return null

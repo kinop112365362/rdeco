@@ -22,7 +22,7 @@ import {
 } from '@rdeco/react'
 
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
-import { inject } from '@rdeco/module'
+import { inject, req } from '@rdeco/module'
 import * as emotion from '@emotion/react'
 const rdeco = {
   enhanceContext,
@@ -47,6 +47,7 @@ const rdeco = {
   inject,
   emotion,
   registerModule,
+  req,
 }
 export {
   enhanceContext,
@@ -71,5 +72,6 @@ export {
   inject,
   emotion,
   registerModule,
+  req,
 }
 export default rdeco

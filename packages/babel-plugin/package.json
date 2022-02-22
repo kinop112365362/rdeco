@@ -1,5 +1,5 @@
 {
-  "name": "babel-plugin-rdeco",
+  "name": "@afe/babel-plugin-rdeco",
   "version": "0.4.0",
   "description": "babel plugin for rdeco  module",
   "keywords": [
