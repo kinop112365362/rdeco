@@ -10,7 +10,7 @@
       "exact": true,
       "ignoreChanges": ["ignored-file", "*.md", "'**/__tests__/**"],
       "message": "chore(release): publish",
-      "registry": "https://registry.npmjs.org/"
+      "registry": "http://npm.dc.servyou-it.com"
     }
   }
 }
