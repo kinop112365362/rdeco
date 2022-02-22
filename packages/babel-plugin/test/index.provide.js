@@ -5,7 +5,15 @@ import { createComponent, create } from '@rdeco/web-app-sdk'
 // import {scope} from '@/contanst'
 
 createComponent({
-  name: 'hello-fooo',
+  name: '@scope/hello-fooo',
+  view: {
+    render() {
+      return null
+    },
+  },
+})
+createComponent({
+  name: '@scope/hello-fooo',
   view: {
     render() {
       return null

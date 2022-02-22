@@ -6,7 +6,15 @@
 import { createComponent, create } from '@rdeco/web-app-sdk' // import {scope} from '@/contanst'
 
 createComponent({
-  name: 'hello-fooo',
+  name: '@hrss-component-hrss-data-model/hello-fooo',
+  view: {
+    render() {
+      return null
+    },
+  },
+})
+createComponent({
+  name: '@hrss-component-hrss-data-model/hello-fooo',
   view: {
     render() {
       return null
