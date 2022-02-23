@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.4.2...@rdeco/web-app-sdk@3.4.3) (2022-02-23)
+
+
+### Bug Fixes
+
+* **inject:** injectComponent 修改为不再监视 props 变化，直接透传 props 给对应组件 ([621fecd](https://github.com/kinop112365362/rdeco/commit/621fecd2cc742bd4581bfe37bed6458abd97a781))
+
+
+
+
+
 ## [3.4.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.4.1...@rdeco/web-app-sdk@3.4.2) (2022-02-22)
 
 
