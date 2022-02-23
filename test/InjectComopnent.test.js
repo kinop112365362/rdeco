@@ -28,7 +28,11 @@ test('React Inject Component Test', async () => {
     name: '@test/tag1',
     view: {
       render() {
-        return <div role="tag1">tag1</div>
+        return (
+          <div role="tag1">
+            tag1 <div role="id">{this.props.params.id}</div>{' '}
+          </div>
+        )
       },
     },
   })
@@ -51,15 +55,16 @@ test('React Inject Component Test', async () => {
   const Test = createComponent({
     name: '@test/com',
     state: {
-      id: 0,
       params: {
-        onSuccess() {
-          this.setter.id(1)
-        },
+        id: 0,
       },
     },
     controller: {
-      onClick,
+      onMount() {
+        this.setter.params({
+          id: 1,
+        })
+      },
     },
     view: {
       render() {
@@ -67,10 +72,8 @@ test('React Inject Component Test', async () => {
           <div>
             <InjectComponent
               name="@test/tag-module1"
-              id={this.state.id}
+              params={this.state.params}
             ></InjectComponent>
-            <div role="id">{this.state.id}</div>
-            <button role="button" onClick={this.controller.onClick}></button>
           </div>
         )
       },
@@ -84,4 +87,5 @@ test('React Inject Component Test', async () => {
   render(<Test></Test>)
   await Sleep.then()
   expect(screen.getByRole('tag1')).toHaveTextContent('tag1')
+  expect(screen.getByRole('id')).toHaveTextContent('1')
 })
