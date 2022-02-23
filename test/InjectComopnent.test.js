@@ -16,14 +16,14 @@ import {
 import { combination } from '@rdeco/core/src'
 
 test('React Inject Component Test', async () => {
-  const Tag = createComponent({
-    name: '@test/tag',
-    view: {
-      render() {
-        return <div role="tag">tag</div>
-      },
-    },
-  })
+  // const Tag = createComponent({
+  //   name: '@test/tag',
+  //   view: {
+  //     render() {
+  //       return <div role="tag">tag</div>
+  //     },
+  //   },
+  // })
   const Tag1 = createComponent({
     name: '@test/tag1',
     view: {
@@ -32,14 +32,14 @@ test('React Inject Component Test', async () => {
       },
     },
   })
-  create({
-    name: '@test/tag-module',
-    exports: {
-      render(el, props, Context) {
-        ReactDOM.render(<Tag></Tag>, el)
-      },
-    },
-  })
+  // create({
+  //   name: '@test/tag-module',
+  //   exports: {
+  //     render(el, props, Context) {
+  //       ReactDOM.render(<Tag></Tag>, el)
+  //     },
+  //   },
+  // })
   create({
     name: '@test/tag-module1',
     exports: {
@@ -50,12 +50,27 @@ test('React Inject Component Test', async () => {
   })
   const Test = createComponent({
     name: '@test/com',
+    state: {
+      id: 0,
+      params: {
+        onSuccess() {
+          this.setter.id(1)
+        },
+      },
+    },
+    controller: {
+      onClick,
+    },
     view: {
       render() {
         return (
           <div>
-            <Inject name="@test/tag-module"></Inject>
-            <InjectComponent name="@test/tag-module1"></InjectComponent>
+            <InjectComponent
+              name="@test/tag-module1"
+              id={this.state.id}
+            ></InjectComponent>
+            <div role="id">{this.state.id}</div>
+            <button role="button" onClick={this.controller.onClick}></button>
           </div>
         )
       },
@@ -66,8 +81,7 @@ test('React Inject Component Test', async () => {
       resolve()
     }, 1000)
   })
-  await Sleep.then()
   render(<Test></Test>)
-  expect(screen.getByRole('tag')).toHaveTextContent('tag')
-  // expect(screen.getByRole('tag1')).toHaveTextContent('tag1')
+  await Sleep.then()
+  expect(screen.getByRole('tag1')).toHaveTextContent('tag1')
 })

@@ -42,6 +42,5 @@ window.rdeco = {
   Redirect,
   App,
   inject,
-  emotion,
   registerModule,
 }

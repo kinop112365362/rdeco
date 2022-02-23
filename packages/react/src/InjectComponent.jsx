@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import { inject } from '@rdeco/module'
+import { useRef } from 'react'
 
 export function Inject(props) {
   const el = React.createRef()
@@ -21,13 +22,23 @@ export function Inject(props) {
 }
 
 export function InjectComponent(props) {
-  const [component, setComponent] = useState(null)
+  const [time, setTime] = useState(0)
+  let Component = useRef(() => <></>)
   useEffect(() => {
     inject(props.name)
       .getComponent()
       .then((com) => {
-        setComponent(React.createElement(com, props))
+        Component.current = com
+        setTime(1)
       })
-  }, [props])
-  return <div>{component}</div>
+      .catch((e) => {
+        console.warn(e)
+      })
+  }, [])
+  return (
+    <div>
+      {time}
+      <Component.current {...props}></Component.current>
+    </div>
+  )
 }
