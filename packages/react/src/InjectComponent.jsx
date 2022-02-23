@@ -36,9 +36,8 @@ export function InjectComponent(props) {
       })
   }, [])
   return (
-    <div>
-      {time}
-      <Component.current {...props}></Component.current>
-    </div>
+    <>
+      <Component.current time={time} {...props}></Component.current>
+    </>
   )
 }
