@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.22](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.2.21...@rdeco/react@3.2.22) (2022-02-23)
+
+
+### Bug Fixes
+
+* **inject:** 移除测试代码 ([a312d58](https://github.com/kinop112365362/structured-react-hook/commit/a312d58c82e5461e330bc140b73fc8467c1ff11f))
+
+
+
+
+
 ## [3.2.21](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.2.20...@rdeco/react@3.2.21) (2022-02-23)
 
 
