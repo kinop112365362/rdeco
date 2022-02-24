@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
-import { inject } from '@rdeco/module'
-import { useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import { inject, req } from '@rdeco/module'
 
 export function Inject(props) {
   const el = React.createRef()
@@ -26,6 +25,28 @@ export function InjectComponent(props) {
   let Component = useRef(() => <></>)
   useEffect(() => {
     inject(props.name)
+      .getComponent()
+      .then((com) => {
+        Component.current = com
+        setTime(1)
+      })
+      .catch((e) => {
+        console.warn(e)
+      })
+  }, [])
+  return (
+    <>
+      <Component.current time={time} {...props}></Component.current>
+    </>
+  )
+}
+
+export function ReqComponent(props) {
+  const remote = req(props.name)
+  const [time, setTime] = useState(0)
+  let Component = useRef(() => <></>)
+  useEffect(() => {
+    remote
       .getComponent()
       .then((com) => {
         Component.current = com

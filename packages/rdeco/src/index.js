@@ -19,6 +19,7 @@ import {
   Inject,
   InjectComponent,
   registerReactContext,
+  ReqComponent,
 } from '@rdeco/react'
 
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
@@ -38,6 +39,7 @@ const rdeco = {
   createFallback,
   Inject,
   InjectComponent,
+  ReqComponent,
   registerReactContext,
   Router,
   RouteView,
@@ -62,6 +64,7 @@ export {
   createFallback,
   Inject,
   InjectComponent,
+  ReqComponent,
   registerReactContext,
   Router,
   RouteView,

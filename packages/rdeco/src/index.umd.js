@@ -18,6 +18,7 @@ import {
   createFallback,
   Inject,
   InjectComponent,
+  ReqComponent,
   registerReactContext,
 } from '@rdeco/react'
 
@@ -38,6 +39,7 @@ window.rdeco = {
   createFallback,
   Inject,
   InjectComponent,
+  ReqComponent,
   registerReactContext,
   Router,
   RouteView,
