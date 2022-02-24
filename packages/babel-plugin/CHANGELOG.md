@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@0.5.1...@afe/babel-plugin-rdeco@1.0.1) (2022-02-24)
+
+**Note:** Version bump only for package @afe/babel-plugin-rdeco
+
+
+
+
+
 ## [0.5.1](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@0.5.0...@afe/babel-plugin-rdeco@0.5.1) (2022-02-22)
 
 

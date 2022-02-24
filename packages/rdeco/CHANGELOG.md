@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.4.4...@rdeco/web-app-sdk@3.5.0) (2022-02-24)
+
+
+### Features
+
+* **react:** 新增 ReqComponent api 用于自动加载 galaxy 组件 ([beafa28](https://github.com/kinop112365362/rdeco/commit/beafa28e05ae36b6e7e823064371d5fb7b9cd81d))
+
+
+
+
+
 ## [3.4.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.4.3...@rdeco/web-app-sdk@3.4.4) (2022-02-23)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.2.22...@rdeco/react@3.3.0) (2022-02-24)
+
+
+### Features
+
+* **react:** 新增 ReqComponent api 用于自动加载 galaxy 组件 ([beafa28](https://github.com/kinop112365362/structured-react-hook/commit/beafa28e05ae36b6e7e823064371d5fb7b9cd81d))
+
+
+
+
+
 ## [3.2.22](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.2.21...@rdeco/react@3.2.22) (2022-02-23)
 
 
