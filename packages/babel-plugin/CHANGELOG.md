@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.1...@afe/babel-plugin-rdeco@1.0.2) (2022-02-25)
+
+
+### Bug Fixes
+
+* **ie:** babel 支持 ie11 ([aa67636](https://github.com/kinop112365362/rdeco/commit/aa676365ed0f0d43d3aaa24918d33d3d5d1047c2))
+
+
+
+
+
 ## [1.0.1](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@0.5.1...@afe/babel-plugin-rdeco@1.0.1) (2022-02-24)
 
 **Note:** Version bump only for package @afe/babel-plugin-rdeco
