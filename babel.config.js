@@ -6,7 +6,7 @@ module.exports = {
   presets: [
     [
       '@babel/env',
-      { targets: { chrome: '30' }, loose, modules: false },
+      { targets: { chrome: '30', ie: '11' }, loose, modules: false },
       '@babel/preset-react',
     ],
   ],

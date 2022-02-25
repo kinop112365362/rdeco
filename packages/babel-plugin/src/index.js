@@ -73,34 +73,6 @@ module.exports = function ({ template, types: t }, option) {
           },
         })
       },
-      // ImportDeclaration(IDPath, state) {
-      //   IDPath.traverse({
-      //     StringLiteral(LPath) {
-      //       if (LPath.node.value.includes('remote://')) {
-      //         const realValue = LPath.node.value.split('remote://')[1]
-      //         const [appCode, configName] = realValue.split('/')
-      //         if (!loadRemoteConfigIsReady) {
-      //           IDPath.insertBefore(buildImportLoadRemoteConfig())
-      //           loadRemoteConfigIsReady = true
-      //         }
-
-      //         if (IDPath.node.specifiers) {
-      //           IDPath.node.specifiers.forEach((node) => {
-      //             IDPath.insertAfter(
-      //               buildInject({
-      //                 PACKAGE_NAME: `@${appCode}-${configName}/${node.imported.name}`,
-      //                 VAR: node.imported.name,
-      //               })
-      //             )
-      //           })
-      //         }
-      //         IDPath.replaceWith(
-      //           buildImport({ APPCODE: appCode, CONFIG_NAME: configName })
-      //         )
-      //       }
-      //     },
-      //   })
-      // },
     },
   }
 }
