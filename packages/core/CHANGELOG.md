@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.7...@rdeco/core@3.7.0) (2022-03-02)
+
+
+### Features
+
+* **subscribe:**  添加了 self 用于监听自身 ([f293da1](https://github.com/kinop112365362/rdeco/commit/f293da1012ab4824d9ab400b768bcff461253c81))
+
+
+
+
+
 ## [3.6.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.6...@rdeco/core@3.6.7) (2022-02-17)
 
 
