@@ -14,7 +14,7 @@ test('测试自己监听自己', async () => {
       id: null,
     },
     subscribe: {
-      '@test/com': {
+      self: {
         controller: {
           onClick() {
             this.setter.id(this.props.id)

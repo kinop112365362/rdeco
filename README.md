@@ -276,6 +276,26 @@ bar.conroller.onStart()
 
 controller 和 service 只是一组 event 的快捷语法，避免你过多的声明类似的 emit 事件函数
 
+快速监听自身可使用 self 来代替冗长的 name 字符串
+
+```js
+create({
+  name: 'hello-world',
+  state: {
+    text: 'hello world',
+  },
+  subscribe: {
+    self: {
+      state: {
+        test({ nextState }) {
+          console.log(nextState)
+        },
+      },
+    },
+  },
+})
+```
+
 ### 为什么 event 不能使用 next 来返回值？
 
 和 exports 不同 subscribe 本质是一种广播模式，如果提供 next 返回值会导致一些意想不到的情况发生。所以如果你需要在响应 event 之后返回结果给调用对象，应该通过 exports 暴露的方法。 虽然这样可能会有点绕， 但对于跨越了时间和空间的通信来说，收发的准确性和流向的可控性更为重要
@@ -500,21 +520,21 @@ export default createComponent({
 通过 createComponent 可以创建一个具有响应式能力的 React 组件， 响应式相关参见 @rdeco/core 章节
 
 ```js
-import { createComponent } from 'rdeco';
+import { createComponent } from 'rdeco'
 
 const Button = createComponent({
   name: 'button',
   controller: {
     onClick() {
-      this.emit('clickOver');
+      this.emit('clickOver')
     },
   },
   view: {
     render() {
-      return <button onClick={this.controller.onClick}> click me </button>;
+      return <button onClick={this.controller.onClick}> click me </button>
     },
   },
-});
+})
 
 const Text = createComponent({
   name: 'text',
@@ -522,12 +542,12 @@ const Text = createComponent({
     button: {
       event: {
         clickOver() {
-          console.log('click button over');
+          console.log('click button over')
         },
       },
     },
   },
-});
+})
 
 function App() {
   return (
@@ -535,7 +555,7 @@ function App() {
       <Button />
       <Text />
     </>
-  );
+  )
 }
 // log when Button click trigger Text console.log 'click button over'
 ```

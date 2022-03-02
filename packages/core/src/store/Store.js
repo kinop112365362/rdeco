@@ -23,6 +23,12 @@ export class Store {
     }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
     this.exports = storeConfig.exports ? { ...storeConfig.exports } : null
+    if (storeConfig?.subscribe?.self) {
+      storeConfig.subscribe[storeConfig.name] = {
+        ...storeConfig.subscribe.self,
+      }
+      delete storeConfig.subscribe.self
+    }
     this.subscriber = storeConfig.subscribe
       ? { ...storeConfig.subscribe }
       : null
