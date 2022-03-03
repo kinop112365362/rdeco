@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.7.0...@rdeco/core@3.7.1) (2022-03-03)
+
+
+### Bug Fixes
+
+* **store:** prevState 如果是对象不会保持的问题 ([30338a0](https://github.com/kinop112365362/rdeco/commit/30338a094c5ece0a76742407ee88c0a9f4ad1d02))
+
+
+
+
+
 # [3.7.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.6.7...@rdeco/core@3.7.0) (2022-03-02)
 
 
