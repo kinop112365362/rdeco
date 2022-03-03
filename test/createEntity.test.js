@@ -102,6 +102,7 @@ test('测试 Entity 和 组件协同工作', async () => {
       ['@test/login-entity']: {
         state: {
           result({ prevState, nextState, state }) {
+            console.debug(prevState, nextState)
             expect(nextState.code).toBe(200)
             this.setter.message(nextState.data.message)
           },

@@ -97,6 +97,7 @@
     "router5-plugin-logger": "^8.0.1",
     "rxjs": "^7.4.0",
     "shelljs": "^0.8.4",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "lodash.isplainobject":"^4.6.2"
   }
 }

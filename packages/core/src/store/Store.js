@@ -12,6 +12,7 @@ import { isFunction } from '../utils/isFunction'
 import deepmerge from 'deepmerge'
 import { createSubscriptions } from '../index'
 import { createObserve } from '../subscribe/createSubscriptions'
+import isPlainObject from 'lodash.isplainobject'
 
 export class Store {
   constructor(storeConfig) {
@@ -122,7 +123,9 @@ export class Store {
             fnKey: stateKey,
           },
           data: {
-            prevState: this.state[stateKey],
+            prevState: isPlainObject(this.state[stateKey])
+              ? deepmerge({}, this.state[stateKey])
+              : this.state[stateKey],
             nextState: payload,
             state: this.state,
           },

@@ -39,7 +39,8 @@
   "dependencies": {
     "@rdeco/core": "3.7.0",
     "@rdeco/module": "3.1.1",
-    "deepmerge": "^4.2.2"
+    "deepmerge": "^4.2.2",
+    "lodash.isplainobject": "^4.0.6"
   },
   "gitHead": "b71cea6c67d0104be8b1da077ac467cb6b4b0124"
 }
