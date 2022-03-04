@@ -15,7 +15,7 @@
   "author": "shihong <112365362@qq.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kinop112365362/structured-react-hook"
+    "url": "https://gitlab.dc.servyou-it.com/febs/rdeco"
   },
   "types": "./types",
   "main": "./lib/index.js",
