@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.7.1...@rdeco/core@3.8.0) (2022-03-04)
+
+
+### Features
+
+* **version:** add version for window look ([52e70dd](https://github.com/kinop112365362/rdeco/commit/52e70dd024e9c1dea3c0ba7e30944ee98b55e814))
+
+
+
+
+
 ## [3.7.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.7.0...@rdeco/core@3.7.1) (2022-03-03)
 
 
