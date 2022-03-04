@@ -2,7 +2,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs'
 import packageJSON from '../../package.json'
 
 let combination = {
-  version: packageJSON.version,
+  version: packageJSON.version, // 此版本号是 @rdeco/core 的版本号
   loader: (n) => n,
   modules: {},
   components: {},
