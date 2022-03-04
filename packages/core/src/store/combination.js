@@ -1,6 +1,8 @@
 import { BehaviorSubject, ReplaySubject } from 'rxjs'
+import packageJSON from '../../package.json'
 
 let combination = {
+  version: packageJSON.version,
   loader: (n) => n,
   modules: {},
   components: {},
