@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.2...@afe/babel-plugin-rdeco@1.0.3) (2022-03-07)
+
+
+### Bug Fixes
+
+* **babel:** 取消语法错误提示，场景无法覆盖 ([7032398](https://github.com/kinop112365362/rdeco/commit/7032398794644e329f9778bdd0f8e83f8653a5b1))
+
+
+
+
+
 ## [1.0.2](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.1...@afe/babel-plugin-rdeco@1.0.2) (2022-02-25)
 
 
