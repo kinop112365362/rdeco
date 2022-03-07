@@ -37,7 +37,7 @@ export function req(path) {
   const fullModuleName = `${appCode}-${configName}/${moduleName}`
   if (!combination.components[fullModuleName]) {
     loadRemoteConfig({
-      appCode,
+      appCode: appCode.split('@')[1],
       name: configName,
       type: 'js',
     })
