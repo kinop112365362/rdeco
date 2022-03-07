@@ -53,12 +53,6 @@ module.exports = function ({ template, types: t }, option) {
                                     })
                                   )
                                   SLPath.node.isHandled = true
-                                } else {
-                                  if (!SLPath.node.isHandled) {
-                                    throw SLPath.buildCodeFrameError(
-                                      '声明 name 必须配置 @scope'
-                                    )
-                                  }
                                 }
                               },
                             })
