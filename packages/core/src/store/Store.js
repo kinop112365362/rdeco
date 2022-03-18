@@ -46,6 +46,7 @@ export class Store {
       this[contextKey] = combination.enhanceContext[contextKey]
     })
     this.dynamicSubscription = []
+    this.setterCallbacks = []
     this.symbol = Symbol()
     if (storeConfig.derivate) {
       this.derivate = {}
@@ -116,7 +117,7 @@ export class Store {
     const stateKeys = Object.keys(this.state)
     stateKeys.forEach((stateKey) => {
       const type = stateKey
-      this.setter[stateKey] = (payload, replace = false) => {
+      this.setter[stateKey] = (payload, callback, replace = false) => {
         const value = {
           eventTargetMeta: {
             subjectKey: 'state',
@@ -132,7 +133,7 @@ export class Store {
         }
         combination.$broadcast(this, value, 'state')
         this.dispatch([type, payload, stateKey, this, replace])
-
+        this.setterCallbacks.push(callback)
         return payload
       }
     })

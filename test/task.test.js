@@ -34,9 +34,15 @@ test('测试 Task api', async () => {
   })
   const Test = createComponent({
     name: 'test',
+    state: {
+      text: 'hello wrold',
+    },
     controller: {
       onMount() {
         const dataModel = req('@test/config/data-model')
+        this.setter.text('hll', () => {
+          console.debug(this.state)
+        })
         dataModel
           .begin()
           .then((res) => {
