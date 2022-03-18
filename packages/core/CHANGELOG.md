@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.10.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.9.0...@rdeco/core@3.10.0) (2022-03-18)
+
+
+### Features
+
+* **store:** setter 增加 callback 用于 state 变更后执行相关逻辑 ([a36e112](https://github.com/kinop112365362/rdeco/commit/a36e112a956d98521b10154674184cb6c98dd729))
+
+
+
+
+
 # [3.9.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.8.1...@rdeco/core@3.9.0) (2022-03-18)
 
 

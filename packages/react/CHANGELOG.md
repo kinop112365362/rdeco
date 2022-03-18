@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.3.6...@rdeco/react@3.4.0) (2022-03-18)
+
+
+### Features
+
+* **store:** setter 增加 callback 用于 state 变更后执行相关逻辑 ([a770427](https://github.com/kinop112365362/structured-react-hook/commit/a770427eb087b7c3f5eb50d24d9b8d8adf7b4ece))
+* **store:** setter 增加 callback 用于 state 变更后执行相关逻辑 ([a36e112](https://github.com/kinop112365362/structured-react-hook/commit/a36e112a956d98521b10154674184cb6c98dd729))
+
+
+
+
+
 ## [3.3.6](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.3.5...@rdeco/react@3.3.6) (2022-03-18)
 
 **Note:** Version bump only for package @rdeco/react
