@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.1.5...@rdeco/module@3.2.0) (2022-03-18)
+
+
+### Features
+
+* **req:** 增加了 pending 状态用于解决 Promise 只有 resolve 和 reject 的问题 ([1ca0972](https://github.com/kinop112365362/structured-react-hook/commit/1ca09720a8c0df9c7615fcfd12b8ee19cf00f344))
+
+
+
+
+
 ## [3.1.5](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.1.4...@rdeco/module@3.1.5) (2022-03-07)
 
 

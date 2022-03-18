@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.9.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.8.1...@rdeco/core@3.9.0) (2022-03-18)
+
+
+### Features
+
+* **req:** 增加了 pending 状态用于解决 Promise 只有 resolve 和 reject 的问题 ([1ca0972](https://github.com/kinop112365362/rdeco/commit/1ca09720a8c0df9c7615fcfd12b8ee19cf00f344))
+
+
+
+
+
 ## [3.8.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.8.0...@rdeco/core@3.8.1) (2022-03-07)
 
 **Note:** Version bump only for package @rdeco/core
