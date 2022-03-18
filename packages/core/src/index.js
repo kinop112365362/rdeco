@@ -15,3 +15,5 @@ export {
   registerModule,
   addPlugin,
 } from './store/combination'
+
+export { task } from './subscribe/task'

@@ -2,7 +2,6 @@ import { combination, invoke } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
 /* eslint-disable no-undef */
 export function inject(moduleName) {
-  combination.loader(moduleName)
   if (window.Proxy === undefined) {
     console.error(
       `当前浏览器不支持 Proxy, 无法使用 inject api, 需要降级为 invoke api`

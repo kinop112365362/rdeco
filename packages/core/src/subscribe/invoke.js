@@ -4,6 +4,11 @@ import { combination } from '../store/combination'
 
 export const invoke = (...args) => {
   const syncker = new AsyncSubject(null)
+  const taskSynckey = new AsyncSubject(null)
+  const pending = (taskId) => {
+    taskSynckey.next(taskId)
+    taskSynckey.complete()
+  }
   const next = (value) => {
     syncker.next(value)
     syncker.complete()
@@ -11,7 +16,7 @@ export const invoke = (...args) => {
   const error = (err) => {
     syncker.error(err)
   }
-  const infrom = (targetMeta, fnKey, data, next, error) => {
+  const infrom = (targetMeta, fnKey, data, next, error, pending) => {
     if (!Array.isArray(targetMeta)) {
       throw new Error(`${targetMeta} 不是一个数组`)
     }
@@ -29,6 +34,7 @@ export const invoke = (...args) => {
         data,
         next,
         error,
+        pending,
         finder,
       })
     } else {
@@ -37,17 +43,18 @@ export const invoke = (...args) => {
         data,
         next,
         error,
+        pending,
         finder,
       })
     }
   }
   if (/^@@/.test(args[0])) {
     const { beforeNotify, subject } = combination.extends[args[0]]
-    subject.next(beforeNotify(args[1], args[2], next, error))
+    subject.next(beforeNotify(args[1], args[2], next, error, pending))
   } else {
-    infrom(...args, next, error)
+    infrom(...args, next, error, pending)
   }
-  return new Promise((resolve, reject) => {
+  const promise = new Promise((resolve, reject) => {
     const [targetMeta, fnKey] = args
     syncker.subscribe({
       next(value) {
@@ -65,4 +72,13 @@ export const invoke = (...args) => {
       },
     })
   })
+  promise.__proto__.pending = (callback) => {
+    taskSynckey.subscribe({
+      next(taskId) {
+        callback(taskId)
+      },
+    })
+    return this
+  }
+  return promise
 }

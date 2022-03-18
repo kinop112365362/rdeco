@@ -559,3 +559,45 @@ function App() {
 }
 // log when Button click trigger Text console.log 'click button over'
 ```
+
+### task
+
+task 是一个特殊的概念，通常并不需要用到这个 api，但某些情况下， UI 和 Model 之间可能存在异步的定时任务需要控制，这个时候
+
+task 就是一个非常有用的工具
+
+'/data-model.js'
+
+```js
+import { task, create } from '@rdeco/web-app-sdk'
+
+create({
+  name: 'data-model',
+  ref: {
+    taskId: task.create(),
+  },
+  exports: {
+    begin(resolve,reject,pending) {
+      task.add(
+        this.ref.taskId,
+        setInterval(() => {
+          console.log('loop')
+        }, 1000)
+        pending(this.ref.taskId)
+      )
+    },
+  },
+})
+```
+
+'/ui.js'
+
+```js
+import { req, task } from '@rdeco/web-app-sdk'
+
+const dataModel = req('data-model')
+
+dataModel.begin().pending((taskId) => {
+  task.clear(taskId)
+})
+```
