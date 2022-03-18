@@ -5,7 +5,7 @@ export function useStoreUpdate(store, nextState, props, contextRef) {
   const [state, dispatch] = useReducer(reducer, nextState)
   const ref = useRef(store.ref).current
   useEffect(() => {
-    store.setterCallbacks.forEach((callback) => {
+    store.setterCallbacks.forEach((callback = () => {}) => {
       callback()
     })
     store.setterCallbacks = []
