@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.6.1...@rdeco/web-app-sdk@3.7.0) (2022-03-22)
+
+
+### Features
+
+* **core:** 增加 mock 方法用于处理测试中对 inject 模块的方法模拟 ([6de1246](https://github.com/kinop112365362/rdeco/commit/6de1246c57ef06939738fa70f96a92334adad8fc))
+
+
+
+
+
 ## [3.6.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.6.0...@rdeco/web-app-sdk@3.6.1) (2022-03-18)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk

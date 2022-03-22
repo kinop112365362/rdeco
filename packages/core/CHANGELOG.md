@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.11.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.10.0...@rdeco/core@3.11.0) (2022-03-22)
+
+
+### Features
+
+* **core:** 增加 mock 方法用于处理测试中对 inject 模块的方法模拟 ([6de1246](https://github.com/kinop112365362/rdeco/commit/6de1246c57ef06939738fa70f96a92334adad8fc))
+
+
+
+
+
 # [3.10.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.9.0...@rdeco/core@3.10.0) (2022-03-18)
 
 
