@@ -17,3 +17,4 @@ export {
 } from './store/combination'
 
 export { task } from './subscribe/task'
+export { mock } from './mock'
