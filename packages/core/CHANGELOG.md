@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.11.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.11.0...@rdeco/core@3.11.1) (2022-03-23)
+
+
+### Bug Fixes
+
+* **core:** pending 在有参数的情况下没有传入 ([7aaaa9e](https://github.com/kinop112365362/rdeco/commit/7aaaa9ed7317264b48705a850f5e3c9c242ea674))
+
+
+
+
+
 # [3.11.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.10.0...@rdeco/core@3.11.0) (2022-03-22)
 
 
