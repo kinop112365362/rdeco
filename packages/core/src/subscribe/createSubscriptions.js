@@ -85,13 +85,20 @@ export function createSubscriptions(store) {
             }
           }
           if (value.data === undefined) {
-            store.exports?.[value?.fnKey]?.call(store, value.next, value.error)
+            console.debug(value)
+            store.exports?.[value?.fnKey]?.call(
+              store,
+              value.next,
+              value.error,
+              value.pending
+            )
           } else {
             store.exports?.[value?.fnKey]?.call(
               store,
               value.data,
               value.next,
-              value.error
+              value.error,
+              value.pending
             )
           }
 

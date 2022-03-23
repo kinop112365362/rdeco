@@ -27,6 +27,7 @@ test('测试 Task api', async () => {
             console.debug(1000)
           }, 500)
         )
+        console.debug(arguments)
         pending(this.ref.taskId)
         resolve('begin')
       },
