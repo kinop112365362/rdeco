@@ -8,5 +8,8 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     filename: `${npmPackageJson.name}-${npmPackageJson.version}.production.js`,
   },
-  externals: ['react', 'react-dom'],
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  },
 }

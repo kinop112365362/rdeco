@@ -8,6 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, '../dist'),
     filename: `${npmPackageJson.name}-${npmPackageJson.version}.development.js`,
   },
+  devtool: 'eval-source-map',
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM',

@@ -17,4 +17,4 @@ export {
 } from './store/combination'
 
 export { mock } from './mock'
-import '../src/subscribe/task'
+import './subscribe/task'
