@@ -16,5 +16,5 @@ export {
   addPlugin,
 } from './store/combination'
 
-export { task } from './subscribe/task'
 export { mock } from './mock'
+import '../src/subscribe/task'

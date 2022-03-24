@@ -17,8 +17,17 @@ import isPlainObject from 'lodash.isplainobject'
 export class Store {
   constructor(storeConfig) {
     const { viewKeys, ctrlKeys, serviceKeys } = storeConfigValidate(storeConfig)
+    Object.keys(combination.enhanceContext).forEach((contextKey) => {
+      if (this[contextKey]) {
+        throw new Error(`${contextKey} 是 store 上已经存在的, 不可覆盖`)
+      }
+      this[contextKey] = combination.enhanceContext[contextKey]
+    })
     if (isFunction(storeConfig.state)) {
-      this.state = deepmerge({}, storeConfig.state(storeConfig.props) || {})
+      this.state = deepmerge(
+        {},
+        storeConfig.state.call(this, storeConfig.props) || {}
+      )
     } else {
       this.state = deepmerge({}, storeConfig.state || {})
     }
@@ -39,12 +48,7 @@ export class Store {
       storeConfig,
       this.baseSymbol
     )
-    Object.keys(combination.enhanceContext).forEach((contextKey) => {
-      if (this[contextKey]) {
-        throw new Error(`${contextKey} 是 store 上已经存在的, 不可覆盖`)
-      }
-      this[contextKey] = combination.enhanceContext[contextKey]
-    })
+
     this.dynamicSubscription = []
     this.setterCallbacks = []
     this.symbol = Symbol()

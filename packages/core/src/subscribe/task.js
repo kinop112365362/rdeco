@@ -1,4 +1,5 @@
-export const task = {
+import { enhanceContext } from '../store/combination'
+enhanceContext('task', {
   id: 0,
   body: {},
   create() {
@@ -21,4 +22,4 @@ export const task = {
       callback(timer)
     })
   },
-}
+})

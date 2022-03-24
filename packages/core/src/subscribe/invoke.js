@@ -78,7 +78,7 @@ export const invoke = (...args) => {
         callback(taskId)
       },
     })
-    return this
+    return promise
   }
   return promise
 }

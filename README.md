@@ -569,21 +569,23 @@ task 就是一个非常有用的工具
 '/data-model.js'
 
 ```js
-import { task, create } from '@rdeco/web-app-sdk'
+import { create } from '@rdeco/web-app-sdk'
 
 create({
   name: 'data-model',
-  ref: {
-    taskId: task.create(),
+  state(){
+    return {
+      taskId:this.task.create()
+    }
   },
   exports: {
     begin(resolve,reject,pending) {
-      task.add(
-        this.ref.taskId,
+      this.task.add(
+        this.state.taskId,
         setInterval(() => {
           console.log('loop')
         }, 1000)
-        pending(this.ref.taskId)
+        pending(this.state.taskId)
       )
     },
   },
@@ -593,11 +595,12 @@ create({
 '/ui.js'
 
 ```js
-import { req, task } from '@rdeco/web-app-sdk'
+import { req } from '@rdeco/web-app-sdk'
 
+// controller 内代码
 const dataModel = req('data-model')
 
 dataModel.begin().pending((taskId) => {
-  task.clear(taskId)
+  this.task.clear(taskId)
 })
 ```

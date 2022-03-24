@@ -4,31 +4,27 @@
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import {
-  createComponent,
-  create,
-  withComponent,
-  task,
-  req,
-} from '@rdeco/web-app-sdk'
+import { createComponent, create, withComponent, req } from '@rdeco/web-app-sdk'
 import { combination } from '@rdeco/core'
 
 test('测试 Task api', async () => {
   create({
     name: '@test-config/data-model',
-    ref: {
-      taskId: task.create(),
+    state() {
+      return {
+        taskId: this.task.create(),
+      }
     },
     exports: {
       begin(resolve, reject, pending) {
-        task.add(
-          this.ref.taskId,
+        this.task.add(
+          this.state.taskId,
           setInterval(() => {
             console.debug(1000)
           }, 500)
         )
         console.debug(arguments)
-        pending(this.ref.taskId)
+        pending(this.state.taskId)
         resolve('begin')
       },
     },
@@ -47,11 +43,12 @@ test('测试 Task api', async () => {
         dataModel
           .begin()
           .then((res) => {
+            console.debug(res)
             expect(res).toBe('begin')
           })
           .pending((taskId) => {
             console.debug(taskId)
-            task.clear(taskId)
+            this.task.clear(taskId)
           })
       },
     },

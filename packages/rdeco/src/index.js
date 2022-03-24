@@ -9,7 +9,6 @@ import {
   namelist,
   configModuleLoader,
   registerModule,
-  task,
   mock,
 } from '@rdeco/core'
 import {
@@ -50,7 +49,6 @@ const rdeco = {
   inject,
   registerModule,
   req,
-  task,
   mock,
 }
 export {
@@ -77,7 +75,6 @@ export {
   inject,
   registerModule,
   req,
-  task,
   mock,
 }
 export default rdeco

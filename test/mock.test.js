@@ -8,7 +8,6 @@ import {
   createComponent,
   create,
   withComponent,
-  task,
   req,
   mock,
 } from '@rdeco/web-app-sdk'

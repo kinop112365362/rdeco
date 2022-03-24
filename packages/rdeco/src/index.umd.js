@@ -9,7 +9,6 @@ import {
   namelist,
   configModuleLoader,
   registerModule,
-  task,
   mock,
 } from '@rdeco/core'
 import {
@@ -50,6 +49,5 @@ window.rdeco = {
   inject,
   registerModule,
   req,
-  task,
   mock,
 }
