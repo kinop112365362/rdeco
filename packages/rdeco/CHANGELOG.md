@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.2...@rdeco/web-app-sdk@3.7.4) (2022-03-24)
+
+
+### Bug Fixes
+
+* **task:** path erro ([963f2b6](https://github.com/kinop112365362/rdeco/commit/963f2b6e2c8f944ed9e6abc76d222663fc62afec))
+
+
+
+
+
 ## [3.7.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.1...@rdeco/web-app-sdk@3.7.2) (2022-03-24)
 
 

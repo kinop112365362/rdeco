@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.11.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.11.2...@rdeco/core@3.11.3) (2022-03-24)
+
+
+### Bug Fixes
+
+* **task:** path erro ([963f2b6](https://github.com/kinop112365362/rdeco/commit/963f2b6e2c8f944ed9e6abc76d222663fc62afec))
+
+
+
+
+
 ## [3.11.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.11.1...@rdeco/core@3.11.2) (2022-03-24)
 
 
