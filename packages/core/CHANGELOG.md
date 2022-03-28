@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.11.3...@rdeco/core@3.12.0) (2022-03-28)
+
+
+### Features
+
+* **compose:** 新增 compose api 用于解决大型组件的结构化拆分问题 ([ce062ce](https://github.com/kinop112365362/rdeco/commit/ce062cee636cb3dd62f1322add7c58942715fedb))
+
+
+
+
+
 ## [3.11.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.11.2...@rdeco/core@3.11.3) (2022-03-24)
 
 
