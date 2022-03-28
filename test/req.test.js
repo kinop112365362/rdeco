@@ -15,7 +15,8 @@ create({
   },
 })
 const userModule = req('@hrss-component/hrss-data-model/user-module')
-
+// eslint-disable-next-line no-unused-vars
+const userModule1 = req('@hrss-component-hrss-data-model/user-module')
 test('测试 request API', async () => {
   const Test = createComponent({
     name: 'test',
