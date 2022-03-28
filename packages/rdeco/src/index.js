@@ -10,6 +10,8 @@ import {
   configModuleLoader,
   registerModule,
   mock,
+  compose,
+  createCompose,
 } from '@rdeco/core'
 import {
   createComponent,
@@ -50,6 +52,8 @@ const rdeco = {
   registerModule,
   req,
   mock,
+  compose,
+  createCompose,
 }
 export {
   enhanceContext,
@@ -76,5 +80,7 @@ export {
   registerModule,
   req,
   mock,
+  compose,
+  createCompose,
 }
 export default rdeco

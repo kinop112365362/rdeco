@@ -10,6 +10,8 @@ import {
   configModuleLoader,
   registerModule,
   mock,
+  compose,
+  createCompose,
 } from '@rdeco/core'
 import {
   createComponent,
@@ -50,4 +52,6 @@ window.rdeco = {
   registerModule,
   req,
   mock,
+  compose,
+  createCompose,
 }

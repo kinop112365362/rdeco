@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render, fireEvent, waitFor, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { compose, createCompose } from '@rdeco/core'
 import { createComponent } from '@rdeco/web-app-sdk'
 
