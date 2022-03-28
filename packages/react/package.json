@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/react",
-  "version": "3.4.4",
+  "version": "3.4.5",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@rdeco/core": "3.11.3",
-    "@rdeco/module": "3.3.3",
+    "@rdeco/module": "3.3.4",
     "deepmerge": "^4.2.2",
     "lodash.isplainobject": "^4.0.6"
   },
