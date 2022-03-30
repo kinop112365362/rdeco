@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.0...@rdeco/core@3.12.1) (2022-03-30)
+
+
+### Bug Fixes
+
+* **core:** 针对老版本缺少 $record api 的问题进行兼容 ([e7dd1a7](https://github.com/kinop112365362/rdeco/commit/e7dd1a773f9a7ff33be8f918de4f2a12c5d24868))
+
+
+
+
+
 # [3.12.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.11.3...@rdeco/core@3.12.0) (2022-03-28)
 
 
