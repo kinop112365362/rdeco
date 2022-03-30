@@ -216,6 +216,9 @@ export function extendsSubscribe(key, handler) {
 }
 if (window) {
   if (window.$$rdeco_combination) {
+    if (!window.$$rdeco_combination.$record) {
+      window.$$rdeco_combination.$record = combination.$record
+    }
     combination = window.$$rdeco_combination
   } else {
     window.$$rdeco_combination = combination
