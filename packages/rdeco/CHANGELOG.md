@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.10](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.9...@rdeco/web-app-sdk@3.7.10) (2022-03-31)
+
+
+### Bug Fixes
+
+* **type:** 修复类型导出错误 ([dacaf3b](https://github.com/kinop112365362/rdeco/commit/dacaf3bea946909324f1ed58831f989a068290cc))
+
+
+
+
+
 ## [3.7.9](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.8...@rdeco/web-app-sdk@3.7.9) (2022-03-31)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk
