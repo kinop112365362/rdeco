@@ -44,4 +44,8 @@ export const App: any
 export const inject: any
 export const emotion: any
 export const registerModule: any
+export const compose: any
+export const createCompose: any
+export const req: any
+export const ReqComponent: any
 
