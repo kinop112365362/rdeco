@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { req, createComponent, create } from '@rdeco/web-app-sdk'
 create({
-  name: '@hrss-component-hrss-data-model/user-module',
+  name: '@hrss-component/hrss-data-model/user-module',
   exports: {
     login(userInfo, resolve, reject) {
       if (userInfo.name === 'admin') {
@@ -16,7 +16,7 @@ create({
 })
 const userModule = req('@hrss-component/hrss-data-model/user-module')
 // eslint-disable-next-line no-unused-vars
-const userModule1 = req('@hrss-component-hrss-data-model/user-module')
+const userModule1 = req('@hrss-component/hrss-data-model/user-module')
 test('测试 request API', async () => {
   const Test = createComponent({
     name: 'test',

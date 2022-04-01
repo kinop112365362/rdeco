@@ -28,7 +28,7 @@ test('React Inject Component Test', async () => {
     },
   })
   create({
-    name: '@test-test/tag-module1',
+    name: '@test/test/tag-module1',
     exports: {
       getComponent(next) {
         next(Tag1)
