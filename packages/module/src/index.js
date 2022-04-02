@@ -43,7 +43,7 @@ export function req(path) {
       throw new Error('moduleName is unknown')
     }
     if (
-      loadedConfigNamelist.find((name) => name === `${appCode}/${configName}`)
+      !loadedConfigNamelist.find((name) => name === `${appCode}/${configName}`)
     ) {
       loadedConfigNamelist.push(`${appCode}/${configName}`)
       loadRemoteConfig({
