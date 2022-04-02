@@ -23,7 +23,7 @@ export function useComponent(component, props) {
     storeConfig.props = props
     if (props.membrane) {
       if (props.membrane.name) {
-        baseSymbol = storeConfig.baseSymbol = validate(props.membrane.name)
+        baseSymbol = storeConfig.baseSymbol = props.membrane.name
       } else {
         baseSymbol = storeConfig.baseSymbol
       }
