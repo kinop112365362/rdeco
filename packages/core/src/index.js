@@ -3,7 +3,6 @@ export { invoke } from './subscribe/invoke'
 export { create } from './store/create'
 export { createMembrane } from './store/createMembrane'
 export { Store } from './store/Store'
-export { validate } from './utils/validate'
 export { compose, createCompose } from './store/compose'
 
 export {
