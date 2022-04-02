@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.3...@rdeco/core@3.12.4) (2022-04-02)
+
+
+### Bug Fixes
+
+* **req:** 同时 req 多个相同模块触发多次 ([b2cbce3](https://github.com/kinop112365362/rdeco/commit/b2cbce396a4c95ba050ce445521bd62db1b4978e))
+
+
+
+
+
 ## [3.12.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.2...@rdeco/core@3.12.3) (2022-04-01)
 
 **Note:** Version bump only for package @rdeco/core
