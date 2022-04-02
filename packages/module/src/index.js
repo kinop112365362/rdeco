@@ -51,7 +51,7 @@ export function req(path) {
         name: configName,
         type: 'js',
       }).then(() => {
-        console.warn(`${path} 模块加载完成`)
+        console.warn(`${appCode}/${configName} 模块加载完成`)
       })
     }
   }
