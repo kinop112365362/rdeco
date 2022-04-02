@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.3...@afe/babel-plugin-rdeco@1.0.4) (2022-04-02)
+
+
+### Bug Fixes
+
+* **babel:** scope 支持 req 内部模块 ([907cbd4](https://github.com/kinop112365362/rdeco/commit/907cbd462fe4bb2206c0384bd842d7ff59a87cb3))
+
+
+
+
+
 ## [1.0.3](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.2...@afe/babel-plugin-rdeco@1.0.3) (2022-03-07)
 
 
