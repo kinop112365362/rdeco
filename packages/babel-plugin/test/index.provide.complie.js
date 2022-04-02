@@ -5,8 +5,9 @@
 /* eslint-disable no-undef */
 import { createComponent, create } from '@rdeco/web-app-sdk' // import {scope} from '@/contanst'
 
+const helloFooo = req('@hrss-component/hrss-data-model/hello-fooo')
 createComponent({
-  name: '@hrss-component-hrss-data-model/hello-fooo',
+  name: '@hrss-component/hrss-data-model/hello-fooo',
   service: {
     createDataModel(dataModelName) {
       create({
@@ -137,7 +138,7 @@ createComponent({
   },
 })
 createComponent({
-  name: '@hrss-component-hrss-data-model/hello-fooo',
+  name: '@hrss-component/hrss-data-model/hello-fooo',
   view: {
     render() {
       return null
@@ -145,7 +146,7 @@ createComponent({
   },
 })
 createComponent({
-  name: '@hrss-component-hrss-data-model/hello-fooo2',
+  name: '@hrss-component/hrss-data-model/hello-fooo2',
   view: {
     render() {
       return null
@@ -153,7 +154,7 @@ createComponent({
   },
 })
 create({
-  name: '@hrss-component-hrss-data-model/foo',
+  name: '@hrss-component/hrss-data-model/foo',
   controller: {
     onMount() {
       console.log('MYModule')

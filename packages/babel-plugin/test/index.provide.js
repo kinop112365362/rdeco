@@ -4,6 +4,8 @@
 import { createComponent, create } from '@rdeco/web-app-sdk'
 // import {scope} from '@/contanst'
 
+const helloFooo = req('@scope/hello-fooo')
+
 createComponent({
   name: '@scope/hello-fooo',
   service: {

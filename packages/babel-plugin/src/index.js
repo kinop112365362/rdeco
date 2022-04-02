@@ -47,7 +47,7 @@ module.exports = function ({ template, types: t }, option) {
                                 if (/^@scope/.test(SLPath.node.value)) {
                                   SLPath.replaceWith(
                                     buildRealModuleName({
-                                      MODULE_NAME: `@${scope.appCode}-${
+                                      MODULE_NAME: `@${scope.appCode}/${
                                         scope.configName
                                       }/${SLPath.node.value.split('/')[1]}`,
                                     })
@@ -61,6 +61,22 @@ module.exports = function ({ template, types: t }, option) {
                       })
                     },
                   })
+                },
+              })
+            }
+            if (IPath.node.name === 'req') {
+              CEPath.traverse({
+                StringLiteral(SLPath) {
+                  if (/^@scope/.test(SLPath.node.value)) {
+                    SLPath.replaceWith(
+                      buildRealModuleName({
+                        MODULE_NAME: `@${scope.appCode}/${scope.configName}/${
+                          SLPath.node.value.split('/')[1]
+                        }`,
+                      })
+                    )
+                    SLPath.node.isHandled = true
+                  }
                 },
               })
             }
