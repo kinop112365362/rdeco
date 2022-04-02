@@ -1,14 +1,14 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useRef } from 'react'
-import { combination, createMembrane, Store, validate } from '@rdeco/core'
+import { combination, createMembrane, Store } from '@rdeco/core'
 import { useSubscribe } from './reactHooks/useSubscribe'
 import { useStoreDispose } from './reactHooks/useStoreDispose'
 import { useStoreUpdate } from './reactHooks/useStoreUpdate'
 import { getContext } from './ContextManager'
 
 export function useComponent(component, props) {
-  let baseSymbol = validate(component.name)
+  let baseSymbol = component.name
   const storeConfig = useRef({ ...component }).current
   const contextRef = useRef({}).current
   if (storeConfig.reactContext) {
