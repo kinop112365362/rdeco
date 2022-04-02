@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.13](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.12...@rdeco/module@3.3.13) (2022-04-02)
+
+
+### Bug Fixes
+
+* **req:** 加载逻辑取反 ([d197a27](https://github.com/kinop112365362/structured-react-hook/commit/d197a278e08156367b7c7ff9a2d4fe2165a46248))
+
+
+
+
+
 ## [3.3.12](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.11...@rdeco/module@3.3.12) (2022-04-02)
 
 **Note:** Version bump only for package @rdeco/module
