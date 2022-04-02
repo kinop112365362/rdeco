@@ -38,7 +38,8 @@
   },
   "dependencies": {
     "@afe/browser-runtime-loader": "^1.6.0",
-    "@rdeco/core": "3.12.3"
+    "@rdeco/core": "3.12.3",
+    "lodash.throttle": "^4.1.1"
   },
   "gitHead": "b71cea6c67d0104be8b1da077ac467cb6b4b0124"
 }

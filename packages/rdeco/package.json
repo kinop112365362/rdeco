@@ -43,6 +43,7 @@
     "@rdeco/module": "3.3.9",
     "@rdeco/react": "3.4.10",
     "@rdeco/router": "3.0.57",
+    "lodash.throttle": "^4.1.1",
     "webpack": "^5.66.0",
     "webpack-cli": "^4.9.1"
   },

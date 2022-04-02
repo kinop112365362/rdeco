@@ -1,6 +1,7 @@
 import { combination, invoke, mock } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
 import npmValidate from 'validate-npm-package-name'
+import throttle from 'lodash.throttle'
 /* eslint-disable no-undef */
 export function inject(moduleName) {
   if (window.Proxy === undefined) {
@@ -27,6 +28,8 @@ export function inject(moduleName) {
   }
 }
 
+const throttleLoader = throttle(loadRemoteConfig, 1000)
+
 export function req(path) {
   if (combination.components[path]) {
     return inject(path)
@@ -43,7 +46,7 @@ export function req(path) {
       if (!moduleName) {
         throw new Error('moduleName is unknown')
       }
-      loadRemoteConfig({
+      throttleLoader({
         appCode: appCode.split('@')[1],
         name: configName,
         type: 'js',

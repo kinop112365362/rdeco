@@ -163,7 +163,7 @@ export function addPlugin(subscirbeCall) {
 }
 export function registerModule(key, value) {
   if (combination.modules[key]) {
-    console.error(`你覆盖了${key} module, 请确保这不是个意外`)
+    console.warn(`你覆盖了${key} module, 请确保这不是个意外`)
   }
   combination.modules[key] = value
 }
