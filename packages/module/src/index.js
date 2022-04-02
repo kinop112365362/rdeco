@@ -1,8 +1,9 @@
 import { combination, invoke, mock } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
-import npmValidate from 'validate-npm-package-name'
-import throttle from 'lodash.throttle'
 /* eslint-disable no-undef */
+
+const loadedConfigNamelist = []
+
 export function inject(moduleName) {
   if (window.Proxy === undefined) {
     console.error(
@@ -28,30 +29,31 @@ export function inject(moduleName) {
   }
 }
 
-const throttleLoader = throttle(loadRemoteConfig, 1000)
-
 export function req(path) {
-  if (combination.components[path]) {
-    return inject(path)
-  } else {
-    const { validForNewPackages } = npmValidate(path)
-    if (!validForNewPackages) {
-      const [appCode, configName, moduleName] = path.split('/')
-      if (!appCode) {
-        throw new Error('appCode is unknown')
-      }
-      if (!configName) {
-        throw new Error('configName is unknown')
-      }
-      if (!moduleName) {
-        throw new Error('moduleName is unknown')
-      }
-      throttleLoader({
+  if (combination.components[path] === undefined) {
+    console.warn(`${path} 模块未加载，即将开始加载`)
+    const [appCode, configName, moduleName] = path.split('/')
+    if (!appCode) {
+      throw new Error('appCode is unknown')
+    }
+    if (!configName) {
+      throw new Error('configName is unknown')
+    }
+    if (!moduleName) {
+      throw new Error('moduleName is unknown')
+    }
+    if (
+      loadedConfigNamelist.find((name) => name === `${appCode}/${configName}`)
+    ) {
+      loadedConfigNamelist.push(`${appCode}/${configName}`)
+      loadRemoteConfig({
         appCode: appCode.split('@')[1],
         name: configName,
         type: 'js',
+      }).then(() => {
+        console.warn(`${path} 模块加载完成`)
       })
     }
-    return inject(path)
   }
+  return inject(path)
 }
