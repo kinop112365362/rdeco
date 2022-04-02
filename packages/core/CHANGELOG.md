@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.4...@rdeco/core@3.12.5) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
 ## [3.12.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.3...@rdeco/core@3.12.4) (2022-04-02)
 
 
