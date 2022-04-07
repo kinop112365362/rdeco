@@ -12,6 +12,10 @@ createComponent({
     createDataModel(dataModelName) {
       create({
         name: dataModelName,
+        subscribe: {
+          '@scope/ttt': {},
+          '@scope/tt1': {},
+        },
         state: {
           view: {},
           onEnd: (c) => c,
@@ -27,7 +31,7 @@ createComponent({
           cssStyle: {
             itme: '',
             checkbox: `
-            position: absolute;
+            position: @scope/absolute;
             left: 12px;`,
           },
           isInit: true,

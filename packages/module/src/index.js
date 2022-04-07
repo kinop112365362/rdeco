@@ -2,8 +2,6 @@ import { combination, invoke, mock } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
 /* eslint-disable no-undef */
 
-const loadedConfigNamelist = []
-
 export function inject(moduleName) {
   if (window.Proxy === undefined) {
     console.error(
@@ -43,9 +41,11 @@ export function req(path) {
       throw new Error('moduleName is unknown')
     }
     if (
-      !loadedConfigNamelist.find((name) => name === `${appCode}/${configName}`)
+      !combination.loadedConfigNamelist.find(
+        (name) => name === `${appCode}/${configName}`
+      )
     ) {
-      loadedConfigNamelist.push(`${appCode}/${configName}`)
+      combination.loadedConfigNamelist.push(`${appCode}/${configName}`)
       loadRemoteConfig({
         appCode: appCode.split('@')[1],
         name: configName,
