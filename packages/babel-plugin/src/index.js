@@ -34,8 +34,7 @@ module.exports = function ({ template, types: t }, option) {
             if (
               IPath.node.name === 'createComponent' ||
               IPath.node.name === 'create' ||
-              IPath.node.name === 'createElement' ||
-              IPath.node.name === 'req'
+              IPath.node.name === 'createElement'
             ) {
               CEPath.traverse({
                 ObjectExpression(OEPath) {
@@ -43,11 +42,9 @@ module.exports = function ({ template, types: t }, option) {
                     ObjectProperty(OPPath) {
                       OPPath.traverse({
                         Identifier(I1Path) {
-                          // if (I1Path.node.name === 'name') {
                           OPPath.traverse({
                             StringLiteral(SLPath) {
                               if (/^@scope/.test(SLPath.node.value)) {
-                                console.debug(SLPath.node.value)
                                 SLPath.replaceWith(
                                   buildRealModuleName({
                                     MODULE_NAME: `@${scope.appCode}/${
@@ -59,7 +56,6 @@ module.exports = function ({ template, types: t }, option) {
                               }
                             },
                           })
-                          // }
                         },
                       })
                     },
@@ -67,22 +63,22 @@ module.exports = function ({ template, types: t }, option) {
                 },
               })
             }
-            // if (IPath.node.name === 'req') {
-            //   CEPath.traverse({
-            //     StringLiteral(SLPath) {
-            //       if (/^@scope/.test(SLPath.node.value)) {
-            //         SLPath.replaceWith(
-            //           buildRealModuleName({
-            //             MODULE_NAME: `@${scope.appCode}/${scope.configName}/${
-            //               SLPath.node.value.split('/')[1]
-            //             }`,
-            //           })
-            //         )
-            //         SLPath.node.isHandled = true
-            //       }
-            //     },
-            //   })
-            // }
+            if (IPath.node.name === 'req') {
+              CEPath.traverse({
+                StringLiteral(SLPath) {
+                  if (/^@scope/.test(SLPath.node.value)) {
+                    SLPath.replaceWith(
+                      buildRealModuleName({
+                        MODULE_NAME: `@${scope.appCode}/${scope.configName}/${
+                          SLPath.node.value.split('/')[1]
+                        }`,
+                      })
+                    )
+                    SLPath.node.isHandled = true
+                  }
+                },
+              })
+            }
           },
         })
       },
