@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.5...@rdeco/core@3.12.6) (2022-04-07)
+
+
+### Bug Fixes
+
+* **creat:** 修复 onMount 如果是 async 的化 ([d30cdc4](https://github.com/kinop112365362/rdeco/commit/d30cdc4f3a9caee31ee14780c6dccd4dfdd13b46))
+* **create:** async 没有必要 ([3e62552](https://github.com/kinop112365362/rdeco/commit/3e62552023b464208bb77c3071bdced3a0030329))
+* **req:** 模块已加载识别放到 combination 上 ([adf5b94](https://github.com/kinop112365362/rdeco/commit/adf5b94ddc1c21ab15398e24ef829fd568406d98))
+
+
+
+
+
 ## [3.12.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.4...@rdeco/core@3.12.5) (2022-04-02)
 
 **Note:** Version bump only for package @rdeco/core

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.5](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.4...@afe/babel-plugin-rdeco@1.0.5) (2022-04-07)
+
+
+### Bug Fixes
+
+* **req:** 模块已加载识别放到 combination 上 ([adf5b94](https://github.com/kinop112365362/rdeco/commit/adf5b94ddc1c21ab15398e24ef829fd568406d98))
+
+
+
+
+
 ## [1.0.4](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.3...@afe/babel-plugin-rdeco@1.0.4) (2022-04-02)
 
 
