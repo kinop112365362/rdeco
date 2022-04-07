@@ -3,18 +3,28 @@
 /* eslint-disable no-unused-vars */
 
 /* eslint-disable no-undef */
-import { createComponent, create } from '@rdeco/web-app-sdk' // import {scope} from '@/contanst'
+import { createComponent, create, ReqComponent } from '@rdeco/web-app-sdk'
+import React from 'react' // import {scope} from '@/contanst'
 
-const helloFooo = req('@hrss-component/hrss-data-model/hello-fooo')
+const helloFooo = req('@scope/hello-fooo')
+
+const Comp = () => {
+  return /*#__PURE__*/ React.createElement(ReqComponent, {
+    name: '@hrss-component/data-model/hello-fff',
+  })
+}
+
 createComponent({
-  name: '@hrss-component/hrss-data-model/hello-fooo',
+  name: '@hrss-component/data-model/hello-fooo',
   service: {
     createDataModel(dataModelName) {
       create({
         name: dataModelName,
         subscribe: {
-          '@hrss-component/hrss-data-model/ttt': {},
-          '@hrss-component/hrss-data-model/tt1': {},
+          '@hrss-component/data-model/ttt2': {
+            event() {},
+          },
+          '@hrss-component/data-model/tt12': {},
         },
         state: {
           view: {},
@@ -142,7 +152,15 @@ createComponent({
   },
 })
 createComponent({
-  name: '@hrss-component/hrss-data-model/hello-fooo',
+  name: '@hrss-component/data-model/hello-fooo',
+  subscribe: {
+    '@hrss-component/data-model/ttt': {
+      event: {
+        helaoo() {},
+      },
+    },
+    '@hrss-component/data-model/tt1': {},
+  },
   view: {
     render() {
       return null
@@ -150,7 +168,7 @@ createComponent({
   },
 })
 createComponent({
-  name: '@hrss-component/hrss-data-model/hello-fooo2',
+  name: '@hrss-component/data-model/hello-fooo2',
   view: {
     render() {
       return null
@@ -158,7 +176,13 @@ createComponent({
   },
 })
 create({
-  name: '@hrss-component/hrss-data-model/foo',
+  name: '@hrss-component/data-model/foo',
+  subscribe: {
+    '@hrss-component/data-model/ttt3': {
+      event() {},
+    },
+    '@hrss-component/data-model/tt14': {},
+  },
   controller: {
     onMount() {
       console.log('MYModule')

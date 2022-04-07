@@ -27,5 +27,8 @@
   "gitHead": "b71cea6c67d0104be8b1da077ac467cb6b4b0124",
   "dependencies": {
     "lodash.kebabcase": "^4.1.1"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.16.7"
   }
 }

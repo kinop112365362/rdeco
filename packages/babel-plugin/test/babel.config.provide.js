@@ -1,11 +1,12 @@
 module.exports = {
+  presets: ['@babel/preset-react'],
   plugins: [
     [
       '../src/index.js',
       {
         scope: {
           appCode: 'hrss-component',
-          configName: 'hrss-data-model',
+          configName: 'data-model',
         },
       },
     ],

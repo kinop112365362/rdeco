@@ -30,28 +30,28 @@ export function inject(moduleName) {
 export function req(path) {
   if (combination.components[path] === undefined) {
     console.warn(`${path} 模块未加载，即将开始加载`)
-    const [appCode, configName, moduleName] = path.split('/')
+    const [appCode, moduleName, compName] = path.split('/')
     if (!appCode) {
       throw new Error('appCode is unknown')
     }
-    if (!configName) {
+    if (!moduleName) {
       throw new Error('configName is unknown')
     }
-    if (!moduleName) {
-      throw new Error('moduleName is unknown')
+    if (!compName) {
+      console.warn(`未指定组件名称，仅加载模块 ${appCode}/${moduleName}`)
     }
     if (
       !combination.loadedConfigNamelist.find(
-        (name) => name === `${appCode}/${configName}`
+        (name) => name === `${appCode}/${moduleName}`
       )
     ) {
-      combination.loadedConfigNamelist.push(`${appCode}/${configName}`)
+      combination.loadedConfigNamelist.push(`${appCode}/${moduleName}`)
       loadRemoteConfig({
         appCode: appCode.split('@')[1],
-        name: configName,
+        name: moduleName,
         type: 'js',
       }).then(() => {
-        console.warn(`${appCode}/${configName} 模块加载完成`)
+        console.warn(`${appCode}/${moduleName} 模块加载完成`)
       })
     }
   }
