@@ -196,7 +196,7 @@ export function configModuleLoader(loader) {
   if (!combination.loader) {
     combination.loader = loader
   } else {
-    console.error(
+    console.warn(
       `loader 已经被注入了，再次注入 loader 不会生效，如果是组件集成，请检查注入 loader 的代码`
     )
   }

@@ -4,7 +4,7 @@ import { createSubscriptions } from '../subscribe/createSubscriptions'
 import { Store } from './Store'
 import deepmerge from 'deepmerge'
 
-async function create(entityRaw) {
+function create(entityRaw) {
   const entity = deepmerge({}, entityRaw)
   const symbol = entity.name
   entity.baseSymbol = symbol
@@ -13,7 +13,7 @@ async function create(entityRaw) {
     combination.$register(symbol, entityStore, true)
     createSubscriptions(entityStore)
     if (entityStore.controller.onMount) {
-      await entityStore?.controller?.onMount()
+      entityStore?.controller?.onMount()
     }
     return entityStore
   }
