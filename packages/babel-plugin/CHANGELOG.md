@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.7...@afe/babel-plugin-rdeco@1.0.8) (2022-04-08)
+
+
+### Bug Fixes
+
+* **babel:** 修改 [@scope](https://github.com/scope) 替换逻辑，覆盖所有场景 ([950af4f](https://github.com/kinop112365362/rdeco/commit/950af4fab00dd3c298d3710d9fd7a088913b5161))
+
+
+
+
+
 ## [1.0.7](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.6...@afe/babel-plugin-rdeco@1.0.7) (2022-04-07)
 
 
