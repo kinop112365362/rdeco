@@ -1,9 +1,6 @@
 import { combination, invoke, mock } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
-import throttle from 'lodash.throttle'
 /* eslint-disable no-undef */
-
-const throttleInvoke = throttle(invoke, 50)
 
 export function inject(moduleName) {
   if (window.Proxy === undefined) {
@@ -20,7 +17,7 @@ export function inject(moduleName) {
               if (mock[moduleName]) {
                 return mock[moduleName][property](...argumentsList)
               } else {
-                return throttleInvoke([moduleName], property, ...argumentsList)
+                return invoke([moduleName], property, ...argumentsList)
               }
             },
           })
