@@ -3,6 +3,8 @@ import { loadRemoteConfig } from '@afe/browser-runtime-loader'
 import throttle from 'lodash.throttle'
 /* eslint-disable no-undef */
 
+const throttleInvoke = throttle(invoke, 50)
+
 export function inject(moduleName) {
   if (window.Proxy === undefined) {
     console.error(
@@ -14,13 +16,13 @@ export function inject(moduleName) {
       {
         get: function (target, property) {
           return new Proxy(function () {}, {
-            apply: throttle(function (target, thisArg, argumentsList) {
+            apply: function (target, thisArg, argumentsList) {
               if (mock[moduleName]) {
                 return mock[moduleName][property](...argumentsList)
               } else {
-                return invoke([moduleName], property, ...argumentsList)
+                return throttleInvoke([moduleName], property, ...argumentsList)
               }
-            }, 48),
+            },
           })
         },
       }
