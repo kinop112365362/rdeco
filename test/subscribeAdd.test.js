@@ -21,18 +21,20 @@ test('测试动态追加 subscribe', async () => {
   })
   const Test = createComponent({
     name: '@test/com',
-    controller: {
-      onClick() {
-        this.subscribe({
-          '@test/entity-2': {
-            state: {
-              text({ nextState }) {
-                expect(nextState).toBe('onMount')
-              },
+    subscribe(props) {
+      return {
+        [props.name]: {
+          state: {
+            text({ nextState }) {
+              console.debug(props)
+              expect(nextState).toBe('onMount')
             },
           },
-        })
-      },
+        },
+      }
+    },
+    controller: {
+      onClick() {},
     },
     view: {
       render() {
@@ -41,7 +43,7 @@ test('测试动态追加 subscribe', async () => {
     },
   })
 
-  render(<Test></Test>)
+  render(<Test name="@test/entity-2"></Test>)
   fireEvent.click(screen.getByRole('click'))
   const p = new Promise((resolve) => {
     setTimeout(() => {

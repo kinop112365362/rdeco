@@ -205,9 +205,9 @@ export function enhanceContext(key, value) {
   if (!combination.enhanceContext[key]) {
     combination.enhanceContext[key] = value
   } else {
-    console.warn(
-      `Context ${key} 已经被注入了，再次注入同名的 Context 不会生效，如果是组件集成，请检查彼此的 Context 是否重名`
-    )
+    // console.warn(
+    //   `Context ${key} 已经被注入了，再次注入同名的 Context 不会生效，如果是组件集成，请检查彼此的 Context 是否重名`
+    // )
   }
 }
 export function extendsSubscribe(key, handler) {
