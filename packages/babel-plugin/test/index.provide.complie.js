@@ -6,7 +6,7 @@
 import { createComponent, create, ReqComponent } from '@rdeco/web-app-sdk'
 import React from 'react' // import {scope} from '@/contanst'
 
-const helloFooo = req('@scope/hello-fooo')
+const helloFooo = req('@hrss-component/data-model/hello-fooo')
 
 const Comp = () => {
   return /*#__PURE__*/ React.createElement(ReqComponent, {
@@ -167,7 +167,7 @@ createComponent({
     },
   },
 })
-createComponent({
+createMembrane({
   name: '@hrss-component/data-model/hello-fooo2',
   view: {
     render() {

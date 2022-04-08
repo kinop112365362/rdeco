@@ -147,7 +147,7 @@ createComponent({
     },
   },
 })
-createComponent({
+createMembrane({
   name: '@scope/hello-fooo2',
   view: {
     render() {

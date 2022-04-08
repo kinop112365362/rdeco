@@ -30,57 +30,55 @@ module.exports = function ({ template, types: t }, option) {
     visitor: {
       CallExpression(CEPath) {
         CEPath.traverse({
-          Identifier(IPath) {
-            if (
-              IPath.node.name === 'createComponent' ||
-              IPath.node.name === 'create' ||
-              IPath.node.name === 'createElement'
-            ) {
-              CEPath.traverse({
-                ObjectExpression(OEPath) {
-                  OEPath.traverse({
-                    ObjectProperty(OPPath) {
-                      OPPath.traverse({
-                        Identifier(I1Path) {
-                          OPPath.traverse({
-                            StringLiteral(SLPath) {
-                              if (/^@scope/.test(SLPath.node.value)) {
-                                SLPath.replaceWith(
-                                  buildRealModuleName({
-                                    MODULE_NAME: `@${scope.appCode}/${
-                                      scope.configName
-                                    }/${SLPath.node.value.split('/')[1]}`,
-                                  })
-                                )
-                                SLPath.node.isHandled = true
-                              }
-                            },
-                          })
-                        },
-                      })
-                    },
-                  })
-                },
-              })
-            }
-            if (IPath.node.name === 'req') {
-              CEPath.traverse({
-                StringLiteral(SLPath) {
-                  if (/^@scope/.test(SLPath.node.value)) {
-                    SLPath.replaceWith(
-                      buildRealModuleName({
-                        MODULE_NAME: `@${scope.appCode}/${scope.configName}/${
-                          SLPath.node.value.split('/')[1]
-                        }`,
-                      })
-                    )
-                    SLPath.node.isHandled = true
-                  }
-                },
-              })
+          StringLiteral(SLPath) {
+            if (/^@scope/.test(SLPath.node.value)) {
+              SLPath.replaceWith(
+                buildRealModuleName({
+                  MODULE_NAME: `@${scope.appCode}/${scope.configName}/${
+                    SLPath.node.value.split('/')[1]
+                  }`,
+                })
+              )
+              SLPath.node.isHandled = true
             }
           },
         })
+        // CEPath.traverse({
+        //   Identifier(IPath) {
+        // CEPath.traverse({
+        //   ObjectExpression(OEPath) {
+        //     OEPath.traverse({
+        //       ObjectProperty(OPPath) {
+        //         OPPath.traverse({
+        //           Identifier(I1Path) {
+        //             OPPath.traverse({
+
+        //             })
+        //           },
+        //         })
+        //       },
+        //     })
+        //   },
+        // })
+
+        // if (IPath.node.name === 'req') {
+        //   CEPath.traverse({
+        //     StringLiteral(SLPath) {
+        //       if (/^@scope/.test(SLPath.node.value)) {
+        //         SLPath.replaceWith(
+        //           buildRealModuleName({
+        //             MODULE_NAME: `@${scope.appCode}/${scope.configName}/${
+        //               SLPath.node.value.split('/')[1]
+        //             }`,
+        //           })
+        //         )
+        //         SLPath.node.isHandled = true
+        //       }
+        //     },
+        //   })
+        // }
+        //   },
+        // })
       },
     },
   }
