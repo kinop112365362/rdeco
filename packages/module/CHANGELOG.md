@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.20...@rdeco/module@3.4.0) (2022-04-11)
+
+
+### Features
+
+* **module:** add reqJSON 用于读取配置 ([46432b9](https://github.com/kinop112365362/structured-react-hook/commit/46432b9c183f74246e9348f906d03009f394ca86))
+
+
+
+
+
 ## [3.3.20](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.19...@rdeco/module@3.3.20) (2022-04-11)
 
 **Note:** Version bump only for package @rdeco/module

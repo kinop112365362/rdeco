@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.8.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.23...@rdeco/web-app-sdk@3.8.0) (2022-04-11)
+
+
+### Features
+
+* **module:** add reqJSON 用于读取配置 ([46432b9](https://github.com/kinop112365362/rdeco/commit/46432b9c183f74246e9348f906d03009f394ca86))
+
+
+
+
+
 ## [3.7.23](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.22...@rdeco/web-app-sdk@3.7.23) (2022-04-11)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk
