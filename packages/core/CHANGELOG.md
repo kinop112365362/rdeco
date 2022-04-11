@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.12.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.7...@rdeco/core@3.12.8) (2022-04-11)
+
+
+### Bug Fixes
+
+* **emit:** 驼峰校验取消 ([ea2657d](https://github.com/kinop112365362/rdeco/commit/ea2657d041c808cd5ce052c62f6106ef4b02a4a1))
+
+
+
+
+
 ## [3.12.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.6...@rdeco/core@3.12.7) (2022-04-08)
 
 **Note:** Version bump only for package @rdeco/core
