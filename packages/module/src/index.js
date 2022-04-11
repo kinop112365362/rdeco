@@ -27,15 +27,40 @@ export function inject(moduleName) {
   }
 }
 
+export function reqJSON(path) {
+  console.info(`${path} 配置未加载，即将开始加载`)
+  const [appCode, configName] = path.split('/')
+  if (!appCode) {
+    throw new Error('appCode is unknown')
+  }
+  if (!configName) {
+    throw new Error('configName is unknown')
+  }
+  if (
+    !combination.loadedConfigJsonNamelist.find(
+      (name) => name === `${appCode}/${configName}`
+    )
+  ) {
+    combination.loadedConfigJsonNamelist.push(`${appCode}/${configName}`)
+    loadRemoteConfig({
+      appCode: appCode.split('@')[1],
+      name: configName,
+      type: 'json',
+    }).then(() => {
+      console.info(`${appCode}/${moduleName} 配置加载完成`)
+    })
+  }
+}
+
 export function req(path) {
   if (combination.components[path] === undefined) {
-    console.warn(`${path} 模块未加载，即将开始加载`)
+    console.info(`${path} 模块未加载，即将开始加载`)
     const [appCode, moduleName, compName] = path.split('/')
     if (!appCode) {
       throw new Error('appCode is unknown')
     }
     if (!moduleName) {
-      throw new Error('configName is unknown')
+      throw new Error('moduleName is unknown')
     }
     if (!compName) {
       console.warn(`未指定组件名称，仅加载模块 ${appCode}/${moduleName}`)
@@ -51,7 +76,7 @@ export function req(path) {
         name: moduleName,
         type: 'js',
       }).then(() => {
-        console.warn(`${appCode}/${moduleName} 模块加载完成`)
+        console.info(`${appCode}/${moduleName} 模块加载完成`)
       })
     }
   }

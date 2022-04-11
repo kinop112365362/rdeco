@@ -26,7 +26,7 @@ import {
 } from '@rdeco/react'
 
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
-import { inject, req } from '@rdeco/module'
+import { inject, req, reqJSON } from '@rdeco/module'
 const rdeco = {
   enhanceContext,
   create,
@@ -51,6 +51,7 @@ const rdeco = {
   inject,
   registerModule,
   req,
+  reqJSON,
   mock,
   compose,
   createCompose,
@@ -79,6 +80,7 @@ export {
   inject,
   registerModule,
   req,
+  reqJSON,
   mock,
   compose,
   createCompose,
