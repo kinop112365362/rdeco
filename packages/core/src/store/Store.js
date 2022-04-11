@@ -92,10 +92,10 @@ export class Store {
     // eslint-disable-next-line no-undef
     this.invoke = invoke
     this.emit = (fnKey, data) => {
-      const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
-      if (!reg.test(fnKey)) {
-        throw new Error(`this.emit 只支持驼峰命名的 event`)
-      }
+      // const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
+      // if (!reg.test(fnKey)) {
+      //   throw new Error(`this.emit 只支持驼峰命名的 event`)
+      // }
       const value = {
         eventTargetMeta: {
           subjectKey: 'event',
