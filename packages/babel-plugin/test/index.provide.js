@@ -6,6 +6,7 @@ import React from 'react'
 // import {scope} from '@/contanst'
 
 const helloFooo = req('@scope/hello-fooo')
+const helloFooo1 = inject('@scope/hello-fooo')
 const Comp = () => {
   return <ReqComponent name="@scope/hello-fff"></ReqComponent>
 }

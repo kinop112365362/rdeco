@@ -173,6 +173,7 @@ export class Store {
       'service'
     )
     this.private.serviceContext.service = serviceBindContext
+    this.private.serviceContext.view = viewBindContext
     this.private.controllerContext.service = serviceBindContext
     this.private.viewContext.controller = ctrlBindContext
     this.private.viewContext.view = viewBindContext
