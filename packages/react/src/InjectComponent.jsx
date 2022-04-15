@@ -42,19 +42,26 @@ export function InjectComponent(props) {
 }
 
 export function ReqComponent(props) {
-  const remote = req(props.name)
   const [time, setTime] = useState(0)
   let Component = useRef(() => <></>)
   useEffect(() => {
-    remote
-      .getComponent()
-      .then((com) => {
-        Component.current = com
-        setTime(1)
-      })
-      .catch((e) => {
-        console.warn(e)
-      })
+    if (
+      window.$$rdeco_combination.reactComponents &&
+      window.$$rdeco_combination.reactComponents[props.name]
+    ) {
+      Component.current = window.$$rdeco_combination.reactComponents[props.name]
+    } else {
+      const remote = req(props.name)
+      remote
+        .getComponent()
+        .then((com) => {
+          Component.current = com
+          setTime(1)
+        })
+        .catch((e) => {
+          console.warn(e)
+        })
+    }
   }, [])
   return (
     <>
