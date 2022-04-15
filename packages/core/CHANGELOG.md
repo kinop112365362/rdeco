@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.13.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.9...@rdeco/core@3.13.0) (2022-04-15)
+
+
+### Features
+
+* **react:** 现在 createComponent 会自导出组件，不需要额外的 getComponent ([465e1d1](https://github.com/kinop112365362/rdeco/commit/465e1d171aa877ac0c0938d652e23a65c3db4917))
+
+
+
+
+
 ## [3.12.9](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.8...@rdeco/core@3.12.9) (2022-04-13)
 
 **Note:** Version bump only for package @rdeco/core
