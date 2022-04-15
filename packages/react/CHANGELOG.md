@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.5.0...@rdeco/react@3.5.1) (2022-04-15)
+
+
+### Bug Fixes
+
+* **reqcomponent:** 同步组件的时候忘记渲染 ([3a3ff09](https://github.com/kinop112365362/structured-react-hook/commit/3a3ff098e7fdc4a8f1256c01d784b5e516ac4ebe))
+
+
+
+
+
 # [3.5.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.4.23...@rdeco/react@3.5.0) (2022-04-15)
 
 
