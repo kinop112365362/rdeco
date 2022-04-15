@@ -50,6 +50,7 @@ export function ReqComponent(props) {
       window.$$rdeco_combination.reactComponents[props.name]
     ) {
       Component.current = window.$$rdeco_combination.reactComponents[props.name]
+      setTime(1)
     } else {
       const remote = req(props.name)
       remote
