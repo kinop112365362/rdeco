@@ -218,7 +218,10 @@ export function extendsSubscribe(key, handler) {
 }
 if (window) {
   if (window.$$rdeco_combination) {
-    if (!window.$$rdeco_combination.$record) {
+    if (
+      !window.$$rdeco_combination.$record ||
+      !window.$$rdeco_combination.reactComponents
+    ) {
       window.$$rdeco_combination.$record = combination.$record
       window.$$rdeco_combination.loadedConfigNamelist =
         combination.loadedConfigNamelist
