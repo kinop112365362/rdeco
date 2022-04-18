@@ -3,8 +3,7 @@
 import React from 'react'
 import { useComponent } from './useComponent'
 import deepmerge from 'deepmerge'
-import { combination, enhanceContext } from '@rdeco/core/lib/store/combination'
-enhanceContext('reactComponents', {})
+import { combination } from '@rdeco/core/lib/store/combination'
 export function createComponent(componentConfig) {
   const component = deepmerge({}, componentConfig)
   const baseSymbol = component.name

@@ -5,6 +5,7 @@ let combination = {
   version: packageJSON.version, // 此版本号是 @rdeco/core 的版本号
   loader: (n) => n,
   modules: {},
+  reactComponents: {},
   loadedConfigNamelist: [],
   components: {},
   pluginSubject: new ReplaySubject(9999),
@@ -221,6 +222,7 @@ if (window) {
       window.$$rdeco_combination.$record = combination.$record
       window.$$rdeco_combination.loadedConfigNamelist =
         combination.loadedConfigNamelist
+      window.$$rdeco_combination.reactComponents = combination.reactComponents
     }
     combination = window.$$rdeco_combination
   } else {
