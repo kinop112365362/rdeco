@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.4](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.4.3...@rdeco/module@3.4.4) (2022-04-18)
+
+
+### Bug Fixes
+
+* **req:** reqJSON api  调通 ([ccb8339](https://github.com/kinop112365362/structured-react-hook/commit/ccb8339faaf9a45f4176c5e1cfe75d32849cccdf))
+
+
+
+
+
 ## [3.4.3](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.4.2...@rdeco/module@3.4.3) (2022-04-18)
 
 **Note:** Version bump only for package @rdeco/module
