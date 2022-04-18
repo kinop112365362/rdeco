@@ -5,7 +5,6 @@ let combination = {
   version: packageJSON.version, // 此版本号是 @rdeco/core 的版本号
   loader: (n) => n,
   modules: {},
-  reactComponents: {},
   loadedConfigNamelist: [],
   components: {},
   pluginSubject: new ReplaySubject(9999),
