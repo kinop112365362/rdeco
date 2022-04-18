@@ -27,8 +27,7 @@ export function inject(moduleName) {
   }
 }
 
-export function reqJSON(path) {
-  console.info(`${path} 配置未加载，即将开始加载`)
+export async function reqJSON(path) {
   const [appCode, configName] = path.split('/')
   if (!appCode) {
     throw new Error('appCode is unknown')
@@ -36,20 +35,12 @@ export function reqJSON(path) {
   if (!configName) {
     throw new Error('configName is unknown')
   }
-  if (
-    !combination.loadedConfigJsonNamelist.find(
-      (name) => name === `${appCode}/${configName}`
-    )
-  ) {
-    combination.loadedConfigJsonNamelist.push(`${appCode}/${configName}`)
-    loadRemoteConfig({
-      appCode: appCode.split('@')[1],
-      name: configName,
-      type: 'json',
-    }).then(() => {
-      console.info(`${appCode}/${moduleName} 配置加载完成`)
-    })
-  }
+  const data = await loadRemoteConfig({
+    appCode: appCode.split('@')[1],
+    name: configName,
+    type: 'json',
+  })
+  return data
 }
 
 export function req(path) {
