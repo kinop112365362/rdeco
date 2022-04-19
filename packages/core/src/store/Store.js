@@ -80,10 +80,10 @@ export class Store {
     this.setter = {}
     this.props = storeConfig.props
     this.subjects = {
-      state: new ReplaySubject(9),
+      state: new BehaviorSubject(null),
       controller: new BehaviorSubject(null),
       service: new BehaviorSubject(null),
-      event: new ReplaySubject(9),
+      event: new BehaviorSubject(null),
       fallback: new BehaviorSubject(null),
       symbol: this.symbol,
     }
