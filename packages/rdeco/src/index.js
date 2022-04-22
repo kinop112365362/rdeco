@@ -15,6 +15,7 @@ import {
 } from '@rdeco/core'
 import {
   createComponent,
+  createReqComponent,
   withComponent,
   useComponent,
   Fallback,
@@ -36,6 +37,7 @@ const rdeco = {
   namelist,
   configModuleLoader,
   createComponent,
+  createReqComponent,
   withComponent,
   useComponent,
   Fallback,
@@ -65,6 +67,7 @@ export {
   namelist,
   configModuleLoader,
   createComponent,
+  createReqComponent,
   withComponent,
   useComponent,
   Fallback,
