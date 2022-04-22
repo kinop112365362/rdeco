@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.7...@rdeco/web-app-sdk@3.8.8) (2022-04-22)
+
+
+### Bug Fixes
+
+* **react:** 未导出 createReqComponent ([3f74cec](https://github.com/kinop112365362/rdeco/commit/3f74cec93b0e0599e52151fd25da15cd062b57d2))
+
+
+
+
+
 ## [3.8.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.6...@rdeco/web-app-sdk@3.8.7) (2022-04-22)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk
