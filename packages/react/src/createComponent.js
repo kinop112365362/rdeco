@@ -8,7 +8,7 @@ import { combination, create } from '@rdeco/core/'
 export function createReqComponent(componentConfig) {
   const Component = createComponent(componentConfig)
   create({
-    name: `${componentConfig}/req-entry`,
+    name: `${componentConfig.name}/req-entry`,
     exports: {
       getComponent(resolve) {
         resolve(Component)
