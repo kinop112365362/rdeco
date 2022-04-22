@@ -3,8 +3,7 @@
 import React from 'react'
 import { useComponent } from './useComponent'
 import deepmerge from 'deepmerge'
-import { combination } from '@rdeco/core/lib/store/combination'
-import { create } from '@rdeco/core/src'
+import { combination, create } from '@rdeco/core/'
 
 export function createReqComponent(componentConfig) {
   const Component = createComponent(componentConfig)
