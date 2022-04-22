@@ -42,6 +42,9 @@ export function InjectComponent(props) {
 }
 
 export function ReqComponent(props) {
+  console.warn(
+    'ReqComponent 如果要获取远程组件，只能获取通过 createReqComponent 创建的组件，如果未渲染组件请检查组件是否使用该 API 创建'
+  )
   const [time, setTime] = useState(0)
   let Component = useRef(() => <></>)
   useEffect(() => {
@@ -52,7 +55,7 @@ export function ReqComponent(props) {
       Component.current = window.$$rdeco_combination.reactComponents[props.name]
       setTime(1)
     } else {
-      const remote = req(props.name)
+      const remote = req(`${props.name}/req-entry`)
       remote
         .getComponent()
         .then((com) => {
