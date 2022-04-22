@@ -4,6 +4,21 @@ import React from 'react'
 import { useComponent } from './useComponent'
 import deepmerge from 'deepmerge'
 import { combination } from '@rdeco/core/lib/store/combination'
+import { create } from '@rdeco/core/src'
+
+export function createReqComponent(componentConfig) {
+  const Component = createComponent(componentConfig)
+  create({
+    name: `${componentConfig}/req-entry`,
+    exports: {
+      getComponent(resolve) {
+        resolve(Component)
+      },
+    },
+  })
+  return createComponent(componentConfig)
+}
+
 export function createComponent(componentConfig) {
   const component = deepmerge({}, componentConfig)
   const baseSymbol = component.name
