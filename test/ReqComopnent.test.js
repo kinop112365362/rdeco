@@ -14,8 +14,13 @@ import {
 } from '@rdeco/web-app-sdk'
 import { combination } from '@rdeco/core/src'
 
+window.__GALAXY_CONFIG_ENV__ = {
+  envName: 'dev',
+  subEnvName: 'servyou-dev',
+}
+
 test('React Inject Component Test', async () => {
-  const Tag1 = createComponent({
+  const Tag1 = createReqComponent({
     name: '@test/tag1',
     view: {
       render() {
@@ -24,14 +29,6 @@ test('React Inject Component Test', async () => {
             tag1 <div role="id">{this.props.params.id}</div>{' '}
           </div>
         )
-      },
-    },
-  })
-  create({
-    name: '@test/test/tag-module1',
-    exports: {
-      getComponent(next) {
-        next(Tag1)
       },
     },
   })
