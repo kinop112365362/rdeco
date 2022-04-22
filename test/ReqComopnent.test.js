@@ -8,6 +8,7 @@ import { act } from 'react-dom/test-utils'
 import '@testing-library/jest-dom/extend-expect'
 import {
   createComponent,
+  createReqComponent,
   create,
   withComponent,
   ReqComponent,
