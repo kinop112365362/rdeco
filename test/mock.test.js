@@ -26,6 +26,9 @@ test('测试 Mock api', async () => {
       begin(resolve) {
         resolve('hello')
       },
+      begin2(resolve) {
+        resolve('hello begin2')
+      },
     },
   })
   const Test = createComponent({
@@ -38,6 +41,9 @@ test('测试 Mock api', async () => {
         const dataModel = req('@test/config/data-model')
         dataModel.begin().then((res) => {
           expect(res).toBe('world')
+        })
+        dataModel.begin2().then((res) => {
+          expect(res).toBe('hello begin2')
         })
       },
     },
