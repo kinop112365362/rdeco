@@ -26,10 +26,15 @@ export function createComponent(componentConfig) {
     const store = useComponent(component, props)
     return <>{store.view.render()}</>
   }
-
-  Object.defineProperty(HookComponent, 'name', {
-    value: `${component.name}`,
-  })
+  if (component.reactComponentName) {
+    Object.defineProperty(HookComponent, 'name', {
+      value: `${component.reactComponentName}`,
+    })
+  } else {
+    Object.defineProperty(HookComponent, 'name', {
+      value: `${component.name}`,
+    })
+  }
   HookComponent.symbol = baseSymbol
   if (!combination.reactComponents[component.name]) {
     combination.reactComponents[component.name] = HookComponent

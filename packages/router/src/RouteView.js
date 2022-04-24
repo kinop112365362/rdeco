@@ -9,6 +9,7 @@ import { getPath, handlePath, pathToName, matchPath, matchName } from './utils'
  */
 const RouteView = createComponent({
   name: '@rdeco/router5-route-view',
+  reactComponentName: 'RdecoRouteView',
   state: {
     active: false,
   },
