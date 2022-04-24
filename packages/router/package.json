@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/router",
-  "version": "3.0.80",
+  "version": "3.0.81",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@rdeco/core": "3.13.2",
-    "@rdeco/react": "3.6.4",
+    "@rdeco/react": "3.6.5",
     "path-to-regexp": "^6.2.0",
     "query-string": "^7.0.1",
     "router5": "^8.0.1",

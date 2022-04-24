@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.81](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.80...@rdeco/router@3.0.81) (2022-04-24)
+
+
+### Bug Fixes
+
+* **react:** 支持手动添加 reactComponentName 来支持热更新 ([cf9ac4e](https://github.com/kinop112365362/structured-react-hook/commit/cf9ac4e7c15edec8f68fd13cd384eaafcb8084bc))
+
+
+
+
+
 ## [3.0.80](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.79...@rdeco/router@3.0.80) (2022-04-22)
 
 **Note:** Version bump only for package @rdeco/router
