@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.13](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.12...@rdeco/web-app-sdk@3.8.13) (2022-04-24)
+
+
+### Bug Fixes
+
+* **hylia:** 构建丢失进度条 ([d757c5a](https://github.com/kinop112365362/rdeco/commit/d757c5ad5527bcdd47e259171e89c3b2f396e616))
+
+
+
+
+
 ## [3.8.12](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.11...@rdeco/web-app-sdk@3.8.12) (2022-04-24)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk

@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/web-app-sdk",
-  "version": "3.8.12",
+  "version": "3.8.13",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
