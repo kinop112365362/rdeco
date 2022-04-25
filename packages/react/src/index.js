@@ -4,7 +4,7 @@ export {
   InjectComponent,
   ReqComponent,
   ReqComponentWithEntry,
-} from './InjectComponent.jsx'
+} from './InjectComponent'
 export { Fallback, createFallback } from './Fallback'
 export { createComponent, createReqComponent } from './createComponent'
 export { useComponent } from './useComponent'
