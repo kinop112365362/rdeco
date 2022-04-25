@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.13.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.13.2...@rdeco/core@3.13.3) (2022-04-25)
+
+
+### Bug Fixes
+
+* **read:** readState 当获取不到状态时，说明组件未挂载，返回 false 代替 throw error ([ecf807b](https://github.com/kinop112365362/rdeco/commit/ecf807b3fba09c5e373d48b594fec020724db336))
+
+
+
+
+
 ## [3.13.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.13.1...@rdeco/core@3.13.2) (2022-04-19)
 
 **Note:** Version bump only for package @rdeco/core
