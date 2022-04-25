@@ -30,6 +30,7 @@ export const readState: any
 export const namelist: any
 export const configModuleLoader: any
 export const createComponent: createComponentType
+export const createReqComponent: createComponentType
 export const withComponent: any
 export const useComponent: any
 export const Fallback: any
@@ -48,4 +49,5 @@ export const compose: any
 export const createCompose: any
 export const req: any
 export const ReqComponent: any
+export const ReqComponentWithEntry: any
 
