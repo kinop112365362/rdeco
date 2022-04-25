@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.10](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.6.9...@rdeco/react@3.6.10) (2022-04-25)
+
+
+### Bug Fixes
+
+* **index:** 未导出 ReqComponentWithEntry ([9842eb8](https://github.com/kinop112365362/structured-react-hook/commit/9842eb847edf93013348e1edc24b24285d63c945))
+* **index:** 未导出 ReqComponentWithEntry ([7c1eba7](https://github.com/kinop112365362/structured-react-hook/commit/7c1eba7e37d62bbd533d02bf9fd84737374d5fd6))
+* **index:** 未导出 ReqComponentWithEntry ([3a30342](https://github.com/kinop112365362/structured-react-hook/commit/3a3034280d1a1de2901060e655b2d606e6e26e0b))
+
+
+
+
+
 ## [3.6.9](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.6.8...@rdeco/react@3.6.9) (2022-04-25)
 
 **Note:** Version bump only for package @rdeco/react
