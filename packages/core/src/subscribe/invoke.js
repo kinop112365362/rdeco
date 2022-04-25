@@ -68,6 +68,13 @@ export const invoke = (...args) => {
         resolve(value)
       },
       error(e) {
+        const info = {
+          type: 'invokeError',
+          targetMeta,
+          fnKey,
+          result: value,
+        }
+        combination.$record(info)
         reject(e)
       },
     })
