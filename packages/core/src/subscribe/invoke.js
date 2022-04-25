@@ -72,7 +72,7 @@ export const invoke = (...args) => {
           type: 'invokeError',
           targetMeta,
           fnKey,
-          result: value,
+          result: e,
         }
         combination.$record(info)
         reject(e)
