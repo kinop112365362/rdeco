@@ -51,39 +51,11 @@ export function ReqComponent(props) {
       Component.current = window.$$rdeco_combination.reactComponents[props.name]
       setTime(1)
     } else {
-      const remote = req(`${props.name}`)
-      remote
-        .getComponent()
-        .then((com) => {
-          Component.current = com
-          setTime(1)
-        })
-        .catch((e) => {
-          console.warn(e)
-        })
-    }
-  }, [])
-  return (
-    <>
-      <Component.current time={time} {...props}></Component.current>
-    </>
-  )
-}
-export function ReqComponentWithEntry(props) {
-  console.warn(
-    'ReqComponentWithEntry 如果要自动获取远程组件，只能获取通过 createReqComponent 创建的组件，如果未渲染组件请检查组件是否使用该 API 创建'
-  )
-  const [time, setTime] = useState(0)
-  let Component = useRef(() => <></>)
-  useEffect(() => {
-    if (
-      window.$$rdeco_combination.reactComponents &&
-      window.$$rdeco_combination.reactComponents[props.name]
-    ) {
-      Component.current = window.$$rdeco_combination.reactComponents[props.name]
-      setTime(1)
-    } else {
-      const remote = req(`${props.name}/req-entry`)
+      let remoteReqName = props.name
+      if (props.autoEntry) {
+        remoteReqName = `${props.name}/req-entry`
+      }
+      const remote = req(remoteReqName)
       remote
         .getComponent()
         .then((com) => {

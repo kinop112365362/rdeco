@@ -49,5 +49,4 @@ export const compose: any
 export const createCompose: any
 export const req: any
 export const ReqComponent: any
-export const ReqComponentWithEntry: any
 
