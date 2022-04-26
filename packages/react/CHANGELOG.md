@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.11](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.6.10...@rdeco/react@3.6.11) (2022-04-26)
+
+
+### Bug Fixes
+
+* **react:** ReqComponent 兼容 createReqComponent 和 createComponent 创建的组件 ([1b1e93f](https://github.com/kinop112365362/structured-react-hook/commit/1b1e93f35af03bf77232178191270a161f14eaa5))
+
+
+
+
+
 ## [3.6.10](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.6.9...@rdeco/react@3.6.10) (2022-04-25)
 
 

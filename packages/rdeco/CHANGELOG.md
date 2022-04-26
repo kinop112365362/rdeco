@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.19](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.18...@rdeco/web-app-sdk@3.8.19) (2022-04-26)
+
+
+### Bug Fixes
+
+* **react:** ReqComponent 兼容 createReqComponent 和 createComponent 创建的组件 ([1b1e93f](https://github.com/kinop112365362/rdeco/commit/1b1e93f35af03bf77232178191270a161f14eaa5))
+
+
+
+
+
 ## [3.8.18](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.17...@rdeco/web-app-sdk@3.8.18) (2022-04-25)
 
 
