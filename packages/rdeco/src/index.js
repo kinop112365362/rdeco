@@ -58,6 +58,9 @@ const rdeco = {
   compose,
   createCompose,
 }
+if (window.rdeco === undefined) {
+  window.rdeco = rdeco
+}
 export {
   enhanceContext,
   create,
