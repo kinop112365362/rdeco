@@ -40,6 +40,7 @@ export function InjectComponent(props) {
     </>
   )
 }
+
 export function ReqComponent(props) {
   const [time, setTime] = useState(0)
   const [loaded, setLoaded] = useState(false)
@@ -52,6 +53,17 @@ export function ReqComponent(props) {
       props.done()
     }
     return render()
+  }
+  const renderComponent = () => {
+    if (props.componentProps) {
+      return (
+        <Component.current
+          time={time}
+          {...props.componentProps}
+        ></Component.current>
+      )
+    }
+    return <Component.current time={time} {...props}></Component.current>
   }
   useEffect(() => {
     if (
@@ -82,9 +94,9 @@ export function ReqComponent(props) {
   }, [])
   if (props.fallback) {
     if (loaded) {
-      return <Component.current time={time} {...props}></Component.current>
+      renderComponent()
     }
     return <>{props.fallback}</>
   }
-  return <Component.current time={time} {...props}></Component.current>
+  renderComponent()
 }
