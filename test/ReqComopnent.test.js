@@ -52,6 +52,7 @@ test('React Inject Component Test', async () => {
         return (
           <div>
             <ReqComponent
+              fallback={<div>loading ...</div>}
               name="@test/tag1"
               params={this.state.params}
             ></ReqComponent>
