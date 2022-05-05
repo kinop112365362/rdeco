@@ -46,6 +46,7 @@ export function ReqComponent(props) {
   const [loaded, setLoaded] = useState(false)
   let Component = useRef(() => <></>)
   const render = () => {
+    setLoaded(true)
     setTime(1)
   }
   const done = () => {
@@ -71,7 +72,6 @@ export function ReqComponent(props) {
       window.$$rdeco_combination.reactComponents[props.name]
     ) {
       Component.current = window.$$rdeco_combination.reactComponents[props.name]
-      setLoaded(true)
       done()
     } else {
       let remoteReqName = props.name
@@ -83,7 +83,6 @@ export function ReqComponent(props) {
         .getComponent()
         .then((com) => {
           Component.current = com
-          setLoaded(true)
           done()
         })
         .catch((e) => {
@@ -94,9 +93,9 @@ export function ReqComponent(props) {
   }, [])
   if (props.fallback) {
     if (loaded) {
-      renderComponent()
+      return renderComponent()
     }
     return <>{props.fallback}</>
   }
-  renderComponent()
+  return renderComponent()
 }
