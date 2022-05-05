@@ -42,6 +42,7 @@ export function InjectComponent(props) {
 }
 export function ReqComponent(props) {
   const [time, setTime] = useState(0)
+  const [loaded, setLoaded] = useState(false)
   let Component = useRef(() => <></>)
   useEffect(() => {
     if (
@@ -49,6 +50,7 @@ export function ReqComponent(props) {
       window.$$rdeco_combination.reactComponents[props.name]
     ) {
       Component.current = window.$$rdeco_combination.reactComponents[props.name]
+      setLoaded(true)
       setTime(1)
     } else {
       let remoteReqName = props.name
@@ -60,16 +62,20 @@ export function ReqComponent(props) {
         .getComponent()
         .then((com) => {
           Component.current = com
+          setLoaded(true)
           setTime(1)
         })
         .catch((e) => {
+          setLoaded(true)
           console.warn(e)
         })
     }
   }, [])
-  return (
-    <>
-      <Component.current time={time} {...props}></Component.current>
-    </>
-  )
+  if (props.fallback) {
+    if (loaded) {
+      return <Component.current time={time} {...props}></Component.current>
+    }
+    return <>{props.fallback}</>
+  }
+  return <Component.current time={time} {...props}></Component.current>
 }
