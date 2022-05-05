@@ -44,6 +44,15 @@ export function ReqComponent(props) {
   const [time, setTime] = useState(0)
   const [loaded, setLoaded] = useState(false)
   let Component = useRef(() => <></>)
+  const render = () => {
+    setTime(1)
+  }
+  const done = () => {
+    if (props.done) {
+      return props.done(render)
+    }
+    return render()
+  }
   useEffect(() => {
     if (
       window.$$rdeco_combination.reactComponents &&
@@ -51,7 +60,7 @@ export function ReqComponent(props) {
     ) {
       Component.current = window.$$rdeco_combination.reactComponents[props.name]
       setLoaded(true)
-      setTime(1)
+      done()
     } else {
       let remoteReqName = props.name
       if (props.autoEntry) {
@@ -63,7 +72,7 @@ export function ReqComponent(props) {
         .then((com) => {
           Component.current = com
           setLoaded(true)
-          setTime(1)
+          done()
         })
         .catch((e) => {
           setLoaded(true)
