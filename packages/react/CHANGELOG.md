@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.6.11...@rdeco/react@3.7.0) (2022-05-05)
+
+
+### Features
+
+* **fallback:** 为 ReqComponent 添加 fallback api ([cb770b4](https://github.com/kinop112365362/structured-react-hook/commit/cb770b4036578e0ce6ce1e93295d3072978af24f))
+
+
+
+
+
 ## [3.6.11](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.6.10...@rdeco/react@3.6.11) (2022-04-26)
 
 
