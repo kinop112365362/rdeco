@@ -49,7 +49,7 @@ export function ReqComponent(props) {
   }
   const done = () => {
     if (props.done) {
-      return props.done(render)
+      props.done()
     }
     return render()
   }
