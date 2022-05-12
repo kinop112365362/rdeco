@@ -21,14 +21,14 @@ export function Inject(props) {
 }
 
 export function InjectComponent(props) {
-  const [time, setTime] = useState(0)
+  const [render, setRender] = useState(false)
   let Component = useRef(() => <></>)
   useEffect(() => {
     inject(props.name)
       .getComponent()
       .then((com) => {
         Component.current = com
-        setTime(1)
+        setRender(true)
       })
       .catch((e) => {
         console.warn(e)
@@ -37,22 +37,17 @@ export function InjectComponent(props) {
   if (props.componentProps) {
     return (
       <>
-        <Component.current
-          rdecoCompIsReady={time}
-          {...props.componentProps}
-        ></Component.current>
+        {render && (
+          <Component.current {...props.componentProps}></Component.current>
+        )}
       </>
     )
   }
-  return (
-    <>
-      <Component.current rdecoCompIsReady={time} {...props}></Component.current>
-    </>
-  )
+  return <>{render && <Component.current {...props}></Component.current>}</>
 }
 
 export function ReqComponent(props) {
-  const [time, setTime] = useState(0)
+  const [render, setRender] = useState(false)
   const [loaded, setLoaded] = useState(false)
   let Component = useRef(() => <></>)
   const done = () => {
@@ -60,28 +55,20 @@ export function ReqComponent(props) {
       props.done()
     }
     setLoaded(true)
-    setTime(1)
+    setRender(true)
     return
   }
   const renderComponent = () => {
     if (props.componentProps) {
       return (
         <>
-          <Component.current
-            rdecoCompIsReady={time}
-            {...props.componentProps}
-          ></Component.current>
+          {render && (
+            <Component.current {...props.componentProps}></Component.current>
+          )}
         </>
       )
     }
-    return (
-      <>
-        <Component.current
-          rdecoCompIsReady={time}
-          {...props}
-        ></Component.current>
-      </>
-    )
+    return <>{render && <Component.current {...props}></Component.current>}</>
   }
   useEffect(() => {
     if (
