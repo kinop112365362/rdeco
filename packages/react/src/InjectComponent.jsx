@@ -34,9 +34,19 @@ export function InjectComponent(props) {
         console.warn(e)
       })
   }, [])
+  if (props.componentProps) {
+    return (
+      <>
+        <Component.current
+          rdecoCompIsReady={time}
+          {...props.componentProps}
+        ></Component.current>
+      </>
+    )
+  }
   return (
     <>
-      <Component.current time={time} {...props}></Component.current>
+      <Component.current rdecoCompIsReady={time} {...props}></Component.current>
     </>
   )
 }
@@ -45,27 +55,33 @@ export function ReqComponent(props) {
   const [time, setTime] = useState(0)
   const [loaded, setLoaded] = useState(false)
   let Component = useRef(() => <></>)
-  const render = () => {
-    setLoaded(true)
-    setTime(1)
-  }
   const done = () => {
     if (props.done) {
       props.done()
     }
-    return render()
+    setLoaded(true)
+    setTime(1)
+    return
   }
   const renderComponent = () => {
     if (props.componentProps) {
       return (
         <>
-          {time && (
-            <Component.current {...props.componentProps}></Component.current>
-          )}
+          <Component.current
+            rdecoCompIsReady={time}
+            {...props.componentProps}
+          ></Component.current>
         </>
       )
     }
-    return <>{time && <Component.current {...props}></Component.current>}</>
+    return (
+      <>
+        <Component.current
+          rdecoCompIsReady={time}
+          {...props}
+        ></Component.current>
+      </>
+    )
   }
   useEffect(() => {
     if (
