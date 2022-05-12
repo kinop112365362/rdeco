@@ -58,13 +58,14 @@ export function ReqComponent(props) {
   const renderComponent = () => {
     if (props.componentProps) {
       return (
-        <Component.current
-          time={time}
-          {...props.componentProps}
-        ></Component.current>
+        <>
+          {time && (
+            <Component.current {...props.componentProps}></Component.current>
+          )}
+        </>
       )
     }
-    return <Component.current time={time} {...props}></Component.current>
+    return <>{time && <Component.current {...props}></Component.current>}</>
   }
   useEffect(() => {
     if (
