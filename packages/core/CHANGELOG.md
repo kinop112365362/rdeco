@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.14.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.13.3...@rdeco/core@3.14.0) (2022-05-19)
+
+
+### Features
+
+* **invokeError:** 添加invokeError ([b1b3bfe](https://github.com/kinop112365362/rdeco/commit/b1b3bfef000dbb7ad499c7eb414040d0ba12c1c9))
+* **invokeError:** 修改invokeError的result的值 ([6455bba](https://github.com/kinop112365362/rdeco/commit/6455bbab87d121c7f6a108a9e15048d5f25f2b45))
+
+
+
+
+
 ## [3.13.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.13.2...@rdeco/core@3.13.3) (2022-04-25)
 
 

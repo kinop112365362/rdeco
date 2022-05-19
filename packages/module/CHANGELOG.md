@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.5.1...@rdeco/module@3.6.0) (2022-05-19)
+
+
+### Features
+
+* **browser-runtime-loader:** 升级包增加转发调试能力 ([0866784](https://github.com/kinop112365362/structured-react-hook/commit/0866784cc4bccda32f62e5203db1801c96b53aab))
+
+
+
+
+
 ## [3.5.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.5.0...@rdeco/module@3.5.1) (2022-04-25)
 
 **Note:** Version bump only for package @rdeco/module
