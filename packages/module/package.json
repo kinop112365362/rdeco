@@ -37,7 +37,7 @@
     "@babel/runtime": "^7.12.1"
   },
   "dependencies": {
-    "@afe/browser-runtime-loader": "^1.6.0",
+    "@afe/browser-runtime-loader": "^1.7.0",
     "@rdeco/core": "3.13.3",
     "lodash.throttle": "^4.1.1"
   },

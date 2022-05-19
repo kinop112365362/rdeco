@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@afe/browser-runtime-loader@^1.6.0":
-  version "1.6.4"
-  resolved "http://npm.dc.servyou-it.com/@afe%2fbrowser-runtime-loader/-/browser-runtime-loader-1.6.4.tgz#f1c262158b044403b6f942ec27e2290aaa0ca615"
-  integrity sha512-CG6h0KHNfT7lpiSJrhmRZgEOy83TCvtZ5kDb5F2uWdlE/cL5EGJgifMzN/7hoFODp+ozczpvsBqIv28FeXB9FA==
+"@afe/browser-runtime-loader@^1.7.0":
+  version "1.7.0"
+  resolved "http://npm.dc.servyou-it.com/@afe%2fbrowser-runtime-loader/-/browser-runtime-loader-1.7.0.tgz#85cfb5f62e36c334cc122fd1e67131b71283f06f"
+  integrity sha512-Oxx6/QNNwRW8E9cinqZVYe7If4kcEXL+r0ZsYr4yDK0DnkoMtCubNBl4NwKmiNcu2Vn6nWBFGJDEfiI2uDVswA==
   dependencies:
     lodash "^4.17.20"
     lodash-es "^4.17.21"
