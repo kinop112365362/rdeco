@@ -54,7 +54,7 @@ export function req(path) {
       throw new Error('moduleName is unknown')
     }
     if (!compName) {
-      console.warn(`未指定组件名称，仅加载模块 ${appCode}/${moduleName}`)
+      // console.warn(`未指定组件名称，仅加载模块 ${appCode}/${moduleName}`)
     }
     if (
       !combination.loadedConfigNamelist.find(
