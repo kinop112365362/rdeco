@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.18.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.17.0...@rdeco/core@3.18.0) (2022-05-24)
+
+
+### Features
+
+* **react:** 为 createComponent 添加 single 单例模式 ([fdce63f](https://github.com/kinop112365362/rdeco/commit/fdce63f1b36f4b719ed952b62ec32b0b3d84ca68))
+
+
+
+
+
 # [3.17.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.16.0...@rdeco/core@3.17.0) (2022-05-24)
 
 
