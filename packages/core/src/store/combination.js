@@ -227,7 +227,7 @@ export function extendsSubscribe(key, handler) {
 }
 if (window) {
   if (window.$$rdeco_combination) {
-    window.$$rdeco_combination.$register = combination.$register
+    window.$$rdeco_combination.$setSubject = combination.$setSubject
     if (
       !window.$$rdeco_combination.$record ||
       !window.$$rdeco_combination.reactComponents
