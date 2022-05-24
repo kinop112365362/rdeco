@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.30](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.29...@rdeco/web-app-sdk@3.8.30) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
 ## [3.8.29](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.28...@rdeco/web-app-sdk@3.8.29) (2022-05-24)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk
