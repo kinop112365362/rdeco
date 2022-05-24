@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.10.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.9.5...@rdeco/react@3.10.0) (2022-05-24)
+
+
+### Features
+
+* **react:** 为 createComponent 添加 single 单例模式 ([d547bf8](https://github.com/kinop112365362/structured-react-hook/commit/d547bf834c381f7998e55faa8abb118652764638))
+
+
+
+
+
 ## [3.9.5](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.9.4...@rdeco/react@3.9.5) (2022-05-20)
 
 **Note:** Version bump only for package @rdeco/react
