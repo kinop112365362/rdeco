@@ -34,16 +34,27 @@ let combination = {
       this.subjects.targetsPropxyQueue[baseSymbol] = []
     }
   },
-  $setSubject(baseSymbol, store) {
-    if (!this.subjects.targets[baseSymbol]) {
-      this.subjects.targets[baseSymbol] = []
+  $setSubject(baseSymbol, store, isSingle = false) {
+    if (isSingle) {
+      if (!this.subjects.targets[baseSymbol]) {
+        this.subjects.targets[baseSymbol] = [store]
+      }
+      this.$initTargetProxy(baseSymbol)
+      this.subjects.targetsPropxyQueue[baseSymbol] = [store]
+      this.subjects.targetsProxy[baseSymbol].next(
+        this.subjects.targetsPropxyQueue[baseSymbol]
+      )
+    } else {
+      if (!this.subjects.targets[baseSymbol]) {
+        this.subjects.targets[baseSymbol] = []
+      }
+      this.$initTargetProxy(baseSymbol)
+      this.subjects.targets[baseSymbol].push(store)
+      this.subjects.targetsPropxyQueue[baseSymbol].push(store)
+      this.subjects.targetsProxy[baseSymbol].next(
+        this.subjects.targetsPropxyQueue[baseSymbol]
+      )
     }
-    this.$initTargetProxy(baseSymbol)
-    this.subjects.targets[baseSymbol].push(store)
-    this.subjects.targetsPropxyQueue[baseSymbol].push(store)
-    this.subjects.targetsProxy[baseSymbol].next(
-      this.subjects.targetsPropxyQueue[baseSymbol]
-    )
   },
   $isObservable(baseSymbol) {
     return this.observableList.has(baseSymbol)
