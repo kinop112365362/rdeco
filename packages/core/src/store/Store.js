@@ -88,7 +88,7 @@ export class Store {
       symbol: this.symbol,
     }
     combination.$createSubjects(this, this.baseSymbol, this.symbol, this.props)
-    combination.$setSubject(this.baseSymbol, this)
+    combination.$setSubject(this.baseSymbol, this, storeConfig.single)
     // eslint-disable-next-line no-undef
     this.invoke = invoke
     this.emit = (fnKey, data) => {
