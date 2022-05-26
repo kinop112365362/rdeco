@@ -85,7 +85,6 @@ export function createSubscriptions(store) {
             }
           }
           if (value.data === undefined) {
-            console.debug(value)
             store.exports?.[value?.fnKey]?.call(
               store,
               value.next,

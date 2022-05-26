@@ -226,21 +226,21 @@ export function extendsSubscribe(key, handler) {
   }
 }
 if (window) {
-  if (window.$$rdeco_combination) {
-    window.$$rdeco_combination.$setSubject = combination.$setSubject
-    window.$$rdeco_combination.$register = combination.$register
-    if (
-      !window.$$rdeco_combination.$record ||
-      !window.$$rdeco_combination.reactComponents
-    ) {
-      window.$$rdeco_combination.$record = combination.$record
-      window.$$rdeco_combination.loadedConfigNamelist =
-        combination.loadedConfigNamelist
-      window.$$rdeco_combination.reactComponents = combination.reactComponents
+  let core = window.$$rdeco_combination
+  if (window.parent && window.parent.$$rdeco_combination) {
+    core = window.parent.$$rdeco_combination
+  }
+  if (core) {
+    core.$setSubject = combination.$setSubject
+    core.$register = combination.$register
+    if (!core.$record || !core.reactComponents) {
+      core.$record = combination.$record
+      core.loadedConfigNamelist = combination.loadedConfigNamelist
+      core.reactComponents = combination.reactComponents
     }
-    combination = window.$$rdeco_combination
+    combination = core
   } else {
-    window.$$rdeco_combination = combination
+    core = combination
   }
   window.$$rdecoLog = () => {
     return {
