@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.19.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.18.0...@rdeco/core@3.19.0) (2022-05-27)
+
+
+### Features
+
+* **combination:** 支持 iframe 跨文档共享 combination ([01cce17](https://github.com/kinop112365362/rdeco/commit/01cce17023e01b31a6ed8085ffabf74875997fcc))
+* **combination:** 支持 iframe 跨文档共享 combination ([e94a77c](https://github.com/kinop112365362/rdeco/commit/e94a77c99298c28aa302e212bddc38d8e02ae8ba))
+
+
+
+
+
 # [3.18.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.17.0...@rdeco/core@3.18.0) (2022-05-24)
 
 
