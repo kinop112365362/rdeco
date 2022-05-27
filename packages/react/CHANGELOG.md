@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.14.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.13.1...@rdeco/react@3.14.0) (2022-05-27)
+
+
+### Features
+
+* **react:** add ReqApp for load app by iframe ([4734f44](https://github.com/kinop112365362/structured-react-hook/commit/4734f44ff07de673fd66745b207d7a8c2fae3250))
+
+
+
+
+
 ## [3.13.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.13.0...@rdeco/react@3.13.1) (2022-05-27)
 
 **Note:** Version bump only for package @rdeco/react
