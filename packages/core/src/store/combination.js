@@ -225,23 +225,28 @@ export function extendsSubscribe(key, handler) {
     combination.extends[key] = handler
   }
 }
+function compatibility(target) {
+  target.$setSubject = combination.$setSubject
+  target.$register = combination.$register
+  if (!target.$record || !target.reactComponents) {
+    target.$record = combination.$record
+    target.loadedConfigNamelist = combination.loadedConfigNamelist
+    target.reactComponents = combination.reactComponents
+  }
+}
 if (window) {
-  let core = window.$$rdeco_combination
   if (window.parent && window.parent.$$rdeco_combination) {
-    core = window.parent.$$rdeco_combination
-  }
-  if (core) {
-    core.$setSubject = combination.$setSubject
-    core.$register = combination.$register
-    if (!core.$record || !core.reactComponents) {
-      core.$record = combination.$record
-      core.loadedConfigNamelist = combination.loadedConfigNamelist
-      core.reactComponents = combination.reactComponents
-    }
-    combination = core
+    compatibility(window.parent.$$rdeco_combination)
+    combination = window.parent.$$rdeco_combination
   } else {
-    core = combination
+    if (window.$$rdeco_combination) {
+      compatibility(window.$$rdeco_combination)
+      combination = window.$$rdeco_combination
+    } else {
+      window.$$rdeco_combination = combination
+    }
   }
+
   window.$$rdecoLog = () => {
     return {
       logger: Object.freeze({ ...combination }),
