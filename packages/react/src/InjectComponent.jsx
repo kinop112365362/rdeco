@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from 'react'
 import { inject, req } from '@rdeco/module'
+import { createMembrane, create } from '@rdeco/core'
 
 export function Inject(props) {
   const el = React.createRef()
@@ -44,6 +45,36 @@ export function InjectComponent(props) {
     )
   }
   return <>{render && <Component.current {...props}></Component.current>}</>
+}
+
+export function ReqApp(props) {
+  const {
+    membrane,
+    onIframeLoad = (setDisplay) => {
+      setDisplay('block')
+    },
+    style,
+    src,
+    configName,
+  } = props
+  const [display, setDisplay] = useState('none')
+  useEffect(async () => {
+    const baseConfig = await inject(configName).getBaseConfig()
+    create(createMembrane(baseConfig, membrane))
+  }, [])
+  return (
+    <div>
+      <div style={{ display }}>
+        <iframe
+          onLoad={onIframeLoad(setDisplay)}
+          style={style || {}}
+          title="req-app"
+          src={src}
+          frameBorder="0"
+        ></iframe>
+      </div>
+    </div>
+  )
 }
 
 export function ReqComponent(props) {
