@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.19.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.0...@rdeco/core@3.19.1) (2022-06-01)
+
+
+### Bug Fixes
+
+* **react:** 修复 ReqApp 若干问题 ([bfeef64](https://github.com/kinop112365362/rdeco/commit/bfeef64ec964e14a510c10eec18b7f67052af94c))
+
+
+
+
+
 # [3.19.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.18.0...@rdeco/core@3.19.0) (2022-05-27)
 
 
