@@ -51,7 +51,6 @@ export class Store {
       storeConfig,
       this.baseSymbol
     )
-
     this.dynamicSubscription = []
     this.setterCallbacks = []
     this.symbol = Symbol()

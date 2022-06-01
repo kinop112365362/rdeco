@@ -12,6 +12,7 @@ import {
   create,
   withComponent,
   ReqComponent,
+  ReqApp,
 } from '@rdeco/web-app-sdk'
 import { combination } from '@rdeco/core/src'
 
@@ -56,6 +57,7 @@ test('React Inject Component Test', async () => {
               name="@test/tag1"
               params={this.state.params}
             ></ReqComponent>
+            <ReqApp></ReqApp>
           </div>
         )
       },

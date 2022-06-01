@@ -50,23 +50,28 @@ export function InjectComponent(props) {
 export function ReqApp(props) {
   const {
     membrane,
-    onIframeLoad = (setDisplay) => {
-      setDisplay('block')
-    },
+    // onIframeLoad = (setDisplay) => {
+    //   setDisplay('block')
+    // },
     style,
     src,
     configName,
   } = props
-  const [display, setDisplay] = useState('none')
-  useEffect(async () => {
-    const baseConfig = await inject(configName).getBaseConfig()
-    create(createMembrane(baseConfig, membrane))
+  // const [display, setDisplay] = useState('none')
+  useEffect(() => {
+    if (configName) {
+      inject(configName)
+        .getBaseConfig()
+        .then((baseConfig) => {
+          create(createMembrane(baseConfig, membrane))
+        })
+    }
   }, [])
   return (
     <div>
-      <div style={{ display }}>
+      <div style={style}>
         <iframe
-          onLoad={onIframeLoad(setDisplay)}
+          // onLoad={onIframeLoad(setDisplay)}
           style={style || {}}
           title="req-app"
           src={src}
