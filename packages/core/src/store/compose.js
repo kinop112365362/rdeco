@@ -9,13 +9,16 @@ export function createCompose(template, composeId) {
   if (template.view && template.view.render) {
     throw new Error(`compose template 不能定义 view.render`)
   }
-  if (!combination.composeRecord[composeId]) {
-    combination.composeRecord[composeId] = template
-    template.$$id = composeId
-  } else {
-    console.debug(combination.components)
-    throw new Error(`${composeId} 已经被注册过了`)
+  if (composeId) {
+    if (!combination.composeRecord[composeId]) {
+      combination.composeRecord[composeId] = template
+      template.$$id = composeId
+    } else {
+      console.error(combination.components)
+      throw new Error(`${composeId} 已经被注册过了`)
+    }
   }
+
   return template
 }
 
@@ -28,8 +31,8 @@ export function compose(baseConfig, templates) {
           const templateFnKeys = Object.keys(template[configKey])
           templateFnKeys.forEach((templateFnKey) => {
             if (fnKeys.find((v) => v == templateFnKey)) {
-              console.debug(`当前处理的 template`, template)
-              console.debug(`当前处理的 baseConfig`, baseConfig)
+              console.error(`当前处理的 template`, template)
+              console.error(`当前处理的 baseConfig`, baseConfig)
               throw new Error(
                 `${baseConfig.name} 中的 ${templateFnKey} 重复定义，无法被 compose`
               )
