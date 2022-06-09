@@ -19,6 +19,7 @@ let combination = {
     targetsProxy: {},
     targetsPropxyQueue: {},
   },
+  composeRecord: {},
   enhanceContext: {},
   extends: {},
   // eslint-disable-next-line no-undef
@@ -228,6 +229,9 @@ export function extendsSubscribe(key, handler) {
 function compatibility(target) {
   target.$setSubject = combination.$setSubject
   target.$register = combination.$register
+  if (!target.composeRecord) {
+    target.composeRecord = combination.composeRecord
+  }
   if (!target.$record || !target.reactComponents) {
     target.$record = combination.$record
     target.loadedConfigNamelist = combination.loadedConfigNamelist
