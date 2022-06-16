@@ -82,6 +82,7 @@ export function installHooks(baseConfig, membrane) {
   if (baseConfig.component) {
     const componentKeys = Object.keys(baseConfig.component)
     componentKeys.forEach((componentKey) => {
+      baseConfig.component[componentKey].name = componentKey
       if (membrane.component && membrane.component[componentKey]) {
         createComponent(
           createMembrane(
@@ -90,12 +91,13 @@ export function installHooks(baseConfig, membrane) {
           )
         )
       }
-      createComponent(baseConfig.components[componentKey])
+      createComponent(baseConfig.component[componentKey])
     })
   }
   if (baseConfig.function) {
     const keys = Object.keys(baseConfig.function)
     keys.forEach((key) => {
+      baseConfig.function[key].name = key
       if (membrane.function && membrane.function[key]) {
         create(createMembrane(baseConfig.function[key], membrane.function[key]))
       }

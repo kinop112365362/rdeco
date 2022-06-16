@@ -20,7 +20,31 @@ window.__GALAXY_CONFIG_ENV__ = {
   envName: 'dev',
   subEnvName: 'servyou-dev',
 }
-
+create({
+  name: 'testConfig',
+  exports: {
+    getBaseConfig(resolve) {
+      resolve({
+        component: {
+          'test-inject': {
+            view: {
+              render() {
+                return <div></div>
+              },
+            },
+          },
+        },
+        function: {
+          'test-function': {
+            service: {
+              sayHi() {},
+            },
+          },
+        },
+      })
+    },
+  },
+})
 test('React Inject Component Test', async () => {
   const Tag1 = createReqComponent({
     name: '@test/tag1',
@@ -57,7 +81,7 @@ test('React Inject Component Test', async () => {
               name="@test/tag1"
               params={this.state.params}
             ></ReqComponent>
-            <ReqApp></ReqApp>
+            <ReqApp membrane={{}} configName="testConfig"></ReqApp>
           </div>
         )
       },
