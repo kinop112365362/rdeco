@@ -82,8 +82,8 @@ export function installHooks(baseConfig, membrane = {}) {
   }
   if (baseConfig.component) {
     const componentKeys = Object.keys(baseConfig.component)
-    let com = null
     componentKeys.forEach((componentKey) => {
+      let com = null
       if (combination.components[componentKey]) {
         delete combination.components[componentKey]
       }
