@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from 'react'
 import { inject, req } from '@rdeco/module'
-import { createMembrane, create } from '@rdeco/core'
+import { createMembrane, create, combination } from '@rdeco/core'
 import { createComponent } from './createComponent'
 
 export function Inject(props) {
@@ -75,14 +75,13 @@ export function ReqApp(props) {
 }
 
 export function installHooks(baseConfig, membrane = {}) {
-  if (window.parent && window.parent.$$rdeco_combination) {
-    console.warn(`当前是被 ReqApp 集成，不再初始化默认的 hooks`)
-    return
-  }
   if (baseConfig.component) {
     const componentKeys = Object.keys(baseConfig.component)
     let com = null
     componentKeys.forEach((componentKey) => {
+      if (combination.components[componentKey]) {
+        delete combination.components[componentKey]
+      }
       baseConfig.component[componentKey].name = componentKey + '-comp'
       if (membrane.component && membrane.component[componentKey]) {
         com = createComponent(
@@ -107,6 +106,9 @@ export function installHooks(baseConfig, membrane = {}) {
   if (baseConfig.function) {
     const keys = Object.keys(baseConfig.function)
     keys.forEach((key) => {
+      if (combination.components[key]) {
+        delete combination.components[key]
+      }
       baseConfig.function[key].name = key
       if (membrane.function && membrane.function[key]) {
         create(createMembrane(baseConfig.function[key], membrane.function[key]))
