@@ -79,6 +79,10 @@ export function ReqApp(props) {
 }
 
 export function installHooks(baseConfig, membrane = {}) {
+  if (window.parent && window.parent.$$rdeco_combination) {
+    console.warn(`当前是被 ReqApp 集成，不再初始化默认的 hooks`)
+    return
+  }
   if (baseConfig.component) {
     const componentKeys = Object.keys(baseConfig.component)
     let com = null
