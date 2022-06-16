@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.10.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.9.0...@rdeco/web-app-sdk@3.10.0) (2022-06-16)
+
+
+### Features
+
+* **req:** 增加对初始化 hooks 的处理 ([3b3e831](https://github.com/kinop112365362/rdeco/commit/3b3e831fffaeb8001b73db6ce8bbe80c826c6fb4))
+
+
+
+
+
 # [3.9.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.39...@rdeco/web-app-sdk@3.9.0) (2022-06-16)
 
 
