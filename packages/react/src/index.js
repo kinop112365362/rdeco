@@ -5,6 +5,7 @@ export {
   InjectComponent,
   ReqComponent,
   ReqApp,
+  installHooks,
 } from './InjectComponent'
 export { Fallback, createFallback } from './Fallback'
 export { createComponent, createReqComponent } from './createComponent'

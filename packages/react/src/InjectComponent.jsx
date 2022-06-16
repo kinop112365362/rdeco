@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { inject, req } from '@rdeco/module'
 import { createMembrane, create } from '@rdeco/core'
+import { createComponent } from './createComponent'
 
 export function Inject(props) {
   const el = React.createRef()
@@ -48,38 +49,59 @@ export function InjectComponent(props) {
 }
 
 export function ReqApp(props) {
-  const {
-    membrane,
-    // onIframeLoad = (setDisplay) => {
-    //   setDisplay('block')
-    // },
-    style,
-    src,
-    configName,
-  } = props
-  // const [display, setDisplay] = useState('none')
+  const { membrane, style, src, configName } = props
+  const [ready, setReady] = useState(false)
   useEffect(() => {
     if (configName) {
       inject(configName)
         .getBaseConfig()
         .then((baseConfig) => {
-          create(createMembrane(baseConfig, membrane))
+          installHooks(baseConfig, membrane)
+          setReady(true)
         })
     }
   }, [])
   return (
     <div>
       <div style={style}>
-        <iframe
-          // onLoad={onIframeLoad(setDisplay)}
-          style={style || {}}
-          title="req-app"
-          src={src}
-          frameBorder="0"
-        ></iframe>
+        {ready && (
+          <iframe
+            // onLoad={onIframeLoad(setDisplay)}
+            style={style || {}}
+            title="req-app"
+            src={src}
+            frameBorder="0"
+          ></iframe>
+        )}
       </div>
     </div>
   )
+}
+
+export function installHooks(baseConfig, membrane) {
+  if (baseConfig.component) {
+    const componentKeys = Object.keys(baseConfig.component)
+    componentKeys.forEach((componentKey) => {
+      if (membrane.component && membrane.component[componentKey]) {
+        createComponent(
+          createMembrane(
+            baseConfig.component[componentKey],
+            membrane.component[componentKey]
+          )
+        )
+      }
+      createComponent(baseConfig.components[componentKey])
+    })
+  }
+  if (baseConfig.function) {
+    const keys = Object.keys(baseConfig.function)
+    keys.forEach((key) => {
+      if (membrane.function && membrane.function[key]) {
+        create(createMembrane(baseConfig.function[key], membrane.function[key]))
+      }
+      create(baseConfig.function[key])
+    })
+  }
 }
 
 export function ReqComponent(props) {

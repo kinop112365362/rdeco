@@ -50,4 +50,5 @@ export const createCompose: any
 export const req: any
 export const ReqComponent: any
 export const ReqApp: any
+export const installHooks: any
 
