@@ -25,6 +25,7 @@ import {
   registerReactContext,
   ReqComponent,
   ReqApp,
+  installHooks,
 } from '@rdeco/react'
 
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
@@ -47,6 +48,7 @@ const rdeco = {
   InjectComponent,
   ReqComponent,
   ReqApp,
+  installHooks,
   registerReactContext,
   Router,
   RouteView,
@@ -81,6 +83,7 @@ export {
   InjectComponent,
   ReqComponent,
   ReqApp,
+  installHooks,
   registerReactContext,
   Router,
   RouteView,
