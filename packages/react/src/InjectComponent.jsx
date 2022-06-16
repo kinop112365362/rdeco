@@ -81,17 +81,27 @@ export function ReqApp(props) {
 export function installHooks(baseConfig, membrane = {}) {
   if (baseConfig.component) {
     const componentKeys = Object.keys(baseConfig.component)
+    let com = null
     componentKeys.forEach((componentKey) => {
-      baseConfig.component[componentKey].name = componentKey
+      baseConfig.component[componentKey].name = componentKey + '-comp'
       if (membrane.component && membrane.component[componentKey]) {
-        createComponent(
+        com = createComponent(
           createMembrane(
             baseConfig.component[componentKey],
             membrane.component[componentKey]
           )
         )
+      } else {
+        com = createComponent(baseConfig.component[componentKey])
       }
-      createComponent(baseConfig.component[componentKey])
+      create({
+        name: componentKey,
+        exports: {
+          getComponent(resolve) {
+            resolve(com)
+          },
+        },
+      })
     })
   }
   if (baseConfig.function) {
@@ -100,8 +110,9 @@ export function installHooks(baseConfig, membrane = {}) {
       baseConfig.function[key].name = key
       if (membrane.function && membrane.function[key]) {
         create(createMembrane(baseConfig.function[key], membrane.function[key]))
+      } else {
+        create(baseConfig.function[key])
       }
-      create(baseConfig.function[key])
     })
   }
 }
