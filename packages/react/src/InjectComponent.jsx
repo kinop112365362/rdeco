@@ -78,7 +78,7 @@ export function ReqApp(props) {
   )
 }
 
-export function installHooks(baseConfig, membrane) {
+export function installHooks(baseConfig, membrane = {}) {
   if (baseConfig.component) {
     const componentKeys = Object.keys(baseConfig.component)
     componentKeys.forEach((componentKey) => {
