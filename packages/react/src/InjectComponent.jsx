@@ -50,29 +50,25 @@ export function InjectComponent(props) {
 
 export function ReqApp(props) {
   const { membrane, style, src, configName } = props
-  const [ready, setReady] = useState(false)
   useEffect(() => {
     if (configName) {
       inject(configName)
         .getBaseConfig()
         .then((baseConfig) => {
           installHooks(baseConfig, membrane)
-          setReady(true)
         })
     }
   }, [])
   return (
     <div>
       <div style={style}>
-        {ready && (
-          <iframe
-            // onLoad={onIframeLoad(setDisplay)}
-            style={style || {}}
-            title="req-app"
-            src={src}
-            frameBorder="0"
-          ></iframe>
-        )}
+        <iframe
+          // onLoad={onIframeLoad(setDisplay)}
+          style={style || {}}
+          title="req-app"
+          src={src}
+          frameBorder="0"
+        ></iframe>
       </div>
     </div>
   )
