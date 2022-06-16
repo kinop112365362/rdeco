@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.19.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.3...@rdeco/core@3.19.4) (2022-06-16)
+
+
+### Bug Fixes
+
+* **req:** 修复 ReqApp 的 bug ([7e952e1](https://github.com/kinop112365362/rdeco/commit/7e952e1482e08999eac46eb2a9a8a8d3a8246c9a))
+
+
+
+
+
 ## [3.19.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.2...@rdeco/core@3.19.3) (2022-06-09)
 
 **Note:** Version bump only for package @rdeco/core
