@@ -75,7 +75,7 @@ export function ReqApp(props) {
 }
 
 export function installHooks(baseConfig, membrane = {}) {
-  if (window.top && window.top.$$rdeco_combination) {
+  if (self !== top && top.$$rdeco_combination) {
     return console.warn(
       `当前是微前端模式，iframe 内的应用不再初始化默认 hooks `
     )
