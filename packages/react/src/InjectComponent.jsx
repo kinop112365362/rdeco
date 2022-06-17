@@ -50,36 +50,38 @@ export function InjectComponent(props) {
 
 export function ReqApp(props) {
   const { membrane, style, src, configName } = props
+  const [ready, setReady] = useState(false)
   useEffect(() => {
-    if (configName) {
-      inject(configName)
-        .getBaseConfig()
-        .then((baseConfig) => {
-          installHooks(baseConfig, membrane)
-        })
+    if (membrane) {
+      create({
+        name: configName,
+        exports: {
+          getAppMembrane(resolve) {
+            resolve(membrane)
+          },
+        },
+      })
+      setReady(true)
     }
   }, [])
   return (
     <div>
       <div style={style}>
-        <iframe
-          // onLoad={onIframeLoad(setDisplay)}
-          style={style || {}}
-          title="req-app"
-          src={src}
-          frameBorder="0"
-        ></iframe>
+        {ready && (
+          <iframe
+            // onLoad={onIframeLoad(setDisplay)}
+            style={style || {}}
+            title="req-app"
+            src={src}
+            frameBorder="0"
+          ></iframe>
+        )}
       </div>
     </div>
   )
 }
 
 export function installHooks(baseConfig, membrane = {}) {
-  if (self !== top && top.$$rdeco_combination) {
-    return console.warn(
-      `当前是微前端模式，iframe 内的应用不再初始化默认 hooks `
-    )
-  }
   if (baseConfig.component) {
     const componentKeys = Object.keys(baseConfig.component)
     componentKeys.forEach((componentKey) => {
