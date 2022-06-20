@@ -55,32 +55,29 @@ export function ReqApp(props) {
   const onLoadCallback = useCallback(() => {
     if (membrane) {
       combination.iframeRef[configName] = iframeRef.current
-      iframeRef.current.contentWindow.document.addEventListener(
-        'DOMContentLoaded',
-        () => {
+      const handle = () => {
+        iframeRef.current.contentWindow.rdeco.create({
+          name: configName,
+          exports: {
+            getAppMembrane(resolve) {
+              resolve(membrane)
+            },
+          },
+        })
+      }
+      if (iframeRef.current.contentWindow.rdeco) {
+        handle()
+      } else {
+        setTimeout(() => {
           if (iframeRef.current.contentWindow.rdeco) {
-            iframeRef.current.contentWindow.rdeco.create({
-              name: configName,
-              exports: {
-                getAppMembrane(resolve) {
-                  resolve(membrane)
-                },
-              },
-            })
+            handle()
           } else {
-            setTimeout(() => {
-              iframeRef.current.contentWindow.rdeco.create({
-                name: configName,
-                exports: {
-                  getAppMembrane(resolve) {
-                    resolve(membrane)
-                  },
-                },
-              })
-            }, 5000)
+            console.error(
+              `调用 iframe 内的 rdeco 失败, 请检查 iframe 内 rdeco 的加载时机`
+            )
           }
-        }
-      )
+        }, 5000)
+      }
     }
   }, [membrane])
   return (
