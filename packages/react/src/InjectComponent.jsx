@@ -73,7 +73,7 @@ export function ReqApp(props) {
         const timer = setInterval(() => {
           iframeRef.current.contentWindow.postMessage({}, '*', [channel.port2])
           timerCount++
-          if (timerCount > 10) {
+          if (timerCount > 20) {
             clearInterval(timer)
           }
         }, 3000)
