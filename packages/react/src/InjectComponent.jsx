@@ -68,19 +68,13 @@ export function ReqApp(props) {
       if (iframeRef.current.contentWindow.rdeco) {
         handle()
       } else {
-        let channel = null
         let timerCount = 0
         const timer = setInterval(() => {
-          if (channel === null) {
-            // channel 必须在同一个上下文
-            channel = new MessageChannel()
-            channel.port1.onmessage = () => {
-              clearInterval(timer)
-              handle()
-            }
-          }
-          iframeRef.current.contentWindow.postMessage({}, '*', [channel.port2])
           timerCount++
+          if (iframeRef.current.contentWindow.rdeco) {
+            clearInterval(timer)
+            handle()
+          }
           if (timerCount > 20) {
             clearInterval(timer)
           }
