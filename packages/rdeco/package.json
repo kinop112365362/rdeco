@@ -1,6 +1,6 @@
 {
   "name": "@rdeco/web-app-sdk",
-  "version": "3.11.2",
+  "version": "3.11.3",
   "description": "基于响应式的应用开发框架",
   "keywords": [
     "react",
@@ -41,8 +41,8 @@
   "dependencies": {
     "@rdeco/core": "3.21.0",
     "@rdeco/module": "3.7.1",
-    "@rdeco/react": "3.17.1",
-    "@rdeco/router": "3.0.119",
+    "@rdeco/react": "3.18.0",
+    "@rdeco/router": "3.0.120",
     "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
