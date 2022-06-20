@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.20.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.4...@rdeco/core@3.20.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([c865c70](https://github.com/kinop112365362/rdeco/commit/c865c705eda34748fa170b9965632214823598aa))
+
+
+
+
+
 ## [3.19.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.3...@rdeco/core@3.19.4) (2022-06-16)
 
 
