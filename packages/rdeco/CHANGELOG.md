@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.13.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.12.1...@rdeco/web-app-sdk@3.13.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([abd33a1](https://github.com/kinop112365362/rdeco/commit/abd33a1a1267f89768388d3e99ba625d2af42892))
+
+
+
+
+
 ## [3.12.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.12.0...@rdeco/web-app-sdk@3.12.1) (2022-06-20)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk
