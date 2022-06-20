@@ -24,6 +24,7 @@ import {
   InjectComponent,
   ReqComponent,
   ReqApp,
+  installHooks,
   registerReactContext,
 } from '@rdeco/react'
 
@@ -47,6 +48,7 @@ window.rdeco = {
   InjectComponent,
   ReqComponent,
   ReqApp,
+  installHooks,
   registerReactContext,
   Router,
   RouteView,
