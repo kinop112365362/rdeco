@@ -82,7 +82,7 @@ export function ReqApp(props) {
 }
 
 export function installHooks(baseConfig, hookName) {
-  function installHandle() {
+  function installHandle(membrane) {
     if (baseConfig.component) {
       const componentKeys = Object.keys(baseConfig.component)
       componentKeys.forEach((componentKey) => {
@@ -135,7 +135,7 @@ export function installHooks(baseConfig, hookName) {
         installHandle(membrane)
       })
   } else {
-    installHandle()
+    installHandle({})
   }
 }
 
