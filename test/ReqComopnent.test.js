@@ -81,7 +81,11 @@ test('React Inject Component Test', async () => {
               name="@test/tag1"
               params={this.state.params}
             ></ReqComponent>
-            <ReqApp membrane={{}} configName="testConfig"></ReqApp>
+            <ReqApp
+              src="./index.html"
+              membrane={{}}
+              configName="testConfig"
+            ></ReqApp>
           </div>
         )
       },
