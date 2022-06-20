@@ -71,9 +71,7 @@ export function ReqApp(props) {
         const channel = new MessageChannel()
         let timerCount = 0
         const timer = setInterval(() => {
-          iframeRef.current.contentWindow.postMessage('rdeco is init?', '*', [
-            channel.port2,
-          ])
+          iframeRef.current.contentWindow.postMessage({}, '*', [channel.port2])
           timerCount++
           if (timerCount > 10) {
             clearInterval(timer)
