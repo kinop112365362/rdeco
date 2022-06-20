@@ -29,7 +29,7 @@ import {
 } from '@rdeco/react'
 
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
-import { inject, req, reqJSON } from '@rdeco/module'
+import { inject, req, reqJSON, getIframeInject } from '@rdeco/module'
 const rdeco = {
   enhanceContext,
   create,
@@ -55,6 +55,7 @@ const rdeco = {
   Redirect,
   App,
   inject,
+  getIframeInject,
   registerModule,
   req,
   reqJSON,

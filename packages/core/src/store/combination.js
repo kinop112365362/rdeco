@@ -9,6 +9,7 @@ let combination = {
   reactComponents: {},
   loadedConfigNamelist: [],
   components: {},
+  iframeRef: {},
   pluginSubject: new ReplaySubject(9999),
   notificationSubjects: {},
   registerSubject: new BehaviorSubject(null),

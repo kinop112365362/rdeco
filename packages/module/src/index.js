@@ -2,6 +2,10 @@ import { combination, invoke, mock } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
 /* eslint-disable no-undef */
 
+export function getIframeInject(iframeName) {
+  return combination.iframeRef[iframeName].contentWindow.rdeco.inject
+}
+
 export function inject(moduleName) {
   if (window.Proxy === undefined) {
     console.error(
