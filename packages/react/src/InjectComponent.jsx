@@ -55,14 +55,19 @@ export function ReqApp(props) {
   const onLoadCallback = useCallback(() => {
     if (membrane) {
       combination.iframeRef[configName] = iframeRef.current
-      iframeRef.current.contentWindow.rdeco.create({
-        name: configName,
-        exports: {
-          getAppMembrane(resolve) {
-            resolve(membrane)
-          },
-        },
-      })
+      const timer = setInterval(() => {
+        if (iframeRef.current.contentWindow.rdeco) {
+          iframeRef.current.contentWindow.rdeco.create({
+            name: configName,
+            exports: {
+              getAppMembrane(resolve) {
+                resolve(membrane)
+              },
+            },
+          })
+          clearInterval(timer)
+        }
+      }, 1000)
     }
   }, [membrane])
   return (
