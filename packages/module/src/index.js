@@ -3,7 +3,11 @@ import { loadRemoteConfig } from '@afe/browser-runtime-loader'
 /* eslint-disable no-undef */
 
 export function getIframeWindow(iframeName) {
-  return combination.iframeRef[iframeName].contentWindow
+  return combination.iframeRef[iframeName].contentWindow.rdeco
+}
+
+export function getTopWindow() {
+  return window.top.rdeco
 }
 
 export function inject(moduleName) {
