@@ -6,8 +6,8 @@ export function getIframeWindow(iframeName) {
   return combination.iframeRef[iframeName].contentWindow.rdeco
 }
 
-export function getTopWindow() {
-  return window.top.rdeco
+export function topInject(moduleName) {
+  window.top.rdeco.inject(moduleName)
 }
 
 export function inject(moduleName) {
