@@ -72,6 +72,7 @@ export function ReqApp(props) {
         let timerCount = 0
         const timer = setInterval(() => {
           if (channel === null) {
+            // channel 必须在同一个上下文
             channel = new MessageChannel()
             channel.port1.onmessage = () => {
               clearInterval(timer)
