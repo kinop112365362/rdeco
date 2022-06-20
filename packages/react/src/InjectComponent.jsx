@@ -68,15 +68,22 @@ export function ReqApp(props) {
       if (iframeRef.current.contentWindow.rdeco) {
         handle()
       } else {
-        setTimeout(() => {
-          if (iframeRef.current.contentWindow.rdeco) {
-            handle()
-          } else {
-            console.error(
-              `调用 iframe 内的 rdeco 失败, 请检查 iframe 内 rdeco 的加载时机`
-            )
+        const channel = new MessageChannel()
+        let timerCount = 0
+        const timer = setInterval(() => {
+          iframeRef.current.contentWindow.postMessage('rdeco is init?', '*', [
+            channel.port2,
+          ])
+          timerCount++
+          if (timerCount > 10) {
+            clearInterval(timer)
           }
-        }, 5000)
+        }, 3000)
+
+        channel.port1.onmessage = () => {
+          clearInterval(timer)
+          handle()
+        }
       }
     }
   }, [membrane])
