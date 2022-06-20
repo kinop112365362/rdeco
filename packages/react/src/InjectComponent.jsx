@@ -83,18 +83,14 @@ export function ReqApp(props) {
     }
   }, [membrane])
   return (
-    <div>
-      <div style={style}>
-        <iframe
-          ref={iframeRef}
-          onLoad={onLoadCallback}
-          style={style || {}}
-          title="req-app"
-          src={src}
-          frameBorder="0"
-        ></iframe>
-      </div>
-    </div>
+    <iframe
+      ref={iframeRef}
+      onLoad={onLoadCallback}
+      style={style || {}}
+      title="req-app"
+      src={src}
+      frameBorder="0"
+    ></iframe>
   )
 }
 
