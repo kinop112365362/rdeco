@@ -13,6 +13,7 @@ import {
   withComponent,
   ReqComponent,
   ReqApp,
+  topInject,
 } from '@rdeco/web-app-sdk'
 import { combination } from '@rdeco/core/src'
 
@@ -20,6 +21,15 @@ window.__GALAXY_CONFIG_ENV__ = {
   envName: 'dev',
   subEnvName: 'servyou-dev',
 }
+create({
+  name: 'top',
+  exports: {
+    get() {
+      console.debug('top inject')
+    },
+  },
+})
+topInject('top').get()
 create({
   name: 'testConfig',
   exports: {
