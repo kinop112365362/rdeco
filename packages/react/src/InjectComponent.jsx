@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { inject, req } from '@rdeco/module'
 import { createMembrane, create, combination } from '@rdeco/core'
 import { createComponent } from './createComponent'
+import { useCallback } from 'react'
 
 export function Inject(props) {
   const el = React.createRef()
@@ -50,10 +51,10 @@ export function InjectComponent(props) {
 
 export function ReqApp(props) {
   const { membrane, style, src, configName } = props
-  const [ready, setReady] = useState(false)
-  useEffect(() => {
+  const iframeRef = useRef()
+  const onLoadCallback = useCallback(() => {
     if (membrane) {
-      create({
+      iframeRef.contentWindow.rdeco.create({
         name: configName,
         exports: {
           getAppMembrane(resolve) {
@@ -61,68 +62,79 @@ export function ReqApp(props) {
           },
         },
       })
-      setReady(true)
     }
-  }, [])
+  }, [membrane])
   return (
     <div>
       <div style={style}>
-        {ready && (
-          <iframe
-            // onLoad={onIframeLoad(setDisplay)}
-            style={style || {}}
-            title="req-app"
-            src={src}
-            frameBorder="0"
-          ></iframe>
-        )}
+        <iframe
+          ref={iframeRef}
+          onLoad={onLoadCallback}
+          style={style || {}}
+          title="req-app"
+          src={src}
+          frameBorder="0"
+        ></iframe>
       </div>
     </div>
   )
 }
 
-export function installHooks(baseConfig, membrane = {}) {
-  if (baseConfig.component) {
-    const componentKeys = Object.keys(baseConfig.component)
-    componentKeys.forEach((componentKey) => {
-      let com = null
-      if (combination.components[componentKey]) {
-        delete combination.components[componentKey]
-      }
-      baseConfig.component[componentKey].name = componentKey + '-comp'
-      if (membrane.component && membrane.component[componentKey]) {
-        com = createComponent(
-          createMembrane(
-            baseConfig.component[componentKey],
-            membrane.component[componentKey]
+export function installHooks(baseConfig, membrane = {}, hookName) {
+  function installHandle() {
+    if (baseConfig.component) {
+      const componentKeys = Object.keys(baseConfig.component)
+      componentKeys.forEach((componentKey) => {
+        let com = null
+        if (combination.components[componentKey]) {
+          delete combination.components[componentKey]
+        }
+        baseConfig.component[componentKey].name = componentKey + '-comp'
+        if (membrane.component && membrane.component[componentKey]) {
+          com = createComponent(
+            createMembrane(
+              baseConfig.component[componentKey],
+              membrane.component[componentKey]
+            )
           )
-        )
-      } else {
-        com = createComponent(baseConfig.component[componentKey])
-      }
-      create({
-        name: componentKey,
-        exports: {
-          getComponent(resolve) {
-            resolve(com)
+        } else {
+          com = createComponent(baseConfig.component[componentKey])
+        }
+        create({
+          name: componentKey,
+          exports: {
+            getComponent(resolve) {
+              resolve(com)
+            },
           },
-        },
+        })
       })
-    })
+    }
+    if (baseConfig.function) {
+      const keys = Object.keys(baseConfig.function)
+      keys.forEach((key) => {
+        if (combination.components[key]) {
+          delete combination.components[key]
+        }
+        baseConfig.function[key].name = key
+        if (membrane.function && membrane.function[key]) {
+          create(
+            createMembrane(baseConfig.function[key], membrane.function[key])
+          )
+        } else {
+          create(baseConfig.function[key])
+        }
+      })
+    }
   }
-  if (baseConfig.function) {
-    const keys = Object.keys(baseConfig.function)
-    keys.forEach((key) => {
-      if (combination.components[key]) {
-        delete combination.components[key]
-      }
-      baseConfig.function[key].name = key
-      if (membrane.function && membrane.function[key]) {
-        create(createMembrane(baseConfig.function[key], membrane.function[key]))
-      } else {
-        create(baseConfig.function[key])
-      }
-    })
+  if (self !== top) {
+    inject(hookName)
+      .getAppMembrane()
+      .then((membrane) => {
+        installHandle(membrane)
+      })
+  } else {
+    installHandle()
   }
 }
 
