@@ -7,7 +7,7 @@ export function getIframeWindow(iframeName) {
 }
 
 export function topInject(moduleName) {
-  window.top.rdeco.inject(moduleName)
+  return window.top.rdeco.inject(moduleName)
 }
 
 export function inject(moduleName) {
