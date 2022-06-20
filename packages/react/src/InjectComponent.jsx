@@ -68,20 +68,22 @@ export function ReqApp(props) {
       if (iframeRef.current.contentWindow.rdeco) {
         handle()
       } else {
-        const channel = new MessageChannel()
+        let channel = null
         let timerCount = 0
         const timer = setInterval(() => {
+          if (channel === null) {
+            channel = new MessageChannel()
+            channel.port1.onmessage = () => {
+              clearInterval(timer)
+              handle()
+            }
+          }
           iframeRef.current.contentWindow.postMessage({}, '*', [channel.port2])
           timerCount++
           if (timerCount > 20) {
             clearInterval(timer)
           }
         }, 3000)
-
-        channel.port1.onmessage = () => {
-          clearInterval(timer)
-          handle()
-        }
       }
     }
   }, [membrane])
