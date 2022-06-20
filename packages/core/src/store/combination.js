@@ -241,22 +241,14 @@ function compatibility(target) {
   }
 }
 if (window) {
-  if (window.parent && window.parent.$$rdeco_combination) {
-    compatibility(window.parent.$$rdeco_combination)
-    combination = window.parent.$$rdeco_combination
+  if (window.$$rdeco_combination) {
+    compatibility(window.$$rdeco_combination)
+    combination = window.$$rdeco_combination
   } else {
-    if (window.$$rdeco_combination) {
-      compatibility(window.$$rdeco_combination)
-      combination = window.$$rdeco_combination
-    } else {
-      window.$$rdeco_combination = combination
-    }
+    window.$$rdeco_combination = combination
   }
-
   window.$$rdecoLog = () => {
-    return {
-      logger: Object.freeze({ ...combination }),
-    }
+    return Object.freeze({ ...combination })
   }
 }
 
