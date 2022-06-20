@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.23.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.22.0...@rdeco/react@3.23.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([ba9c647](https://github.com/kinop112365362/structured-react-hook/commit/ba9c647d05800ef1dfc15562dea2b72fc5f7b74a))
+
+
+
+
+
 # [3.22.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.21.0...@rdeco/react@3.22.0) (2022-06-20)
 
 
