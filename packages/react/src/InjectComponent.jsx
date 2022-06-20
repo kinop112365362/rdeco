@@ -65,13 +65,13 @@ export function ReqApp(props) {
           },
         })
       }
-      if (iframeRef.current.contentWindow.rdeco) {
+      if (iframeRef.current && iframeRef.current.contentWindow.rdeco) {
         handle()
       } else {
         let timerCount = 0
         const timer = setInterval(() => {
           timerCount++
-          if (iframeRef.current.contentWindow.rdeco) {
+          if (iframeRef.current && iframeRef.current.contentWindow.rdeco) {
             clearInterval(timer)
             handle()
           }
