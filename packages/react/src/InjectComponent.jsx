@@ -52,10 +52,10 @@ export function InjectComponent(props) {
 export function ReqApp(props) {
   const { membrane, style, src, configName } = props
   const iframeRef = useRef()
-  combination.iframeRef[configName] = iframeRef
   const onLoadCallback = useCallback(() => {
     if (membrane) {
-      iframeRef.contentWindow.rdeco.create({
+      combination.iframeRef[configName] = iframeRef.current
+      iframeRef.current.contentWindow.rdeco.create({
         name: configName,
         exports: {
           getAppMembrane(resolve) {
