@@ -91,6 +91,7 @@ export {
   Redirect,
   App,
   inject,
+  getIframeInject,
   registerModule,
   req,
   reqJSON,
