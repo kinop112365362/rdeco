@@ -39,10 +39,10 @@
     "@babel/runtime": "^7.12.1"
   },
   "dependencies": {
-    "@rdeco/core": "3.21.0",
-    "@rdeco/module": "3.11.0",
-    "@rdeco/react": "3.28.0",
-    "@rdeco/router": "3.0.134",
+    "@rdeco/core": "^3.21.0",
+    "@rdeco/module": "^3.11.0",
+    "@rdeco/react": "^3.28.0",
+    "@rdeco/router": "^3.0.134",
     "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
