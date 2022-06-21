@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.14](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.13...@rdeco/web-app-sdk@3.16.14) (2022-06-21)
+
+
+### Bug Fixes
+
+* **chore:** 调整新增 api 的入口 ([3fb43be](https://github.com/kinop112365362/rdeco/commit/3fb43be3b20f28eb282fdcc1fc9bcbbafef1df99))
+
+
+
+
+
 ## [3.16.13](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.12...@rdeco/web-app-sdk@3.16.13) (2022-06-21)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.11.2](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.11.1...@rdeco/module@3.11.2) (2022-06-21)
+
+
+### Bug Fixes
+
+* **chore:** 调整新增 api 的入口 ([3fb43be](https://github.com/kinop112365362/structured-react-hook/commit/3fb43be3b20f28eb282fdcc1fc9bcbbafef1df99))
+
+
+
+
+
 ## [3.11.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.11.0...@rdeco/module@3.11.1) (2022-06-21)
 
 
