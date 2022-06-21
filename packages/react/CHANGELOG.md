@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.28.3](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.28.2...@rdeco/react@3.28.3) (2022-06-21)
+
+
+### Bug Fixes
+
+* **req:** 缩短轮询查询 rdeco 是否存在的时间 ([7c4f43c](https://github.com/kinop112365362/structured-react-hook/commit/7c4f43ce69b466e108558a7b6e6dd38bddadc98b))
+
+
+
+
+
 ## [3.28.2](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.28.1...@rdeco/react@3.28.2) (2022-06-21)
 
 **Note:** Version bump only for package @rdeco/react
