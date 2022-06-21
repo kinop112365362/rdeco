@@ -1,7 +1,7 @@
 import { combination, invoke, mock } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
 /* eslint-disable no-undef */
-
+// 手动刷新版本
 export function getIframeWindow(iframeName) {
   return combination.iframeRef[iframeName].contentWindow.rdeco
 }
