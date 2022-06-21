@@ -55,7 +55,7 @@ export function ReqApp(props) {
   const onLoadCallback = useCallback(() => {
     if (membrane) {
       combination.iframeRef[configName] = iframeRef.current
-      const handle = () => {
+      if (iframeRef.current && iframeRef.current.contentWindow.rdeco) {
         iframeRef.current.contentWindow.rdeco.create({
           name: configName,
           exports: {
@@ -64,21 +64,8 @@ export function ReqApp(props) {
             },
           },
         })
-      }
-      if (iframeRef.current && iframeRef.current.contentWindow.rdeco) {
-        handle()
       } else {
-        let timerCount = 0
-        const timer = setInterval(() => {
-          timerCount++
-          if (iframeRef.current && iframeRef.current.contentWindow.rdeco) {
-            clearInterval(timer)
-            handle()
-          }
-          if (timerCount > 20) {
-            clearInterval(timer)
-          }
-        }, 100)
+        console.error(`${configName} iframe hook 初始化失败`)
       }
     }
   }, [membrane])
