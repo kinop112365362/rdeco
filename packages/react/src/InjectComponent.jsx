@@ -78,7 +78,7 @@ export function ReqApp(props) {
           if (timerCount > 20) {
             clearInterval(timer)
           }
-        }, 3000)
+        }, 100)
       }
     }
   }, [membrane])
