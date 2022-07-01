@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.17.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.16...@rdeco/web-app-sdk@3.17.0) (2022-07-01)
+
+
+### Features
+
+* **core:** 增加动态的 membrane 注入 ([9bf421e](https://github.com/kinop112365362/rdeco/commit/9bf421ee936a4c3296366bf0089a3b43422156ac))
+
+
+
+
+
 ## [3.16.16](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.15...@rdeco/web-app-sdk@3.16.16) (2022-06-21)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk
