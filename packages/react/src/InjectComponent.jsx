@@ -179,7 +179,11 @@ export function ReqComponent(props) {
       remote
         .getComponent()
         .then((com) => {
-          Component.current = com
+          if (com.default) {
+            Component.current = com.default
+          } else {
+            Component.current = com
+          }
           done()
         })
         .catch((e) => {
