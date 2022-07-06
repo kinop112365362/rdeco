@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.140](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.139...@rdeco/router@3.0.140) (2022-07-06)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
 ## [3.0.139](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.138...@rdeco/router@3.0.139) (2022-07-01)
 
 **Note:** Version bump only for package @rdeco/router
