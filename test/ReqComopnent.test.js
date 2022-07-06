@@ -68,6 +68,18 @@ test('React Inject Component Test', async () => {
       },
     },
   })
+  const Tag2 = create({
+    name: '@test/tag2',
+    exports: {
+      getComponent(resolve) {
+        resolve({
+          default: () => {
+            return <div role="tag2">tag2</div>
+          },
+        })
+      },
+    },
+  })
   const Test = createComponent({
     name: '@test/com',
     state: {
@@ -90,6 +102,12 @@ test('React Inject Component Test', async () => {
               fallback={<div>loading ...</div>}
               name="@test/tag1"
               params={this.state.params}
+              autoEntry
+            ></ReqComponent>
+            <ReqComponent
+              fallback={<div>loading ...</div>}
+              name="@test/tag2"
+              params={this.state.params}
             ></ReqComponent>
             <ReqApp
               src="./index.html"
@@ -109,5 +127,6 @@ test('React Inject Component Test', async () => {
   render(<Test></Test>)
   await Sleep.then()
   expect(screen.getByRole('tag1')).toHaveTextContent('tag1')
+  expect(screen.getByRole('tag2')).toHaveTextContent('tag2')
   expect(screen.getByRole('id')).toHaveTextContent('1')
 })
