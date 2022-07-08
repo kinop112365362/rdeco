@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.29.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.29.0...@rdeco/react@3.29.1) (2022-07-06)
+
+
+### Bug Fixes
+
+* **req:** 兼容导出的组件挂载在 default 上 ([046194e](https://github.com/kinop112365362/structured-react-hook/commit/046194e429068e829c4de714d0c9a8a9f0b261dc))
+
+
+
+
+
+# [3.29.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.28.4...@rdeco/react@3.29.0) (2022-07-01)
+
+
+### Features
+
+* **core:** 增加动态的 membrane 注入 ([9bf421e](https://github.com/kinop112365362/structured-react-hook/commit/9bf421ee936a4c3296366bf0089a3b43422156ac))
+
+
+
+
+
 ## [3.28.4](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.28.3...@rdeco/react@3.28.4) (2022-06-21)
 
 

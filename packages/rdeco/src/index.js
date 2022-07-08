@@ -12,6 +12,8 @@ import {
   mock,
   compose,
   createCompose,
+  getRegisterMembrane,
+  registerMembrane,
 } from '@rdeco/core'
 import {
   createComponent,
@@ -36,6 +38,8 @@ const rdeco = {
   enhanceContext,
   create,
   createMembrane,
+  getRegisterMembrane,
+  registerMembrane,
   invoke,
   readState,
   namelist,
@@ -73,6 +77,8 @@ export {
   enhanceContext,
   create,
   createMembrane,
+  getRegisterMembrane,
+  registerMembrane,
   invoke,
   readState,
   namelist,

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.22.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.21.0...@rdeco/core@3.22.0) (2022-07-01)
+
+
+### Features
+
+* **core:** 增加动态的 membrane 注入 ([9bf421e](https://github.com/kinop112365362/rdeco/commit/9bf421ee936a4c3296366bf0089a3b43422156ac))
+
+
+
+
+
 # [3.21.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.20.0...@rdeco/core@3.21.0) (2022-06-20)
 
 
