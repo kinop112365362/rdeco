@@ -27,11 +27,4 @@ test('inject 调用模块方法', async () => {
   const name = await inject('remote-module').getName('helloword')
   const name2 = await inject('remote-module').getName('helloword2')
   const name3 = await inject('remote-module').getName('helloword3')
-
-  // const p = new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve()
-  //   }, 2000)
-  // })
-  // await p
 })
