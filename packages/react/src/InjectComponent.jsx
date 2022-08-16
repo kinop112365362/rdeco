@@ -23,7 +23,8 @@ export function Inject(props) {
   return <div ref={el}></div>
 }
 
-export function InjectComponent(props) {
+// eslint-disable-next-line react/display-name
+export const InjectComponent = React.forwardRef((props, ref) => {
   const [render, setRender] = useState(false)
   let Component = useRef(() => <></>)
   useEffect(() => {
@@ -41,13 +42,20 @@ export function InjectComponent(props) {
     return (
       <>
         {render && (
-          <Component.current {...props.componentProps}></Component.current>
+          <Component.current
+            ref={ref}
+            {...props.componentProps}
+          ></Component.current>
         )}
       </>
     )
   }
-  return <>{render && <Component.current {...props}></Component.current>}</>
-}
+  return (
+    <>
+      {render && <Component.current ref={ref} {...props}></Component.current>}
+    </>
+  )
+})
 
 export function ReqApp(props) {
   const { membrane, style, src, configName } = props
@@ -139,7 +147,8 @@ export function installHooks(baseConfig, hookName) {
   }
 }
 
-export function ReqComponent(props) {
+// eslint-disable-next-line react/display-name
+export const ReqComponent = React.forwardRef((props, ref) => {
   const [render, setRender] = useState(false)
   const [loaded, setLoaded] = useState(false)
   let Component = useRef(() => <></>)
@@ -156,12 +165,19 @@ export function ReqComponent(props) {
       return (
         <>
           {render && (
-            <Component.current {...props.componentProps}></Component.current>
+            <Component.current
+              ref={ref}
+              {...props.componentProps}
+            ></Component.current>
           )}
         </>
       )
     }
-    return <>{render && <Component.current {...props}></Component.current>}</>
+    return (
+      <>
+        {render && <Component.current ref={ref} {...props}></Component.current>}
+      </>
+    )
   }
   useEffect(() => {
     if (
@@ -199,4 +215,4 @@ export function ReqComponent(props) {
     return <>{props.fallback}</>
   }
   return renderComponent()
-}
+})
