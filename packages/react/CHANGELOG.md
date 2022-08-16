@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.29.2](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.29.1...@rdeco/react@3.29.2) (2022-08-16)
+
+
+### Bug Fixes
+
+* **ref:** 支持 react ref 转发 ([2666888](https://github.com/kinop112365362/structured-react-hook/commit/2666888e3f70a39128da5fa56aefb879c33d6587))
+
+
+
+
+
 ## [3.29.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/react@3.29.0...@rdeco/react@3.29.1) (2022-07-06)
 
 
