@@ -8,7 +8,10 @@ function create(entityRaw) {
   const entity = deepmerge({}, entityRaw)
   const symbol = entity.name
   entity.baseSymbol = symbol
-  if (!combination.components[symbol]) {
+  if (
+    !combination.components[symbol] ||
+    combination.components[symbol].length === 0
+  ) {
     const entityStore = new Store(entity)
     combination.$register(symbol, entityStore, true)
     createSubscriptions(entityStore)
