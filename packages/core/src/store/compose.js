@@ -15,7 +15,7 @@ export function createCompose(template, composeId) {
       template.$$id = composeId
     } else {
       console.error(combination.components)
-      throw new Error(`${composeId} 已经被注册过了`)
+      // throw new Error(`${composeId} 已经被注册过了`)
     }
   }
 

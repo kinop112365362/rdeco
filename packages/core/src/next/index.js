@@ -94,7 +94,7 @@ class Rdeco {
         if (value) {
           const { method, args, resolve, reject } = value
           if (!this[method]) {
-            throw new Error(`${this.name} 类型不存在 ${method} 方法`)
+            // throw new Error(`${this.name} 类型不存在 ${method} 方法`)
           }
           console.debug(this)
           this[method](...args, resolve, reject)
