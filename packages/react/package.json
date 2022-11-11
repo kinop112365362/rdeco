@@ -37,8 +37,8 @@
     "@babel/runtime": "^7.12.1"
   },
   "dependencies": {
-    "@rdeco/core": "3.22.2",
-    "@rdeco/module": "3.11.5",
+    "@rdeco/core": "^3.30.5",
+    "@rdeco/module": "^3.13.4",
     "deepmerge": "^4.2.2",
     "lodash.isplainobject": "^4.0.6"
   },
