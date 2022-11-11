@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.30.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.4...@rdeco/core@3.30.5) (2022-11-11)
+
+
+### Bug Fixes
+
+* **error:** 移除文件 ([a6e35b8](https://github.com/kinop112365362/rdeco/commit/a6e35b879fe7c7cb3b3ddb082289657f7418422f))
+
+
+
+
+
 ## [3.30.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.3...@rdeco/core@3.30.4) (2022-11-11)
 
 
