@@ -42,7 +42,7 @@
     "@rdeco/core": "^3.30.5",
     "@rdeco/module": "3.13.5",
     "@rdeco/react": "3.40.4",
-    "@rdeco/router": "^3.0.158",
+    "@rdeco/router": "^3.1.0",
     "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
