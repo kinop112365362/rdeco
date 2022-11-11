@@ -14,7 +14,7 @@ export function createCompose(template, composeId) {
       combination.composeRecord[composeId] = template
       template.$$id = composeId
     } else {
-      console.error(combination.components)
+      console.warn(combination.components)
       // throw new Error(`${composeId} 已经被注册过了`)
     }
   }
@@ -31,8 +31,8 @@ export function compose(baseConfig, templates) {
           const templateFnKeys = Object.keys(template[configKey])
           templateFnKeys.forEach((templateFnKey) => {
             if (fnKeys.find((v) => v == templateFnKey)) {
-              console.error(`当前处理的 template`, template)
-              console.error(`当前处理的 baseConfig`, baseConfig)
+              console.warn(`当前处理的 template`, template)
+              console.warn(`当前处理的 baseConfig`, baseConfig)
               throw new Error(
                 `${baseConfig.name} 中的 ${templateFnKey} 重复定义，无法被 compose`
               )

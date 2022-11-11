@@ -176,12 +176,13 @@ export class Store {
     this.private.controllerContext.service = serviceBindContext
     this.private.viewContext.controller = ctrlBindContext
     this.private.viewContext.view = viewBindContext
+    this.private.viewContext.service = serviceBindContext
     this.view = viewBindContext
     this.controller = ctrlBindContext
     this.service = serviceBindContext
   }
   subscribe(newSubscribe) {
-    console.error(
+    console.warn(
       `this.subscribe api 发生变更，原有方式即将不再支持，后续在新版本中会被废弃掉，新的动态 subscribe 请参考最新文档`
     )
     const subscriptions = []

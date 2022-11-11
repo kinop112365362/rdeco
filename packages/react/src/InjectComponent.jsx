@@ -73,7 +73,7 @@ export function ReqApp(props) {
           },
         })
       } else {
-        console.error(`${configName} iframe hook 初始化失败`)
+        console.warn(`${configName} iframe hook 初始化失败`)
       }
     }
   }, [membrane])
