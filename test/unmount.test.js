@@ -82,5 +82,6 @@ test('测试 unmount 组件销毁的过程', async () => {
     expect(combination.components['@test/tag']).toStrictEqual([])
     expect(combination.subjects.targets['@test/tag']).toStrictEqual([])
     console.debug(combination.notificationSubjects)
+    // expect(combination.notificationSubject['test'].observer).toStrictEqual([])
   })
 })
