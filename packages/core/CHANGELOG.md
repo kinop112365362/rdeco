@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.30.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.7...@rdeco/core@3.30.8) (2022-11-18)
+
+
+### Bug Fixes
+
+* **exports:** haven't unsubscribe in store.dispose lead to multi call exports's method ([ca3cabb](https://github.com/kinop112365362/rdeco/commit/ca3cabb104e560a52e27b7f89d3361cbd3fbc2b7))
+* **exports:** haven't unsubscribe in store.dispose lead to multi call exports's method ([4b6a727](https://github.com/kinop112365362/rdeco/commit/4b6a72738e069f8221803a0294c960439b5fd127))
+
+
+
+
+
 ## [3.30.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.6...@rdeco/core@3.30.7) (2022-11-17)
 
 **Note:** Version bump only for package @rdeco/core
