@@ -1,13 +1,16 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable valid-jsdoc */
 /* eslint-disable react/display-name */
 // @filename: Store.js
 import { bindContext } from './bindContext'
 import { combination } from './combination'
 import { storeConfigValidate } from '../utils/storeConfigValidate'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, ReplaySubject } from 'rxjs'
 import { invoke } from '../subscribe/invoke'
 import { isFunction } from '../utils/isFunction'
 import deepmerge from 'deepmerge'
+import { createSubscriptions } from '../index'
 import { createObserve } from '../subscribe/createSubscriptions'
 import isPlainObject from 'lodash.isplainobject'
 
@@ -50,7 +53,6 @@ export class Store {
     )
     this.dynamicSubscription = []
     this.setterCallbacks = []
-    // eslint-disable-next-line no-undef
     this.symbol = Symbol()
     if (storeConfig.derivate) {
       this.derivate = {}
@@ -225,7 +227,7 @@ export class Store {
     this.state = nextState
   }
   dispatch([...args]) {
-    const [payload, stateKey] = args
+    const [type, payload, stateKey, store] = args
     this.state[stateKey] = payload
   }
   dispose() {
