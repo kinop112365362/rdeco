@@ -19,10 +19,16 @@ function create(entityRaw, membrane = {}, composeList = []) {
   ) {
     const entityStore = new Store(entity)
     combination.$register(symbol, entityStore, true)
-    createSubscriptions(entityStore)
+    const { selfSubscription } = createSubscriptions(entityStore)
     if (entityStore.controller.onMount) {
       entityStore?.controller?.onMount()
     }
+    const rawDispose = entityStore.dispose
+    entityStore.dispose = () => {
+      rawDispose.call(entityStore)
+      selfSubscription?.unsubscribe()
+    }
+
     return entityStore
   }
   return combination.components[symbol]
