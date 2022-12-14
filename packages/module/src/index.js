@@ -34,7 +34,7 @@ export function inject(moduleName) {
               if (mock?.[moduleName]?.[property]) {
                 return mock[moduleName][property](...argumentsList)
               } else {
-                console.warn(moduleName, property, argumentsList)
+                console.debug(moduleName, property, argumentsList)
                 return invoke([moduleName], property, ...argumentsList)
               }
             },
