@@ -2,7 +2,7 @@ import { combination, invoke, mock } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
 /* eslint-disable no-undef */
 let index = 0
-function logger() {
+function logger(moduleName, property, argumentsList) {
   if (localStorage) {
     if (index <= 30) {
       index++
@@ -34,7 +34,7 @@ export function inject(moduleName) {
               if (mock?.[moduleName]?.[property]) {
                 return mock[moduleName][property](...argumentsList)
               } else {
-                logger()
+                logger(moduleName, property, argumentsList)
                 return invoke([moduleName], property, ...argumentsList)
               }
             },
