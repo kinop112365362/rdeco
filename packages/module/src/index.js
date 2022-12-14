@@ -1,24 +1,11 @@
 import { combination, invoke, mock } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
 /* eslint-disable no-undef */
-let index = 0
-function logger(moduleName, property, argumentsList) {
-  if (localStorage) {
-    if (index <= 30) {
-      index++
-    } else {
-      index = 0
-    }
-    localStorage.setItem(
-      `$$rdeco_inject_log_${index}`,
-      JSON.stringify({
-        moduleName,
-        property,
-        argumentsList,
-      })
-    )
-  }
+
+function logger(...args) {
+  console.log(...args)
 }
+
 export function inject(moduleName) {
   if (window.Proxy === undefined) {
     console.error(
