@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.15.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.14.0...@rdeco/module@3.15.0) (2022-12-14)
+
+
+### Features
+
+* **inject:** add logger when inject call pey 30 times ([cbcfe4a](https://github.com/kinop112365362/structured-react-hook/commit/cbcfe4a725ca28603186511eacb1629e306d1536))
+* **inject:** add logger when inject call pey 30 times ([34d2a32](https://github.com/kinop112365362/structured-react-hook/commit/34d2a32f4818557864a140641c5f0a9139fc9a4e))
+
+
+
+
+
 # [3.14.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.13.8...@rdeco/module@3.14.0) (2022-12-14)
 
 
