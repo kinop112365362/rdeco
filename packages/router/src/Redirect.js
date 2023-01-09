@@ -5,6 +5,7 @@ import RouterContext from './RouterContext'
 
 const Redirect = createComponent({
   name: '@rdeco/router5-redirect',
+  reactComponentName: 'RdecoRedirect',
   ref: {
     parentPath: '',
   },

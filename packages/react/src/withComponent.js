@@ -5,14 +5,13 @@ import {
   Store,
   createSubscriptions,
   createMembrane,
-  validate,
 } from '@rdeco/core'
 
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component'
 }
 export function withComponent(WrappedComponent, component) {
-  const baseSymbol = validate(component.name)
+  const baseSymbol = component.name
 
   class Component extends React.PureComponent {
     constructor(props) {
@@ -25,7 +24,7 @@ export function withComponent(WrappedComponent, component) {
       }
       this.ref = { ...component.ref }
       if (props.membrane) {
-        const newBaseSymbol = validate(props.membrane.name)
+        const newBaseSymbol = props.membrane.name
         this.storeConfig.baseSymbol = newBaseSymbol
         this.store = new Store(createMembrane(this.storeConfig, props.membrane))
       } else {

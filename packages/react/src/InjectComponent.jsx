@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from 'react'
 import { inject, req } from '@rdeco/module'
+import { createMembrane, create, combination } from '@rdeco/core'
+import { createComponent } from './createComponent'
+import { useCallback } from 'react'
 
 export function Inject(props) {
   const el = React.createRef()
@@ -20,45 +23,196 @@ export function Inject(props) {
   return <div ref={el}></div>
 }
 
-export function InjectComponent(props) {
-  const [time, setTime] = useState(0)
+// eslint-disable-next-line react/display-name
+export const InjectComponent = React.forwardRef((props, ref) => {
+  const [render, setRender] = useState(false)
   let Component = useRef(() => <></>)
   useEffect(() => {
     inject(props.name)
       .getComponent()
       .then((com) => {
         Component.current = com
-        setTime(1)
+        setRender(true)
       })
       .catch((e) => {
         console.warn(e)
       })
   }, [])
+  if (props.componentProps) {
+    return (
+      <>
+        {render && (
+          <Component.current
+            ref={ref}
+            {...props.componentProps}
+          ></Component.current>
+        )}
+      </>
+    )
+  }
   return (
     <>
-      <Component.current time={time} {...props}></Component.current>
+      {render && <Component.current ref={ref} {...props}></Component.current>}
     </>
+  )
+})
+
+export function ReqApp(props) {
+  const { membrane, style, src, configName } = props
+  const iframeRef = useRef()
+  const onLoadCallback = useCallback(() => {
+    if (membrane) {
+      combination.iframeRef[configName] = iframeRef.current
+      if (iframeRef.current && iframeRef.current.contentWindow.rdeco) {
+        iframeRef.current.contentWindow.rdeco.create({
+          name: configName,
+          exports: {
+            getAppMembrane(resolve) {
+              resolve(membrane)
+            },
+          },
+        })
+      } else {
+        console.warn(`${configName} iframe hook 初始化失败`)
+      }
+    }
+  }, [membrane])
+  return (
+    <iframe
+      ref={iframeRef}
+      onLoad={onLoadCallback}
+      style={style || {}}
+      title="req-app"
+      src={src}
+      frameBorder="0"
+    ></iframe>
   )
 }
 
-export function ReqComponent(props) {
-  const remote = req(props.name)
-  const [time, setTime] = useState(0)
-  let Component = useRef(() => <></>)
-  useEffect(() => {
-    remote
-      .getComponent()
-      .then((com) => {
-        Component.current = com
-        setTime(1)
+export function installHooks(baseConfig, hookName) {
+  function installHandle(membrane) {
+    if (baseConfig.component) {
+      const componentKeys = Object.keys(baseConfig.component)
+      componentKeys.forEach((componentKey) => {
+        let com = null
+        if (combination.components[componentKey]) {
+          delete combination.components[componentKey]
+        }
+        baseConfig.component[componentKey].name = componentKey + '-comp'
+        if (membrane.component && membrane.component[componentKey]) {
+          com = createComponent(
+            createMembrane(
+              baseConfig.component[componentKey],
+              membrane.component[componentKey]
+            )
+          )
+        } else {
+          com = createComponent(baseConfig.component[componentKey])
+        }
+        create({
+          name: componentKey,
+          exports: {
+            getComponent(resolve) {
+              resolve(com)
+            },
+          },
+        })
       })
-      .catch((e) => {
-        console.warn(e)
+    }
+    if (baseConfig.function) {
+      const keys = Object.keys(baseConfig.function)
+      keys.forEach((key) => {
+        if (combination.components[key]) {
+          delete combination.components[key]
+        }
+        baseConfig.function[key].name = key
+        if (membrane.function && membrane.function[key]) {
+          create(
+            createMembrane(baseConfig.function[key], membrane.function[key])
+          )
+        } else {
+          create(baseConfig.function[key])
+        }
       })
-  }, [])
-  return (
-    <>
-      <Component.current time={time} {...props}></Component.current>
-    </>
-  )
+    }
+  }
+  if (self !== top) {
+    inject(hookName)
+      .getAppMembrane()
+      .then((membrane) => {
+        installHandle(membrane)
+      })
+  } else {
+    installHandle({})
+  }
 }
+
+// eslint-disable-next-line react/display-name
+export const ReqComponent = React.forwardRef((props, ref) => {
+  const [render, setRender] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+  let Component = useRef(() => <></>)
+  const done = () => {
+    if (props.done) {
+      props.done()
+    }
+    setLoaded(true)
+    setRender(true)
+    return
+  }
+  const renderComponent = () => {
+    if (props.componentProps) {
+      return (
+        <>
+          {render && (
+            <Component.current
+              ref={ref}
+              {...props.componentProps}
+            ></Component.current>
+          )}
+        </>
+      )
+    }
+    return (
+      <>
+        {render && <Component.current ref={ref} {...props}></Component.current>}
+      </>
+    )
+  }
+  useEffect(() => {
+    if (
+      window.$$rdeco_combination.reactComponents &&
+      window.$$rdeco_combination.reactComponents[props.name]
+    ) {
+      Component.current = window.$$rdeco_combination.reactComponents[props.name]
+      done()
+    } else {
+      let remoteReqName = props.name
+      if (props.autoEntry) {
+        remoteReqName = `${props.name}/req-entry`
+      }
+      const remote = req(remoteReqName)
+      remote
+        .getComponent()
+        .then((com) => {
+          if (com.default) {
+            Component.current = com.default
+          } else {
+            Component.current = com
+          }
+          done()
+        })
+        .catch((e) => {
+          setLoaded(true)
+          console.warn(e)
+        })
+    }
+  }, [])
+  if (props.fallback) {
+    if (loaded) {
+      return renderComponent()
+    }
+    return <>{props.fallback}</>
+  }
+  return renderComponent()
+})

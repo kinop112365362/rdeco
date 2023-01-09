@@ -33,6 +33,9 @@ export class Store {
     }
     this.router = storeConfig.router ? { ...storeConfig.router } : null
     this.exports = storeConfig.exports ? { ...storeConfig.exports } : null
+    if (isFunction(storeConfig.subscribe)) {
+      storeConfig.subscribe = storeConfig.subscribe(storeConfig.props)
+    }
     if (storeConfig?.subscribe?.self) {
       storeConfig.subscribe[storeConfig.name] = {
         ...storeConfig.subscribe.self,
@@ -48,7 +51,6 @@ export class Store {
       storeConfig,
       this.baseSymbol
     )
-
     this.dynamicSubscription = []
     this.setterCallbacks = []
     this.symbol = Symbol()
@@ -77,22 +79,22 @@ export class Store {
     this.setter = {}
     this.props = storeConfig.props
     this.subjects = {
-      state: new ReplaySubject(9),
+      state: new BehaviorSubject(null),
       controller: new BehaviorSubject(null),
       service: new BehaviorSubject(null),
-      event: new ReplaySubject(9),
+      event: new BehaviorSubject(null),
       fallback: new BehaviorSubject(null),
       symbol: this.symbol,
     }
     combination.$createSubjects(this, this.baseSymbol, this.symbol, this.props)
-    combination.$setSubject(this.baseSymbol, this)
+    combination.$setSubject(this.baseSymbol, this, storeConfig.single)
     // eslint-disable-next-line no-undef
     this.invoke = invoke
     this.emit = (fnKey, data) => {
-      const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
-      if (!reg.test(fnKey)) {
-        throw new Error(`this.emit 只支持驼峰命名的 event`)
-      }
+      // const reg = new RegExp('^[a-z]+([A-Z][a-z]+)+$')
+      // if (!reg.test(fnKey)) {
+      //   throw new Error(`this.emit 只支持驼峰命名的 event`)
+      // }
       const value = {
         eventTargetMeta: {
           subjectKey: 'event',
@@ -170,14 +172,19 @@ export class Store {
       'service'
     )
     this.private.serviceContext.service = serviceBindContext
+    this.private.serviceContext.view = viewBindContext
     this.private.controllerContext.service = serviceBindContext
     this.private.viewContext.controller = ctrlBindContext
     this.private.viewContext.view = viewBindContext
+    this.private.viewContext.service = serviceBindContext
     this.view = viewBindContext
     this.controller = ctrlBindContext
     this.service = serviceBindContext
   }
   subscribe(newSubscribe) {
+    console.warn(
+      `this.subscribe api 发生变更，原有方式即将不再支持，后续在新版本中会被废弃掉，新的动态 subscribe 请参考最新文档`
+    )
     const subscriptions = []
     if (this.subscriber) {
       this.subscriber = { ...this.subscriber, ...newSubscribe }

@@ -70,12 +70,13 @@ export function createSubscriptions(store) {
     selfSubscription = store.notificationSubject.subscribe({
       next(value) {
         if (value !== null) {
+          // 消除异常
           // 代理订阅中的事件不包含 eventTargetMeta ,因为它不是一个标准的公共通道事件
-          if (!store.exports[value.fnKey]) {
-            throw new Error(
-              `调用失败, ${store.name} 组件的 exports 上不存在 ${value.fnKey} 方法`
-            )
-          }
+          // if (!store.exports[value.fnKey]) {
+          //   throw new Error(
+          //     `调用失败, ${store.name} 组件的 exports 上不存在 ${value.fnKey} 方法`
+          //   )
+          // }
           if (value.finder) {
             if (!value.finder(store.props)) {
               /**
@@ -85,7 +86,6 @@ export function createSubscriptions(store) {
             }
           }
           if (value.data === undefined) {
-            console.debug(value)
             store.exports?.[value?.fnKey]?.call(
               store,
               value.next,

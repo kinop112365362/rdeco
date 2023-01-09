@@ -12,6 +12,7 @@ import {
   withComponent,
   Inject,
   InjectComponent,
+  createReqComponent,
 } from '@rdeco/web-app-sdk'
 import { combination } from '@rdeco/core/src'
 
@@ -24,7 +25,7 @@ test('React Inject Component Test', async () => {
   //     },
   //   },
   // })
-  const Tag1 = createComponent({
+  const Tag1 = createReqComponent({
     name: '@test/tag1',
     view: {
       render() {

@@ -3,6 +3,785 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.7](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.1.6...@rdeco/router@3.1.7) (2022-12-14)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.1.6](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.1.5...@rdeco/router@3.1.6) (2022-12-14)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.1.5](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.1.4...@rdeco/router@3.1.5) (2022-12-14)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.1.4](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.1.3...@rdeco/router@3.1.4) (2022-11-18)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.1.3](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.1.2...@rdeco/router@3.1.3) (2022-11-17)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.1.2](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.1.1...@rdeco/router@3.1.2) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.1.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.142...@rdeco/router@3.1.1) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.143](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.142...@rdeco/router@3.0.143) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.142](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.141...@rdeco/router@3.0.142) (2022-08-23)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.141](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.140...@rdeco/router@3.0.141) (2022-08-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.140](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.139...@rdeco/router@3.0.140) (2022-07-06)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.139](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.138...@rdeco/router@3.0.139) (2022-07-01)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.138](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.137...@rdeco/router@3.0.138) (2022-06-21)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.137](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.136...@rdeco/router@3.0.137) (2022-06-21)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.136](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.135...@rdeco/router@3.0.136) (2022-06-21)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.135](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.134...@rdeco/router@3.0.135) (2022-06-21)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.134](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.133...@rdeco/router@3.0.134) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.133](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.132...@rdeco/router@3.0.133) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.132](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.131...@rdeco/router@3.0.132) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.131](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.130...@rdeco/router@3.0.131) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.130](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.129...@rdeco/router@3.0.130) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.129](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.128...@rdeco/router@3.0.129) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.128](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.127...@rdeco/router@3.0.128) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.127](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.126...@rdeco/router@3.0.127) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.126](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.125...@rdeco/router@3.0.126) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.125](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.124...@rdeco/router@3.0.125) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.124](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.123...@rdeco/router@3.0.124) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.123](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.122...@rdeco/router@3.0.123) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.122](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.121...@rdeco/router@3.0.122) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.121](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.120...@rdeco/router@3.0.121) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.120](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.119...@rdeco/router@3.0.120) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.119](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.118...@rdeco/router@3.0.119) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.118](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.117...@rdeco/router@3.0.118) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.117](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.116...@rdeco/router@3.0.117) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.116](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.115...@rdeco/router@3.0.116) (2022-06-17)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.115](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.114...@rdeco/router@3.0.115) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.114](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.113...@rdeco/router@3.0.114) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.113](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.112...@rdeco/router@3.0.113) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.112](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.111...@rdeco/router@3.0.112) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.111](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.110...@rdeco/router@3.0.111) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.110](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.109...@rdeco/router@3.0.110) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.109](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.108...@rdeco/router@3.0.109) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.108](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.107...@rdeco/router@3.0.108) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.107](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.106...@rdeco/router@3.0.107) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.106](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.105...@rdeco/router@3.0.106) (2022-06-09)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.105](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.104...@rdeco/router@3.0.105) (2022-06-09)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.104](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.103...@rdeco/router@3.0.104) (2022-06-01)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.103](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.102...@rdeco/router@3.0.103) (2022-05-27)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.102](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.101...@rdeco/router@3.0.102) (2022-05-27)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.101](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.100...@rdeco/router@3.0.101) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.100](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.99...@rdeco/router@3.0.100) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.99](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.98...@rdeco/router@3.0.99) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.98](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.97...@rdeco/router@3.0.98) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.97](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.96...@rdeco/router@3.0.97) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.96](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.95...@rdeco/router@3.0.96) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.95](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.94...@rdeco/router@3.0.95) (2022-05-20)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.94](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.93...@rdeco/router@3.0.94) (2022-05-19)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.93](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.92...@rdeco/router@3.0.93) (2022-05-12)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.92](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.91...@rdeco/router@3.0.92) (2022-05-12)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.91](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.90...@rdeco/router@3.0.91) (2022-05-12)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.90](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.89...@rdeco/router@3.0.90) (2022-05-05)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.89](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.88...@rdeco/router@3.0.89) (2022-05-05)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.88](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.87...@rdeco/router@3.0.88) (2022-05-05)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.87](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.86...@rdeco/router@3.0.87) (2022-04-26)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.86](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.85...@rdeco/router@3.0.86) (2022-04-25)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.85](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.84...@rdeco/router@3.0.85) (2022-04-25)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.84](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.83...@rdeco/router@3.0.84) (2022-04-25)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.83](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.82...@rdeco/router@3.0.83) (2022-04-24)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.82](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.81...@rdeco/router@3.0.82) (2022-04-24)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.81](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.80...@rdeco/router@3.0.81) (2022-04-24)
+
+
+### Bug Fixes
+
+* **react:** 支持手动添加 reactComponentName 来支持热更新 ([cf9ac4e](https://github.com/kinop112365362/structured-react-hook/commit/cf9ac4e7c15edec8f68fd13cd384eaafcb8084bc))
+
+
+
+
+
+## [3.0.80](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.79...@rdeco/router@3.0.80) (2022-04-22)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.79](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.78...@rdeco/router@3.0.79) (2022-04-22)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.78](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.77...@rdeco/router@3.0.78) (2022-04-22)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.77](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.76...@rdeco/router@3.0.77) (2022-04-22)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.76](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.75...@rdeco/router@3.0.76) (2022-04-22)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.75](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.74...@rdeco/router@3.0.75) (2022-04-19)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.74](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.73...@rdeco/router@3.0.74) (2022-04-18)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.73](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.72...@rdeco/router@3.0.73) (2022-04-18)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.72](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.71...@rdeco/router@3.0.72) (2022-04-15)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.71](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.70...@rdeco/router@3.0.71) (2022-04-15)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.70](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.69...@rdeco/router@3.0.70) (2022-04-13)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.69](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.68...@rdeco/router@3.0.69) (2022-04-11)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.68](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.67...@rdeco/router@3.0.68) (2022-04-11)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.67](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.66...@rdeco/router@3.0.67) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.66](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.65...@rdeco/router@3.0.66) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.65](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.64...@rdeco/router@3.0.65) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.64](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.63...@rdeco/router@3.0.64) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.63](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.62...@rdeco/router@3.0.63) (2022-04-07)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.62](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.61...@rdeco/router@3.0.62) (2022-04-07)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.61](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.60...@rdeco/router@3.0.61) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.60](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.59...@rdeco/router@3.0.60) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.59](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.58...@rdeco/router@3.0.59) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.58](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.57...@rdeco/router@3.0.58) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.57](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.56...@rdeco/router@3.0.57) (2022-04-01)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.56](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.55...@rdeco/router@3.0.56) (2022-04-01)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.55](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.54...@rdeco/router@3.0.55) (2022-03-31)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
+## [3.0.54](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.53...@rdeco/router@3.0.54) (2022-03-30)
+
+**Note:** Version bump only for package @rdeco/router
+
+
+
+
+
 ## [3.0.53](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/router@3.0.52...@rdeco/router@3.0.53) (2022-03-28)
 
 **Note:** Version bump only for package @rdeco/router

@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import { render, fireEvent, waitFor, screen } from '@testing-library/react'
-import { createComponent } from '@rdeco/web-app-sdk'
+import { createComponent, create } from '@rdeco/web-app-sdk'
 import { combination } from '@rdeco/core/src'
 import '@testing-library/jest-dom/extend-expect'
 
@@ -21,6 +21,16 @@ test('测试 unmount 组件销毁的过程', async () => {
     },
     view: {
       render() {
+        const store = create({
+          name: 'test',
+          exports: {},
+        })
+        store.dispose()
+        const store1 = create({
+          name: 'test',
+          exports: {},
+        })
+        store1.dispose()
         return (
           <div
             role={`notReady${this.props.id}`}
@@ -71,5 +81,7 @@ test('测试 unmount 组件销毁的过程', async () => {
   await waitFor(() => {
     expect(combination.components['@test/tag']).toStrictEqual([])
     expect(combination.subjects.targets['@test/tag']).toStrictEqual([])
+    console.debug(combination.notificationSubjects)
+    // expect(combination.notificationSubject['test'].observer).toStrictEqual([])
   })
 })

@@ -220,6 +220,21 @@ create({
     },
   },
 })
+// subscribe 也支持通过 props 动态创建监听
+create({
+  name: 'foo',
+  subscribe({name}) {
+    return {
+      [name]: {
+        state: {
+          name({ nextState }) {
+            console.log(nextState)
+          },
+        },
+      },
+    }
+  },
+})
 
 const bar = create({
   name: 'bar',

@@ -9,7 +9,7 @@ import { combination } from '@rdeco/core'
 
 test('测试 Task api', async () => {
   create({
-    name: '@test-config/data-model',
+    name: '@test/config/data-model',
     state() {
       return {
         taskId: this.task.create(),

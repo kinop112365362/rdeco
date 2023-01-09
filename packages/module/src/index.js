@@ -1,7 +1,24 @@
 import { combination, invoke, mock } from '@rdeco/core'
 import { loadRemoteConfig } from '@afe/browser-runtime-loader'
-import npmValidate from 'validate-npm-package-name'
 /* eslint-disable no-undef */
+// let index = 0
+// function logger(moduleName, property, argumentsList) {
+//   if (localStorage) {
+//     if (index <= 30) {
+//       index++
+//     } else {
+//       index = 0
+//     }
+//     localStorage.setItem(
+//       `$$rdeco_inject_log_${index}`,
+//       JSON.stringify({
+//         moduleName,
+//         property,
+//         argumentsList,
+//       })
+//     )
+//   }
+// }
 export function inject(moduleName) {
   if (window.Proxy === undefined) {
     console.error(
@@ -14,9 +31,10 @@ export function inject(moduleName) {
         get: function (target, property) {
           return new Proxy(function () {}, {
             apply: function (target, thisArg, argumentsList) {
-              if (mock[moduleName]) {
+              if (mock?.[moduleName]?.[property]) {
                 return mock[moduleName][property](...argumentsList)
               } else {
+                console.debug(moduleName, property, argumentsList)
                 return invoke([moduleName], property, ...argumentsList)
               }
             },
@@ -27,29 +45,49 @@ export function inject(moduleName) {
   }
 }
 
+export async function reqJSON(path) {
+  const [appCode, configName] = path.split('/')
+  if (!appCode) {
+    throw new Error('appCode is unknown')
+  }
+  if (!configName) {
+    throw new Error('configName is unknown')
+  }
+  const data = await loadRemoteConfig({
+    appCode: appCode.split('@')[1],
+    name: configName,
+    type: 'json',
+  })
+  return data
+}
+
 export function req(path) {
-  const { validForNewPackages } = npmValidate(path)
-  if (!validForNewPackages) {
-    const [appCode, configName, moduleName] = path.split('/')
+  if (combination.components[path] === undefined) {
+    console.info(`${path} 模块未加载，即将开始加载`)
+    const [appCode, moduleName, compName] = path.split('/')
     if (!appCode) {
       throw new Error('appCode is unknown')
-    }
-    if (!configName) {
-      throw new Error('configName is unknown')
     }
     if (!moduleName) {
       throw new Error('moduleName is unknown')
     }
-    const fullModuleName = `${appCode}-${configName}/${moduleName}`
-    if (!combination.components[fullModuleName]) {
+    if (!compName) {
+      // console.warn(`未指定组件名称，仅加载模块 ${appCode}/${moduleName}`)
+    }
+    if (
+      !combination.loadedConfigNamelist.find(
+        (name) => name === `${appCode}/${moduleName}`
+      )
+    ) {
+      combination.loadedConfigNamelist.push(`${appCode}/${moduleName}`)
       loadRemoteConfig({
         appCode: appCode.split('@')[1],
-        name: configName,
+        name: moduleName,
         type: 'js',
+      }).then(() => {
+        console.info(`${appCode}/${moduleName} 模块加载完成`)
       })
     }
-    return inject(fullModuleName)
-  } else {
-    return inject(path)
   }
+  return inject(path)
 }

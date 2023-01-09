@@ -13,7 +13,7 @@ import {
 } from '@rdeco/web-app-sdk'
 import { combination } from '@rdeco/core'
 
-mock['@test-config/data-model'] = {
+mock['@test/config/data-model'] = {
   begin() {
     return Promise.resolve('world')
   },
@@ -21,10 +21,13 @@ mock['@test-config/data-model'] = {
 
 test('测试 Mock api', async () => {
   create({
-    name: '@test-config/data-model',
+    name: '@test/config/data-model',
     exports: {
       begin(resolve) {
         resolve('hello')
+      },
+      begin2(resolve) {
+        resolve('hello begin2')
       },
     },
   })
@@ -38,6 +41,9 @@ test('测试 Mock api', async () => {
         const dataModel = req('@test/config/data-model')
         dataModel.begin().then((res) => {
           expect(res).toBe('world')
+        })
+        dataModel.begin2().then((res) => {
+          expect(res).toBe('hello begin2')
         })
       },
     },

@@ -5,7 +5,11 @@ let combination = {
   version: packageJSON.version, // 此版本号是 @rdeco/core 的版本号
   loader: (n) => n,
   modules: {},
+  mode: 'single',
+  reactComponents: {},
+  loadedConfigNamelist: [],
   components: {},
+  iframeRef: {},
   pluginSubject: new ReplaySubject(9999),
   notificationSubjects: {},
   registerSubject: new BehaviorSubject(null),
@@ -17,6 +21,7 @@ let combination = {
     targetsProxy: {},
     targetsPropxyQueue: {},
   },
+  composeRecord: {},
   enhanceContext: {},
   extends: {},
   // eslint-disable-next-line no-undef
@@ -32,16 +37,27 @@ let combination = {
       this.subjects.targetsPropxyQueue[baseSymbol] = []
     }
   },
-  $setSubject(baseSymbol, store) {
-    if (!this.subjects.targets[baseSymbol]) {
-      this.subjects.targets[baseSymbol] = []
+  $setSubject(baseSymbol, store, isSingle = false) {
+    if (isSingle) {
+      if (!this.subjects.targets[baseSymbol]) {
+        this.subjects.targets[baseSymbol] = [store]
+      }
+      this.$initTargetProxy(baseSymbol)
+      this.subjects.targetsPropxyQueue[baseSymbol] = [store]
+      this.subjects.targetsProxy[baseSymbol].next(
+        this.subjects.targetsPropxyQueue[baseSymbol]
+      )
+    } else {
+      if (!this.subjects.targets[baseSymbol]) {
+        this.subjects.targets[baseSymbol] = []
+      }
+      this.$initTargetProxy(baseSymbol)
+      this.subjects.targets[baseSymbol].push(store)
+      this.subjects.targetsPropxyQueue[baseSymbol].push(store)
+      this.subjects.targetsProxy[baseSymbol].next(
+        this.subjects.targetsPropxyQueue[baseSymbol]
+      )
     }
-    this.$initTargetProxy(baseSymbol)
-    this.subjects.targets[baseSymbol].push(store)
-    this.subjects.targetsPropxyQueue[baseSymbol].push(store)
-    this.subjects.targetsProxy[baseSymbol].next(
-      this.subjects.targetsPropxyQueue[baseSymbol]
-    )
   },
   $isObservable(baseSymbol) {
     return this.observableList.has(baseSymbol)
@@ -163,15 +179,13 @@ export function addPlugin(subscirbeCall) {
 }
 export function registerModule(key, value) {
   if (combination.modules[key]) {
-    console.error(`你覆盖了${key} module, 请确保这不是个意外`)
+    console.warn(`你覆盖了${key} module, 请确保这不是个意外`)
   }
   combination.modules[key] = value
 }
 export function readState(name, handle) {
   if (!combination.components[name]) {
-    throw new Error(
-      `${name} 组件不存在或者未实例化, 如果是异步渲染, 请通过事件监听来读取 state, readState 只支持同步读取`
-    )
+    return [false]
   }
   if (handle) {
     return combination.components[name].map((component) => {
@@ -195,7 +209,7 @@ export function configModuleLoader(loader) {
   if (!combination.loader) {
     combination.loader = loader
   } else {
-    console.error(
+    console.warn(
       `loader 已经被注入了，再次注入 loader 不会生效，如果是组件集成，请检查注入 loader 的代码`
     )
   }
@@ -204,9 +218,9 @@ export function enhanceContext(key, value) {
   if (!combination.enhanceContext[key]) {
     combination.enhanceContext[key] = value
   } else {
-    console.error(
-      `Context ${key} 已经被注入了，再次注入同名的 Context 不会生效，如果是组件集成，请检查彼此的 Context 是否重名`
-    )
+    // console.warn(
+    //   `Context ${key} 已经被注入了，再次注入同名的 Context 不会生效，如果是组件集成，请检查彼此的 Context 是否重名`
+    // )
   }
 }
 export function extendsSubscribe(key, handler) {
@@ -214,16 +228,27 @@ export function extendsSubscribe(key, handler) {
     combination.extends[key] = handler
   }
 }
+function compatibility(target) {
+  target.$setSubject = combination.$setSubject
+  target.$register = combination.$register
+  if (!target.composeRecord) {
+    target.composeRecord = combination.composeRecord
+  }
+  if (!target.$record || !target.reactComponents) {
+    target.$record = combination.$record
+    target.loadedConfigNamelist = combination.loadedConfigNamelist
+    target.reactComponents = combination.reactComponents
+  }
+}
 if (window) {
   if (window.$$rdeco_combination) {
+    compatibility(window.$$rdeco_combination)
     combination = window.$$rdeco_combination
   } else {
     window.$$rdeco_combination = combination
   }
   window.$$rdecoLog = () => {
-    return {
-      logger: Object.freeze({ ...combination }),
-    }
+    return Object.freeze({ ...combination })
   }
 }
 

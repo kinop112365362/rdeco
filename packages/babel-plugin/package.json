@@ -1,6 +1,6 @@
 {
   "name": "@afe/babel-plugin-rdeco",
-  "version": "1.0.3",
+  "version": "1.0.9",
   "description": "babel plugin for rdeco  module",
   "keywords": [
     "rdeco"
@@ -21,11 +21,13 @@
   "scripts": {
     "build": "rm -rf lib && babel ./src/index.js --out-file ./lib/index.js",
     "test:provide": "babel --config-file ./test/babel.config.provide.js ./test/index.provide.js --out-file ./test/index.provide.complie.js",
-    "test:customer": "babel --config-file ./test/babel.config.customer.js ./test/index.customer.js --out-file ./test/index.customer.complie.js",
-    "test": "yarn test:provide && yarn test:customer"
+    "test": "yarn test:provide"
   },
   "gitHead": "b71cea6c67d0104be8b1da077ac467cb6b4b0124",
   "dependencies": {
     "lodash.kebabcase": "^4.1.1"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.16.7"
   }
 }

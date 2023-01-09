@@ -5,7 +5,7 @@
   "npmClientArgs": ["--production", "--no-optional"],
   "command": {
     "publish": {
-      "allowBranch": ["main"],
+      "allowBranch": ["main","base-3.17.3"],
       "conventionalCommits": "conventional-changelog-angular",
       "exact": true,
       "ignoreChanges": ["ignored-file", "*.md", "'**/__tests__/**"],

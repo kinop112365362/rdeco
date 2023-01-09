@@ -3,6 +3,922 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.20.11](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.20.10...@rdeco/web-app-sdk@3.20.11) (2022-12-14)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.20.10](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.20.9...@rdeco/web-app-sdk@3.20.10) (2022-12-14)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.20.9](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.20.8...@rdeco/web-app-sdk@3.20.9) (2022-12-14)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.20.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.20.7...@rdeco/web-app-sdk@3.20.8) (2022-11-18)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.20.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.20.6...@rdeco/web-app-sdk@3.20.7) (2022-11-17)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.20.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.20.5...@rdeco/web-app-sdk@3.20.6) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.20.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.20.4...@rdeco/web-app-sdk@3.20.5) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.20.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.20.3...@rdeco/web-app-sdk@3.20.4) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.20.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.20.1...@rdeco/web-app-sdk@3.20.3) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.20.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.17.3...@rdeco/web-app-sdk@3.20.1) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.17.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.17.2...@rdeco/web-app-sdk@3.17.3) (2022-08-23)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.17.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.17.1...@rdeco/web-app-sdk@3.17.2) (2022-08-16)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.17.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.17.0...@rdeco/web-app-sdk@3.17.1) (2022-07-06)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+# [3.17.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.16...@rdeco/web-app-sdk@3.17.0) (2022-07-01)
+
+
+### Features
+
+* **core:** 增加动态的 membrane 注入 ([9bf421e](https://github.com/kinop112365362/rdeco/commit/9bf421ee936a4c3296366bf0089a3b43422156ac))
+
+
+
+
+
+## [3.16.16](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.15...@rdeco/web-app-sdk@3.16.16) (2022-06-21)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.15](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.14...@rdeco/web-app-sdk@3.16.15) (2022-06-21)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.14](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.13...@rdeco/web-app-sdk@3.16.14) (2022-06-21)
+
+
+### Bug Fixes
+
+* **chore:** 调整新增 api 的入口 ([3fb43be](https://github.com/kinop112365362/rdeco/commit/3fb43be3b20f28eb282fdcc1fc9bcbbafef1df99))
+
+
+
+
+
+## [3.16.13](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.12...@rdeco/web-app-sdk@3.16.13) (2022-06-21)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.12](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.11...@rdeco/web-app-sdk@3.16.12) (2022-06-21)
+
+
+### Bug Fixes
+
+* **ver:** rdeco 入口依赖始终指向最新包 ([8883c5f](https://github.com/kinop112365362/rdeco/commit/8883c5f3bd0bbff094af9dd97fedb6f061243c55))
+
+
+
+
+
+## [3.16.11](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.10...@rdeco/web-app-sdk@3.16.11) (2022-06-21)
+
+
+### Bug Fixes
+
+* **ver:** rdeco 入口依赖始终指向最新包 ([434bcc0](https://github.com/kinop112365362/rdeco/commit/434bcc0f501f7107ac75825e499b7f25d5da027a))
+
+
+
+
+
+## [3.16.10](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.9...@rdeco/web-app-sdk@3.16.10) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.9](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.8...@rdeco/web-app-sdk@3.16.9) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.7...@rdeco/web-app-sdk@3.16.8) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.6...@rdeco/web-app-sdk@3.16.7) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.5...@rdeco/web-app-sdk@3.16.6) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.4...@rdeco/web-app-sdk@3.16.5) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.3...@rdeco/web-app-sdk@3.16.4) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.2...@rdeco/web-app-sdk@3.16.3) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.1...@rdeco/web-app-sdk@3.16.2) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.16.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.16.0...@rdeco/web-app-sdk@3.16.1) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+# [3.16.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.15.0...@rdeco/web-app-sdk@3.16.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([7c428f6](https://github.com/kinop112365362/rdeco/commit/7c428f6a6b8f17a552ab2a2f08f01e2271edc4f6))
+
+
+
+
+
+# [3.15.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.14.0...@rdeco/web-app-sdk@3.15.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([324d99d](https://github.com/kinop112365362/rdeco/commit/324d99da0fbe02bb49e8d41a113d972fd06acd39))
+
+
+
+
+
+# [3.14.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.13.0...@rdeco/web-app-sdk@3.14.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([c80f1d5](https://github.com/kinop112365362/rdeco/commit/c80f1d54e5a71c82647f1147a328a3a49fc7de21))
+
+
+
+
+
+# [3.13.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.12.1...@rdeco/web-app-sdk@3.13.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([abd33a1](https://github.com/kinop112365362/rdeco/commit/abd33a1a1267f89768388d3e99ba625d2af42892))
+
+
+
+
+
+## [3.12.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.12.0...@rdeco/web-app-sdk@3.12.1) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+# [3.12.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.11.3...@rdeco/web-app-sdk@3.12.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([f46fa05](https://github.com/kinop112365362/rdeco/commit/f46fa0529d9111cdc527dd24ef6555768bace06e))
+
+
+
+
+
+## [3.11.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.11.2...@rdeco/web-app-sdk@3.11.3) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.11.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.11.1...@rdeco/web-app-sdk@3.11.2) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.11.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.11.0...@rdeco/web-app-sdk@3.11.1) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+# [3.11.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.9...@rdeco/web-app-sdk@3.11.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([c865c70](https://github.com/kinop112365362/rdeco/commit/c865c705eda34748fa170b9965632214823598aa))
+
+
+
+
+
+## [3.10.9](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.8...@rdeco/web-app-sdk@3.10.9) (2022-06-17)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.10.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.7...@rdeco/web-app-sdk@3.10.8) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.10.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.6...@rdeco/web-app-sdk@3.10.7) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.10.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.5...@rdeco/web-app-sdk@3.10.6) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.10.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.4...@rdeco/web-app-sdk@3.10.5) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.10.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.3...@rdeco/web-app-sdk@3.10.4) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.10.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.2...@rdeco/web-app-sdk@3.10.3) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.10.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.1...@rdeco/web-app-sdk@3.10.2) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.10.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.10.0...@rdeco/web-app-sdk@3.10.1) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+# [3.10.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.9.0...@rdeco/web-app-sdk@3.10.0) (2022-06-16)
+
+
+### Features
+
+* **req:** 增加对初始化 hooks 的处理 ([3b3e831](https://github.com/kinop112365362/rdeco/commit/3b3e831fffaeb8001b73db6ce8bbe80c826c6fb4))
+
+
+
+
+
+# [3.9.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.39...@rdeco/web-app-sdk@3.9.0) (2022-06-16)
+
+
+### Features
+
+* **req:** 增加对初始化 hooks 的处理 ([3e2be87](https://github.com/kinop112365362/rdeco/commit/3e2be873f95bd65ad86512a3df44cd8e6627dc8a))
+
+
+
+
+
+## [3.8.39](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.38...@rdeco/web-app-sdk@3.8.39) (2022-06-09)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.38](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.37...@rdeco/web-app-sdk@3.8.38) (2022-06-09)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.37](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.36...@rdeco/web-app-sdk@3.8.37) (2022-06-01)
+
+
+### Bug Fixes
+
+* **react:** 修复 ReqApp 若干问题 ([bfeef64](https://github.com/kinop112365362/rdeco/commit/bfeef64ec964e14a510c10eec18b7f67052af94c))
+
+
+
+
+
+## [3.8.36](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.35...@rdeco/web-app-sdk@3.8.36) (2022-05-27)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.35](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.34...@rdeco/web-app-sdk@3.8.35) (2022-05-27)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.34](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.33...@rdeco/web-app-sdk@3.8.34) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.33](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.32...@rdeco/web-app-sdk@3.8.33) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.32](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.31...@rdeco/web-app-sdk@3.8.32) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.31](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.30...@rdeco/web-app-sdk@3.8.31) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.30](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.29...@rdeco/web-app-sdk@3.8.30) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.29](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.28...@rdeco/web-app-sdk@3.8.29) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.28](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.27...@rdeco/web-app-sdk@3.8.28) (2022-05-20)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.27](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.26...@rdeco/web-app-sdk@3.8.27) (2022-05-19)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.26](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.25...@rdeco/web-app-sdk@3.8.26) (2022-05-12)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.25](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.24...@rdeco/web-app-sdk@3.8.25) (2022-05-12)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.24](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.23...@rdeco/web-app-sdk@3.8.24) (2022-05-12)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.23](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.22...@rdeco/web-app-sdk@3.8.23) (2022-05-05)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.22](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.21...@rdeco/web-app-sdk@3.8.22) (2022-05-05)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.21](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.20...@rdeco/web-app-sdk@3.8.21) (2022-05-05)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.20](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.19...@rdeco/web-app-sdk@3.8.20) (2022-04-29)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.19](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.18...@rdeco/web-app-sdk@3.8.19) (2022-04-26)
+
+
+### Bug Fixes
+
+* **react:** ReqComponent 兼容 createReqComponent 和 createComponent 创建的组件 ([1b1e93f](https://github.com/kinop112365362/rdeco/commit/1b1e93f35af03bf77232178191270a161f14eaa5))
+
+
+
+
+
+## [3.8.18](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.17...@rdeco/web-app-sdk@3.8.18) (2022-04-25)
+
+
+### Bug Fixes
+
+* **index:** 未导出 ReqComponentWithEntry ([3a30342](https://github.com/kinop112365362/rdeco/commit/3a3034280d1a1de2901060e655b2d606e6e26e0b))
+
+
+
+
+
+## [3.8.17](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.16...@rdeco/web-app-sdk@3.8.17) (2022-04-25)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.16](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.15...@rdeco/web-app-sdk@3.8.16) (2022-04-25)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.15](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.14...@rdeco/web-app-sdk@3.8.15) (2022-04-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.14](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.13...@rdeco/web-app-sdk@3.8.14) (2022-04-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.13](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.12...@rdeco/web-app-sdk@3.8.13) (2022-04-24)
+
+
+### Bug Fixes
+
+* **hylia:** 构建丢失进度条 ([d757c5a](https://github.com/kinop112365362/rdeco/commit/d757c5ad5527bcdd47e259171e89c3b2f396e616))
+
+
+
+
+
+## [3.8.12](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.11...@rdeco/web-app-sdk@3.8.12) (2022-04-24)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.11](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.10...@rdeco/web-app-sdk@3.8.11) (2022-04-22)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.10](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.9...@rdeco/web-app-sdk@3.8.10) (2022-04-22)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.9](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.8...@rdeco/web-app-sdk@3.8.9) (2022-04-22)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.7...@rdeco/web-app-sdk@3.8.8) (2022-04-22)
+
+
+### Bug Fixes
+
+* **react:** 未导出 createReqComponent ([3f74cec](https://github.com/kinop112365362/rdeco/commit/3f74cec93b0e0599e52151fd25da15cd062b57d2))
+
+
+
+
+
+## [3.8.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.6...@rdeco/web-app-sdk@3.8.7) (2022-04-22)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.5...@rdeco/web-app-sdk@3.8.6) (2022-04-19)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.4...@rdeco/web-app-sdk@3.8.5) (2022-04-18)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.3...@rdeco/web-app-sdk@3.8.4) (2022-04-18)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.2...@rdeco/web-app-sdk@3.8.3) (2022-04-15)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.1...@rdeco/web-app-sdk@3.8.2) (2022-04-15)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.8.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.8.0...@rdeco/web-app-sdk@3.8.1) (2022-04-13)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+# [3.8.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.23...@rdeco/web-app-sdk@3.8.0) (2022-04-11)
+
+
+### Features
+
+* **module:** add reqJSON 用于读取配置 ([46432b9](https://github.com/kinop112365362/rdeco/commit/46432b9c183f74246e9348f906d03009f394ca86))
+
+
+
+
+
+## [3.7.23](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.22...@rdeco/web-app-sdk@3.7.23) (2022-04-11)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.22](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.21...@rdeco/web-app-sdk@3.7.22) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.21](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.20...@rdeco/web-app-sdk@3.7.21) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.20](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.19...@rdeco/web-app-sdk@3.7.20) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.19](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.18...@rdeco/web-app-sdk@3.7.19) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.18](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.17...@rdeco/web-app-sdk@3.7.18) (2022-04-07)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.17](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.16...@rdeco/web-app-sdk@3.7.17) (2022-04-07)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.16](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.15...@rdeco/web-app-sdk@3.7.16) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.15](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.14...@rdeco/web-app-sdk@3.7.15) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.14](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.13...@rdeco/web-app-sdk@3.7.14) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.13](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.12...@rdeco/web-app-sdk@3.7.13) (2022-04-02)
+
+
+### Bug Fixes
+
+* **req:** 同时 req 多个相同模块触发多次 ([b2cbce3](https://github.com/kinop112365362/rdeco/commit/b2cbce396a4c95ba050ce445521bd62db1b4978e))
+
+
+
+
+
+## [3.7.12](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.11...@rdeco/web-app-sdk@3.7.12) (2022-04-01)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.11](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.10...@rdeco/web-app-sdk@3.7.11) (2022-04-01)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.10](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.9...@rdeco/web-app-sdk@3.7.10) (2022-03-31)
+
+
+### Bug Fixes
+
+* **type:** 修复类型导出错误 ([dacaf3b](https://github.com/kinop112365362/rdeco/commit/dacaf3bea946909324f1ed58831f989a068290cc))
+
+
+
+
+
+## [3.7.9](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.8...@rdeco/web-app-sdk@3.7.9) (2022-03-31)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
+## [3.7.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.7...@rdeco/web-app-sdk@3.7.8) (2022-03-30)
+
+**Note:** Version bump only for package @rdeco/web-app-sdk
+
+
+
+
+
 ## [3.7.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/web-app-sdk@3.7.6...@rdeco/web-app-sdk@3.7.7) (2022-03-28)
 
 **Note:** Version bump only for package @rdeco/web-app-sdk

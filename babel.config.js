@@ -16,7 +16,7 @@ module.exports = {
       {
         exclude:
           NODE_ENV === 'production'
-            ? ['error', 'warn']
+            ? ['error', 'warn', 'debug']
             : ['error', 'warn', 'debug'],
       },
     ],

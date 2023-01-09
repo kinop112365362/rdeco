@@ -1,22 +1,37 @@
 /* eslint-disable no-undef */
 import { combination } from './combination'
 import { createSubscriptions } from '../subscribe/createSubscriptions'
-import { validate } from '../utils/validate'
 import { Store } from './Store'
-import deepmerge from 'deepmerge'
+import { createMembrane } from './createMembrane'
+import { compose } from './compose'
 
-export function create(entityRaw) {
-  const entity = deepmerge({}, entityRaw)
-  const symbol = validate(entity.name)
+function create(entityRaw, membrane = {}, composeList = []) {
+  let entity
+  if (composeList.length > 0) {
+    entity = createMembrane(compose(entityRaw, composeList), membrane)
+  }
+  entity = createMembrane(entityRaw, membrane)
+  const symbol = entity.name
   entity.baseSymbol = symbol
-  if (!combination.components[symbol]) {
+  if (
+    !combination.components[symbol] ||
+    combination.components[symbol].length === 0
+  ) {
     const entityStore = new Store(entity)
     combination.$register(symbol, entityStore, true)
-    createSubscriptions(entityStore)
+    const { selfSubscription } = createSubscriptions(entityStore)
     if (entityStore.controller.onMount) {
       entityStore?.controller?.onMount()
     }
+    const rawDispose = entityStore.dispose
+    entityStore.dispose = () => {
+      rawDispose.call(entityStore)
+      selfSubscription?.unsubscribe()
+    }
+
     return entityStore
   }
   return combination.components[symbol]
 }
+
+export { create }

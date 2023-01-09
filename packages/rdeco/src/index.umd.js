@@ -4,6 +4,8 @@ import {
   enhanceContext,
   create,
   createMembrane,
+  registerMembrane,
+  getRegisterMembrane,
   invoke,
   readState,
   namelist,
@@ -15,6 +17,7 @@ import {
 } from '@rdeco/core'
 import {
   createComponent,
+  createReqComponent,
   withComponent,
   useComponent,
   Fallback,
@@ -22,20 +25,27 @@ import {
   Inject,
   InjectComponent,
   ReqComponent,
+  ReqApp,
+  installHooks,
   registerReactContext,
 } from '@rdeco/react'
 
 import { Router, RouteView, Redirect, App } from '@rdeco/router'
-import { inject, req } from '@rdeco/module'
+import { inject, req, reqJSON } from '@rdeco/module'
+import { topInject, getIframeWindow } from './utils'
+
 window.rdeco = {
   enhanceContext,
   create,
   createMembrane,
+  getRegisterMembrane,
+  registerMembrane,
   invoke,
   readState,
   namelist,
   configModuleLoader,
   createComponent,
+  createReqComponent,
   withComponent,
   useComponent,
   Fallback,
@@ -43,14 +53,19 @@ window.rdeco = {
   Inject,
   InjectComponent,
   ReqComponent,
+  ReqApp,
+  installHooks,
   registerReactContext,
   Router,
   RouteView,
   Redirect,
   App,
   inject,
+  topInject,
+  getIframeWindow,
   registerModule,
   req,
+  reqJSON,
   mock,
   compose,
   createCompose,

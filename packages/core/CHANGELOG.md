@@ -3,6 +3,359 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.30.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.7...@rdeco/core@3.30.8) (2022-11-18)
+
+
+### Bug Fixes
+
+* **exports:** haven't unsubscribe in store.dispose lead to multi call exports's method ([ca3cabb](https://github.com/kinop112365362/rdeco/commit/ca3cabb104e560a52e27b7f89d3361cbd3fbc2b7))
+* **exports:** haven't unsubscribe in store.dispose lead to multi call exports's method ([4b6a727](https://github.com/kinop112365362/rdeco/commit/4b6a72738e069f8221803a0294c960439b5fd127))
+
+
+
+
+
+## [3.30.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.6...@rdeco/core@3.30.7) (2022-11-17)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.30.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.5...@rdeco/core@3.30.6) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.30.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.4...@rdeco/core@3.30.5) (2022-11-11)
+
+
+### Bug Fixes
+
+* **error:** 移除文件 ([a6e35b8](https://github.com/kinop112365362/rdeco/commit/a6e35b879fe7c7cb3b3ddb082289657f7418422f))
+
+
+
+
+
+## [3.30.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.3...@rdeco/core@3.30.4) (2022-11-11)
+
+
+### Bug Fixes
+
+* **error:** 消除不必要的报错 ([8100299](https://github.com/kinop112365362/rdeco/commit/8100299aff93d87ab285f70bea78bb208913c828))
+* **error:** 消除不必要的报错 ([d2dfb83](https://github.com/kinop112365362/rdeco/commit/d2dfb83c1c136c1593d512d32080f5e32dde3f2e))
+
+
+
+
+
+## [3.30.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.30.1...@rdeco/core@3.30.3) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.30.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.22.2...@rdeco/core@3.30.1) (2022-11-11)
+
+
+### Bug Fixes
+
+* **error:** 取消强制报错 ([0e77da0](https://github.com/kinop112365362/rdeco/commit/0e77da093bc886ec3baae8527379e97d7402d066))
+
+
+
+
+
+## [3.22.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.22.1...@rdeco/core@3.22.2) (2022-08-23)
+
+
+### Bug Fixes
+
+* **create:** 再次创建异常 ([c71a865](https://github.com/kinop112365362/rdeco/commit/c71a8657b94400e3966745004eaec512dd1ca274))
+
+
+
+
+
+## [3.22.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.22.0...@rdeco/core@3.22.1) (2022-08-16)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+# [3.22.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.21.0...@rdeco/core@3.22.0) (2022-07-01)
+
+
+### Features
+
+* **core:** 增加动态的 membrane 注入 ([9bf421e](https://github.com/kinop112365362/rdeco/commit/9bf421ee936a4c3296366bf0089a3b43422156ac))
+
+
+
+
+
+# [3.21.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.20.0...@rdeco/core@3.21.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([aa1423e](https://github.com/kinop112365362/rdeco/commit/aa1423eabcc979214b64225de41849459d8418ff))
+
+
+
+
+
+# [3.20.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.4...@rdeco/core@3.20.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([c865c70](https://github.com/kinop112365362/rdeco/commit/c865c705eda34748fa170b9965632214823598aa))
+
+
+
+
+
+## [3.19.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.3...@rdeco/core@3.19.4) (2022-06-16)
+
+
+### Bug Fixes
+
+* **req:** 修复 ReqApp 的 bug ([7e952e1](https://github.com/kinop112365362/rdeco/commit/7e952e1482e08999eac46eb2a9a8a8d3a8246c9a))
+
+
+
+
+
+## [3.19.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.2...@rdeco/core@3.19.3) (2022-06-09)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.19.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.1...@rdeco/core@3.19.2) (2022-06-09)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.19.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.19.0...@rdeco/core@3.19.1) (2022-06-01)
+
+
+### Bug Fixes
+
+* **react:** 修复 ReqApp 若干问题 ([bfeef64](https://github.com/kinop112365362/rdeco/commit/bfeef64ec964e14a510c10eec18b7f67052af94c))
+
+
+
+
+
+# [3.19.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.18.0...@rdeco/core@3.19.0) (2022-05-27)
+
+
+### Features
+
+* **combination:** 支持 iframe 跨文档共享 combination ([01cce17](https://github.com/kinop112365362/rdeco/commit/01cce17023e01b31a6ed8085ffabf74875997fcc))
+* **combination:** 支持 iframe 跨文档共享 combination ([e94a77c](https://github.com/kinop112365362/rdeco/commit/e94a77c99298c28aa302e212bddc38d8e02ae8ba))
+
+
+
+
+
+# [3.18.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.17.0...@rdeco/core@3.18.0) (2022-05-24)
+
+
+### Features
+
+* **react:** 为 createComponent 添加 single 单例模式 ([fdce63f](https://github.com/kinop112365362/rdeco/commit/fdce63f1b36f4b719ed952b62ec32b0b3d84ca68))
+
+
+
+
+
+# [3.17.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.16.0...@rdeco/core@3.17.0) (2022-05-24)
+
+
+### Features
+
+* **react:** 为 createComponent 添加 single 单例模式 ([44370ef](https://github.com/kinop112365362/rdeco/commit/44370ef3b5288d5586b55c8b9c11fdc32bd05be3))
+
+
+
+
+
+# [3.16.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.15.0...@rdeco/core@3.16.0) (2022-05-24)
+
+
+### Features
+
+* **react:** 为 createComponent 添加 single 单例模式 ([adf2177](https://github.com/kinop112365362/rdeco/commit/adf2177bf7998e8c871c0434a904ece122feff72))
+* **react:** 为 createComponent 添加 single 单例模式 ([51922f9](https://github.com/kinop112365362/rdeco/commit/51922f9c161a3e10809b3969c3f42472546aaed0))
+
+
+
+
+
+# [3.15.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.14.0...@rdeco/core@3.15.0) (2022-05-24)
+
+
+### Features
+
+* **react:** 为 createComponent 添加 single 单例模式 ([f7026d0](https://github.com/kinop112365362/rdeco/commit/f7026d032f51af0d503f9b0c525d165379adff0a))
+
+
+
+
+
+# [3.14.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.13.3...@rdeco/core@3.14.0) (2022-05-19)
+
+
+### Features
+
+* **invokeError:** 添加invokeError ([b1b3bfe](https://github.com/kinop112365362/rdeco/commit/b1b3bfef000dbb7ad499c7eb414040d0ba12c1c9))
+* **invokeError:** 修改invokeError的result的值 ([6455bba](https://github.com/kinop112365362/rdeco/commit/6455bbab87d121c7f6a108a9e15048d5f25f2b45))
+
+
+
+
+
+## [3.13.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.13.2...@rdeco/core@3.13.3) (2022-04-25)
+
+
+### Bug Fixes
+
+* **read:** readState 当获取不到状态时，说明组件未挂载，返回 false 代替 throw error ([ecf807b](https://github.com/kinop112365362/rdeco/commit/ecf807b3fba09c5e373d48b594fec020724db336))
+
+
+
+
+
+## [3.13.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.13.1...@rdeco/core@3.13.2) (2022-04-19)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.13.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.13.0...@rdeco/core@3.13.1) (2022-04-18)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+# [3.13.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.9...@rdeco/core@3.13.0) (2022-04-15)
+
+
+### Features
+
+* **react:** 现在 createComponent 会自导出组件，不需要额外的 getComponent ([465e1d1](https://github.com/kinop112365362/rdeco/commit/465e1d171aa877ac0c0938d652e23a65c3db4917))
+
+
+
+
+
+## [3.12.9](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.8...@rdeco/core@3.12.9) (2022-04-13)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.12.8](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.7...@rdeco/core@3.12.8) (2022-04-11)
+
+
+### Bug Fixes
+
+* **emit:** 驼峰校验取消 ([ea2657d](https://github.com/kinop112365362/rdeco/commit/ea2657d041c808cd5ce052c62f6106ef4b02a4a1))
+
+
+
+
+
+## [3.12.7](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.6...@rdeco/core@3.12.7) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.12.6](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.5...@rdeco/core@3.12.6) (2022-04-07)
+
+
+### Bug Fixes
+
+* **creat:** 修复 onMount 如果是 async 的化 ([d30cdc4](https://github.com/kinop112365362/rdeco/commit/d30cdc4f3a9caee31ee14780c6dccd4dfdd13b46))
+* **create:** async 没有必要 ([3e62552](https://github.com/kinop112365362/rdeco/commit/3e62552023b464208bb77c3071bdced3a0030329))
+* **req:** 模块已加载识别放到 combination 上 ([adf5b94](https://github.com/kinop112365362/rdeco/commit/adf5b94ddc1c21ab15398e24ef829fd568406d98))
+
+
+
+
+
+## [3.12.5](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.4...@rdeco/core@3.12.5) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.12.4](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.3...@rdeco/core@3.12.4) (2022-04-02)
+
+
+### Bug Fixes
+
+* **req:** 同时 req 多个相同模块触发多次 ([b2cbce3](https://github.com/kinop112365362/rdeco/commit/b2cbce396a4c95ba050ce445521bd62db1b4978e))
+
+
+
+
+
+## [3.12.3](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.2...@rdeco/core@3.12.3) (2022-04-01)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.12.2](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.1...@rdeco/core@3.12.2) (2022-03-31)
+
+**Note:** Version bump only for package @rdeco/core
+
+
+
+
+
+## [3.12.1](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.12.0...@rdeco/core@3.12.1) (2022-03-30)
+
+
+### Bug Fixes
+
+* **core:** 针对老版本缺少 $record api 的问题进行兼容 ([e7dd1a7](https://github.com/kinop112365362/rdeco/commit/e7dd1a773f9a7ff33be8f918de4f2a12c5d24868))
+
+
+
+
+
 # [3.12.0](https://github.com/kinop112365362/rdeco/compare/@rdeco/core@3.11.3...@rdeco/core@3.12.0) (2022-03-28)
 
 

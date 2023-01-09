@@ -1,15 +1,27 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { createComponent, create } from '@rdeco/web-app-sdk'
+import { createComponent, create, ReqComponent } from '@rdeco/web-app-sdk'
+import React from 'react'
 // import {scope} from '@/contanst'
 
+const helloFooo = req('@scope/hello-fooo')
+const helloFooo1 = inject('@scope/hello-fooo')
+const Comp = () => {
+  return <ReqComponent name="@scope/hello-fff"></ReqComponent>
+}
 createComponent({
   name: '@scope/hello-fooo',
   service: {
     createDataModel(dataModelName) {
       create({
         name: dataModelName,
+        subscribe: {
+          '@scope/ttt2': {
+            event() {},
+          },
+          '@scope/tt12': {},
+        },
         state: {
           view: {},
           onEnd: (c) => c,
@@ -25,7 +37,7 @@ createComponent({
           cssStyle: {
             itme: '',
             checkbox: `
-            position: absolute;
+            position: @scope/absolute;
             left: 12px;`,
           },
           isInit: true,
@@ -122,13 +134,21 @@ createComponent({
 })
 createComponent({
   name: '@scope/hello-fooo',
+  subscribe: {
+    '@scope/ttt': {
+      event: {
+        helaoo() {},
+      },
+    },
+    '@scope/tt1': {},
+  },
   view: {
     render() {
       return null
     },
   },
 })
-createComponent({
+createMembrane({
   name: '@scope/hello-fooo2',
   view: {
     render() {
@@ -139,6 +159,12 @@ createComponent({
 
 create({
   name: '@scope/foo',
+  subscribe: {
+    '@scope/ttt3': {
+      event() {},
+    },
+    '@scope/tt14': {},
+  },
   controller: {
     onMount() {
       console.log('MYModule')

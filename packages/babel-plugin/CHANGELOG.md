@@ -3,6 +3,69 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.9](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.8...@afe/babel-plugin-rdeco@1.0.9) (2022-04-13)
+
+**Note:** Version bump only for package @afe/babel-plugin-rdeco
+
+
+
+
+
+## [1.0.8](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.7...@afe/babel-plugin-rdeco@1.0.8) (2022-04-08)
+
+
+### Bug Fixes
+
+* **babel:** 修改 [@scope](https://github.com/scope) 替换逻辑，覆盖所有场景 ([950af4f](https://github.com/kinop112365362/rdeco/commit/950af4fab00dd3c298d3710d9fd7a088913b5161))
+
+
+
+
+
+## [1.0.7](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.6...@afe/babel-plugin-rdeco@1.0.7) (2022-04-07)
+
+
+### Bug Fixes
+
+* **babel:** req scope ([675712b](https://github.com/kinop112365362/rdeco/commit/675712b602555759ee8d7f308c853e99ebd4ea97))
+
+
+
+
+
+## [1.0.6](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.5...@afe/babel-plugin-rdeco@1.0.6) (2022-04-07)
+
+
+### Bug Fixes
+
+* **babel:** 指定 api 下 [@scope](https://github.com/scope) 全量替换 ([e9b5a00](https://github.com/kinop112365362/rdeco/commit/e9b5a0062c84f8e2e937a2fa047c1763b2cb021c))
+
+
+
+
+
+## [1.0.5](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.4...@afe/babel-plugin-rdeco@1.0.5) (2022-04-07)
+
+
+### Bug Fixes
+
+* **req:** 模块已加载识别放到 combination 上 ([adf5b94](https://github.com/kinop112365362/rdeco/commit/adf5b94ddc1c21ab15398e24ef829fd568406d98))
+
+
+
+
+
+## [1.0.4](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.3...@afe/babel-plugin-rdeco@1.0.4) (2022-04-02)
+
+
+### Bug Fixes
+
+* **babel:** scope 支持 req 内部模块 ([907cbd4](https://github.com/kinop112365362/rdeco/commit/907cbd462fe4bb2206c0384bd842d7ff59a87cb3))
+
+
+
+
+
 ## [1.0.3](https://github.com/kinop112365362/rdeco/compare/@afe/babel-plugin-rdeco@1.0.2...@afe/babel-plugin-rdeco@1.0.3) (2022-03-07)
 
 

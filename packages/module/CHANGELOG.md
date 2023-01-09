@@ -3,6 +3,504 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.16.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.15.0...@rdeco/module@3.16.0) (2022-12-14)
+
+
+### Features
+
+* **inject:** add logger when inject call pey 30 times ([d240a6e](https://github.com/kinop112365362/structured-react-hook/commit/d240a6e1f9d0e617d7b7435581b9cf6370eb016e))
+
+
+
+
+
+# [3.15.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.14.0...@rdeco/module@3.15.0) (2022-12-14)
+
+
+### Features
+
+* **inject:** add logger when inject call pey 30 times ([cbcfe4a](https://github.com/kinop112365362/structured-react-hook/commit/cbcfe4a725ca28603186511eacb1629e306d1536))
+* **inject:** add logger when inject call pey 30 times ([34d2a32](https://github.com/kinop112365362/structured-react-hook/commit/34d2a32f4818557864a140641c5f0a9139fc9a4e))
+
+
+
+
+
+# [3.14.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.13.8...@rdeco/module@3.14.0) (2022-12-14)
+
+
+### Features
+
+* **inject:** add logger when inject call pey 30 times ([168ce83](https://github.com/kinop112365362/structured-react-hook/commit/168ce836495cce4f5dca1f12365aa1c7d9747225))
+* **inject:** add logger when inject call pey 30 times ([de81f26](https://github.com/kinop112365362/structured-react-hook/commit/de81f26cd5fecc91210c9c68d3fb31863b13a7ba))
+
+
+
+
+
+## [3.13.8](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.13.7...@rdeco/module@3.13.8) (2022-11-18)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.13.7](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.13.6...@rdeco/module@3.13.7) (2022-11-17)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.13.6](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.13.5...@rdeco/module@3.13.6) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.13.5](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.13.4...@rdeco/module@3.13.5) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.13.4](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.13.1...@rdeco/module@3.13.4) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.13.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.11.5...@rdeco/module@3.13.1) (2022-11-11)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.11.5](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.11.4...@rdeco/module@3.11.5) (2022-08-23)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.11.4](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.11.3...@rdeco/module@3.11.4) (2022-08-16)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.11.3](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.11.2...@rdeco/module@3.11.3) (2022-07-01)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.11.2](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.11.1...@rdeco/module@3.11.2) (2022-06-21)
+
+
+### Bug Fixes
+
+* **chore:** 调整新增 api 的入口 ([3fb43be](https://github.com/kinop112365362/structured-react-hook/commit/3fb43be3b20f28eb282fdcc1fc9bcbbafef1df99))
+
+
+
+
+
+## [3.11.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.11.0...@rdeco/module@3.11.1) (2022-06-21)
+
+
+### Bug Fixes
+
+* **ver:** 手动刷新 module 版本 ([28b150e](https://github.com/kinop112365362/structured-react-hook/commit/28b150ecb684669a09b9416b09d780e2a8680373))
+
+
+
+
+
+# [3.11.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.10.0...@rdeco/module@3.11.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([b5daefa](https://github.com/kinop112365362/structured-react-hook/commit/b5daefa67402cc365c7b1b678d8115ac21a9ebb2))
+
+
+
+
+
+# [3.10.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.9.0...@rdeco/module@3.10.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([7c428f6](https://github.com/kinop112365362/structured-react-hook/commit/7c428f6a6b8f17a552ab2a2f08f01e2271edc4f6))
+
+
+
+
+
+# [3.9.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.8.0...@rdeco/module@3.9.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([324d99d](https://github.com/kinop112365362/structured-react-hook/commit/324d99da0fbe02bb49e8d41a113d972fd06acd39))
+
+
+
+
+
+# [3.8.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.7.1...@rdeco/module@3.8.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([c72cee3](https://github.com/kinop112365362/structured-react-hook/commit/c72cee37dc4a95417b31d0e71ce2293f2c93a676))
+
+
+
+
+
+## [3.7.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.7.0...@rdeco/module@3.7.1) (2022-06-20)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+# [3.7.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.10...@rdeco/module@3.7.0) (2022-06-20)
+
+
+### Features
+
+* **req:** 修改 ReqApp 和 installHooks 的处理策略 ([c865c70](https://github.com/kinop112365362/structured-react-hook/commit/c865c705eda34748fa170b9965632214823598aa))
+
+
+
+
+
+## [3.6.10](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.9...@rdeco/module@3.6.10) (2022-06-16)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.6.9](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.8...@rdeco/module@3.6.9) (2022-06-09)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.6.8](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.7...@rdeco/module@3.6.8) (2022-06-09)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.6.7](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.6...@rdeco/module@3.6.7) (2022-06-01)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.6.6](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.5...@rdeco/module@3.6.6) (2022-05-27)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.6.5](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.4...@rdeco/module@3.6.5) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.6.4](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.3...@rdeco/module@3.6.4) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.6.3](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.2...@rdeco/module@3.6.3) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.6.2](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.1...@rdeco/module@3.6.2) (2022-05-24)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.6.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.6.0...@rdeco/module@3.6.1) (2022-05-20)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+# [3.6.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.5.1...@rdeco/module@3.6.0) (2022-05-19)
+
+
+### Features
+
+* **browser-runtime-loader:** 升级包增加转发调试能力 ([0866784](https://github.com/kinop112365362/structured-react-hook/commit/0866784cc4bccda32f62e5203db1801c96b53aab))
+
+
+
+
+
+## [3.5.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.5.0...@rdeco/module@3.5.1) (2022-04-25)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+# [3.5.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.4.5...@rdeco/module@3.5.0) (2022-04-24)
+
+
+### Features
+
+* **mock:** mock增加对单个方法的支持 ([10ded61](https://github.com/kinop112365362/structured-react-hook/commit/10ded6172217a94a5593ba00778c3b1b5acf9c8e))
+
+
+
+
+
+## [3.4.5](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.4.4...@rdeco/module@3.4.5) (2022-04-19)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.4.4](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.4.3...@rdeco/module@3.4.4) (2022-04-18)
+
+
+### Bug Fixes
+
+* **req:** reqJSON api  调通 ([ccb8339](https://github.com/kinop112365362/structured-react-hook/commit/ccb8339faaf9a45f4176c5e1cfe75d32849cccdf))
+
+
+
+
+
+## [3.4.3](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.4.2...@rdeco/module@3.4.3) (2022-04-18)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.4.2](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.4.1...@rdeco/module@3.4.2) (2022-04-15)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.4.1](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.4.0...@rdeco/module@3.4.1) (2022-04-13)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+# [3.4.0](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.20...@rdeco/module@3.4.0) (2022-04-11)
+
+
+### Features
+
+* **module:** add reqJSON 用于读取配置 ([46432b9](https://github.com/kinop112365362/structured-react-hook/commit/46432b9c183f74246e9348f906d03009f394ca86))
+
+
+
+
+
+## [3.3.20](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.19...@rdeco/module@3.3.20) (2022-04-11)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.3.19](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.18...@rdeco/module@3.3.19) (2022-04-08)
+
+
+### Bug Fixes
+
+* **inject:** 节流不可行 ([7373819](https://github.com/kinop112365362/structured-react-hook/commit/7373819846a267fdc1b6e94f12619f079ff7046e))
+
+
+
+
+
+## [3.3.18](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.17...@rdeco/module@3.3.18) (2022-04-08)
+
+
+### Bug Fixes
+
+* **inject:** 修复节流逻辑 ([0acb670](https://github.com/kinop112365362/structured-react-hook/commit/0acb670079eca14eda5cbecc907c02c427a1f032))
+
+
+
+
+
+## [3.3.17](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.16...@rdeco/module@3.3.17) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.3.16](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.15...@rdeco/module@3.3.16) (2022-04-08)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.3.15](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.14...@rdeco/module@3.3.15) (2022-04-07)
+
+
+### Bug Fixes
+
+* **babel:** 指定 api 下 [@scope](https://github.com/scope) 全量替换 ([e9b5a00](https://github.com/kinop112365362/structured-react-hook/commit/e9b5a0062c84f8e2e937a2fa047c1763b2cb021c))
+
+
+
+
+
+## [3.3.14](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.13...@rdeco/module@3.3.14) (2022-04-07)
+
+
+### Bug Fixes
+
+* **req:** 模块已加载识别放到 combination 上 ([adf5b94](https://github.com/kinop112365362/structured-react-hook/commit/adf5b94ddc1c21ab15398e24ef829fd568406d98))
+* **req:** 优化模块加载提示 ([5cd38fa](https://github.com/kinop112365362/structured-react-hook/commit/5cd38fa9849724ad5ad3a6db4686f9fc5fc9cc9d))
+
+
+
+
+
+## [3.3.13](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.12...@rdeco/module@3.3.13) (2022-04-02)
+
+
+### Bug Fixes
+
+* **req:** 加载逻辑取反 ([d197a27](https://github.com/kinop112365362/structured-react-hook/commit/d197a278e08156367b7c7ff9a2d4fe2165a46248))
+
+
+
+
+
+## [3.3.12](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.11...@rdeco/module@3.3.12) (2022-04-02)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.3.11](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.10...@rdeco/module@3.3.11) (2022-04-02)
+
+
+### Bug Fixes
+
+* **req:** 未加载模块循环加载的问题 ([406e55e](https://github.com/kinop112365362/structured-react-hook/commit/406e55e1f2343bd1a18d31be12aa7e3d16c20e5e))
+
+
+
+
+
+## [3.3.10](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.9...@rdeco/module@3.3.10) (2022-04-02)
+
+
+### Bug Fixes
+
+* **req:** 同时 req 多个相同模块触发多次 ([b2cbce3](https://github.com/kinop112365362/structured-react-hook/commit/b2cbce396a4c95ba050ce445521bd62db1b4978e))
+
+
+
+
+
+## [3.3.9](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.8...@rdeco/module@3.3.9) (2022-04-01)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.3.8](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.7...@rdeco/module@3.3.8) (2022-04-01)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.3.7](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.6...@rdeco/module@3.3.7) (2022-03-31)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
+## [3.3.6](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.5...@rdeco/module@3.3.6) (2022-03-30)
+
+**Note:** Version bump only for package @rdeco/module
+
+
+
+
+
 ## [3.3.5](https://github.com/kinop112365362/structured-react-hook/compare/@rdeco/module@3.3.4...@rdeco/module@3.3.5) (2022-03-28)
 
 **Note:** Version bump only for package @rdeco/module
